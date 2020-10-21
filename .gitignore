@@ -2,13 +2,13 @@
 #
 # Get latest from https://github.com/github/gitignore/blob/master/Unity.gitignore
 #
-/[Ll]ibrary/
-/[Tt]emp/
-/[Oo]bj/
-/[Bb]uild/
-/[Bb]uilds/
-/[Ll]ogs/
-/[Mm]emoryCaptures/
+Cops And Robbers/[Ll]ibrary/
+Cops And Robbers/[Tt]emp/
+Cops And Robbers/[Oo]bj/
+Cops And Robbers/[Bb]uild/
+Cops And Robbers/[Bb]uilds/
+Cops And Robbers/[Ll]ogs/
+Cops And Robbers/[Mm]emoryCaptures/
 
 # Asset meta data should only be ignored when the corresponding asset is also ignored
 !/[Aa]ssets/**/*.meta
