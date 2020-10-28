@@ -7,12 +7,12 @@ on:
 env:
   UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
   UNITY_VERSION: 2019.4.6f1
-  PROJECT_PATH: CopsAndRobbers/
+  PROJECT_PATH: CopsAndRobbers
 
 jobs:
   checklicense:
     name: check if UNITY_LICENSE is set in github secrets
-    runs-on: windows-latest
+    runs-on: ubuntu-latest
     outputs:
       is_unity_license_set: ${{ steps.checklicense_job.outputs.is_unity_license_set }}
     steps:
