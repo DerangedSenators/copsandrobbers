@@ -80,6 +80,15 @@ jobs:
           - StandaloneOSX
           - StandaloneWindows64
           - StandaloneLinux64
+          #- iOS # Build an iOS player.
+          # - Android # Build an Android .apk.
+          #          - StandaloneWindows # Build a Windows standalone.
+          #          - WebGL # WebGL.
+          #          - WSAPlayer # Build an Windows Store Apps player.
+          #          - PS4 # Build a PS4 Standalone.
+          #          - XboxOne # Build a Xbox One Standalone.
+          #          - tvOS # Build to Apple's tvOS platform.
+          #          - Switch # Build a Nintendo Switch player
     steps:
       - uses: actions/checkout@v2
         with:
