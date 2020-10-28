@@ -12,7 +12,7 @@ env:
 jobs:
   checklicense:
     name: check if UNITY_LICENSE is set in github secrets
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
     outputs:
       is_unity_license_set: ${{ steps.checklicense_job.outputs.is_unity_license_set }}
     steps:
