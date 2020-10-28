@@ -1,6 +1,4 @@
-name: Actions 😎
- 
-name: Unity Actions
+ name: Unity Actions
 
 on:
   pull_request: {}
