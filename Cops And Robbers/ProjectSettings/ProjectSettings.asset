@@ -169,6 +169,7 @@ PlayerSettings:
   androidMaxAspectRatio: 2.1
   applicationIdentifier:
     Android: me.derangedsenators.copsandrobbers
+    iPhone: Me.DerangedSenators.CopsAndRobbers
   buildNumber: {}
   AndroidBundleVersionCode: 1
   AndroidMinSdkVersion: 19
