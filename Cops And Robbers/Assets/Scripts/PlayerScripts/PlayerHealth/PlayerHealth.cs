@@ -9,46 +9,49 @@ using UnityEngine.UI;
 
 //This script is responible for the fucntion of the healthbar and Dmg for testing
 
-
-public class PlayerHealth : MonoBehaviour
+namespace Me.DerangedSenators.CopsAndRobbers
 {
-    public float maxHealth = 100f;
-    public float currentHealth;
-
-    public HealthBar healthBar;
-
-
-    //At the start of the project the player's health will equal to the max health
-    public void Start()
+    public class PlayerHealth : MonoBehaviour
     {
-        currentHealth = maxHealth;
-        healthBar.SetMaxHealth(maxHealth);
-    }
+        public float maxHealth = 100f;
+        public float currentHealth;
 
-    // This fucntion checks if a user Used Space if it does the player will take 1.5 dmg
-    public void Update()
-    {
-        // Pressing the "spacebar" deals 2.3f amout of damgage
-        if (Input.GetKeyDown(KeyCode.Space))
+        public HealthBar healthBar;
+
+
+        //At the start of the project the player's health will equal to the max health
+        public void Start()
         {
-            Damage(2.3f);
+            currentHealth = maxHealth;
+            healthBar.SetMaxHealth(maxHealth);
         }
 
-        //If players health reaches 0 It is removed form the scene
-        if (currentHealth <= 0)
+        // This fucntion checks if a user Used Space if it does the player will take 1.5 dmg
+        public void Update()
         {
-            Destroy(gameObject);
+            // Pressing the "spacebar" deals 2.3f amout of damgage
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                Damage(2.3f);
+            }
+
+            //If players health reaches 0 It is removed form the scene
+            if (currentHealth <= 0)
+            {
+                Destroy(gameObject);
+            }
         }
+
+        // This function will lower the current player health by set amout
+        public void Damage(float dmg)
+        {
+            currentHealth = currentHealth - dmg;
+
+            healthBar.SetHealth(currentHealth);
+        }
+
+
     }
-
-    // This function will lower the current player health by set amout
-    public void Damage(float dmg)
-    {
-        currentHealth = currentHealth - dmg;
-
-        healthBar.SetHealth(currentHealth);
-    }
-
 
 }
 
