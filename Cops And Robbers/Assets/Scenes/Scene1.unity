@@ -58330,7 +58330,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.41734704, y: 1.2176857}
   m_EdgeRadius: 0
-
 --- !u!95 &1873234207
 Animator:
   serializedVersion: 3
@@ -58350,4 +58349,3 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
-
