@@ -17,13 +17,19 @@ namespace Me.DerangedSenators.CopsAndRobbers
         private Text coinText;
     
         private bool isPickUpAllowed;
-    
+
+        private MoneyManager moneyManager;
+
+
+        //public Money money;
     
         // Start is called before the first frame update
        private  void Start()
         {
             //At the start of the game the text will be turned off
-            coinText.gameObject.SetActive(false); 
+            coinText.gameObject.SetActive(false);
+
+            moneyManager = FindObjectOfType<MoneyManager>();
         }
     
         // Update is called once per frame
@@ -60,6 +66,7 @@ namespace Me.DerangedSenators.CopsAndRobbers
         //This fucntion removes the object when it is picked up
         private void PickUp()
         {
+            moneyManager.CollectMoney();
             Destroy(gameObject);
         }
     }
