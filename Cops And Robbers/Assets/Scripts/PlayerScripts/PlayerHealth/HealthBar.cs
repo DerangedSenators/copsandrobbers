@@ -3,11 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+
 /*
 *@author Peter
 */
-//namespace Me.DerangedSenators.CopsAndRobbers
-//{
+namespace Me.DerangedSenators.CopsAndRobbers
+{
     //This script is responible for the fucntion of the healthbar
     public class HealthBar : MonoBehaviour
     {
@@ -41,5 +42,5 @@ using UnityEngine.UI;
 
     }
 
-//}
+}
 

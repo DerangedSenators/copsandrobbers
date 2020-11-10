@@ -2,32 +2,36 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MoneyManager : MonoBehaviour
+namespace Me.DerangedSenators.CopsAndRobbers
 {
-
-    public static long moneyCount;
-    
-    // Start is called before the first frame update
-    void Start()
+    public class MoneyManager : MonoBehaviour
     {
-        moneyCount = 0;
+        public static long moneyCount;
+
+        /// <summary>
+        /// treasury is 0 when starting the game.
+        /// </summary>
+        void Start()
+        {
+            moneyCount = 0;
+        }
+
+        /// <summary>
+        /// Adds $100 to treasury. 
+        /// </summary>
+        public void CollectMoney()
+        {
+            moneyCount += 100;
+        }
+
+        /// <summary>
+        /// Get amount of money in treasury.
+        /// </summary>
+        /// <returns>amount of amount in treasury</returns>
+        public long getMoneyCount()
+        {
+
+            return moneyCount;
+        }
     }
-
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
-
-    public void CollectMoney()
-    {
-        moneyCount += 100;
-    }
-
-    public long getMoneyCount() {
-
-        return moneyCount;
-    }
-
-
 }

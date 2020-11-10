@@ -1,26 +1,40 @@
 ﻿using UnityEngine;
 
-public class Enemy : MonoBehaviour
+
+namespace Me.DerangedSenators.CopsAndRobbers
 {
-    public float maxHealth = 100f;
-    float currentHealth;
-
-    private void Start()
+    public class Enemy : MonoBehaviour
     {
-        currentHealth = maxHealth;
-    }
+        public float maxHealth = 100f;
+        float currentHealth;
 
-    public void TakeDamage(float damage) {
-        currentHealth -= damage;
-
-        if (currentHealth <= 0f) {
-            Die();
+        /// <summary>
+        /// Enemy will have a given health in the beginning.
+        /// </summary>
+        private void Start()
+        {
+            currentHealth = maxHealth;
         }
-    }
 
-    private void Die()
-    {
-        Debug.Log("death onto you");
-        Destroy(gameObject);
+        /// <summary>
+        /// Health reduces by 20 on every call to this method.
+        /// </summary>
+        /// <param name="damage"></param>
+        public void TakeDamage(float damage)
+        {
+            currentHealth -= damage;
+            if (currentHealth <= 0f)
+            {
+                Die();
+            }
+        }
+
+        /// <summary>
+        /// This object is destroyed once health is 0.
+        /// </summary>
+        private void Die()
+        {
+            Destroy(gameObject);
+        }
     }
 }
