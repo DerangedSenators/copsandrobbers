@@ -42,7 +42,7 @@ namespace Me.DerangedSenators.CopsAndRobbers
             //If players health reaches 0 It is removed form the scene
             if (currentHealth <= 0)
             {
-                Destroy(gameObject);
+                Die();
             }
         }
 
@@ -54,6 +54,14 @@ namespace Me.DerangedSenators.CopsAndRobbers
         {
             currentHealth = currentHealth - damage;
             healthBar.SetHealth(currentHealth);
+        }
+
+        /// <summary>
+        /// This object is destroyed once health is 0.
+        /// </summary>
+        private void Die()
+        {
+            Destroy(gameObject);
         }
     }
 }
