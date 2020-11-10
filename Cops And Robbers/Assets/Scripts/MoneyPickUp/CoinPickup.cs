@@ -53,7 +53,7 @@ namespace Me.DerangedSenators.CopsAndRobbers
         /// <param name="collision">The collision component of the object that is colliding with this object?</param>
         private void OnTriggerEnter2D(Collider2D collision)
         {
-            if(collision.gameObject.name.Equals("Player1"))
+            if(collision.gameObject.name.Equals("Cop"))
             {
                 coinText.gameObject.SetActive(true);
                 isPickUpAllowed = true;
@@ -66,7 +66,7 @@ namespace Me.DerangedSenators.CopsAndRobbers
         /// <param name="collision">The collision component of the object that is colliding with this object?</param>
         private void OnTriggerExit2D(Collider2D collision)
         {
-            if (collision.gameObject.name.Equals("Player1"))
+            if (collision.gameObject.name.Equals("Cop"))
             {
                 coinText.gameObject.SetActive(false);
                 isPickUpAllowed = false;
