@@ -9,14 +9,14 @@ using UnityEngine.UI;
 
 //This script is responible for the fucntion of the healthbar and Dmg for testing
 
-namespace Me.DerangedSenators.CopsAndRobbers
-{
+//namespace Me.DerangedSenators.CopsAndRobbers
+//{
     public class PlayerHealth : MonoBehaviour
     {
         public float maxHealth = 100f;
         public float currentHealth;
 
-        public HealthBar healthBar;
+    public HealthBar healthBar;
 
 
         //At the start of the project the player's health will equal to the max health
@@ -53,7 +53,7 @@ namespace Me.DerangedSenators.CopsAndRobbers
 
     }
 
-}
+//}
 
    
 

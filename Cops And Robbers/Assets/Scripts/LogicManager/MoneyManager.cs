@@ -22,9 +22,6 @@ public class MoneyManager : MonoBehaviour
     public void CollectMoney()
     {
         moneyCount += 100;
-        Debug.Log(moneyCount);
-
-
     }
 
     public long getMoneyCount() {
