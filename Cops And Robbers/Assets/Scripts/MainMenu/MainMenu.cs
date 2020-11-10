@@ -4,20 +4,27 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 
 
-public class MainMenu : MonoBehaviour
+namespace Me.DerangedSenators.CopsAndRobbers
 {
-    //method to play game
-    public void PlayGame()
+    public class MainMenu : MonoBehaviour
     {
-        //loads up next scene in the queue
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);        
-    }
+        /// <summary>
+        /// Start the game
+        /// </summary>
+        public void PlayGame()
+        {
+            //loads up next scene in the queue
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+        }
 
 
-    //method to quit game
-    public void QuitGame()
-    {
-        //quits the game, closes all processes
-        Application.Quit();
+        /// <summary>
+        /// Quit the application
+        /// </summary>
+        public void QuitGame()
+        {
+            //quits the game, closes all processes
+            Application.Quit();
+        }
     }
 }

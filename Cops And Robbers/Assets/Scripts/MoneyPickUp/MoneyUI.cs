@@ -4,26 +4,19 @@ using System.ComponentModel;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class MoneyUI : MonoBehaviour
+namespace Me.DerangedSenators.CopsAndRobbers
 {
-    public MoneyManager moneyManager;
-
-    public Text moneyText;
-
-    // Start is called before the first frame update
-    void Start()
+    public class MoneyUI : MonoBehaviour
     {
-        
-    }
+        public MoneyManager moneyManager;
+        public Text moneyText;
 
-    // Update is called once per frame
-    void Update()
-    {
-            
-    }
-
-    private void FixedUpdate()
-    {
-        moneyText.text = "$" + moneyManager.getMoneyCount().ToString("0");
+        /// <summary>
+        /// Update text UI as the money count increases.
+        /// </summary>
+        private void FixedUpdate()
+        {
+            moneyText.text = "$" + moneyManager.getMoneyCount().ToString("0");
+        }
     }
 }
