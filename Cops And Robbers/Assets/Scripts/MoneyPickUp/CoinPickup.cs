@@ -12,7 +12,9 @@ namespace Me.DerangedSenators.CopsAndRobbers
 {
     public class CoinPickup : MonoBehaviour
     {
-        //Variable responsable for the text 
+        /// <summary>
+        /// Variable responsable for the text 
+        /// </summary>
         [SerializeField]
         private Text coinText;
     
@@ -20,19 +22,22 @@ namespace Me.DerangedSenators.CopsAndRobbers
 
         private MoneyManager moneyManager;
 
-
         //public Money money;
-    
-        // Start is called before the first frame update
-       private  void Start()
+
+        /// <summary>
+        /// Start is called before the first frame update
+        /// </summary>
+        private void Start()
         {
             //At the start of the game the text will be turned off
             coinText.gameObject.SetActive(false);
 
             moneyManager = FindObjectOfType<MoneyManager>();
         }
-    
-        // Update is called once per frame
+
+        /// <summary>
+        /// Update is called once per frame
+        /// </summary>
         private void Update()
         {
             //checking if user is allowed to pick up the coin && if the user pressed "E"
@@ -41,9 +46,11 @@ namespace Me.DerangedSenators.CopsAndRobbers
                 PickUp();
             }
         }
-    
-        //When colider is Tiggered we are checking if it was a Player1 Object - If it is we make the text appear as well as making 
-        //the coin pickable
+
+        /// <summary>
+        /// When collider is triggered we are checking if it was a Player1 Object - If it is we make the text appear as well as making the coin pickable
+        /// </summary>
+        /// <param name="collision">The collision component of the object that is colliding with this object?</param>
         private void OnTriggerEnter2D(Collider2D collision)
         {
             if(collision.gameObject.name.Equals("Player1"))
@@ -52,8 +59,11 @@ namespace Me.DerangedSenators.CopsAndRobbers
                 isPickUpAllowed = true;
             }
         }
-    
-        //In this function we are doing the reverse of the pervious one
+
+        /// <summary>
+        /// In this function we are doing the reverse of the pervious one
+        /// </summary>
+        /// <param name="collision">The collision component of the object that is colliding with this object?</param>
         private void OnTriggerExit2D(Collider2D collision)
         {
             if (collision.gameObject.name.Equals("Player1"))
@@ -62,8 +72,10 @@ namespace Me.DerangedSenators.CopsAndRobbers
                 isPickUpAllowed = false;
             }
         }
-    
-        //This fucntion removes the object when it is picked up
+
+        /// <summary>
+        /// This fucntion removes the object when it is picked up
+        /// </summary>
         private void PickUp()
         {
             moneyManager.CollectMoney();

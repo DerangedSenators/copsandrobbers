@@ -8,7 +8,9 @@ namespace Me.DerangedSenators.CopsAndRobbers
 {
     public class MainMenu : MonoBehaviour
     {
-        //method to play game
+        /// <summary>
+        /// Start the game
+        /// </summary>
         public void PlayGame()
         {
             //loads up next scene in the queue
@@ -16,7 +18,9 @@ namespace Me.DerangedSenators.CopsAndRobbers
         }
 
 
-        //method to quit game
+        /// <summary>
+        /// Quit the application
+        /// </summary>
         public void QuitGame()
         {
             //quits the game, closes all processes

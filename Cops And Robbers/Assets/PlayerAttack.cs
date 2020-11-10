@@ -13,7 +13,9 @@ namespace Me.DerangedSenators.CopsAndRobbers
         public LayerMask enemyLayer;
         public float dmg = 20f;
 
-        // Update is called once per frame
+        /// <summary>
+        /// Update is called once per frame 
+        /// </summary>
         void Update()
         {
             if (Input.GetMouseButtonDown(0))

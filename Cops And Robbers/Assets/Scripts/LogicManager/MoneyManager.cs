@@ -6,7 +6,7 @@ namespace Me.DerangedSenators.CopsAndRobbers
 {
     public class MoneyManager : MonoBehaviour
     {
-        public static long moneyCount;
+        private static long moneyCount;
 
         /// <summary>
         /// treasury is 0 when starting the game.
@@ -30,7 +30,6 @@ namespace Me.DerangedSenators.CopsAndRobbers
         /// <returns>amount of amount in treasury</returns>
         public long getMoneyCount()
         {
-
             return moneyCount;
         }
     }

@@ -19,7 +19,7 @@ namespace Me.DerangedSenators.CopsAndRobbers
         /// <summary>
         /// Health reduces by 20 on every call to this method.
         /// </summary>
-        /// <param name="damage"></param>
+        /// <param name="damage">The amount of damage to be inflicted or health to be taken away.</param>
         public void TakeDamage(float damage)
         {
             currentHealth -= damage;
