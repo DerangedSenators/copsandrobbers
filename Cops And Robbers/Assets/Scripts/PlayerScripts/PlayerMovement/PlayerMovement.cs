@@ -36,13 +36,12 @@ namespace Me.DerangedSenators.CopsAndRobbers
         /// </summary>
         void Update()
         {
-            //animator speed 
-            horizontalMove = Input.GetAxisRaw("Horizontal") * runSpeed;
-            animator.SetFloat("Speed", Mathf.Abs(horizontalMove));
-
-            //Input
             movement.x = Input.GetAxisRaw("Horizontal");
             movement.y = Input.GetAxisRaw("Vertical");
+
+            animator.SetFloat("Horizontal", movement.x);
+            animator.SetFloat("Vertical", movement.y);
+            animator.SetFloat("Speed", movement.sqrMagnitude);
         }
 
         /// <summary>
