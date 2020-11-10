@@ -12,17 +12,14 @@ namespace Me.DerangedSenators.CopsAndRobbers
     //This script is responible for the fucntion of the healthbar
     public class HealthBar : MonoBehaviour
     {
-        /// <summary>
-        /// This variable allows us to use a slider from the unity UI
-        /// </summary>
+        // This variable allows us to use a slider from the unity UI
         public Slider slider;
 
-        /// <summary>
-        /// This variable will allow us to suer gradient depending on the current hp
-        /// </summary>
+        // This variable will allow us to suer gradient depending on the current hp
         public Gradient gradient;
 
         public Image fill;
+
 
         /// <summary>
         /// Setting health bar to max health.
