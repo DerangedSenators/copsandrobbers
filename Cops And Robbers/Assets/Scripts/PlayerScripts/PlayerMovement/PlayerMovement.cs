@@ -1,3 +1,4 @@
+<<<<<<< HEAD:Cops And Robbers/Assets/Scripts/PlayerScripts/PlayerMovement/PlayerMovement.cs
 <<<<<<< HEAD:Cops And Robbers/Assets/Scripts/PlayerMovment/PlayerMovment.cs
 using System.Collections;
 using System.Collections.Generic;
@@ -46,6 +47,8 @@ public class PlayerMovment : MonoBehaviour
 
 }
 =======
+=======
+>>>>>>> 6d704a5c13ab7d99842521c756926d14ca545123:Cops And Robbers/Assets/Scripts/PlayerMovment/PlayerMovment.cs
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -102,5 +105,9 @@ namespace Me.DerangedSenators.CopsAndRobbers
             rb.MovePosition(rb.position + movement * moveSpeed * Time.fixedDeltaTime);
         }
     }
+<<<<<<< HEAD:Cops And Robbers/Assets/Scripts/PlayerScripts/PlayerMovement/PlayerMovement.cs
 }
 >>>>>>> 6d704a5 (PlayerAttack fix):Cops And Robbers/Assets/Scripts/PlayerScripts/PlayerMovement/PlayerMovement.cs
+=======
+}
+>>>>>>> 6d704a5c13ab7d99842521c756926d14ca545123:Cops And Robbers/Assets/Scripts/PlayerMovment/PlayerMovment.cs
