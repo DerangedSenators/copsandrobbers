@@ -16,26 +16,29 @@ public class PlayerMovment : MonoBehaviour
     // Stores movement value
     Vector2 movement;
 
-    float horizontalMove = 0f;
-
+    //speed of animation
     public float runSpeed = 40f;
 
     // Update is called once per frame
     void Update()
     {
-        //animator speed 
-        horizontalMove = Input.GetAxisRaw("Horizontal") * runSpeed;
-        animator.SetFloat("Speed", Mathf.Abs(horizontalMove));
-
         //Input
         movement.x = Input.GetAxisRaw("Horizontal");
         movement.y = Input.GetAxisRaw("Vertical");
+
+        //animation controls
+        animator.SetFloat("Horizontal", movement.x);
+        animator.SetFloat("Vertical", movement.y);
+        animator.SetFloat("Speed", movement.sqrMagnitude);
+
     }
 
     // Update on timer not frames
     void FixedUpdate() {
         //Movement
         rb.MovePosition(rb.position + movement * moveSpeed * Time.fixedDeltaTime);
+        
+
     }
 
 
