@@ -32,9 +32,9 @@ namespace Me.DerangedSenators.CopsAndRobbers
             Collider2D[] enemiesHit = Physics2D.OverlapCircleAll(attackPoint.position, attackRadius, enemyLayer);
             foreach (Collider2D enemy in enemiesHit)
             {
-                enemy.GetComponent<Enemy>().TakeDamage(dmg);
+                enemy.GetComponent<PlayerHealth>().Damage(dmg);
             }
-        }
+        }   
 
         /// <summary>
         /// Draw a circle around the player showing the attackRadius visually.
