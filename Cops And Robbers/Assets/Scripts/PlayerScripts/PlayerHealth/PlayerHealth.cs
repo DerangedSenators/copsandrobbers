@@ -36,7 +36,7 @@ namespace Me.DerangedSenators.CopsAndRobbers
             // Pressing the "spacebar" deals 2.3f amout of damgage
             if (Input.GetKeyDown(KeyCode.Space))
             {
-                Damage(2.3f);
+                Damage(10.3f);
             }
 
             //If players health reaches 0 It is removed form the scene
