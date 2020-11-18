@@ -7,10 +7,10 @@ namespace Me.DerangedSenators.CopsAndRobbers
 {
     public class PlayerMovement : MonoBehaviour
     {
-        public Animator animator;   // reference the animator object within unity
+        public Animator animator;       // reference the animator object within unity
         public float moveSpeed = 5f;    // Player speed variable
-        public Rigidbody2D rigidBody;  // Variable for character model
-        private Vector2 movement;   // Stores movement value
+        public Rigidbody2D rigidBody;   // Variable for character model
+        private Vector2 movement;       // Stores movement value
         public float runSpeed = 40f;
         //private float horizontalMove = 0f;
 
