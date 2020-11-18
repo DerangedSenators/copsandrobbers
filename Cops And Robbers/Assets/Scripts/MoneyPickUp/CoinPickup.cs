@@ -16,7 +16,7 @@ namespace Me.DerangedSenators.CopsAndRobbers
         /// Variable responsable for the text 
         /// </summary>
         [SerializeField]
-        private Text coinText;
+        public Text coinText;
     
         private bool isPickUpAllowed;
 
@@ -31,7 +31,6 @@ namespace Me.DerangedSenators.CopsAndRobbers
         {
             //At the start of the game the text will be turned off
             coinText.gameObject.SetActive(false);
-
             moneyManager = FindObjectOfType<MoneyManager>();
         }
 

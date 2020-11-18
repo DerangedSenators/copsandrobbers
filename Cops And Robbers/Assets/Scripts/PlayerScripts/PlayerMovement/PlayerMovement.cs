@@ -7,33 +7,14 @@ namespace Me.DerangedSenators.CopsAndRobbers
 {
     public class PlayerMovement : MonoBehaviour
     {
-        /// <summary>
-        /// reference the animator object within unity
-        /// </summary>
-        public Animator animator;
-
-        /// <summary>
-        /// Player speed variable
-        /// </summary>
-        public float moveSpeed = 5f;
-
-        /// <summary>
-        /// Variable for character model
-        /// </summary>
-        public Rigidbody2D rb;
-
-        /// <summary>
-        /// Stores movement value
-        /// </summary>
-        private Vector2 movement;
-
-        private float horizontalMove = 0f;
-
+        public Animator animator;   // reference the animator object within unity
+        public float moveSpeed = 5f;    // Player speed variable
+        public Rigidbody2D rigidBody;  // Variable for character model
+        private Vector2 movement;   // Stores movement value
         public float runSpeed = 40f;
+        //private float horizontalMove = 0f;
 
-        /// <summary>
-        /// Update is called once per frame 
-        /// </summary>
+        // Update is called once per frame 
         void Update()
         {
             movement.x = Input.GetAxisRaw("Horizontal");
@@ -44,13 +25,16 @@ namespace Me.DerangedSenators.CopsAndRobbers
             animator.SetFloat("Speed", movement.sqrMagnitude);
         }
 
-        /// <summary>
-        /// Update on timer not frames
-        /// </summary>
+        // Update on timer not frames
         void FixedUpdate()
         {
             //Movement
-            rb.MovePosition(rb.position + movement * moveSpeed * Time.fixedDeltaTime);
+            rigidBody.MovePosition(rigidBody.position + movement * moveSpeed * Time.fixedDeltaTime);
+        }
+
+        public Vector3 GetPosition() 
+        {
+            return transform.position;
         }
     }
 }

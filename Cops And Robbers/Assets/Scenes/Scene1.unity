@@ -59400,7 +59400,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animator: {fileID: 1873234207}
   moveSpeed: 5
-  rb: {fileID: 1873234202}
+  rigidBody: {fileID: 1873234202}
   runSpeed: 40
 --- !u!50 &1873234202
 Rigidbody2D:
@@ -59561,6 +59561,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   attackPoint: {fileID: 1407436667}
+  mouseDir: {x: 0, y: 0, z: 0}
   attackRadius: 0.64
   enemyLayer:
     serializedVersion: 2
