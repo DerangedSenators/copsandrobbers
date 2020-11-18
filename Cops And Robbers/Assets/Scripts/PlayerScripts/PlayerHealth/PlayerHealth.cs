@@ -16,9 +16,8 @@ namespace Me.DerangedSenators.CopsAndRobbers
     {
         public float maxHealth = 100f;
         public float currentHealth;
-
-    public HealthBar healthBar;
-
+        public HealthBar healthBar;
+        
         /// <summary>
         /// At the start of the project the player's health will equal to the max health
         /// </summary>

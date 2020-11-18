@@ -45,13 +45,13 @@ namespace Me.DerangedSenators.CopsAndRobbers
         //Attack on mouse-click if an enemy is in the direction of the mouse within an offset
         private void HandleAttack() 
         {
+            mousePosition = GetMouseWorldPosition();
+            mouseDir = (mousePosition - transform.position).normalized;
+            attackOffset = 0.6f;
+            attackPosition = transform.position + mouseDir * attackOffset;
+
             if (Input.GetMouseButtonDown(0))
             {
-                mousePosition = GetMouseWorldPosition();
-                mouseDir = (mousePosition - transform.position).normalized;
-                attackOffset = 0.6f;
-                attackPosition = transform.position + mouseDir * attackOffset;
-
                 state = State.Attacking;
                 //perform attack animation here and set State.Normal 
                 
@@ -90,5 +90,8 @@ namespace Me.DerangedSenators.CopsAndRobbers
             return worldPosition;
         }
 
+        public Vector3 GetAttackPoint() {
+            return attackPosition;
+        }
     }
 }
