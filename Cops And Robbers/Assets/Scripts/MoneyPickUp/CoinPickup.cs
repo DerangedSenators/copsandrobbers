@@ -16,7 +16,7 @@ namespace Me.DerangedSenators.CopsAndRobbers
         /// Variable responsable for the text 
         /// </summary>
         [SerializeField]
-        public Text coinText;
+        private Text coinText;
     
         private bool isPickUpAllowed;
 

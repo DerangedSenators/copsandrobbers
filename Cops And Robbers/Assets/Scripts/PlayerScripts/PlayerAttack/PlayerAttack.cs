@@ -20,12 +20,13 @@ namespace Me.DerangedSenators.CopsAndRobbers
         //Enum object State: contains the states player can be in. Used for attack animation.
         private enum State
         {
-            Normal, Attacking
+            NORMAL, 
+            ATTACKING
         }
 
         private void Start()
         {
-            state = State.Normal;
+            state = State.NORMAL;
         }
 
         // Update is called once per frame 
@@ -33,10 +34,10 @@ namespace Me.DerangedSenators.CopsAndRobbers
         {
             switch (state) 
             {
-                case State.Normal:
+                case State.NORMAL:
                     HandleAttack();
                     break;
-                case State.Attacking:
+                case State.ATTACKING:
                     HandleAttack();
                     break;
             }
@@ -52,7 +53,7 @@ namespace Me.DerangedSenators.CopsAndRobbers
 
             if (Input.GetMouseButtonDown(0))
             {
-                state = State.Attacking;
+                state = State.ATTACKING;
                 //perform attack animation here and set State.Normal 
                 
                 Collider2D[] enemiesHit = Physics2D.OverlapCircleAll(attackPosition, attackOffset, enemyLayer);
