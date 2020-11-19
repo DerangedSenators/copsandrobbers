@@ -31,7 +31,6 @@ namespace Me.DerangedSenators.CopsAndRobbers
         {
             //At the start of the game the text will be turned off
             coinText.gameObject.SetActive(false);
-
             moneyManager = FindObjectOfType<MoneyManager>();
         }
 

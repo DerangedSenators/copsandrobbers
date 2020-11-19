@@ -8,42 +8,91 @@ namespace Me.DerangedSenators.CopsAndRobbers
 {
     public class PlayerAttack : MonoBehaviour
     {
-        public Transform attackPoint;
-        public float attackRadius = 0.5f;
-        public LayerMask enemyLayer;
-        public float dmg = 20f;
+        //variables
+        private Vector3 mousePosition;  //position of mouse
+        private Vector3 mouseDir;       //the direction of mouse click
+        private Vector3 attackPosition; //the position of attack
+        public LayerMask enemyLayer;    //select enemy layer
+        public float damage = 10f;      //damage caused on each attack
+        private State state;            //attack or normal states
+        private float attackOffset;
 
-        /// <summary>
-        /// Update is called once per frame 
-        /// </summary>
+        //Enum object State: contains the states player can be in. Used for attack animation.
+        private enum State
+        {
+            NORMAL, 
+            ATTACKING
+        }
+
+        private void Start()
+        {
+            state = State.NORMAL;
+        }
+
+        // Update is called once per frame 
         void Update()
         {
-            if (Input.GetMouseButtonDown(0))
+            switch (state) 
             {
-                Attack();
+                case State.NORMAL:
+                    HandleAttack();
+                    break;
+                case State.ATTACKING:
+                    HandleAttack();
+                    break;
             }
         }
 
-        /// <summary>
-        /// Cause damage to an enemyLayer object within the attackRadius. 
-        /// </summary>
-        public void Attack()
+        //Attack on mouse-click if an enemy is in the direction of the mouse within an offset
+        private void HandleAttack() 
         {
-            Collider2D[] enemiesHit = Physics2D.OverlapCircleAll(attackPoint.position, attackRadius, enemyLayer);
-            foreach (Collider2D enemy in enemiesHit)
+            mousePosition = GetMouseWorldPosition();
+            mouseDir = (mousePosition - transform.position).normalized;
+            attackOffset = 0.6f;
+            attackPosition = transform.position + mouseDir * attackOffset;
+
+            if (Input.GetMouseButtonDown(0))
             {
-                enemy.GetComponent<PlayerHealth>().Damage(dmg);
+                state = State.ATTACKING;
+                //perform attack animation here and set State.Normal 
+                
+                Collider2D[] enemiesHit = Physics2D.OverlapCircleAll(attackPosition, attackOffset, enemyLayer);
+                foreach (Collider2D enemy in enemiesHit)
+                {
+                    enemy.GetComponent<PlayerHealth>().Damage(damage); //attack the enemy
+                }
             }
-        }   
+        }
 
         /// <summary>
         /// Draw a circle around the player showing the attackRadius visually.
         /// </summary>
         public void OnDrawGizmosSelected()
         {
-            if (attackPoint.position == null)
+            if (attackPosition == null)
+            {
                 return;
-            Gizmos.DrawWireSphere(attackPoint.position, attackRadius);
+            } 
+            Gizmos.DrawWireSphere(attackPosition, attackOffset);
+        }
+
+        //helper method: returns position of mouse pointer without z
+        private Vector3 GetMouseWorldPosition()
+        {
+            Vector3 vec = GetMouseWorldPositionWithZ(Input.mousePosition, Camera.main);
+            vec.z = 0f;
+            return vec;
+        }
+
+        //helper method: returns position of mouse with z axis
+        private Vector3 GetMouseWorldPositionWithZ(Vector3 screenPosition, Camera worldCamera)
+        {
+            Vector3 worldPosition = worldCamera.ScreenToWorldPoint(screenPosition);
+            return worldPosition;
+        }
+
+        public Vector3 GetAttackPoint() {
+            return attackPosition;
         }
     }
 }
