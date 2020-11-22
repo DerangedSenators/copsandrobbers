@@ -10,12 +10,12 @@ using UnityEngine.UI;
 /// <summary>
 /// This Script is used for testing Spawn of players and changing of teams
 /// </summary>
-public class GameManager : MonoBehaviour
+public class PlayerManager : MonoBehaviour
 {
-    private GameObject PlayerPrefab;
-    private GameObject RobberPrefab;
-    private GameObject player;
-    private GameObject spawnButton;
+    public GameObject CopPrefab;
+    public GameObject RobberPrefab;
+    public GameObject player;
+    public GameObject spawnButton;
     private int teamID;
     private Vector2 position;
 
@@ -24,7 +24,7 @@ public class GameManager : MonoBehaviour
     /// </summary>
     public void SpawnPlayer() {
         position = new Vector2(0, 0);
-        player = Instantiate(PlayerPrefab, position, Quaternion.identity);
+        player = Instantiate(CopPrefab, position, Quaternion.identity);
         teamID = 0;
         spawnButton.SetActive(false);
     }
@@ -36,7 +36,6 @@ public class GameManager : MonoBehaviour
         //if a cop change to robber
         if (teamID == 0) {
             teamID = 1;
-            Debug.Log(player.transform.position);
             position = player.transform.position;
             Destroy(this.player); 
             player = Instantiate(RobberPrefab, position, Quaternion.identity);
@@ -46,7 +45,7 @@ public class GameManager : MonoBehaviour
             teamID = 0;
             position = player.transform.position;
             Destroy(this.player);
-            player = Instantiate(PlayerPrefab, position, Quaternion.identity);
+            player = Instantiate(CopPrefab, position, Quaternion.identity);
         }
     }
 
