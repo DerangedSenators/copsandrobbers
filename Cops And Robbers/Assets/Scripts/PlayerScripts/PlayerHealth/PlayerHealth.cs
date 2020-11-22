@@ -14,15 +14,17 @@ namespace Me.DerangedSenators.CopsAndRobbers
 {
     public class PlayerHealth : MonoBehaviour
     {
-        public float maxHealth = 100f;
-        public float currentHealth;
+        public const float maxHealth = 100f;
+        private float currentHealth;
         public HealthBar healthBar;
-        
+
+
         /// <summary>
         /// At the start of the project the player's health will equal to the max health
         /// </summary>
         public void Start()
         {
+            healthBar = GameObject.Find("HealthBarPlayer").GetComponent<HealthBar>();
             currentHealth = maxHealth;
             healthBar.SetMaxHealth(maxHealth);
         }
