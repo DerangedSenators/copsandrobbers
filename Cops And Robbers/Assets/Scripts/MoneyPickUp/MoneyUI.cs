@@ -8,7 +8,7 @@ namespace Me.DerangedSenators.CopsAndRobbers
 {
     public class MoneyUI : MonoBehaviour
     {
-        public MoneyManager moneyManager;
+        //public MoneyManager moneyManager;
         public Text moneyText;
 
         /// <summary>
@@ -16,7 +16,7 @@ namespace Me.DerangedSenators.CopsAndRobbers
         /// </summary>
         private void FixedUpdate()
         {
-            moneyText.text = "$" + moneyManager.getMoneyCount().ToString("0");
+            //moneyText.text = "$" + moneyManager.getMoneyCount().ToString("0");
         }
     }
 }

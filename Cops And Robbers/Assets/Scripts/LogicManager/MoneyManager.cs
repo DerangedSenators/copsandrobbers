@@ -1,11 +1,13 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace Me.DerangedSenators.CopsAndRobbers
 {
     public class MoneyManager : MonoBehaviour
     {
+        [SerializeField] Text moneyText;
         private static long moneyCount;
 
         /// <summary>
@@ -14,6 +16,7 @@ namespace Me.DerangedSenators.CopsAndRobbers
         void Start()
         {
             moneyCount = 0;
+            moneyText.text = "$" + moneyCount.ToString();
         }
 
         /// <summary>
@@ -31,6 +34,11 @@ namespace Me.DerangedSenators.CopsAndRobbers
         public long getMoneyCount()
         {
             return moneyCount;
+        }
+
+        private void Update()
+        {
+            moneyText.text = "$" + moneyCount.ToString();
         }
     }
 }
