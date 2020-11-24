@@ -22,7 +22,8 @@ public class TimeManager : MonoBehaviour
         string seconds = Mathf.RoundToInt(currentTime % 60).ToString("00");
         
         countdownText.text = minutes + ":" + seconds;
-        if (currentTime <= 0) { 
+        if (currentTime <= 0) 
+        { 
             //load roundbreak scene
         }
     }
@@ -30,7 +31,8 @@ public class TimeManager : MonoBehaviour
     /// <summary>
     /// Call this method to force-end the timer + move to next scene. 
     /// </summary>
-    public void EndTimer() {
+    public void EndTimer() 
+    {
         currentTime = startingTime;
     }
 }
