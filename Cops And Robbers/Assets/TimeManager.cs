@@ -26,4 +26,11 @@ public class TimeManager : MonoBehaviour
             //load roundbreak scene
         }
     }
+
+    /// <summary>
+    /// Call this method to force-end the timer + move to next scene. 
+    /// </summary>
+    public void EndTimer() {
+        currentTime = startingTime;
+    }
 }
