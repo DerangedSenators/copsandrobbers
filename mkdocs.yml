@@ -1,0 +1,11 @@
+site_name: Cops and Robbers
+nav:
+    - Home: index.md
+    - Classes: Classes/index.md
+    - Examples: Examples/index.md
+    - Modules: Modules/index.md
+    - Namespaces: Namespaces/index.md
+theme:
+    name: material
+    favicon: images/favicon.ico
+copyright: Copyright &copy; 2020 Deranged Senators
