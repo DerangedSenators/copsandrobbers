@@ -5,7 +5,13 @@ nav:
     - Examples: Examples/index.md
     - Modules: Modules/index.md
     - Namespaces: Namespaces/index.md
-theme:
-    name: material
-    favicon: images/favicon.ico
+    palette:
+        - scheme: default
+          primary: blue
+          accent: light blue
+extra:
+    social:
+        - icon: fontawesome/brands/github
+          link: https://github.com/DerangedSenators
+          name: DerangedSenators on Github
 copyright: Copyright &copy; 2020 Deranged Senators
