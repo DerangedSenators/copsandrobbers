@@ -11,7 +11,7 @@ env:
 
 jobs:
   checklicense:
-    if: github.repository == 'DerangedSenators/copsandrobers'
+    if: github.repository.name == 'DerangedSenators/copsandrobers'
     name: check if UNITY_LICENSE is set in github secrets
     runs-on: ubuntu-20.04
     outputs:
