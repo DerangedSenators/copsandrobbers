@@ -11,6 +11,7 @@ env:
 
 jobs:
   checklicense:
+    if: github.repository == 'DerangedSenators/copsandrobers'
     name: check if UNITY_LICENSE is set in github secrets
     runs-on: ubuntu-20.04
     outputs:
@@ -24,6 +25,7 @@ jobs:
   activation:
     needs: [checklicense]
     if: needs.checklicense.outputs.is_unity_license_set == 'false'
+        github.repository == 'DerangedSenators/copsandrobers'
     name: Request activation file 🔑
     runs-on: ubuntu-latest
     steps:
@@ -43,6 +45,7 @@ jobs:
   build:
     needs: [checklicense]
     if: needs.checklicense.outputs.is_unity_license_set == 'true'
+        github.repository == 'DerangedSenators/copsandrobers'
     name: Build for ${{ matrix.targetPlatform }} on version ${{ matrix.unityVersion }}
     runs-on: ubuntu-20.04
     strategy:
