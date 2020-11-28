@@ -2,7 +2,10 @@ name: Unity Actions
 
 on:
   pull_request: {}
-  push: { branches: [main, CI-Staging] }
+  push:
+    branches: [main, CI-Staging]
+    tags:
+      - 'v*'
 
 env:
   UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
@@ -78,7 +81,61 @@ jobs:
           unityVersion: ${{ env.UNITY_VERSION }}
           targetPlatform: ${{ matrix.targetPlatform }}
           customParameters: "-nographics"
-      - uses: actions/upload-artifact@v1
+  release:
+    needs: [build]
+    if: github.event_name == 'push' && contains(github.ref, 'refs/tags/')
+    name: Release Tag
+    runs-on: ubuntu-latest
+    steps:
+      - name: Prepare Content
+        id: prep_content
+        run: |
+          sudo apt install zip 
+          cd build
+          mv StandaloneLinux64/ Linux64/
+          mv StandaloneOSX/ OSX/
+          mv StandaloneWindows64/ Windows64/
+          zip -r Linux64.zip Linux64
+          zip -r OSX.zip OSX/
+          zip -r Windows64.zip Windows64
+      - name: Create Release
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          name: Build
-          path: build
+          tag_name: ${{ github.ref }}
+          release_name: Release ${{ github.ref }}
+          draft: false
+          prerelease: false
+          body_path: CHANGELOG.md
+      - name: Upload Release Asset Windows64
+        id: upload-release-asset_win64
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }} # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps 
+          asset_path: ./Build/Windows64.zip
+          asset_name: Windows64.zip
+          asset_content_type: application/zip
+      - name: Upload Release Asset Linux64
+        id: upload-release-asset_linux64
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }} # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps 
+          asset_path: ./Build/Linux64.zip
+          asset_name: Linux64.zip
+          asset_content_type: application/zip
+      - name: Upload Release Asset OSX
+        id: upload-release-asset_osx
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }} # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps 
+          asset_path: ./Build/OSX.zip
+          asset_name: OSX.zip
+          asset_content_type: application/zip
