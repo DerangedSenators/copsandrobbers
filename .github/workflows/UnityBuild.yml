@@ -90,7 +90,8 @@ jobs:
       - name: Prepare Content
         id: prep_content
         run: |
-          sudo apt install zip 
+          sudo apt install zip tree
+          tree
           cd Build
           mv StandaloneLinux64/ Linux64/
           mv StandaloneOSX/ OSX/
