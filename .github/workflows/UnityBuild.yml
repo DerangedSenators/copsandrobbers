@@ -91,7 +91,7 @@ jobs:
         id: prep_content
         run: |
           sudo apt install zip 
-          cd build
+          cd Build
           mv StandaloneLinux64/ Linux64/
           mv StandaloneOSX/ OSX/
           mv StandaloneWindows64/ Windows64/
