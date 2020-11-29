@@ -75,7 +75,7 @@ jobs:
         uses: jimschubert/query-tag-action@v1
         with:
           include: 'v*'
-          exclude: '*:*' 
+          exclude: '*_*' 
           commit-ish: 'HEAD~'  
       - uses: actions/cache@v1.1.0
         with:
