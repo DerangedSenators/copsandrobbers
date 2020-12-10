@@ -2,25 +2,29 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GameManager : MonoBehaviour
+namespace Me.DerangedSenators.CopsAndRobbers
 {
-    public static GameManager gameManager;
-
-    void Awake()
+    public class GameManager : MonoBehaviour
     {
-        MakeSingleton();
-    }
+        public static GameManager gameManager;
 
-    private void MakeSingleton() {
-        if (gameManager != null)
+        void Awake()
         {
-            Destroy(gameObject);
+            MakeSingleton();
         }
-        else 
-        {
-            gameManager = this;
-            DontDestroyOnLoad(gameObject);
-        }
-    }
 
+        private void MakeSingleton()
+        {
+            if (gameManager != null)
+            {
+                Destroy(gameObject);
+            }
+            else
+            {
+                gameManager = this;
+                DontDestroyOnLoad(gameObject);
+            }
+        }
+
+    }
 }
