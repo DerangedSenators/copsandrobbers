@@ -1,11 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Mirror;
 
 
 namespace Me.DerangedSenators.CopsAndRobbers
 {
-    public class PlayerMovement : MonoBehaviour
+    public class PlayerMovement : NetworkBehaviour
     {
         public Animator animator;       // reference the animator object within unity
         public float moveSpeed = 5f;    // Player speed variable
@@ -17,19 +18,25 @@ namespace Me.DerangedSenators.CopsAndRobbers
         // Update is called once per frame 
         void Update()
         {
-            movement.x = Input.GetAxisRaw("Horizontal");
-            movement.y = Input.GetAxisRaw("Vertical");
+            if (isLocalPlayer)
+            {
+                movement.x = Input.GetAxisRaw("Horizontal");
+                movement.y = Input.GetAxisRaw("Vertical");
 
-            animator.SetFloat("Horizontal", movement.x);
-            animator.SetFloat("Vertical", movement.y);
-            animator.SetFloat("Speed", movement.sqrMagnitude);
+                animator.SetFloat("Horizontal", movement.x);
+                animator.SetFloat("Vertical", movement.y);
+                animator.SetFloat("Speed", movement.sqrMagnitude);
+            }
         }
 
         // Update on timer not frames
         void FixedUpdate()
         {
             //Movement
-            rigidBody.MovePosition(rigidBody.position + movement * moveSpeed * Time.fixedDeltaTime);
+            if (isLocalPlayer)
+            {
+                rigidBody.MovePosition(rigidBody.position + movement * moveSpeed * Time.fixedDeltaTime);
+            }
         }
 
         public Vector3 GetPosition() 
