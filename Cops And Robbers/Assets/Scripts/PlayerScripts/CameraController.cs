@@ -1,4 +1,5 @@
 ﻿using System;
+using Cinemachine;
 using Mirror;
 using UnityEngine;
 
@@ -9,18 +10,26 @@ namespace Me.DerangedSenators.CopsAndRobbers
     /// </summary>
     public class CameraController : NetworkBehaviour
     {
-        public Camera camera;
 
-        private void Awake()
+        public static GameManager mGameManager;
+        public CinemachineVirtualCamera mVirtualCamera;
+        public Transform playerPrefab;
+        private void Start()
         {
-            camera = Camera.main;
-            camera.enabled = false;
+            if (mGameManager == null)
+            {
+                
+            }
 
+            mVirtualCamera = GetComponent<CinemachineVirtualCamera>();
         }
 
         public override void OnStartLocalPlayer()
         {
-            camera.enabled = true;
+            if (isLocalPlayer)
+            {
+                mVirtualCamera.m_Follow = playerPrefab;
+            }
         }
     }
 }
