@@ -246,6 +246,33 @@ namespace Me.DerangedSenators.CopsAndRobbers
                     ""isPartOfComposite"": false
                 }
             ]
+        },
+        {
+            ""name"": ""MouseActions"",
+            ""id"": ""b22815b2-72b4-4598-be7c-f0f559fc9fc9"",
+            ""actions"": [
+                {
+                    ""name"": ""MousePosition"",
+                    ""type"": ""Value"",
+                    ""id"": ""16453f95-8661-4e3c-9ea6-d94c4980b0ee"",
+                    ""expectedControlType"": ""Vector2"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""6048c6bf-57a6-40ef-ba8f-a865fb04c386"",
+                    ""path"": ""<Mouse>/position"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""MousePosition"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
         }
     ],
     ""controlSchemes"": [
@@ -281,6 +308,9 @@ namespace Me.DerangedSenators.CopsAndRobbers
             m_CameraViewPoints_FocusPlayer = m_CameraViewPoints.FindAction("FocusPlayer", throwIfNotFound: true);
             m_CameraViewPoints_ZoomOut = m_CameraViewPoints.FindAction("ZoomOut", throwIfNotFound: true);
             m_CameraViewPoints_ZoomIn = m_CameraViewPoints.FindAction("ZoomIn", throwIfNotFound: true);
+            // MouseActions
+            m_MouseActions = asset.FindActionMap("MouseActions", throwIfNotFound: true);
+            m_MouseActions_MousePosition = m_MouseActions.FindAction("MousePosition", throwIfNotFound: true);
         }
 
         public void Dispose()
@@ -465,6 +495,39 @@ namespace Me.DerangedSenators.CopsAndRobbers
             }
         }
         public CameraViewPointsActions @CameraViewPoints => new CameraViewPointsActions(this);
+
+        // MouseActions
+        private readonly InputActionMap m_MouseActions;
+        private IMouseActionsActions m_MouseActionsActionsCallbackInterface;
+        private readonly InputAction m_MouseActions_MousePosition;
+        public struct MouseActionsActions
+        {
+            private @PlayerControls m_Wrapper;
+            public MouseActionsActions(@PlayerControls wrapper) { m_Wrapper = wrapper; }
+            public InputAction @MousePosition => m_Wrapper.m_MouseActions_MousePosition;
+            public InputActionMap Get() { return m_Wrapper.m_MouseActions; }
+            public void Enable() { Get().Enable(); }
+            public void Disable() { Get().Disable(); }
+            public bool enabled => Get().enabled;
+            public static implicit operator InputActionMap(MouseActionsActions set) { return set.Get(); }
+            public void SetCallbacks(IMouseActionsActions instance)
+            {
+                if (m_Wrapper.m_MouseActionsActionsCallbackInterface != null)
+                {
+                    @MousePosition.started -= m_Wrapper.m_MouseActionsActionsCallbackInterface.OnMousePosition;
+                    @MousePosition.performed -= m_Wrapper.m_MouseActionsActionsCallbackInterface.OnMousePosition;
+                    @MousePosition.canceled -= m_Wrapper.m_MouseActionsActionsCallbackInterface.OnMousePosition;
+                }
+                m_Wrapper.m_MouseActionsActionsCallbackInterface = instance;
+                if (instance != null)
+                {
+                    @MousePosition.started += instance.OnMousePosition;
+                    @MousePosition.performed += instance.OnMousePosition;
+                    @MousePosition.canceled += instance.OnMousePosition;
+                }
+            }
+        }
+        public MouseActionsActions @MouseActions => new MouseActionsActions(this);
         private int m_KeyboardMouseSchemeIndex = -1;
         public InputControlScheme KeyboardMouseScheme
         {
@@ -490,6 +553,10 @@ namespace Me.DerangedSenators.CopsAndRobbers
             void OnFocusPlayer(InputAction.CallbackContext context);
             void OnZoomOut(InputAction.CallbackContext context);
             void OnZoomIn(InputAction.CallbackContext context);
+        }
+        public interface IMouseActionsActions
+        {
+            void OnMousePosition(InputAction.CallbackContext context);
         }
     }
 }

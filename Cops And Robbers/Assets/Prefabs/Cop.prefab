@@ -43,7 +43,7 @@ GameObject:
   - component: {fileID: 2539539207542799001}
   m_Layer: 0
   m_Name: Weapon
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -393,6 +393,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d754769490b3a3e44bcc4706ad15b08f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncMode: 0
+  syncInterval: 0.1
   enemyLayer:
     serializedVersion: 2
     m_Bits: 256

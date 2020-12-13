@@ -19,7 +19,9 @@ namespace Me.DerangedSenators.CopsAndRobbers
             if (isLocalPlayer)
             {
                 Debug.Log("This is a Local Player... Assigning VCAM");
-                VirtualCameraSingleton.Instance.assignFollowTransform(playerTransform);
+                //VirtualCameraSingleton.Instance.assignFollowTransform(playerTransform);
+                VirtualCameraSingleton.Instance.mVirtualCamera.Follow = playerTransform;
+                // VirtualCameraSingleton.Instance.assignFollowTransform(playerTransform.Find("weapon"));
             }
         }
     }
