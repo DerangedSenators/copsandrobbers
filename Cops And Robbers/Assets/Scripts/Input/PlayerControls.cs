@@ -255,7 +255,7 @@ namespace Me.DerangedSenators.CopsAndRobbers
                     ""name"": ""MousePosition"",
                     ""type"": ""Value"",
                     ""id"": ""16453f95-8661-4e3c-9ea6-d94c4980b0ee"",
-                    ""expectedControlType"": ""Vector2"",
+                    ""expectedControlType"": ""Vector3"",
                     ""processors"": """",
                     ""interactions"": """"
                 }
