@@ -22,7 +22,10 @@ namespace Me.DerangedSenators.CopsAndRobbers
         public void Start()
         {
             currentHealth = maxHealth;
-            healthBar.SetMaxHealth(maxHealth);
+            if (healthBar != null)
+            {
+                healthBar.SetMaxHealth(maxHealth);
+            }
         }
 
         /// <summary>

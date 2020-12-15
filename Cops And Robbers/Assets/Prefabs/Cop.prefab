@@ -9,9 +9,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2539539207525241623}
+  - component: {fileID: 5748994319065009760}
   m_Layer: 0
   m_Name: AttackPoint
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -31,6 +32,22 @@ Transform:
   m_Father: {fileID: 2539539208402148720}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5748994319065009760
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2539539207525241622}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b91ecbcc199f4492b9a91e820070131, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneId: 0
+  serverOnly: 0
+  m_AssetId: 
+  hasSpawned: 0
 --- !u!1 &2539539207542799007
 GameObject:
   m_ObjectHideFlags: 0
@@ -43,7 +60,7 @@ GameObject:
   - component: {fileID: 2539539207542799001}
   m_Layer: 0
   m_Name: Weapon
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -56,7 +73,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2539539207542799007}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.47, y: 0.03, z: -7.4171352}
+  m_LocalPosition: {x: 0.47, y: 0.03, z: 0}
   m_LocalScale: {x: 0.43856, y: 0.43856, z: 0.43856}
   m_Children: []
   m_Father: {fileID: 2539539207525241623}
@@ -100,7 +117,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1357483137
   m_SortingLayer: 2
-  m_SortingOrder: 2
+  m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 8ee30df419e82f94da85286a4d45a8c9, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -206,6 +223,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4fca4ab2f8739904184745518bd47b22, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncMode: 0
+  syncInterval: 0.1
   playerAttack: {fileID: 2539539208402148684}
 --- !u!1 &2539539208402148724
 GameObject:
@@ -393,6 +412,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d754769490b3a3e44bcc4706ad15b08f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncMode: 0
+  syncInterval: 0.1
   enemyLayer:
     serializedVersion: 2
     m_Bits: 256

@@ -18,15 +18,16 @@ namespace Me.DerangedSenators.CopsAndRobbers
             if (_instance != null && _instance != this)
             {
                 Destroy(this.gameObject);
-            } else {
+            }
+            else
+            {
                 _instance = this;
             }
         }
-
         public void assignFollowTransform(Transform toAssign)
         {
             mVirtualCamera.Follow = toAssign;
-            mVirtualCamera.LookAt = toAssign;
+            //mVirtualCamera.LookAt = toAssign;
             Debug.Log("Assigned Transform to VCAM");
         }
     }

@@ -1,12 +1,12 @@
-﻿using System.Collections;
+﻿using Mirror;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
-
+//using UnityEngine.InputSystem;
 
 namespace Me.DerangedSenators.CopsAndRobbers
 {
-    public class PlayerAttack : MonoBehaviour
+    public class PlayerAttack : NetworkBehaviour
     {
         //variables
         private Vector3 mousePosition;  //position of mouse
@@ -49,14 +49,41 @@ namespace Me.DerangedSenators.CopsAndRobbers
             mousePosition = GetMouseWorldPosition();
             mouseDir = (mousePosition - transform.position).normalized;
             attackOffset = 0.6f;
+            attackOffset = 2f;
             attackPosition = transform.position + mouseDir * attackOffset;
+            //attackPosition = transform.position;
+
+
+            //Debug.Log("Inputmouse: " + Input.mousePosition);
+            //Debug.Log("other: " + Mouse.current.position.ReadValue());
+            
+
+
 
             if (Input.GetMouseButtonDown(0))
             {
                 state = State.ATTACKING;
                 //perform attack animation here and set State.Normal 
-                
+
                 Collider2D[] enemiesHit = Physics2D.OverlapCircleAll(attackPosition, attackOffset, enemyLayer);
+                //Collider2D[] enemiesHit = Physics2D.OverlapBoxAll(transform.position, new Vector2(2, 2), 0f);
+
+                
+                //Collider2D[] enemiesHit;
+               // Debug.Log(Mouse.current.position.x.normalizeMax);
+               /*
+                if (Mouse.current.position.x.ReadValue() >= transform.position.x)
+                {
+                    Debug.Log("Mouse.current.position.x.ReadValue(): " + Mouse.current.position.x.ReadValue() + ", > object pos x: " + transform.position.x);
+                    enemiesHit = Physics2D.OverlapBoxAll(transform.position, new Vector2(2, 2), 0f);
+                }
+                else
+                {
+                    Debug.Log("Mouse.current.position.x.ReadValue(): " + Mouse.current.position.x.ReadValue() + ", < object pos x: " + transform.position.x);
+                    enemiesHit = Physics2D.OverlapBoxAll(transform.position, new Vector2(2, 2), 0f);
+                }
+                
+                */
                 foreach (Collider2D enemy in enemiesHit)
                 {
                     enemy.GetComponent<PlayerHealth>().Damage(damage); //attack the enemy
@@ -72,14 +99,19 @@ namespace Me.DerangedSenators.CopsAndRobbers
             if (attackPosition == null)
             {
                 return;
-            } 
+            }
             Gizmos.DrawWireSphere(attackPosition, attackOffset);
+            //Gizmos.DrawWireCube(transform.position, new Vector3(2, 2));
         }
 
         //helper method: returns position of mouse pointer without z
         private Vector3 GetMouseWorldPosition()
         {
+            //Input.mousePosition
+            //Mouse.current.position.ReadValue()
+            //Vector3 mousePositionNewSystem = new Vector3(Mouse.current.position.x.ReadValue(), Mouse.current.position.y.ReadValue(), 0f);
             Vector3 vec = GetMouseWorldPositionWithZ(Input.mousePosition, Camera.main);
+            //Vector3 vec = GetMouseWorldPositionWithZ(mousePositionNewSystem, Camera.main);
             vec.z = 0f;
             return vec;
         }
@@ -88,10 +120,12 @@ namespace Me.DerangedSenators.CopsAndRobbers
         private Vector3 GetMouseWorldPositionWithZ(Vector3 screenPosition, Camera worldCamera)
         {
             Vector3 worldPosition = worldCamera.ScreenToWorldPoint(screenPosition);
+            //return screenPosition;
             return worldPosition;
         }
 
         public Vector3 GetAttackPoint() {
+            attackPosition = transform.position + mouseDir * attackOffset;
             return attackPosition;
         }
     }
