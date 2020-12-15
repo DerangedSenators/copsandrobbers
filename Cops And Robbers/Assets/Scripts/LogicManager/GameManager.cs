@@ -4,6 +4,9 @@ using UnityEngine;
 
 namespace Me.DerangedSenators.CopsAndRobbers
 {
+    /// <summary>
+    /// Singleton Class that manages the Game
+    /// </summary>
     public class GameManager : MonoBehaviour
     {
         public static GameManager gameManager;

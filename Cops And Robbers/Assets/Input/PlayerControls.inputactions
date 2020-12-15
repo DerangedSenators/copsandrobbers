@@ -231,6 +231,33 @@
                     "isPartOfComposite": false
                 }
             ]
+        },
+        {
+            "name": "MouseActions",
+            "id": "b22815b2-72b4-4598-be7c-f0f559fc9fc9",
+            "actions": [
+                {
+                    "name": "MousePosition",
+                    "type": "Value",
+                    "id": "16453f95-8661-4e3c-9ea6-d94c4980b0ee",
+                    "expectedControlType": "Vector3",
+                    "processors": "",
+                    "interactions": ""
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "6048c6bf-57a6-40ef-ba8f-a865fb04c386",
+                    "path": "<Mouse>/position",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "MousePosition",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
         }
     ],
     "controlSchemes": [
