@@ -109,7 +109,7 @@ GameObject:
   - component: {fileID: 5361463406424059734}
   m_Layer: 0
   m_Name: Circle
-  m_TagString: Untagged
+  m_TagString: AttackCircle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -202,6 +202,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7821628412348684257}
   - component: {fileID: 2918860571463788250}
+  - component: {fileID: -7991061093172292498}
   - component: {fileID: 7120663964476120277}
   - component: {fileID: 4142333262742635821}
   - component: {fileID: 4078056252172929565}
@@ -212,7 +213,6 @@ GameObject:
   - component: {fileID: 6286960928799873138}
   - component: {fileID: 4320991763438738490}
   - component: {fileID: -6012107923665898761}
-  - component: {fileID: -7991061093172292498}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -285,6 +285,27 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!50 &-7991061093172292498
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3945214744724447283}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
 --- !u!61 &7120663964476120277
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -467,27 +488,6 @@ MonoBehaviour:
   syncMode: 0
   syncInterval: 0.1
   playerTransform: {fileID: 7821628412348684257}
---- !u!50 &-7991061093172292498
-Rigidbody2D:
-  serializedVersion: 4
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3945214744724447283}
-  m_BodyType: 0
-  m_Simulated: 1
-  m_UseFullKinematicContacts: 0
-  m_UseAutoMass: 0
-  m_Mass: 1
-  m_LinearDrag: 0
-  m_AngularDrag: 0.05
-  m_GravityScale: 1
-  m_Material: {fileID: 0}
-  m_Interpolate: 0
-  m_SleepingMode: 1
-  m_CollisionDetection: 0
-  m_Constraints: 0
 --- !u!1 &9069870808570621673
 GameObject:
   m_ObjectHideFlags: 0
