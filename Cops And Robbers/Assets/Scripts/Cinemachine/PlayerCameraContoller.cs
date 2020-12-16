@@ -13,6 +13,7 @@ namespace Me.DerangedSenators.CopsAndRobbers
     public class PlayerCameraContoller : NetworkBehaviour
     {
         public Transform playerTransform;
+        private bool mod = false;
 
         private void Start()
         {
@@ -36,6 +37,16 @@ namespace Me.DerangedSenators.CopsAndRobbers
                    // VirtualCameraSingleton.Instance.assignFollowTransform(playerTransform);
                 }
                 // VirtualCameraSingleton.Instance.assignFollowTransform(playerTransform.Find("weapon"));
+            }
+        }
+
+        private void FixedUpdate()
+        {
+            if (VirtualCameraSingleton.Instance.mVirtualCamera != null && !mod)
+            {
+                VirtualCameraSingleton.Instance.mVirtualCamera.Follow = playerTransform;
+                Debug.Log("instance assinged: " + VirtualCameraSingleton.Instance.mVirtualCamera);
+                mod = true;
             }
         }
     }
