@@ -9,6 +9,7 @@ using UnityEngine.InputSystem;
 
 namespace Me.DerangedSenators.CopsAndRobbers
 {
+    //known issue, player can attack through walls
     public class PlayerAttack : NetworkBehaviour
     {
         //variables
@@ -51,57 +52,20 @@ namespace Me.DerangedSenators.CopsAndRobbers
         //Attack on mouse-click if an enemy is in the direction of the mouse within an offset
         private void HandleAttack() 
         {
-            mousePosition = GetMouseWorldPosition();
-            Transform camera = Camera.main.transform;
-            Vector3 playerCameraRelative = camera.InverseTransformPoint(transform.position);
-            Vector3 playerMouseRelative ;
-            mouseDir = (mousePosition - transform.position).normalized;
-            Debug.Log("Transform X Positiion is: " + playerCameraRelative.x + " and MouseX position is: " + mousePosition.x );
-            attackOffset = 0.6f;
-            attackPosition = (playerCameraRelative + mouseDir * attackOffset);
-            /**
-            if (mousePosition.x > transform.position.x)
-            {
-                attackPosition = (transform.position + mouseDir * attackOffset);
-                attackOffset = -0.6f;
-            }
-            else
-            {
-                attackPosition = (transform.position - mouseDir * attackOffset);
-                attackOffset = 0.6f;
-            }*/
-
-
-            //Debug.Log("Inputmouse: " + Input.mousePosition);
-            //Debug.Log("other: " + Mouse.current.position.ReadValue());
+            mousePosition = GetMouseWorldPosition(); // +new Vector3(-0.5f, -0.2f, 0);
             
+            mouseDir = (mousePosition - transform.position).normalized;
 
-
+            attackOffset = 0.8f;
+            
+            attackPosition = (transform.position + mouseDir * attackOffset);
 
             if (Input.GetMouseButtonDown(0))
             {
                 state = State.ATTACKING;
                 //perform attack animation here and set State.Normal 
-
+                
                 Collider2D[] enemiesHit = Physics2D.OverlapCircleAll(attackPosition, attackOffset, enemyLayer);
-                //Collider2D[] enemiesHit = Physics2D.OverlapBoxAll(transform.position, new Vector2(2, 2), 0f);
-
-                
-                //Collider2D[] enemiesHit;
-               // Debug.Log(Mouse.current.position.x.normalizeMax);
-               /*
-                if (Mouse.current.position.x.ReadValue() >= transform.position.x)
-                {
-                    Debug.Log("Mouse.current.position.x.ReadValue(): " + Mouse.current.position.x.ReadValue() + ", > object pos x: " + transform.position.x);
-                    enemiesHit = Physics2D.OverlapBoxAll(transform.position, new Vector2(2, 2), 0f);
-                }
-                else
-                {
-                    Debug.Log("Mouse.current.position.x.ReadValue(): " + Mouse.current.position.x.ReadValue() + ", < object pos x: " + transform.position.x);
-                    enemiesHit = Physics2D.OverlapBoxAll(transform.position, new Vector2(2, 2), 0f);
-                }
-                
-                */
                 foreach (Collider2D enemy in enemiesHit)
                 {
                     enemy.GetComponent<PlayerHealth>().Damage(damage); //attack the enemy
@@ -121,17 +85,10 @@ namespace Me.DerangedSenators.CopsAndRobbers
         //helper method: returns position of mouse pointer without z
         private Vector3 GetMouseWorldPosition()
         {
-            /**
+            
             Vector3 vec = GetMouseWorldPositionWithZ(Mouse.current.position.ReadValue(), Camera.main);
             vec.z = 0f;
-            return vec;*/
-            Vector2 mousePos = GetMouseWorldPositionV2();
-            return new Vector3(mousePos.x,mousePos.y,0.0f);
-        }
-
-        private Vector2 GetMouseWorldPositionV2()
-        {
-            return Camera.main.ScreenToViewportPoint(Mouse.current.position.ReadValue());
+            return vec;
         }
         
         //helper method: returns position of mouse with z axis
@@ -141,9 +98,31 @@ namespace Me.DerangedSenators.CopsAndRobbers
 
         }
 
-        public Vector3 GetAttackPoint() {
-            attackPosition = transform.position + mouseDir * attackOffset;
+        public Vector3 GetAttackPoint() 
+        {
             return attackPosition;
+        }
+
+        public Vector3 GetAttackPoint(float offset)
+        {
+            return (transform.position + mouseDir * offset);
+        }
+
+        /// <summary>
+        /// Return -1 if mouse is left, 1 if mouse is right or 0.
+        /// </summary>
+        /// <returns>Return -1 if mouse is left, 1 if mouse is right or 0.</returns>
+        public int MouseXPositionRelativeToPlayer() 
+        {
+            if(mousePosition.x < transform.position.x)
+            {
+                return -1;
+            }
+            else if (mousePosition.x > transform.position.x)
+            {
+                return 1;
+            }
+            return 0;
         }
     }
 }
