@@ -11,6 +11,7 @@ namespace Me.DerangedSenators.CopsAndRobbers {
         public static Player localPlayer;
         [SyncVar] public string MatchId;
         [SyncVar] public int playerIndex;
+        [SyncVar] public int teamId;
 
         NetworkMatchChecker networkMatchChecker;
 
@@ -65,25 +66,26 @@ namespace Me.DerangedSenators.CopsAndRobbers {
         void CmdHostGame(string matchId, bool publicMatch)
         {
             MatchId = matchId;
-            if (MatchMaker.instance.HostGame(matchId, gameObject, publicMatch, out playerIndex))
+            if (MatchMaker.instance.HostGame(matchId, gameObject, publicMatch, out playerIndex, out teamId))
             {
                 Debug.Log($"<color=green>Game hosted successfully</color>");
 
                 networkMatchChecker.matchId = matchId.ToGuid();
-                TargetHostGame(true, matchId, playerIndex);
+                TargetHostGame(true, matchId, playerIndex, teamId);
             }
             else
             {
                 Debug.Log($"<color=red>Game host failed</color>");
-                TargetHostGame(false, matchId, playerIndex);
+                TargetHostGame(false, matchId, playerIndex, teamId);
             }
         }
 
         [TargetRpc]
-        void TargetHostGame(bool success, string matchId, int playerIndex)
+        void TargetHostGame(bool success, string matchId, int playerIndex, int teamId)
         {
             MatchId = matchId;
             this.playerIndex = playerIndex;
+            this.teamId = teamId;
             Debug.Log($"Match ID: {MatchId} == {matchId}");
             UILobby.instance.HostSuccess(success, matchId);
         }
@@ -101,25 +103,26 @@ namespace Me.DerangedSenators.CopsAndRobbers {
         void CmdJoinGame(string matchId)
         {
             MatchId = matchId;
-            if (MatchMaker.instance.JoinGame(matchId, gameObject, out playerIndex))
+            if (MatchMaker.instance.JoinGame(matchId, gameObject, out playerIndex, out teamId))
             {
                 Debug.Log($"<color=green>Game Joined successfully</color>");
 
                 networkMatchChecker.matchId = matchId.ToGuid();
-                TargetJoinGame(true, matchId, playerIndex);
+                TargetJoinGame(true, matchId, playerIndex, teamId);
             }
             else
             {
                 Debug.Log($"<color=red>Game Join failed</color>");
-                TargetJoinGame(false, matchId, playerIndex);
+                TargetJoinGame(false, matchId, playerIndex, teamId);
             }
         }
 
         [TargetRpc]
-        void TargetJoinGame(bool success, string matchId, int playerIndex)
+        void TargetJoinGame(bool success, string matchId, int playerIndex, int teamId)
         {
             MatchId = matchId;
             this.playerIndex = playerIndex;
+            this.teamId = teamId;
             Debug.Log($"Match ID: {MatchId} == {matchId}");
             UILobby.instance.JoinSuccess(success, matchId);
         }
@@ -135,25 +138,26 @@ namespace Me.DerangedSenators.CopsAndRobbers {
         [Command]
         void CmdSearchGame()
         {
-            if (MatchMaker.instance.SearchGame(gameObject, out playerIndex, out MatchId))
+            if (MatchMaker.instance.SearchGame(gameObject, out playerIndex, out MatchId, out teamId))
             {
                 Debug.Log($"<color=green>Game Found</color>");
 
                 networkMatchChecker.matchId = MatchId.ToGuid();
-                TargetSearchGame(true, MatchId, playerIndex);
+                TargetSearchGame(true, MatchId, playerIndex, teamId);
             }
             else
             {
                 Debug.Log($"<color=red>Game not Found</color>");
-                TargetSearchGame(false, MatchId, playerIndex);
+                TargetSearchGame(false, MatchId, playerIndex, teamId);
             }
         }
 
         [TargetRpc]
-        void TargetSearchGame(bool success, string matchId, int playerIndex)
+        void TargetSearchGame(bool success, string matchId, int playerIndex, int teamId)
         {
             this.playerIndex = playerIndex;
             MatchId = matchId;
+            this.teamId = teamId;
             Debug.Log($"Match ID: {MatchId} == {matchId}");
             UILobby.instance.SearchSuccess(success, matchId);
         }

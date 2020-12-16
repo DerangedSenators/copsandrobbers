@@ -46,9 +46,10 @@ namespace Me.DerangedSenators.CopsAndRobbers
             instance = this;
         }
 
-        public bool HostGame(string matchId, GameObject host, bool publicMatch, out int playerIndex)
+        public bool HostGame(string matchId, GameObject host, bool publicMatch, out int playerIndex, out int teamId)
         {
             playerIndex = -1;
+            teamId = -1;
             if (!matchIds.Contains(matchId))
             {
                 matchIds.Add(matchId);
@@ -57,6 +58,7 @@ namespace Me.DerangedSenators.CopsAndRobbers
                 matches.Add(match);
                 Debug.Log($"Match generated");
                 playerIndex = 1;
+                teamId = 1;
                 return true;
             }
             else
@@ -67,9 +69,10 @@ namespace Me.DerangedSenators.CopsAndRobbers
 
         }
         
-        public bool JoinGame(string matchId, GameObject player, out int playerIndex)
+        public bool JoinGame(string matchId, GameObject player, out int playerIndex, out int teamId)
         {
             playerIndex = -1;
+            teamId = -1;
             if (matchIds.Contains(matchId))
             {
                 for(int i = 0; i < matches.Count; i++)
@@ -78,6 +81,14 @@ namespace Me.DerangedSenators.CopsAndRobbers
                     {
                         matches[i].players.Add(player);
                         playerIndex = matches[i].players.Count;
+                        if(playerIndex % 2 == 0)
+                        {
+                            teamId = 2;
+                        }
+                        else
+                        {
+                            teamId = 1;
+                        }
                         break;
                     }
                 }
@@ -91,16 +102,17 @@ namespace Me.DerangedSenators.CopsAndRobbers
             }
         }
 
-        public bool SearchGame(GameObject player, out int playerIndex, out string matchId)
+        public bool SearchGame(GameObject player, out int playerIndex, out string matchId, out int teamId)
         {
             playerIndex = -1;
+            teamId = -1;
             matchId = string.Empty;
             for (int i = 0; i < matches.Count; i++)
             {
                 if (matches[i].publicMatch && !matches[i].inMatch && !matches[i].matchFull)
                 {
                     matchId = matches[i].matchId;
-                    if (JoinGame(matchId, player, out playerIndex))
+                    if (JoinGame(matchId, player, out playerIndex, out teamId))
                     {
                         return true;
                     }

@@ -38,15 +38,19 @@ namespace Me.DerangedSenators.CopsAndRobbers
         // Update is called once per frame 
         void Update()
         {
-            switch (state) 
+            if (isLocalPlayer)
             {
-                case State.NORMAL:
-                    HandleAttack();
-                    break;
-                case State.ATTACKING:
-                    HandleAttack();
-                    break;
+                switch (state)
+                {
+                    case State.NORMAL:
+                        HandleAttack();
+                        break;
+                    case State.ATTACKING:
+                        HandleAttack();
+                        break;
+                }
             }
+
         }
 
         //Attack on mouse-click if an enemy is in the direction of the mouse within an offset

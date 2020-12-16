@@ -58516,7 +58516,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 1.5914972, y: 1}
+    m_SensorSize: {x: 1.0636942, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
@@ -58532,8 +58532,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1227247333}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.012, y: 0.23929603, z: -10}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -0.0119999945, y: 0.23929596, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 181649243}
@@ -58837,7 +58837,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1508754908}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.012, y: 0.23929603, z: -10}
+  m_LocalPosition: {x: -0.20399997, y: 4.0680323, z: -1610}
   m_LocalScale: {x: 1, y: 1, z: 10}
   m_Children:
   - {fileID: 1227247336}
@@ -59312,7 +59312,7 @@ MonoBehaviour:
   disconnectInactiveConnections: 0
   disconnectInactiveTimeout: 60
   authenticator: {fileID: 0}
-  playerPrefab: {fileID: 2539539208402148724, guid: f48ea73114d79ff4ea955c008c7ebd05,
+  playerPrefab: {fileID: 2539539208402148724, guid: 8d7938e3ee3262e4a8cc9a7ce6624113,
     type: 3}
   autoCreatePlayer: 1
   playerSpawnMethod: 1
