@@ -26,6 +26,7 @@ namespace Me.DerangedSenators.CopsAndRobbers
         }
         public void assignFollowTransform(Transform toAssign)
         {
+
             mVirtualCamera.Follow = toAssign;
             //mVirtualCamera.LookAt = toAssign;
             Debug.Log("Assigned Transform to VCAM");
