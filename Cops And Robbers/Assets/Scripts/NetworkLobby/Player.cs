@@ -203,6 +203,11 @@ namespace Me.DerangedSenators.CopsAndRobbers {
                     playerPrefabs[i].GetComponent<NetworkTransform>().enabled = true;
                     playerPrefabs[i].GetComponent<PlayerCameraContoller>().enabled = true;
                 }
+                playerPrefabs[i].GetComponent<SpriteRenderer>().enabled = true;
+                playerPrefabs[i].GetComponent<BoxCollider2D>().enabled = true;
+                playerPrefabs[i].GetComponent<PlayerHealth>().enabled = true;
+                playerPrefabs[i].GetComponent<Animator>().enabled = true;
+                playerPrefabs[i].GetComponent<NetworkTransform>().enabled = true;
                 DontDestroyOnLoad(playerPrefabs[i]);
             }
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
