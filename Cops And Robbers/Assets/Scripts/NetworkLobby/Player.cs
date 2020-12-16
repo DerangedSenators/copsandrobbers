@@ -192,18 +192,22 @@ namespace Me.DerangedSenators.CopsAndRobbers {
             GameObject[] playerPrefabs = GameObject.FindGameObjectsWithTag("Player");
             for (int i = 0; i < playerPrefabs.Length; i++)
             {
-                playerPrefabs[i].GetComponent<SpriteRenderer>().enabled = true;
-                playerPrefabs[i].GetComponent<BoxCollider2D>().enabled = true;
-                playerPrefabs[i].GetComponent<PlayerHealth>().enabled = true;
-                playerPrefabs[i].GetComponent<Animator>().enabled = true;
-                playerPrefabs[i].GetComponent<PlayerAttack>().enabled = true;
-                playerPrefabs[i].GetComponent<PlayerMovement>().enabled = true;
-                playerPrefabs[i].GetComponent<NetworkTransform>().enabled = true;
-                playerPrefabs[i].GetComponent<PlayerCameraContoller>().enabled = true;
+                if(playerPrefabs[i].GetComponent<Player>().playerIndex == localPlayer.playerIndex)
+                {
+                    playerPrefabs[i].GetComponent<SpriteRenderer>().enabled = true;
+                    playerPrefabs[i].GetComponent<BoxCollider2D>().enabled = true;
+                    playerPrefabs[i].GetComponent<PlayerHealth>().enabled = true;
+                    playerPrefabs[i].GetComponent<Animator>().enabled = true;
+                    playerPrefabs[i].GetComponent<PlayerAttack>().enabled = true;
+                    playerPrefabs[i].GetComponent<PlayerMovement>().enabled = true;
+                    playerPrefabs[i].GetComponent<NetworkTransform>().enabled = true;
+                    playerPrefabs[i].GetComponent<PlayerCameraContoller>().enabled = true;
+                }
                 DontDestroyOnLoad(playerPrefabs[i]);
             }
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
         }
+
 
         /*
          * DISCONNECT GAME
