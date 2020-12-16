@@ -228,6 +228,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: da71be0d1158ead4e9281d051883a378, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncMode: 0
+  syncInterval: 0.1
   networkManager: {fileID: 1088003089}
 --- !u!4 &174549375
 Transform:
@@ -863,7 +865,7 @@ MonoBehaviour:
   offlineScene: Assets/Scenes/Offline.unity
   onlineScene: Assets/Scenes/Lobby.unity
   transport: {fileID: 1088003088}
-  networkAddress: localhost
+  networkAddress: multiplayer.derangedsenators.me
   maxConnections: 8
   disconnectInactiveConnections: 0
   disconnectInactiveTimeout: 60

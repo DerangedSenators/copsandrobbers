@@ -18,7 +18,7 @@ namespace Me.DerangedSenators.CopsAndRobbers
             }
             else
             {
-               Debug.Log($"=== Client Build Starting ===");
+               Debug.Log($"<color=yellow>=== Client Build Starting ===</color>");
                networkManager.StartClient(); 
             }
         }

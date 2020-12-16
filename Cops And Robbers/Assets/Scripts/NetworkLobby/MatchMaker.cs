@@ -14,6 +14,9 @@ namespace Me.DerangedSenators.CopsAndRobbers
         public string matchId;
         public SyncListGameObject players = new SyncListGameObject();
 
+        public bool publicMatch;
+        public bool inMatch;
+        public bool matchFull;
 
         public Match(string matchId, GameObject host)
         {
@@ -43,13 +46,15 @@ namespace Me.DerangedSenators.CopsAndRobbers
             instance = this;
         }
 
-        public bool HostGame(string matchId, GameObject host, out int playerIndex)
+        public bool HostGame(string matchId, GameObject host, bool publicMatch, out int playerIndex)
         {
             playerIndex = -1;
             if (!matchIds.Contains(matchId))
             {
                 matchIds.Add(matchId);
-                matches.Add(new Match(matchId, host));
+                Match match = new Match(matchId, host);
+                match.publicMatch = publicMatch;
+                matches.Add(match);
                 Debug.Log($"Match generated");
                 playerIndex = 1;
                 return true;
@@ -84,7 +89,25 @@ namespace Me.DerangedSenators.CopsAndRobbers
                 Debug.Log($"Match ID does not exist");
                 return false;
             }
+        }
 
+        public bool SearchGame(GameObject player, out int playerIndex, out string matchId)
+        {
+            playerIndex = -1;
+            matchId = string.Empty;
+            for (int i = 0; i < matches.Count; i++)
+            {
+                if (matches[i].publicMatch && !matches[i].inMatch && !matches[i].matchFull)
+                {
+                    matchId = matches[i].matchId;
+                    if (JoinGame(matchId, player, out playerIndex))
+                    {
+                        return true;
+                    }
+                }
+            }
+            return false;
+            
         }
 
         public void BeginGame(string matchId)
@@ -130,7 +153,30 @@ namespace Me.DerangedSenators.CopsAndRobbers
 
             return id;
         }
+        public void PlayerDisconnected(Player player, string matchId)
+        {
+            for (int i = 0; i < matches.Count; i++)
+            {
+                if(matches[i].matchId == matchId)
+                {
+                    int playerIndex = matches[i].players.IndexOf(player.gameObject);
+                    matches[i].players.RemoveAt(playerIndex);
+                    Debug.Log($"Player disconnected from match: {matchId} | Remaining players: {matches[i].players.Count}");
+
+                    if(matches[i].players.Count == 0)
+                    {
+                        Debug.Log($"No more players in match. Terminating {matchId}");
+                        matches.RemoveAt(i);
+                        matchIds.Remove(matchId);
+                    }
+                    break;
+                }
+            }
+        }
+
     }
+
+    
 
     public static class MatchExtensions
     {

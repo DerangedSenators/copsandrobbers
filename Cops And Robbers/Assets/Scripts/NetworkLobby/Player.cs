@@ -14,58 +14,78 @@ namespace Me.DerangedSenators.CopsAndRobbers {
 
         NetworkMatchChecker networkMatchChecker;
 
+        [SyncVar] public Match currentMatch;
 
-        void Start()
+        GameObject playerLobbyUI;
+
+        void Awake()
         {
             networkMatchChecker = GetComponent<NetworkMatchChecker>();
 
+        }
+
+        public override void OnStartClient()
+        {
             if (isLocalPlayer)
             {
                 localPlayer = this;
-                
-            } 
+            }
             else
             {
-                UILobby.instance.SpawnUIPlayerPrefab(this);
+                Debug.Log($"Spawning other player UI");
+                playerLobbyUI = UILobby.instance.SpawnUIPlayerPrefab(this);
             }
         }
-        
+
+        public override void OnStopClient()
+        {
+            Debug.Log($"Client stopped");
+            ClientDisconnect();
+        }
+
+        public override void OnStopServer()
+        {
+            Debug.Log($"Client stopped on server");
+            ServerDisconnect();
+        }
 
         /*
          * HOST GAME
          */
-        
-        public void HostGame()
+
+        public void HostGame(bool publicMatch)
         {
             string matchId = MatchMaker.GetRandomMatchId();
-            CmdHostGame(matchId);
+            CmdHostGame(matchId, publicMatch);
         }
         
         
 
         [Command]
-        void CmdHostGame(string matchId)
+        void CmdHostGame(string matchId, bool publicMatch)
         {
             MatchId = matchId;
-            if (MatchMaker.instance.HostGame(matchId, gameObject, out playerIndex))
+            if (MatchMaker.instance.HostGame(matchId, gameObject, publicMatch, out playerIndex))
             {
-                Debug.Log($"Game hosted successfully");
+                Debug.Log($"<color=green>Game hosted successfully</color>");
 
                 networkMatchChecker.matchId = matchId.ToGuid();
-                TargetHostGame(true, matchId);
+                TargetHostGame(true, matchId, playerIndex);
             }
             else
             {
-                Debug.Log($"Game host failed");
-                TargetHostGame(false, matchId);
+                Debug.Log($"<color=red>Game host failed</color>");
+                TargetHostGame(false, matchId, playerIndex);
             }
         }
 
         [TargetRpc]
-        void TargetHostGame(bool success, string matchId)
+        void TargetHostGame(bool success, string matchId, int playerIndex)
         {
+            MatchId = matchId;
+            this.playerIndex = playerIndex;
             Debug.Log($"Match ID: {MatchId} == {matchId}");
-            UILobby.instance.HostSuccess(success);
+            UILobby.instance.HostSuccess(success, matchId);
         }
 
         /*
@@ -83,23 +103,59 @@ namespace Me.DerangedSenators.CopsAndRobbers {
             MatchId = matchId;
             if (MatchMaker.instance.JoinGame(matchId, gameObject, out playerIndex))
             {
-                Debug.Log($"Game Joined successfully");
+                Debug.Log($"<color=green>Game Joined successfully</color>");
 
                 networkMatchChecker.matchId = matchId.ToGuid();
-                TargetJoinGame(true, matchId);
+                TargetJoinGame(true, matchId, playerIndex);
             }
             else
             {
-                Debug.Log($"Game Join failed");
-                TargetJoinGame(false, matchId);
+                Debug.Log($"<color=red>Game Join failed</color>");
+                TargetJoinGame(false, matchId, playerIndex);
             }
         }
 
         [TargetRpc]
-        void TargetJoinGame(bool success, string matchId)
+        void TargetJoinGame(bool success, string matchId, int playerIndex)
         {
+            MatchId = matchId;
+            this.playerIndex = playerIndex;
             Debug.Log($"Match ID: {MatchId} == {matchId}");
             UILobby.instance.JoinSuccess(success, matchId);
+        }
+
+        /*
+         * SEARCHING FOR GAME
+         */
+        public void SearchGame()
+        {
+            CmdSearchGame();
+        }
+
+        [Command]
+        void CmdSearchGame()
+        {
+            if (MatchMaker.instance.SearchGame(gameObject, out playerIndex, out MatchId))
+            {
+                Debug.Log($"<color=green>Game Found</color>");
+
+                networkMatchChecker.matchId = MatchId.ToGuid();
+                TargetSearchGame(true, MatchId, playerIndex);
+            }
+            else
+            {
+                Debug.Log($"<color=red>Game not Found</color>");
+                TargetSearchGame(false, MatchId, playerIndex);
+            }
+        }
+
+        [TargetRpc]
+        void TargetSearchGame(bool success, string matchId, int playerIndex)
+        {
+            this.playerIndex = playerIndex;
+            MatchId = matchId;
+            Debug.Log($"Match ID: {MatchId} == {matchId}");
+            UILobby.instance.SearchSuccess(success, matchId);
         }
 
         /*
@@ -114,7 +170,7 @@ namespace Me.DerangedSenators.CopsAndRobbers {
         void CmdBeginGame()
         {
             MatchMaker.instance.BeginGame(MatchId);
-            Debug.Log($"Game Begining");
+            Debug.Log($"<color=yellow>Game Beginning</color>");
         }
 
         public void StartGame()
@@ -129,6 +185,43 @@ namespace Me.DerangedSenators.CopsAndRobbers {
             //Additively load game scene
             SceneManager.LoadScene(3, LoadSceneMode.Additive);
         }
-        
+
+        /*
+         * DISCONNECT GAME
+         */
+
+        public void DisconnectGame()
+        {
+            CmdDisconnectGame();
+        }
+
+        [Command]
+        void CmdDisconnectGame()
+        {
+            ServerDisconnect();
+        }
+
+        void ServerDisconnect()
+        {
+            MatchMaker.instance.PlayerDisconnected(this, MatchId);
+            networkMatchChecker.matchId = string.Empty.ToGuid();
+            RpcDisconnectGame();
+        }
+
+        [ClientRpc]
+        void RpcDisconnectGame()
+        {
+            ClientDisconnect();
+        }
+
+        void ClientDisconnect()
+        {
+
+            //destroy UIPlayer
+            if (playerLobbyUI != null)
+            {
+                Destroy(playerLobbyUI);
+            }
+        }
     }
 }

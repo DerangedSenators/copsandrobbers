@@ -8,6 +8,15 @@ namespace Me.DerangedSenators.CopsAndRobbers
 {
     public class MainMenu : MonoBehaviour
     {
+
+        void Start()
+        {
+            if (Application.isBatchMode) //Headless Build for Server 
+            {
+                SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+            }
+        }
+
         /// <summary>
         /// Start the game
         /// </summary>
