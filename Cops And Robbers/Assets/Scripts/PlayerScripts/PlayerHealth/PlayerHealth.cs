@@ -3,15 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-/*
-*@author Peter
-*/
 
-/// <summary>
-/// This script is responible for the fucntion of the healthbar and Dmg for testing
-/// </summary>
+
 namespace Me.DerangedSenators.CopsAndRobbers
 {
+    /// <summary>
+    /// This script is responsible for the function of the health bar and damage
+    /// </summary>
     public class PlayerHealth : MonoBehaviour
     {
         public float maxHealth = 100f;
@@ -24,7 +22,10 @@ namespace Me.DerangedSenators.CopsAndRobbers
         public void Start()
         {
             currentHealth = maxHealth;
-            healthBar.SetMaxHealth(maxHealth);
+            if (healthBar != null)
+            {
+                healthBar.SetMaxHealth(maxHealth);
+            }
         }
 
         /// <summary>

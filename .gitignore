@@ -9,6 +9,7 @@ Cops And Robbers/[Bb]uild/
 Cops And Robbers/[Bb]uilds/
 Cops And Robbers/[Ll]ogs/
 Cops And Robbers/[Mm]emoryCaptures/
+Cops And Robbers/out/
 
 # Asset meta data should only be ignored when the corresponding asset is also ignored
 !/[Aa]ssets/**/*.meta
