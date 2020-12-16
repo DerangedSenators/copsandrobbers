@@ -16,6 +16,7 @@ namespace Me.DerangedSenators.CopsAndRobbers {
         NetworkMatchChecker networkMatchChecker;
 
         [SyncVar] public Match currentMatch;
+        //[SyncVar] PlayerCameraContoller playerCameraController;
 
         GameObject playerLobbyUI;
 
@@ -186,8 +187,22 @@ namespace Me.DerangedSenators.CopsAndRobbers {
         void TargetBeginGame()
         {
             Debug.Log($"Match ID: {MatchId} | Beginning");
-            //Additively load game scene
-            SceneManager.LoadScene(3, LoadSceneMode.Additive);
+            //Load in round
+            //SceneManager.LoadScene(3, LoadSceneMode.Additive);
+            GameObject[] playerPrefabs = GameObject.FindGameObjectsWithTag("Player");
+            for (int i = 0; i < playerPrefabs.Length; i++)
+            {
+                playerPrefabs[i].GetComponent<SpriteRenderer>().enabled = true;
+                playerPrefabs[i].GetComponent<BoxCollider2D>().enabled = true;
+                playerPrefabs[i].GetComponent<PlayerHealth>().enabled = true;
+                playerPrefabs[i].GetComponent<Animator>().enabled = true;
+                playerPrefabs[i].GetComponent<PlayerAttack>().enabled = true;
+                playerPrefabs[i].GetComponent<PlayerMovement>().enabled = true;
+                playerPrefabs[i].GetComponent<NetworkTransform>().enabled = true;
+                playerPrefabs[i].GetComponent<PlayerCameraContoller>().enabled = true;
+                DontDestroyOnLoad(playerPrefabs[i]);
+            }
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
         }
 
         /*
