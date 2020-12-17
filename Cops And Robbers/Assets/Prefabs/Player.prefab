@@ -107,7 +107,7 @@ GameObject:
   - component: {fileID: 7965701468063570945}
   - component: {fileID: 9068843515785909099}
   - component: {fileID: 5361463406424059734}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Circle
   m_TagString: AttackCircle
   m_Icon: {fileID: 0}
@@ -213,7 +213,7 @@ GameObject:
   - component: {fileID: 6286960928799873138}
   - component: {fileID: 4320991763438738490}
   - component: {fileID: -6012107923665898761}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -305,7 +305,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 4
 --- !u!61 &7120663964476120277
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -498,7 +498,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4678463007404960197}
   - component: {fileID: 6611409482000015954}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: AttackPoint
   m_TagString: Player
   m_Icon: {fileID: 0}

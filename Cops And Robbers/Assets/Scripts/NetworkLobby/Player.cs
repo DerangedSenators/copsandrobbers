@@ -190,6 +190,11 @@ namespace Me.DerangedSenators.CopsAndRobbers {
             //Load in round
             //SceneManager.LoadScene(3, LoadSceneMode.Additive);
             GameObject[] playerPrefabs = GameObject.FindGameObjectsWithTag("Player");
+            GameObject localP;
+            string copLayer = LayerMask.LayerToName(9);
+            Debug.Log($"Cop Layer: {copLayer}");
+            string robberLayer = LayerMask.LayerToName(8);
+            Debug.Log($"Robber Layer: {robberLayer}");
             for (int i = 0; i < playerPrefabs.Length; i++)
             {
                 if(playerPrefabs[i].GetComponent<Player>().playerIndex == localPlayer.playerIndex)
@@ -202,12 +207,25 @@ namespace Me.DerangedSenators.CopsAndRobbers {
                     playerPrefabs[i].GetComponent<PlayerMovement>().enabled = true;
                     playerPrefabs[i].GetComponent<NetworkTransform>().enabled = true;
                     playerPrefabs[i].GetComponent<PlayerCameraContoller>().enabled = true;
+                    localP = playerPrefabs[i];
+                    localP.transform.GetChild(0).gameObject.SetActive(true);
                 }
                 playerPrefabs[i].GetComponent<SpriteRenderer>().enabled = true;
                 playerPrefabs[i].GetComponent<BoxCollider2D>().enabled = true;
                 playerPrefabs[i].GetComponent<PlayerHealth>().enabled = true;
                 playerPrefabs[i].GetComponent<Animator>().enabled = true;
                 playerPrefabs[i].GetComponent<NetworkTransform>().enabled = true;
+                if (playerPrefabs[i].GetComponent<Player>().teamId == 1) // if team is cops
+                {
+                    playerPrefabs[i].layer = 9;
+                   
+                }
+                else if (playerPrefabs[i].GetComponent<Player>().teamId == 2)//if team is robber
+                {
+                    playerPrefabs[i].layer = 8;
+
+
+                }
                 DontDestroyOnLoad(playerPrefabs[i]);
             }
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
@@ -250,6 +268,11 @@ namespace Me.DerangedSenators.CopsAndRobbers {
             {
                 Destroy(playerLobbyUI);
             }
+        }
+
+        public int GetTeamId()
+        {
+            return teamId;
         }
     }
 }
