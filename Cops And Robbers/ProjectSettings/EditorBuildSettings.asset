@@ -15,12 +15,18 @@ EditorBuildSettings:
     path: Assets/Scenes/Lobby.unity
     guid: 7f869c380e63e2a47b7d7292d21b6287
   - enabled: 0
-    path: Assets/Scenes/Game.unity
-    guid: 38bfda64139f869478c1aee1ea04f315
+    path: 
+    guid: 00000000000000000000000000000000
   - enabled: 1
     path: Assets/Scenes/Round1.unity
     guid: 42a6c22994a3ad347a9133374caa6cb3
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/RoundBreak.unity
     guid: 57a24f7527b29b64ebb405304e0d6cd8
+  - enabled: 0
+    path: Assets/Scenes/Round2.unity
+    guid: d0461a023da041842b921df2869ce763
+  - enabled: 1
+    path: Assets/Scenes/GameEndScene.unity
+    guid: c3813b45b8ae49c43b654d3341050872
   m_configObjects: {}
