@@ -1,21 +1,25 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 namespace Me.DerangedSenators.CopsAndRobbers
 {
-    public class TimeManager : MonoBehaviour
+    public class RoundBreakTimeManager : MonoBehaviour
     {
         private float currentTime = 0f;
-        private float startingTime = 120f;
+        private float startingTime = 30f;
+
+        public Button continueButton;
+        
 
         [SerializeField] Text countdownText;
 
         void Start()
         {
             currentTime = startingTime;
+            continueButton.enabled = false;
         }
 
         void Update()
@@ -28,7 +32,8 @@ namespace Me.DerangedSenators.CopsAndRobbers
             if (currentTime <= 0)
             {
                 //load roundbreak scene
-                SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+                //SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+                continueButton.enabled = true;
             }
         }
 
