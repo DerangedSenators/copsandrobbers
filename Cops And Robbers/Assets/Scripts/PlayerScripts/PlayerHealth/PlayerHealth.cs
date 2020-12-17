@@ -53,7 +53,7 @@ namespace Me.DerangedSenators.CopsAndRobbers
         public void Damage(float damage)
         {
             currentHealth = currentHealth - damage;
-           // healthBar.SetHealth(currentHealth);
+            healthBar.SetHealth(currentHealth);
         }
 
         /// <summary>

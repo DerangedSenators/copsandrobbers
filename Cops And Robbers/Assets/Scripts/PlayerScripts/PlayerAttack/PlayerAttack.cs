@@ -69,10 +69,17 @@ namespace Me.DerangedSenators.CopsAndRobbers
                 //perform attack animation here and set State.Normal 
                 
                 Collider2D[] enemiesHit = Physics2D.OverlapCircleAll(attackPosition, attackOffset, enemyLayer);
-                foreach (Collider2D enemy in enemiesHit)
+                for (int i = 0; i < enemiesHit.Length; i++)
                 {
-                    enemy.GetComponent<PlayerHealth>().Damage(damage); //attack the enemy
+                    enemiesHit[i].GetComponent<PlayerHealth>().Damage(damage);
+                    enemiesHit[i].SendMessage("Damage", 5);
                 }
+                /*foreach (Collider2D enemy in enemiesHit)
+                {
+                    
+                    enemy.GetComponent<PlayerHealth>().Damage(damage); //attack the enemy
+                    
+                }*/
             }
         }
         
