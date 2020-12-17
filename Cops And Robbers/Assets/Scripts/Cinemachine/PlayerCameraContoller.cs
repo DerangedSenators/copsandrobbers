@@ -22,7 +22,7 @@ namespace Me.DerangedSenators.CopsAndRobbers
                 Debug.Log("This is a Local Player... Assigning VCAM");
                 
                 
-                VirtualCameraSingleton.Instance.mVirtualCamera.Follow = playerTransform;
+               // VirtualCameraSingleton.Instance.mVirtualCamera.Follow = playerTransform;
                    
                 
                 //VirtualCameraSingleton.Instance.HelloWorld();

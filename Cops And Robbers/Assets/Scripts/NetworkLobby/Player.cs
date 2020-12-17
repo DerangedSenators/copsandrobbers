@@ -191,10 +191,9 @@ namespace Me.DerangedSenators.CopsAndRobbers {
             //SceneManager.LoadScene(3, LoadSceneMode.Additive);
             GameObject[] playerPrefabs = GameObject.FindGameObjectsWithTag("Player");
             GameObject localP;
-            string copLayer = LayerMask.LayerToName(9);
+            int copLayer = LayerMask.NameToLayer("Cops");
             Debug.Log($"Cop Layer: {copLayer}");
-            string robberLayer = LayerMask.LayerToName(8);
-            Debug.Log($"Robber Layer: {robberLayer}");
+            
             for (int i = 0; i < playerPrefabs.Length; i++)
             {
                 if(playerPrefabs[i].GetComponent<Player>().playerIndex == localPlayer.playerIndex)
@@ -218,13 +217,22 @@ namespace Me.DerangedSenators.CopsAndRobbers {
                 if (playerPrefabs[i].GetComponent<Player>().teamId == 1) // if team is cops
                 {
                     playerPrefabs[i].layer = 9;
-                   
+                    string robberLayer = LayerMask.LayerToName(8);
+                    Debug.Log($"Robber Layer: {robberLayer}");
+                    playerPrefabs[i].GetComponent<PlayerAttack>().enemyLayer = 1 << LayerMask.NameToLayer("Robbers");
+                    Animator anim = playerPrefabs[i].GetComponent<Animator>();
+
+                    anim.runtimeAnimatorController = Resources.Load("Animations/CopAnimations/Player1") as RuntimeAnimatorController;
+
+
                 }
                 else if (playerPrefabs[i].GetComponent<Player>().teamId == 2)//if team is robber
                 {
                     playerPrefabs[i].layer = 8;
+                    playerPrefabs[i].GetComponent<PlayerAttack>().enemyLayer = 1 << LayerMask.NameToLayer("Cops");
+                    Animator anim = playerPrefabs[i].GetComponent<Animator>();
 
-
+                    anim.runtimeAnimatorController = Resources.Load("Animations/RobberAnimations/RobberAll") as RuntimeAnimatorController;
                 }
                 DontDestroyOnLoad(playerPrefabs[i]);
             }
