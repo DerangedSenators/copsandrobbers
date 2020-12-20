@@ -16,6 +16,7 @@ namespace Me.DerangedSenators.CopsAndRobbers {
         NetworkMatchChecker networkMatchChecker;
 
         [SyncVar] public Match currentMatch;
+        //[SyncVar] PlayerCameraContoller playerCameraController;
 
         GameObject playerLobbyUI;
 
@@ -186,9 +187,58 @@ namespace Me.DerangedSenators.CopsAndRobbers {
         void TargetBeginGame()
         {
             Debug.Log($"Match ID: {MatchId} | Beginning");
-            //Additively load game scene
-            SceneManager.LoadScene(3, LoadSceneMode.Additive);
+            //Load in round
+            //SceneManager.LoadScene(3, LoadSceneMode.Additive);
+            GameObject[] playerPrefabs = GameObject.FindGameObjectsWithTag("Player");
+            GameObject localP;
+            int copLayer = LayerMask.NameToLayer("Cops");
+            Debug.Log($"Cop Layer: {copLayer}");
+            
+            for (int i = 0; i < playerPrefabs.Length; i++)
+            {
+                if(playerPrefabs[i].GetComponent<Player>().playerIndex == localPlayer.playerIndex)
+                {
+                    playerPrefabs[i].GetComponent<SpriteRenderer>().enabled = true;
+                    playerPrefabs[i].GetComponent<BoxCollider2D>().enabled = true;
+                    playerPrefabs[i].GetComponent<PlayerHealth>().enabled = true;
+                    playerPrefabs[i].GetComponent<Animator>().enabled = true;
+                    playerPrefabs[i].GetComponent<PlayerAttack>().enabled = true;
+                    playerPrefabs[i].GetComponent<PlayerMovement>().enabled = true;
+                    playerPrefabs[i].GetComponent<NetworkTransform>().enabled = true;
+                    playerPrefabs[i].GetComponent<PlayerCameraContoller>().enabled = true;
+                    localP = playerPrefabs[i];
+                    localP.transform.GetChild(0).gameObject.SetActive(true);
+                }
+                playerPrefabs[i].GetComponent<SpriteRenderer>().enabled = true;
+                playerPrefabs[i].GetComponent<BoxCollider2D>().enabled = true;
+                playerPrefabs[i].GetComponent<PlayerHealth>().enabled = true;
+                playerPrefabs[i].GetComponent<Animator>().enabled = true;
+                playerPrefabs[i].GetComponent<NetworkTransform>().enabled = true;
+                if (playerPrefabs[i].GetComponent<Player>().teamId == 1) // if team is cops
+                {
+                    playerPrefabs[i].layer = 9;
+                    string robberLayer = LayerMask.LayerToName(8);
+                    Debug.Log($"Robber Layer: {robberLayer}");
+                    playerPrefabs[i].GetComponent<PlayerAttack>().enemyLayer = 1 << LayerMask.NameToLayer("Robbers");
+                    Animator anim = playerPrefabs[i].GetComponent<Animator>();
+
+                    anim.runtimeAnimatorController = Resources.Load("Animations/CopAnimations/Player1") as RuntimeAnimatorController;
+
+
+                }
+                else if (playerPrefabs[i].GetComponent<Player>().teamId == 2)//if team is robber
+                {
+                    playerPrefabs[i].layer = 8;
+                    playerPrefabs[i].GetComponent<PlayerAttack>().enemyLayer = 1 << LayerMask.NameToLayer("Cops");
+                    Animator anim = playerPrefabs[i].GetComponent<Animator>();
+
+                    anim.runtimeAnimatorController = Resources.Load("Animations/RobberAnimations/RobberAll") as RuntimeAnimatorController;
+                }
+                DontDestroyOnLoad(playerPrefabs[i]);
+            }
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
         }
+
 
         /*
          * DISCONNECT GAME
@@ -226,6 +276,11 @@ namespace Me.DerangedSenators.CopsAndRobbers {
             {
                 Destroy(playerLobbyUI);
             }
+        }
+
+        public int GetTeamId()
+        {
+            return teamId;
         }
     }
 }

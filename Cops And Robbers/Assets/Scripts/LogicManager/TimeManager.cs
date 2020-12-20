@@ -2,13 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 namespace Me.DerangedSenators.CopsAndRobbers
 {
     public class TimeManager : MonoBehaviour
     {
         private float currentTime = 0f;
-        private float startingTime = 120f;
+        private float startingTime = 60f;
 
         [SerializeField] Text countdownText;
 
@@ -27,6 +28,7 @@ namespace Me.DerangedSenators.CopsAndRobbers
             if (currentTime <= 0)
             {
                 //load roundbreak scene
+                SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
             }
         }
 

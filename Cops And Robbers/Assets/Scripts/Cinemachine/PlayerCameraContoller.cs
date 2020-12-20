@@ -13,15 +13,40 @@ namespace Me.DerangedSenators.CopsAndRobbers
     public class PlayerCameraContoller : NetworkBehaviour
     {
         public Transform playerTransform;
+        private bool mod = false;
 
         private void Start()
         {
             if (isLocalPlayer)
             {
                 Debug.Log("This is a Local Player... Assigning VCAM");
-                //VirtualCameraSingleton.Instance.assignFollowTransform(playerTransform);
-                VirtualCameraSingleton.Instance.mVirtualCamera.Follow = playerTransform;
+                
+                
+               // VirtualCameraSingleton.Instance.mVirtualCamera.Follow = playerTransform;
+                   
+                
+                //VirtualCameraSingleton.Instance.HelloWorld();
+
+                
+                if(transform != null)
+                {
+                    
+                    Debug.Log($"Camera assigned");
+                    Debug.Log($"Player transform: {playerTransform}");
+                    Debug.Log($"Player transform X: {playerTransform.position.x}, Y: {playerTransform.position.y}");
+                   // VirtualCameraSingleton.Instance.assignFollowTransform(playerTransform);
+                }
                 // VirtualCameraSingleton.Instance.assignFollowTransform(playerTransform.Find("weapon"));
+            }
+        }
+
+        private void FixedUpdate()
+        {
+            if (VirtualCameraSingleton.Instance.mVirtualCamera != null && !mod)
+            {
+                VirtualCameraSingleton.Instance.mVirtualCamera.Follow = playerTransform;
+                Debug.Log("instance assinged: " + VirtualCameraSingleton.Instance.mVirtualCamera);
+                mod = true;
             }
         }
     }

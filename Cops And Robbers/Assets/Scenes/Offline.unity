@@ -865,7 +865,7 @@ MonoBehaviour:
   offlineScene: Assets/Scenes/Offline.unity
   onlineScene: Assets/Scenes/Lobby.unity
   transport: {fileID: 1088003088}
-  networkAddress: multiplayer.derangedsenators.me
+  networkAddress: 35.242.155.74
   maxConnections: 8
   disconnectInactiveConnections: 0
   disconnectInactiveTimeout: 60
@@ -873,10 +873,8 @@ MonoBehaviour:
   playerPrefab: {fileID: 3945214744724447283, guid: 72e4fc2967b42524b9b0cbdaee31300f,
     type: 3}
   autoCreatePlayer: 1
-  playerSpawnMethod: 0
+  playerSpawnMethod: 1
   spawnPrefabs:
-  - {fileID: 2539539208402148724, guid: f48ea73114d79ff4ea955c008c7ebd05, type: 3}
-  - {fileID: 6894489803455407047, guid: 255f83d330dce164c88b732e4d15747e, type: 3}
   - {fileID: 4832215567903375115, guid: c4009b1a69415e24b84c2eebad3b2b68, type: 3}
 --- !u!4 &1088003090
 Transform:
@@ -886,7 +884,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1088003087}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 468, y: 315.5, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
