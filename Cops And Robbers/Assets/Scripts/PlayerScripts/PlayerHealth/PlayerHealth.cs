@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using Mirror;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -10,7 +11,7 @@ namespace Me.DerangedSenators.CopsAndRobbers
     /// <summary>
     /// This script is responsible for the function of the health bar and damage
     /// </summary>
-    public class PlayerHealth : MonoBehaviour
+    public class PlayerHealth : NetworkBehaviour
     {
         public float maxHealth = 100f;
         public float currentHealth;
@@ -33,12 +34,6 @@ namespace Me.DerangedSenators.CopsAndRobbers
         /// </summary>
         public void Update()
         {
-            // Pressing the "spacebar" deals 2.3f amout of damgage
-            if (Input.GetKeyDown(KeyCode.Space))
-            {
-                Damage(10.3f);
-            }
-
             //If players health reaches 0 It is removed form the scene
             if (currentHealth <= 0)
             {
@@ -47,9 +42,10 @@ namespace Me.DerangedSenators.CopsAndRobbers
         }
 
         /// <summary>
-        /// This function will lower the current player health by set amount
+        /// Server-Callable Function which can be used to handle player damage globally.
         /// </summary>
         /// <param name="damage">Amount of damage taken, to update health bar</param>
+        [Server]
         public void Damage(float damage)
         {
             currentHealth = currentHealth - damage;

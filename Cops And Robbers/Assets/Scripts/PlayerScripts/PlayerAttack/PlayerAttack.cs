@@ -1,6 +1,7 @@
 ﻿using Mirror;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
@@ -53,6 +54,7 @@ namespace Me.DerangedSenators.CopsAndRobbers
         }
 
         //Attack on mouse-click if an enemy is in the direction of the mouse within an offset
+        [Command]
         private void HandleAttack() 
         {
             mousePosition = GetMouseWorldPosition(); // +new Vector3(-0.5f, -0.2f, 0);
@@ -69,17 +71,17 @@ namespace Me.DerangedSenators.CopsAndRobbers
                 //perform attack animation here and set State.Normal 
                 
                 Collider2D[] enemiesHit = Physics2D.OverlapCircleAll(attackPosition, attackOffset, enemyLayer);
+                /**
                 for (int i = 0; i < enemiesHit.Length; i++)
                 {
                     enemiesHit[i].GetComponent<PlayerHealth>().Damage(damage);
                     enemiesHit[i].SendMessage("Damage", 5);
-                }
-                /*foreach (Collider2D enemy in enemiesHit)
-                {
-                    
-                    enemy.GetComponent<PlayerHealth>().Damage(damage); //attack the enemy
-                    
                 }*/
+
+                foreach (var enemy in enemiesHit.Select(hit => hit.GetComponent<PlayerHealth>()).Where(obj => obj != null).Where(obj => obj !=this))
+                {
+                    enemy.Damage(damage);
+                }
             }
         }
         
