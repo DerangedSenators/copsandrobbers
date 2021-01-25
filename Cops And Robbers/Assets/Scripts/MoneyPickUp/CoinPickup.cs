@@ -3,13 +3,12 @@ using System.Collections.Generic;
 using System.Net.Mime;
 using UnityEngine;
 using UnityEngine.UI;
-/*
- * This script is responsible for picking up the coin and Informing the user to use "E" Key / 
 
-@author Peter
-*/
 namespace Me.DerangedSenators.CopsAndRobbers
 {
+    /// <summary>
+    /// Script for handling Coin Pickup Events
+    /// </summary>
     public class CoinPickup : MonoBehaviour
     {
         /// <summary>
