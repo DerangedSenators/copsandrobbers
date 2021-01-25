@@ -868,7 +868,7 @@ MonoBehaviour:
   networkAddress: 35.242.155.74
   maxConnections: 8
   disconnectInactiveConnections: 0
-  disconnectInactiveTimeout: 60
+  disconnectInactiveTimeout: 10
   authenticator: {fileID: 0}
   playerPrefab: {fileID: 3945214744724447283, guid: 72e4fc2967b42524b9b0cbdaee31300f,
     type: 3}
