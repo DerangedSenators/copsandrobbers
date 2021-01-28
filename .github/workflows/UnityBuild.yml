@@ -80,5 +80,4 @@ jobs:
           projectPath: ${{ env.PROJECT_PATH }}
           unityVersion: ${{ env.UNITY_VERSION }}
           targetPlatform: ${{ matrix.targetPlatform }}
-          customParameters: "-nographics"
           versioning: Semantic
