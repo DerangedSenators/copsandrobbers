@@ -2,11 +2,12 @@
 using System;
 using System.Linq;
 using System.Net;
-using Mirror;
 using UnityEngine;
+using Mirror;
 
 namespace kcp2k
 {
+    [DisallowMultipleComponent]
     public class KcpTransport : Transport
     {
         // scheme used by this transport
@@ -20,14 +21,14 @@ namespace kcp2k
         [Tooltip("KCP internal update interval. 100ms is KCP default, but a lower interval is recommended to minimize latency and to scale to more networked entities.")]
         public uint Interval = 10;
         [Header("Advanced")]
-        [Tooltip("KCP fastresend parameter. Faster resend for the cost of higher bandwidth.")]
-        public int FastResend = 0;
-        [Tooltip("KCP congestion window can be disabled. This is necessary to Mirror 10k Benchmark. Disable this for high scale games if connections get chocked regularly.")]
-        public bool CongestionWindow = true; // KCP 'NoCongestionWindow' is false by default. here we negate it for ease of use.
-        [Tooltip("KCP window size can be modified to support higher loads. For example, Mirror Benchmark requires 128 for 4k monsters, 256 for 10k monsters (if CongestionWindow is disabled.)")]
-        public uint SendWindowSize = 128; //Kcp.WND_SND; 32 by default. 128 is better for 4k Benchmark etc.
-        [Tooltip("KCP window size can be modified to support higher loads. For example, Mirror Benchmark requires 128 for 4k monsters, 256 for 10k monsters (if CongestionWindow is disabled.)")]
-        public uint ReceiveWindowSize = Kcp.WND_RCV;
+        [Tooltip("KCP fastresend parameter. Faster resend for the cost of higher bandwidth. 0 in normal mode, 2 in turbo mode.")]
+        public int FastResend = 2;
+        [Tooltip("KCP congestion window. Enabled in normal mode, disabled in turbo mode. Disable this for high scale games if connections get chocked regularly.")]
+        public bool CongestionWindow = false; // KCP 'NoCongestionWindow' is false by default. here we negate it for ease of use.
+        [Tooltip("KCP window size can be modified to support higher loads.")]
+        public uint SendWindowSize = 4096; //Kcp.WND_SND; 32 by default. Mirror sends a lot, so we need a lot more.
+        [Tooltip("KCP window size can be modified to support higher loads.")]
+        public uint ReceiveWindowSize = 4096; //Kcp.WND_RCV; 128 by default. Mirror sends a lot, so we need a lot more.
 
         // server & client
         KcpServer server;
@@ -35,17 +36,32 @@ namespace kcp2k
 
         // debugging
         [Header("Debug")]
-        public bool debugGUI;
+        public bool debugLog;
+        // show statistics in OnGUI
+        public bool statisticsGUI;
+        // log statistics for headless servers that can't show them in GUI
+        public bool statisticsLog;
 
         void Awake()
         {
-            // TODO simplify after converting Mirror Transport events to Action
+            // logging
+            //   Log.Info should use Debug.Log if enabled, or nothing otherwise
+            //   (don't want to spam the console on headless servers)
+            if (debugLog)
+                Log.Info = Debug.Log;
+            else
+                Log.Info = _ => {};
+            Log.Warning = Debug.LogWarning;
+            Log.Error = Debug.LogError;
+
+            // client
             client = new KcpClient(
                 () => OnClientConnected.Invoke(),
                 (message) => OnClientDataReceived.Invoke(message, Channels.DefaultReliable),
                 () => OnClientDisconnected.Invoke()
             );
-            // TODO simplify after converting Mirror Transport events to Action
+
+            // server
             server = new KcpServer(
                 (connectionId) => OnServerConnected.Invoke(connectionId),
                 (connectionId, message) => OnServerDataReceived.Invoke(connectionId, message, Channels.DefaultReliable),
@@ -57,6 +73,10 @@ namespace kcp2k
                 SendWindowSize,
                 ReceiveWindowSize
             );
+
+            if (statisticsLog)
+                InvokeRepeating(nameof(OnLogStatistics), 1, 1);
+
             Debug.Log("KcpTransport initialized!");
         }
 
@@ -72,7 +92,18 @@ namespace kcp2k
         }
         public override void ClientSend(int channelId, ArraySegment<byte> segment)
         {
-            client.Send(segment);
+            // switch to kcp channel.
+            // unreliable or reliable.
+            // default to reliable just to be sure.
+            switch (channelId)
+            {
+                case Channels.DefaultUnreliable:
+                    client.Send(segment, KcpChannel.Unreliable);
+                    break;
+                default:
+                    client.Send(segment, KcpChannel.Reliable);
+                    break;
+            }
         }
         public override void ClientDisconnect() => client.Disconnect();
 
@@ -83,14 +114,35 @@ namespace kcp2k
         //            spawns at the point before shoulder rotation.
         public void LateUpdate()
         {
-            // note: we need to check enabled in case we set it to false
-            // when LateUpdate already started.
-            // (https://github.com/vis2k/Mirror/pull/379)
+            // scene change messages disable transports to stop them from
+            // processing while changing the scene.
+            // -> we need to check enabled here
+            // -> and in kcp's internal loops, see Awake() OnCheckEnabled setup!
+            // (see also: https://github.com/vis2k/Mirror/pull/379)
             if (!enabled)
                 return;
 
             server.Tick();
             client.Tick();
+        }
+
+        // scene change message will disable transports.
+        // kcp processes messages in an internal loop which should be
+        // stopped immediately after scene change (= after disabled)
+        // => kcp has tests to guaranteed that calling .Pause() during the
+        //    receive loop stops the receive loop immediately, not after.
+        void OnEnable()
+        {
+            // unpause when enabled again
+            client?.Unpause();
+            server?.Unpause();
+        }
+
+        void OnDisable()
+        {
+            // pause immediately when not enabled anymore
+            client?.Pause();
+            server?.Pause();
         }
 
         // server
@@ -106,7 +158,18 @@ namespace kcp2k
         public override void ServerStart() => server.Start(Port);
         public override void ServerSend(int connectionId, int channelId, ArraySegment<byte> segment)
         {
-            server.Send(connectionId, segment);
+            // switch to kcp channel.
+            // unreliable or reliable.
+            // default to reliable just to be sure.
+            switch (channelId)
+            {
+                case Channels.DefaultUnreliable:
+                    server.Send(connectionId, segment, KcpChannel.Unreliable);
+                    break;
+                default:
+                    server.Send(connectionId, segment, KcpChannel.Reliable);
+                    break;
+            }
         }
         public override bool ServerDisconnect(int connectionId)
         {
@@ -119,14 +182,35 @@ namespace kcp2k
         // common
         public override void Shutdown() {}
 
-        // MTU
-        public override int GetMaxPacketSize(int channelId = Channels.DefaultReliable) => Kcp.MTU_DEF;
+        // max message size
+        public override int GetMaxPacketSize(int channelId = Channels.DefaultReliable)
+        {
+            // switch to kcp channel.
+            // unreliable or reliable.
+            // default to reliable just to be sure.
+            switch (channelId)
+            {
+                case Channels.DefaultUnreliable:
+                    return KcpConnection.UnreliableMaxMessageSize;
+                default:
+                    return KcpConnection.ReliableMaxMessageSize;
+            }
+        }
 
         public override string ToString()
         {
             return "KCP";
         }
 
+        // server statistics
+        public int GetAverageMaxSendRate() =>
+            server.connections.Count > 0
+                ? server.connections.Values.Sum(conn => (int)conn.MaxSendRate) / server.connections.Count
+                : 0;
+        public int GetAverageMaxReceiveRate() =>
+            server.connections.Count > 0
+                ? server.connections.Values.Sum(conn => (int)conn.MaxReceiveRate) / server.connections.Count
+                : 0;
         int GetTotalSendQueue() =>
             server.connections.Values.Sum(conn => conn.SendQueueCount);
         int GetTotalReceiveQueue() =>
@@ -136,21 +220,42 @@ namespace kcp2k
         int GetTotalReceiveBuffer() =>
             server.connections.Values.Sum(conn => conn.ReceiveBufferCount);
 
+        // PrettyBytes function from DOTSNET
+        // pretty prints bytes as KB/MB/GB/etc.
+        // long to support > 2GB
+        // divides by floats to return "2.5MB" etc.
+        public static string PrettyBytes(long bytes)
+        {
+            // bytes
+            if (bytes < 1024)
+                return $"{bytes} B";
+            // kilobytes
+            else if (bytes < 1024L * 1024L)
+                return $"{(bytes / 1024f):F2} KB";
+            // megabytes
+            else if (bytes < 1024 * 1024L * 1024L)
+                return $"{(bytes / (1024f * 1024f)):F2} MB";
+            // gigabytes
+            return $"{(bytes / (1024f * 1024f * 1024f)):F2} GB";
+        }
+
         void OnGUI()
         {
-            if (!debugGUI) return;
+            if (!statisticsGUI) return;
 
-            GUILayout.BeginArea(new Rect(5, 100, 300, 300));
+            GUILayout.BeginArea(new Rect(5, 110, 300, 300));
 
             if (ServerActive())
             {
                 GUILayout.BeginVertical("Box");
                 GUILayout.Label("SERVER");
-                GUILayout.Label("  connections: " + server.connections.Count);
-                GUILayout.Label("  SendQueue: " + GetTotalSendQueue());
-                GUILayout.Label("  ReceiveQueue: " + GetTotalReceiveQueue());
-                GUILayout.Label("  SendBuffer: " + GetTotalSendBuffer());
-                GUILayout.Label("  ReceiveBuffer: " + GetTotalReceiveBuffer());
+                GUILayout.Label($"  connections: {server.connections.Count}");
+                GUILayout.Label($"  MaxSendRate (avg): {PrettyBytes(GetAverageMaxSendRate())}/s");
+                GUILayout.Label($"  MaxRecvRate (avg): {PrettyBytes(GetAverageMaxReceiveRate())}/s");
+                GUILayout.Label($"  SendQueue: {GetTotalSendQueue()}");
+                GUILayout.Label($"  ReceiveQueue: {GetTotalReceiveQueue()}");
+                GUILayout.Label($"  SendBuffer: {GetTotalSendBuffer()}");
+                GUILayout.Label($"  ReceiveBuffer: {GetTotalReceiveBuffer()}");
                 GUILayout.EndVertical();
             }
 
@@ -158,14 +263,44 @@ namespace kcp2k
             {
                 GUILayout.BeginVertical("Box");
                 GUILayout.Label("CLIENT");
-                GUILayout.Label("  SendQueue: " + client.connection.SendQueueCount);
-                GUILayout.Label("  ReceiveQueue: " + client.connection.ReceiveQueueCount);
-                GUILayout.Label("  SendBuffer: " + client.connection.SendBufferCount);
-                GUILayout.Label("  ReceiveBuffer: " + client.connection.ReceiveBufferCount);
+                GUILayout.Label($"  MaxSendRate: {PrettyBytes(client.connection.MaxSendRate)}/s");
+                GUILayout.Label($"  MaxRecvRate: {PrettyBytes(client.connection.MaxReceiveRate)}/s");
+                GUILayout.Label($"  SendQueue: {client.connection.SendQueueCount}");
+                GUILayout.Label($"  ReceiveQueue: {client.connection.ReceiveQueueCount}");
+                GUILayout.Label($"  SendBuffer: {client.connection.SendBufferCount}");
+                GUILayout.Label($"  ReceiveBuffer: {client.connection.ReceiveBufferCount}");
                 GUILayout.EndVertical();
             }
 
             GUILayout.EndArea();
+        }
+
+        void OnLogStatistics()
+        {
+            if (ServerActive())
+            {
+                string log = "kcp SERVER @ time: " + NetworkTime.time + "\n";
+                log += $"  connections: {server.connections.Count}\n";
+                log += $"  MaxSendRate (avg): {PrettyBytes(GetAverageMaxSendRate())}/s\n";
+                log += $"  MaxRecvRate (avg): {PrettyBytes(GetAverageMaxReceiveRate())}/s\n";
+                log += $"  SendQueue: {GetTotalSendQueue()}\n";
+                log += $"  ReceiveQueue: {GetTotalReceiveQueue()}\n";
+                log += $"  SendBuffer: {GetTotalSendBuffer()}\n";
+                log += $"  ReceiveBuffer: {GetTotalReceiveBuffer()}\n\n";
+                Debug.Log(log);
+            }
+
+            if (ClientConnected())
+            {
+                string log = "kcp CLIENT @ time: " + NetworkTime.time + "\n";
+                log += $"  MaxSendRate: {PrettyBytes(client.connection.MaxSendRate)}/s\n";
+                log += $"  MaxRecvRate: {PrettyBytes(client.connection.MaxReceiveRate)}/s\n";
+                log += $"  SendQueue: {client.connection.SendQueueCount}\n";
+                log += $"  ReceiveQueue: {client.connection.ReceiveQueueCount}\n";
+                log += $"  SendBuffer: {client.connection.SendBufferCount}\n";
+                log += $"  ReceiveBuffer: {client.connection.ReceiveBufferCount}\n\n";
+                Debug.Log(log);
+            }
         }
     }
 }
