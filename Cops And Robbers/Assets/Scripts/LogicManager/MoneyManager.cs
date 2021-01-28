@@ -1,11 +1,12 @@
-﻿using System.Collections;
+﻿using Mirror;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
 namespace Me.DerangedSenators.CopsAndRobbers
 {
-    public class MoneyManager : MonoBehaviour
+    public class MoneyManager : NetworkBehaviour
     {
         [SerializeField] Text moneyText;
         private static long moneyCount;
@@ -15,6 +16,7 @@ namespace Me.DerangedSenators.CopsAndRobbers
         /// </summary>
         void Start()
         {
+            //gameObject.SetActive(true);
             moneyCount = 0;
             moneyText.text = "$" + moneyCount.ToString();
         }
@@ -40,5 +42,26 @@ namespace Me.DerangedSenators.CopsAndRobbers
         {
             moneyText.text = "$" + moneyCount.ToString();
         }
+        
+        /*
+        void Awake()
+        {
+            gameObject.SetActive(true);
+            MakeSingleton();
+        }
+
+        private void MakeSingleton()
+        {
+            if (this != null)
+            {
+                Destroy(gameObject);
+            }
+            else
+            {
+                DontDestroyOnLoad(gameObject);
+            }
+        }
+        */
+
     }
 }

@@ -17,7 +17,8 @@ namespace Me.DerangedSenators.CopsAndRobbers
         // Update is called once per frame
         void Update()
         {
-            transform.position = playerAttack.GetAttackPoint();
+            //transform.position = playerAttack.GetAttackPoint();
+            transform.position = new Vector3(playerAttack.GetAttackPoint().x, playerAttack.GetAttackPoint().y, 0);
         }
     }
 }
