@@ -14,10 +14,10 @@ namespace Me.DerangedSenators.CopsAndRobbers
     public class PlayerMovement : NetworkBehaviour
     {
         public Animator animator;       // reference the animator object within unity
-        public float moveSpeed = 5f;    // Player speed variable
+        public float moveSpeed = 20f;    // Player speed variable 5
         public Rigidbody2D rigidBody;   // Variable for character model
         private Vector2 movement;       // Stores movement value
-        public float runSpeed = 40f;
+        public float runSpeed = 300f;    //40f
         private Vector2 touchOrigin = -Vector2.one;    //Used to store location of screen touch origin for mobile controls.
 
         //private float horizontalMove = 0f;

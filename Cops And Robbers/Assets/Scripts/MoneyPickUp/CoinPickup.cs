@@ -1,6 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using System.Net.Mime;
+//using System.Net.Mime;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -19,7 +19,8 @@ namespace Me.DerangedSenators.CopsAndRobbers
     
         private bool isPickUpAllowed;
 
-        private MoneyManager moneyManager;
+        public MoneyManager moneyManager;
+        public GameObject moneyManagerGO;
 
         //public Money money;
 
@@ -29,8 +30,8 @@ namespace Me.DerangedSenators.CopsAndRobbers
         private void Start()
         {
             //At the start of the game the text will be turned off
-            coinText.gameObject.SetActive(false);
-            moneyManager = FindObjectOfType<MoneyManager>();
+            //coinText.gameObject.SetActive(false);
+            //moneyManager = FindObjectOfType<MoneyManager>().GetComponent<MoneyManager>();
         }
 
         /// <summary>
@@ -38,8 +39,13 @@ namespace Me.DerangedSenators.CopsAndRobbers
         /// </summary>
         private void Update()
         {
+            if (moneyManager == null) 
+            {
+                moneyManager = FindObjectOfType<MoneyManager>().GetComponent<MoneyManager>();
+            }
+
             //checking if user is allowed to pick up the coin && if the user pressed "E"
-            if (isPickUpAllowed && Input.GetKeyDown(KeyCode.E))
+            if (isPickUpAllowed && Input.GetKeyDown(KeyCode.E) )
             {
                 PickUp();
             }
@@ -51,10 +57,14 @@ namespace Me.DerangedSenators.CopsAndRobbers
         /// <param name="collision">The collision component of the object that is colliding with this object?</param>
         private void OnTriggerEnter2D(Collider2D collision)
         {
-            if(collision.gameObject.name.Equals("Cop"))
+            if(collision.gameObject.name.Equals("Player(Clone)") ) 
             {
-                coinText.gameObject.SetActive(true);
-                isPickUpAllowed = true;
+                Debug.Log("collided");
+                //if (isLocalPlayer)
+                {
+                    //coinText.gameObject.SetActive(true);
+                    isPickUpAllowed = true;
+                }
             }
         }
 
@@ -64,10 +74,13 @@ namespace Me.DerangedSenators.CopsAndRobbers
         /// <param name="collision">The collision component of the object that is colliding with this object?</param>
         private void OnTriggerExit2D(Collider2D collision)
         {
-            if (collision.gameObject.name.Equals("Cop"))
+            if (collision.gameObject.name.Equals("Player(Clone)") )
             {
-                coinText.gameObject.SetActive(false);
-                isPickUpAllowed = false;
+                //if(isLocalPlayer)
+                {
+                    //coinText.gameObject.SetActive(false);
+                    isPickUpAllowed = false;
+                }
             }
         }
 
@@ -76,8 +89,10 @@ namespace Me.DerangedSenators.CopsAndRobbers
         /// </summary>
         private void PickUp()
         {
-            moneyManager.CollectMoney();
             Destroy(gameObject);
+            
+            moneyManager.CollectMoney();
+            
         }
     }
 
