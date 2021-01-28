@@ -80,3 +80,4 @@ jobs:
           unityVersion: ${{ env.UNITY_VERSION }}
           targetPlatform: ${{ matrix.targetPlatform }}
           versioning: Semantic
+          allowDirtyBuild: true 
