@@ -10,7 +10,7 @@ on:
 env:
   UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
   UNITY_VERSION: 2019.4.6f1
-  PROJECT_PATH: "Cops And Robbers"
+  PROJECT_PATH: /"Cops And Robbers"
 
 jobs:
   checklicense:
@@ -75,7 +75,7 @@ jobs:
           restore-keys: |
             Library-${{ matrix.projectPath }}-
             Library-
-      - uses: game-ci/unity-builder@v1.5
+      - uses: game-ci/unity-builder@v2.0-alpha-6
         with:
           projectPath: ${{ env.PROJECT_PATH }}
           unityVersion: ${{ env.UNITY_VERSION }}
