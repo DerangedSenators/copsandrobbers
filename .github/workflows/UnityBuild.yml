@@ -66,9 +66,6 @@ jobs:
           #          - Switch # Build a Nintendo Switch player
     steps:
       - uses: actions/checkout@v2
-        with:
-          fetch-depth: 100000
-          lfs: true
       - uses: actions/cache@v1.1.0
         with:
           path: ${{ matrix.projectPath }}/Library
