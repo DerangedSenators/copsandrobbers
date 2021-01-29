@@ -61,3 +61,7 @@ crashlytics-build.properties
 
 # Idea generated files
 .idea/
+
+CopsAndRobbers/Library/
+
+CopsAndRobbers/Temp/
