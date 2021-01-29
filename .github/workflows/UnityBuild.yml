@@ -10,7 +10,7 @@ on:
 env:
   UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
   UNITY_VERSION: 2019.4.6f1
-  PROJECT_PATH: "Cops And Robbers"
+  PROJECT_PATH: "CopsAndRobbers"
 
 jobs:
   checklicense:
@@ -65,6 +65,8 @@ jobs:
           #          - Switch # Build a Nintendo Switch player
     steps:
       - uses: actions/checkout@v2
+        with: 
+          lfs: true
       - uses: actions/cache@v1.1.0
         with:
           path: ${{ matrix.projectPath }}/Library
