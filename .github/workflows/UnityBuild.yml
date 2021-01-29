@@ -24,6 +24,8 @@ jobs:
         run: |
             echo "Skip activation job: ${{ env.UNITY_LICENSE != '' }}"
             echo "::set-output name=is_unity_license_set::${{ env.UNITY_LICENSE != '' }}"
+      - name: Unity - Activate
+        uses: game-ci/unity-activate@v1.3  
   activation:
     needs: [checklicense]
     if: needs.checklicense.outputs.is_unity_license_set == 'false'
@@ -42,8 +44,7 @@ jobs:
         with:
           name: ${{ steps.getManualLicenseFile.outputs.filePath }}
           path: ${{ steps.getManualLicenseFile.outputs.filePath }}
-      - name: Unity - Activate
-        uses: game-ci/unity-activate@v1.3  
+
   build:
     needs: [checklicense]
     if: needs.checklicense.outputs.is_unity_license_set == 'true'
