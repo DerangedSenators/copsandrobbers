@@ -42,7 +42,6 @@ jobs:
         with:
           name: ${{ steps.getManualLicenseFile.outputs.filePath }}
           path: ${{ steps.getManualLicenseFile.outputs.filePath }}
-
   build:
     needs: [checklicense]
     if: needs.checklicense.outputs.is_unity_license_set == 'true'
@@ -66,7 +65,7 @@ jobs:
           #          - Switch # Build a Nintendo Switch player
     steps:
       - uses: actions/checkout@v2
-        with:
+        with: 
           lfs: true
       - uses: actions/cache@v1.1.0
         with:
