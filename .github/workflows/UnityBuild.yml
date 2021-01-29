@@ -83,14 +83,9 @@ jobs:
           unityVersion: ${{ env.UNITY_VERSION }}
           targetPlatform: ${{ matrix.targetPlatform }}
           versioning: Semantic
-  release:
-        needs: [build]
-        name: Upload Artifacts
-        runs-on: ubuntu-latest
-        steps:
-          - name: Prepare Content
-            id: prep_content
-            run: |
+      - name: Prepare Content
+        id: prep_content
+        run: |
               sudo apt install zip 
               cd build
               mv StandaloneLinux64/ Linux64/
@@ -101,53 +96,54 @@ jobs:
               zip -r Windows64.zip Windows64/
               zip -r Android.zip Android/
               zip -r iOS.zip iOS/
-          - name: Upload Release Asset Windows64
-            id: upload-release-asset_win64
-            uses: actions/upload-release-asset@v1
-            env:
-              GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-            with:
+              cd ..
+      - name: Upload Release Asset Windows64
+        id: upload-release-asset_win64
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
               upload_url: ${{ steps.create_release.outputs.upload_url }} # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps 
-              asset_path: ./Build/Windows64.zip
+              asset_path: build/Windows64.zip
               asset_name: Windows64.zip
               asset_content_type: application/zip
-          - name: Upload Release Asset Linux64
-            id: upload-release-asset_linux64
-            uses: actions/upload-release-asset@v1
-            env:
-              GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-            with:
-              upload_url: ${{ steps.create_release.outputs.upload_url }} # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps 
-              asset_path: ./Build/Linux64.zip
-              asset_name: Linux64.zip
-              asset_content_type: application/zip
-          - name: Upload Release Asset OSX
-            id: upload-release-asset_osx
-            uses: actions/upload-release-asset@v1
-            env:
-              GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-            with:
-              upload_url: ${{ steps.create_release.outputs.upload_url }} # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps 
-              asset_path: ./Build/OSX.zip
-              asset_name: OSX.zip
-              asset_content_type: application/zip
-          - name: Upload Release Asset Android
-            id: upload-release-asset_android
-            uses: actions/upload-release-asset@v1
-            env:
-              GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-            with:
-              upload_url: ${{ steps.create_release.outputs.upload_url }} # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps 
-              asset_path: ./Build/Android.zip
-              asset_name: Android.zip
-              asset_content_type: application/zip
-          - name: Upload Release Asset iOS
-            id: upload-release-asset_ios
-            uses: actions/upload-release-asset@v1
-            env:
-              GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-            with:
-              upload_url: ${{ steps.create_release.outputs.upload_url }} # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps 
-              asset_path: ./Build/iOS.zip
-              asset_name: iOS.zip
-              asset_content_type: application/zip
+      - name: Upload Release Asset Linux64
+        id: upload-release-asset_linux64
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }} # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps 
+          asset_path: build/Linux64.zip
+          asset_name: Linux64.zip
+          asset_content_type: application/zip
+      - name: Upload Release Asset OSX
+        id: upload-release-asset_osx
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }} # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps 
+          asset_path: build/OSX.zip
+          asset_name: OSX.zip
+          asset_content_type: application/zip
+      - name: Upload Release Asset Android
+        id: upload-release-asset_android
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }} # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps 
+          asset_path: build/Android.zip
+          asset_name: Android.zip
+          asset_content_type: application/zip
+      - name: Upload Release Asset iOS
+        id: upload-release-asset_ios
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }} # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps 
+          asset_path: build/iOS.zip
+          asset_name: iOS.zip
+          asset_content_type: application/zip
