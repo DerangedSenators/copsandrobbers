@@ -1,12 +1,11 @@
-﻿using Mirror;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
 namespace Me.DerangedSenators.CopsAndRobbers
 {
-    public class MoneyManager : NetworkBehaviour
+    public class MoneyManager : MonoBehaviour
     {
         [SerializeField] Text moneyText;
         private static long moneyCount;
@@ -42,7 +41,7 @@ namespace Me.DerangedSenators.CopsAndRobbers
         {
             moneyText.text = "$" + moneyCount.ToString();
         }
-        
+
         /*
         void Awake()
         {
@@ -62,6 +61,5 @@ namespace Me.DerangedSenators.CopsAndRobbers
             }
         }
         */
-
     }
 }
