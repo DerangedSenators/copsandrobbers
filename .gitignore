@@ -2,8 +2,8 @@
 #
 # Get latest from https://github.com/github/gitignore/blob/master/Unity.gitignore
 #
-Cops And Robbers/[Ll]ibrary/
-Cops And Robbers/[Tt]emp/
+CopsAndRobbers/[Ll]ibrary/
+CopsAndRobbers/[Tt]emp/
 Cops And Robbers/[Oo]bj/
 Cops And Robbers/[Bb]uild/
 Cops And Robbers/[Bb]uilds/
