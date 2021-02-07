@@ -450,6 +450,7 @@ MonoBehaviour:
   moveSpeed: 5
   rigidBody: {fileID: 2539539208402148726}
   runSpeed: 40
+  MovementJoystick: {fileID: 0}
 --- !u!114 &-1437327164546679777
 MonoBehaviour:
   m_ObjectHideFlags: 0
