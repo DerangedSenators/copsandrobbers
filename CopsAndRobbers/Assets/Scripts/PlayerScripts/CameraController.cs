@@ -13,6 +13,7 @@ namespace Me.DerangedSenators.CopsAndRobbers
 
         public CinemachineVirtualCamera mVirtualCamera;
         public Transform playerPrefab;
+        public static Vector3 positionOnUpdate;
         private void Start()
         {
             mVirtualCamera = GetComponent<CinemachineVirtualCamera>();

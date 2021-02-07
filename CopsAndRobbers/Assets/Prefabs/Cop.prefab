@@ -258,6 +258,7 @@ GameObject:
   - component: {fileID: 2539539208402148725}
   - component: {fileID: -1437327164546679777}
   - component: {fileID: 7810850194563115860}
+  - component: {fileID: 8935363731122213515}
   - component: {fileID: 5941741352461710854}
   m_Layer: 0
   m_Name: Cop
@@ -484,6 +485,21 @@ MonoBehaviour:
   localPositionSensitivity: 0.01
   localRotationSensitivity: 0.01
   localScaleSensitivity: 0.01
+--- !u!114 &8935363731122213515
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2539539208402148724}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 09eb66bdca10463d91fb0c0f56680967, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncMode: 0
+  syncInterval: 0.1
+  playerTransform: {fileID: 2539539208402148720}
 --- !u!114 &5941741352461710854
 MonoBehaviour:
   m_ObjectHideFlags: 0

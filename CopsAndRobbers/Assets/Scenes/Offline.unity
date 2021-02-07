@@ -843,8 +843,8 @@ MonoBehaviour:
   serverTickRate: 30
   offlineScene: Assets/Scenes/Offline.unity
   onlineScene: Assets/Scenes/Lobby.unity
-  transport: {fileID: 1088003091}
-  networkAddress: 35.242.155.74
+  transport: {fileID: 1088003088}
+  networkAddress: localhost
   maxConnections: 8
   disconnectInactiveConnections: 0
   disconnectInactiveTimeout: 10
@@ -876,7 +876,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1088003087}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c7424c1070fad4ba2a7a96b02fbeb4bb, type: 3}
   m_Name: 
