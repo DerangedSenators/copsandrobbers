@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Mirror;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
 
@@ -13,52 +14,51 @@ namespace Me.DerangedSenators.CopsAndRobbers
     /// </summary>
     public class PlayerHealth : NetworkBehaviour
     {
-        public float maxHealth = 100f;
-        public float currentHealth;
-        public HealthBar healthBar;
-        
-        /// <summary>
-        /// At the start of the project the player's health will equal to the max health
-        /// </summary>
-        public void Start()
+       [Header("Settings")]
+       [SerializeField] public int maxHealth = 100;
+       [SerializeField] public int damagePerPress = 10;
+       
+        [SyncVar]
+        public int currentHealth;
+
+        public delegate void HealthChangedDelegate(int currentHealth, int maxHealth);
+        public event HealthChangedDelegate eventHealthChanged;
+
+        [ClientRpc]
+        private void RpcHealthChangedDelegate(int currentHealth, int maxHealth)
         {
-            currentHealth = maxHealth;
-            if (healthBar != null)
-            {
-                healthBar.SetMaxHealth(maxHealth);
-            }
+            eventHealthChanged?.Invoke(currentHealth, maxHealth);
+
         }
 
-        /// <summary>
-        /// This function checks if a user Used Space if it does the player will take 1.5 dmg
-        /// </summary>
-        public void Update()
-        {
-            //If players health reaches 0 It is removed form the scene
-            if (currentHealth <= 0)
-            {
-                Die();
-            }
-        }
-
-        /// <summary>
-        /// Server-Callable Function which can be used to handle player damage globally.
-        /// </summary>
-        /// <param name="damage">Amount of damage taken, to update health bar</param>
+        #region Server
         [Server]
-        public void Damage(float damage)
+        private void SetHealth(int value)
         {
-            currentHealth = currentHealth - damage;
-            healthBar.SetHealth(currentHealth);
+            currentHealth = value;
+            this.eventHealthChanged?.Invoke(currentHealth, maxHealth);
+            RpcHealthChangedDelegate(currentHealth, maxHealth);
         }
 
-        /// <summary>
-        /// This object is destroyed once health is 0.
-        /// </summary>
-        private void Die()
+        public override void OnStartServer() => SetHealth(maxHealth);
+
+        [Command]
+        private void CmdDealDamage() => SetHealth(Mathf.Max(currentHealth - damagePerPress, 0));
+
+        #endregion
+
+        #region Client
+        [ClientCallback]
+        private void Update()
         {
-            Destroy(gameObject);
+            if (!hasAuthority) { return; }
+
+            if (!Keyboard.current.spaceKey.wasPressedThisFrame) { return; }
+
+            CmdDealDamage();
         }
+        #endregion
+
     }
 }
 

@@ -69,7 +69,6 @@ namespace Me.DerangedSenators.CopsAndRobbers
                 state = State.ATTACKING;
                 //perform attack animation here and set State.Normal 
                 CmdDoAttacking();
-
             }
         }
         /// <summary>
@@ -79,20 +78,24 @@ namespace Me.DerangedSenators.CopsAndRobbers
         private void CmdDoAttacking()
         {
             Collider2D[] enemiesHit = Physics2D.OverlapCircleAll(attackPosition, attackOffset, enemyLayer);
-            /**
-            for (int i = 0; i < enemiesHit.Length; i++)
-            {
-                enemiesHit[i].GetComponent<PlayerHealth>().Damage(damage);
-                enemiesHit[i].SendMessage("Damage", 5);
-            }*/
+            
+            //for (int i = 0; i < enemiesHit.Length; i++)
+            //{
+            //    enemiesHit[i].GetComponent<PlayerHealth>().Damage(damage);
+            //    enemiesHit[i].SendMessage("Damage", 5);
+            //}
 
             foreach (var enemy in enemiesHit.Select(hit => hit.GetComponent<PlayerHealth>()).Where(obj => obj != null).Where(obj => obj !=this))
             {
-                enemy.Damage(damage);
-                
             }
         }
-        
+
+        [ClientRpc]
+        private void RpcAttacking() 
+        {
+
+        }
+
         /// <summary>
         /// Draw a circle around the player showing the attackRadius visually.
         /// </summary>
