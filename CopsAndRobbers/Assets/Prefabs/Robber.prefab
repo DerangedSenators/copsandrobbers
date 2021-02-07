@@ -259,6 +259,7 @@ GameObject:
   - component: {fileID: -1437327164546679777}
   - component: {fileID: 7810850194563115860}
   - component: {fileID: 5941741352461710854}
+  - component: {fileID: 1552013124695441555}
   m_Layer: 8
   m_Name: Robber
   m_TagString: Player
@@ -390,6 +391,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 07400fd58b2ac914db150e2b8b594d65, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncMode: 0
+  syncInterval: 0.1
   maxHealth: 100
   currentHealth: 100
   healthBar: {fileID: 0}
@@ -492,6 +495,21 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b1b0d7ed53da4e1b9a141a0534f8dd94, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncMode: 0
+  syncInterval: 0.1
+  playerTransform: {fileID: 2539539208402148720}
+--- !u!114 &1552013124695441555
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2539539208402148724}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 09eb66bdca10463d91fb0c0f56680967, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   syncMode: 0

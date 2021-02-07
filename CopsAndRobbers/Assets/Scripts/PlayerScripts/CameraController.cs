@@ -11,16 +11,10 @@ namespace Me.DerangedSenators.CopsAndRobbers
     public class CameraController : NetworkBehaviour
     {
 
-        public static GameManager mGameManager;
         public CinemachineVirtualCamera mVirtualCamera;
         public Transform playerPrefab;
         private void Start()
         {
-            if (mGameManager == null)
-            {
-                
-            }
-
             mVirtualCamera = GetComponent<CinemachineVirtualCamera>();
         }
 
@@ -31,5 +25,6 @@ namespace Me.DerangedSenators.CopsAndRobbers
                 mVirtualCamera.m_Follow = playerPrefab;
             }
         }
+        
     }
 }

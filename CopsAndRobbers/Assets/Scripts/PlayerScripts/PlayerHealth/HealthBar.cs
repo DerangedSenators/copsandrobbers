@@ -9,7 +9,7 @@ using UnityEngine.UI;
 */
 namespace Me.DerangedSenators.CopsAndRobbers
 {
-    //This script is responible for the fucntion of the healthbar
+    //This script is responsible for the function of the healthbar
     public class HealthBar : MonoBehaviour
     {
         // This variable allows us to use a slider from the unity UI

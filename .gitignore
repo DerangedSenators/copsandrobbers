@@ -2,14 +2,14 @@
 #
 # Get latest from https://github.com/github/gitignore/blob/master/Unity.gitignore
 #
-Cops And Robbers/[Ll]ibrary/
-Cops And Robbers/[Tt]emp/
-Cops And Robbers/[Oo]bj/
-Cops And Robbers/[Bb]uild/
-Cops And Robbers/[Bb]uilds/
-Cops And Robbers/[Ll]ogs/
-Cops And Robbers/[Mm]emoryCaptures/
-Cops And Robbers/out/
+CopsAndRobbers/[Ll]ibrary/
+CopsAndRobbers/[Tt]emp/
+CopsAndRobbers/[Oo]bj/
+CopsAndRobbers/[Bb]uild/
+CopsAndRobbers/[Bb]uilds/
+CopsAndRobbers/[Ll]ogs/
+CopsAndRobbers/[Mm]emoryCaptures/
+CopsAndRobbers/out/
 
 # Asset meta data should only be ignored when the corresponding asset is also ignored
 !/[Aa]ssets/**/*.meta
@@ -43,7 +43,7 @@ ExportedObj/
 *.mdb
 *.opendb
 *.VC.db
-
+*.cache
 # Unity3D generated meta files
 *.pidb.meta
 *.pdb.meta
@@ -65,3 +65,5 @@ crashlytics-build.properties
 CopsAndRobbers/Library/
 
 CopsAndRobbers/Temp/
+
+
