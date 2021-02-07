@@ -11,10 +11,8 @@ namespace Me.DerangedSenators.CopsAndRobbers
     public class CameraController : NetworkBehaviour
     {
 
-        public static GameManager mGameManager;
         public CinemachineVirtualCamera mVirtualCamera;
         public Transform playerPrefab;
-        public static Vector3 positionOnUpdate;
         private void Start()
         {
             mVirtualCamera = GetComponent<CinemachineVirtualCamera>();
@@ -27,11 +25,6 @@ namespace Me.DerangedSenators.CopsAndRobbers
                 mVirtualCamera.m_Follow = playerPrefab;
             }
         }
-
-        public void Update()
-        {
-            Debug.Log($"Set Position to: {positionOnUpdate.ToString()}");
-            
-        }
+        
     }
 }
