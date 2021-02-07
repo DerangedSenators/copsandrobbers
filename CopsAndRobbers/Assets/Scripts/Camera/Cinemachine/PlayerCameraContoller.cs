@@ -14,7 +14,7 @@ namespace Me.DerangedSenators.CopsAndRobbers
     {
         public Transform playerTransform;
         private bool mod = false;
-
+        public static Vector3 positionOnUpdate;
         private void Start()
         {
             if (isLocalPlayer)
@@ -48,6 +48,8 @@ namespace Me.DerangedSenators.CopsAndRobbers
                 Debug.Log("instance assinged: " + VirtualCameraSingleton.Instance.mVirtualCamera);
                 mod = true;
             }
+            positionOnUpdate = VirtualCameraSingleton.Instance.mVirtualCamera.Follow.position;
+
         }
     }
 }
