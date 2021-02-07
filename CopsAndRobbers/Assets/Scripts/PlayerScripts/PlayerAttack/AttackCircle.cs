@@ -18,7 +18,8 @@ namespace Me.DerangedSenators.CopsAndRobbers
         void Update()
         {
             //transform.position = playerAttack.GetAttackPoint();
-            transform.position = new Vector3(playerAttack.GetAttackPoint().x, playerAttack.GetAttackPoint().y, 0);
+            transform.position = new Vector3(playerAttack.GetAttackPoint(0.4f).x, playerAttack.GetAttackPoint(0.4f).y, 0);
+
         }
     }
 }
