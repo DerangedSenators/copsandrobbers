@@ -10,6 +10,10 @@ namespace Me.DerangedSenators.CopsAndRobbers
     {
         public Joystick MovementStick;
         public Joystick AttackCircleStick;
+        public GameObject ControlCanvas;
+        private bool isActive;
+        public bool Active => isActive;
+        
         private static ControlContext _instance;
         public static ControlContext Instance => _instance;
 
@@ -23,6 +27,22 @@ namespace Me.DerangedSenators.CopsAndRobbers
             {
                 _instance = this;
             }
+            isEnabled();
+            
         }
+        
+        #if UNITY_STANDALONE || UNITY_WEBPLAYER
+        private void isEnabled()
+        {
+            ControlCanvas.SetActive(false);
+            isActive = false;
+        }
+        #elif UNITY_IOS || UNITY_ANDROID || UNITY_WP8 || UNITY_IPHONE
+        private void isEnabled()
+        {
+            ControlCanvas.SetActive(true);
+            isActive = true;
+        }
+        #endif
     }
 }
