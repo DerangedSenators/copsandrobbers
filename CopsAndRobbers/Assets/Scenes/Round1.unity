@@ -147240,7 +147240,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 1.77707, y: 1}
+    m_SensorSize: {x: 1.7777778, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
@@ -148546,6 +148546,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MovementStick: {fileID: 220346219}
   AttackCircleStick: {fileID: 219978106}
+  ControlCanvas: {fileID: 1440517786}
 --- !u!4 &1490222342 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2854480296345919557, guid: 641158e7c2e7b9a4eabf5ac65eecfbef,
