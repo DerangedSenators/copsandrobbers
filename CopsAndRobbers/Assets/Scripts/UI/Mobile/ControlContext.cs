@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace Me.DerangedSenators.CopsAndRobbers
 {
@@ -10,6 +11,8 @@ namespace Me.DerangedSenators.CopsAndRobbers
     {
         public Joystick MovementStick;
         public Joystick AttackCircleStick;
+        public Button AttackButton;
+        public Button PickupButton;
         public GameObject ControlCanvas;
         private bool isActive;
         public bool Active => isActive;
