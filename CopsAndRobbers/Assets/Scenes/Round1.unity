@@ -148315,7 +148315,7 @@ GameObject:
   - component: {fileID: 1293139489}
   - component: {fileID: 1293139488}
   m_Layer: 0
-  m_Name: Button
+  m_Name: PickupButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -148667,6 +148667,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MovementStick: {fileID: 220346219}
   AttackCircleStick: {fileID: 219978106}
+  AttackButton: {fileID: 1708330943}
+  PickupButton: {fileID: 1293139488}
   ControlCanvas: {fileID: 1440517786}
 --- !u!1 &1470157924
 GameObject:
