@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using Mirror;
+using System.Collections;
 using System.Collections.Generic;
 //using System.Net.Mime;
 using UnityEngine;
@@ -9,7 +10,7 @@ namespace Me.DerangedSenators.CopsAndRobbers
     /// <summary>
     /// Script for handling Coin Pickup Events
     /// </summary>
-    public class CoinPickup : MonoBehaviour
+    public class CoinPickup : NetworkBehaviour
     {
         /// <summary>
         /// Variable responsable for the text 
@@ -20,7 +21,6 @@ namespace Me.DerangedSenators.CopsAndRobbers
         private bool isPickUpAllowed;
 
         public MoneyManager moneyManager;
-        public GameObject moneyManagerGO;
 
         //public Money money;
 
@@ -62,6 +62,7 @@ namespace Me.DerangedSenators.CopsAndRobbers
                 Debug.Log("collided");
                 //if (isLocalPlayer)
                 {
+                    collision.gameObject.GetComponent<Player>().destroyMoneyBag(gameObject);
                     //coinText.gameObject.SetActive(true);
                     isPickUpAllowed = true;
                 }
@@ -89,7 +90,7 @@ namespace Me.DerangedSenators.CopsAndRobbers
         /// </summary>
         private void PickUp()
         {
-            Destroy(gameObject);
+            //Destroy(gameObject);
             
             moneyManager.CollectMoney();
             

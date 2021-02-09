@@ -282,5 +282,9 @@ namespace Me.DerangedSenators.CopsAndRobbers {
         {
             return teamId;
         }
+
+        public void destroyMoneyBag(GameObject mb) {
+            NetworkServer.Destroy(mb);
+        }
     }
 }

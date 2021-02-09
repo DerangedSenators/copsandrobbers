@@ -128,6 +128,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 288369448}
     m_Modifications:
+    - target: {fileID: -6921765882197807624, guid: 641158e7c2e7b9a4eabf5ac65eecfbef,
+        type: 3}
+      propertyPath: sceneId
+      value: 2898295117
+      objectReference: {fileID: 0}
     - target: {fileID: -4367887125456416216, guid: 641158e7c2e7b9a4eabf5ac65eecfbef,
         type: 3}
       propertyPath: sceneId
@@ -690,7 +695,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &288369448
 Transform:
   m_ObjectHideFlags: 0
@@ -797,6 +802,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 288369448}
     m_Modifications:
+    - target: {fileID: -6921765882197807624, guid: 641158e7c2e7b9a4eabf5ac65eecfbef,
+        type: 3}
+      propertyPath: sceneId
+      value: 700356030
+      objectReference: {fileID: 0}
     - target: {fileID: -4367887125456416216, guid: 641158e7c2e7b9a4eabf5ac65eecfbef,
         type: 3}
       propertyPath: sceneId
@@ -147546,6 +147556,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 288369448}
     m_Modifications:
+    - target: {fileID: -6921765882197807624, guid: 641158e7c2e7b9a4eabf5ac65eecfbef,
+        type: 3}
+      propertyPath: sceneId
+      value: 738097297
+      objectReference: {fileID: 0}
     - target: {fileID: -4367887125456416216, guid: 641158e7c2e7b9a4eabf5ac65eecfbef,
         type: 3}
       propertyPath: sceneId
@@ -148274,6 +148289,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 288369448}
     m_Modifications:
+    - target: {fileID: -6921765882197807624, guid: 641158e7c2e7b9a4eabf5ac65eecfbef,
+        type: 3}
+      propertyPath: sceneId
+      value: 823968416
+      objectReference: {fileID: 0}
     - target: {fileID: -4367887125456416216, guid: 641158e7c2e7b9a4eabf5ac65eecfbef,
         type: 3}
       propertyPath: sceneId
@@ -149181,6 +149201,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 288369448}
     m_Modifications:
+    - target: {fileID: -6921765882197807624, guid: 641158e7c2e7b9a4eabf5ac65eecfbef,
+        type: 3}
+      propertyPath: sceneId
+      value: 319105866
+      objectReference: {fileID: 0}
     - target: {fileID: -4367887125456416216, guid: 641158e7c2e7b9a4eabf5ac65eecfbef,
         type: 3}
       propertyPath: sceneId
