@@ -19,7 +19,7 @@ namespace Me.DerangedSenators.CopsAndRobbers
         private Vector3 offset = Vector3.up;    // Units in world space to offset; 1 unit above object by default
 
         public LayerMask enemyLayer;    //select enemy layer
-        public float damage = 10f;      //damage caused on each attack
+        public int damage = 10;      //damage caused on each attack
         private State state;            //attack or normal states
         private float attackOffset;
 
@@ -35,6 +35,7 @@ namespace Me.DerangedSenators.CopsAndRobbers
             state = State.NORMAL;
         }
 
+        #region Client
         // Update is called once per frame 
         void Update()
         {
@@ -52,6 +53,7 @@ namespace Me.DerangedSenators.CopsAndRobbers
             }
 
         }
+        #endregion
 
         //Attack on mouse-click if an enemy is in the direction of the mouse within an offset
         private void HandleAttack() 
@@ -74,21 +76,19 @@ namespace Me.DerangedSenators.CopsAndRobbers
         /// <summary>
         /// This method performs an attack rather than having HandleAttack complete it as the server does not have access to some resources that HandleAttack uses
         /// </summary>
-        [Command]
         private void CmdDoAttacking()
         {
+
             Collider2D[] enemiesHit = Physics2D.OverlapCircleAll(attackPosition, attackOffset, enemyLayer);
-            
-            //for (int i = 0; i < enemiesHit.Length; i++)
-            //{
-            //    enemiesHit[i].GetComponent<PlayerHealth>().Damage(damage);
-            //    enemiesHit[i].SendMessage("Damage", 5);
-            //}
+
 
             foreach (var enemy in enemiesHit.Select(hit => hit.GetComponent<PlayerHealth>()).Where(obj => obj != null).Where(obj => obj !=this))
             {
+                enemy.CmdDealDamage(damage);
             }
         }
+
+        
 
         [ClientRpc]
         private void RpcAttacking() 

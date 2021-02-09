@@ -14,9 +14,7 @@ namespace Me.DerangedSenators.CopsAndRobbers
     /// </summary>
     public class PlayerHealth : NetworkBehaviour
     {
-       [Header("Settings")]
-       [SerializeField] public int maxHealth = 100;
-       [SerializeField] public int damagePerPress = 10;
+        public int maxHealth = 100;
        
         [SyncVar]
         public int currentHealth;
@@ -24,41 +22,35 @@ namespace Me.DerangedSenators.CopsAndRobbers
         public delegate void HealthChangedDelegate(int currentHealth, int maxHealth);
         public event HealthChangedDelegate eventHealthChanged;
 
+        #region ClientRpc
         [ClientRpc]
         private void RpcHealthChangedDelegate(int currentHealth, int maxHealth)
         {
             eventHealthChanged?.Invoke(currentHealth, maxHealth);
 
         }
-
-        #region Server
-        [Server]
+        
+        public void CmdDealDamage(int damage)
+        {
+            SetHealth(Mathf.Max(currentHealth - damage, 0));
+        }
+        
         private void SetHealth(int value)
         {
             currentHealth = value;
             this.eventHealthChanged?.Invoke(currentHealth, maxHealth);
+            changeHealth();
+        }
+        #endregion
+
+        #region Server
+        [Server]
+        public override void OnStartServer() => SetHealth(maxHealth);
+        #endregion
+        private void changeHealth() 
+        {
             RpcHealthChangedDelegate(currentHealth, maxHealth);
         }
-
-        public override void OnStartServer() => SetHealth(maxHealth);
-
-        [Command]
-        private void CmdDealDamage() => SetHealth(Mathf.Max(currentHealth - damagePerPress, 0));
-
-        #endregion
-
-        #region Client
-        [ClientCallback]
-        private void Update()
-        {
-            if (!hasAuthority) { return; }
-
-            if (!Keyboard.current.spaceKey.wasPressedThisFrame) { return; }
-
-            CmdDealDamage();
-        }
-        #endregion
-
     }
 }
 
