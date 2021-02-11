@@ -103,6 +103,7 @@ namespace Me.DerangedSenators.CopsAndRobbers
         }
 
         //helper method: returns position of mouse pointer without z
+        #if UNITY_STANDALONE || UNITY_WEBPLAYER
         private Vector3 GetMouseWorldPosition()
         {
             
@@ -110,6 +111,17 @@ namespace Me.DerangedSenators.CopsAndRobbers
             vec.z = 0f;
             return vec;
         }
+        #elif UNITY_IOS || UNITY_ANDROID || UNITY_WP8 || UNITY_IPHONE
+        private Vector3 GetMouseWorldPosition()
+        {
+            Vector2 vec = ControlContext.Instance.AttackCircleStick.Direction;
+            Vector3 vector3;
+            vector3.x = vec.x;
+            vector3.y = vec.y;
+            vector3.z = 0f;
+            return vec;
+        }
+        #endif
         
         //helper method: returns position of mouse with z axis
         private Vector3 GetMouseWorldPositionWithZ(Vector3 screenPosition, Camera worldCamera)
@@ -123,10 +135,19 @@ namespace Me.DerangedSenators.CopsAndRobbers
             return attackPosition;
         }
 
+#if UNITY_STANDALONE || UNITY_WEBPLAYER
+
         public Vector3 GetAttackPoint(float offset)
         {
             return (transform.position + mouseDir * offset);
         }
+#elif UNITY_IOS || UNITY_ANDROID || UNITY_WP8 || UNITY_IPHONE
+        public Vector3 GetAttackPoint(float offset)
+        {
+            return (transform.position + new Vector3(ControlContext.Instance.AttackCircleStick.Horizontal,
+                ControlContext.Instance.AttackCircleStick.Vertical, 0) * offset);
+        }
+#endif
 
         /// <summary>
         /// Return -1 if mouse is left, 1 if mouse is right or 0.
@@ -134,6 +155,7 @@ namespace Me.DerangedSenators.CopsAndRobbers
         /// <returns>Return -1 if mouse is left, 1 if mouse is right or 0.</returns>
         public int MouseXPositionRelativeToPlayer() 
         {
+            #if UNITY_STANDALONE || UNITY_WEBPLAYER
             if(mousePosition.x < transform.position.x)
             {
                 return -1;
@@ -143,6 +165,16 @@ namespace Me.DerangedSenators.CopsAndRobbers
                 return 1;
             }
             return 0;
+            #elif UNITY_IOS || UNITY_ANDROID || UNITY_WP8 || UNITY_IPHONE
+            if (ControlContext.Instance.AttackCircleStick.Horizontal <= 0)
+            {
+                return -1;
+            }
+            else
+            {
+                return 1;
+            }
+            #endif
         }
     }
 }
