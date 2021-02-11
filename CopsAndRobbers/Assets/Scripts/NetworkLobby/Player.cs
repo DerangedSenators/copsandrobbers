@@ -283,8 +283,12 @@ namespace Me.DerangedSenators.CopsAndRobbers {
             return teamId;
         }
 
-        public void destroyMoneyBag(GameObject mb) {
-            NetworkServer.Destroy(mb);
+        //[Command]
+        public void DestroyMoneyBag(GameObject mb) {
+            Debug.Log("attempting to destroy game object on network");
+            NetworkManager.Destroy(mb);
+            //NetworkServer.Destroy(mb);
+            //Destroy(mb);
         }
     }
 }
