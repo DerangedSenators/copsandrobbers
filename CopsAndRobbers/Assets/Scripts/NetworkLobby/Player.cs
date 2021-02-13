@@ -28,7 +28,7 @@ namespace Me.DerangedSenators.CopsAndRobbers {
 
         public override void OnStartClient()
         {
-            if (isLocalPlayer)
+            if (IsLocalPlayer)
             {
                 localPlayer = this;
             }
@@ -58,13 +58,13 @@ namespace Me.DerangedSenators.CopsAndRobbers {
         public void HostGame(bool publicMatch)
         {
             string matchId = MatchMaker.GetRandomMatchId();
-            CmdHostGame(matchId, publicMatch);
+            RpcHostGame(matchId, publicMatch);
         }
         
         
 
-        [Command]
-        void CmdHostGame(string matchId, bool publicMatch)
+        [ServerRpc]
+        void RpcHostGame(string matchId, bool publicMatch)
         {
             MatchId = matchId;
             if (MatchMaker.instance.HostGame(matchId, gameObject, publicMatch, out playerIndex, out teamId))
@@ -98,10 +98,10 @@ namespace Me.DerangedSenators.CopsAndRobbers {
         public void JoinGame(string matchId)
         {
             string matchID = matchId;
-            CmdJoinGame(matchID);
+            RpcJoinGame(matchID);
         }
-        [Command]
-        void CmdJoinGame(string matchId)
+        [ServerRpc]
+        void RpcJoinGame(string matchId)
         {
             MatchId = matchId;
             if (MatchMaker.instance.JoinGame(matchId, gameObject, out playerIndex, out teamId))
@@ -133,11 +133,11 @@ namespace Me.DerangedSenators.CopsAndRobbers {
          */
         public void SearchGame()
         {
-            CmdSearchGame();
+            RpcSearchGame();
         }
 
-        [Command]
-        void CmdSearchGame()
+        [ServerRpc]
+        void RpcSearchGame()
         {
             if (MatchMaker.instance.SearchGame(gameObject, out playerIndex, out MatchId, out teamId))
             {
@@ -169,10 +169,10 @@ namespace Me.DerangedSenators.CopsAndRobbers {
 
         public void BeginGame()
         {
-            CmdBeginGame();
+            RpcBeginGame();
         }
-        [Command]
-        void CmdBeginGame()
+        [ServerRpc]
+        void RpcBeginGame()
         {
             MatchMaker.instance.BeginGame(MatchId);
             Debug.Log($"<color=yellow>Game Beginning</color>");
@@ -246,11 +246,11 @@ namespace Me.DerangedSenators.CopsAndRobbers {
 
         public void DisconnectGame()
         {
-            CmdDisconnectGame();
+            ServerRpcDisconnectGame();
         }
 
-        [Command]
-        void CmdDisconnectGame()
+        [ServerRpc]
+        void ServerRpcDisconnectGame()
         {
             ServerDisconnect();
         }

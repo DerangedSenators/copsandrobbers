@@ -25,7 +25,7 @@ namespace Me.DerangedSenators.CopsAndRobbers
         
         void Update()
         {
-            if (isLocalPlayer)
+            if (IsLocalPlayer)
             {
                 #if UNITY_STANDALONE || UNITY_WEBPLAYER
                 movement.x = Input.GetAxisRaw("Horizontal");
@@ -44,7 +44,7 @@ namespace Me.DerangedSenators.CopsAndRobbers
         void FixedUpdate()
         {
             //Movement
-            if (isLocalPlayer)
+            if (IsLocalPlayer)
             {
                 rigidBody.MovePosition(rigidBody.position + movement * moveSpeed * Time.fixedDeltaTime);
             }

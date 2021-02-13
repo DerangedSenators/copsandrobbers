@@ -17,7 +17,7 @@ namespace Me.DerangedSenators.CopsAndRobbers
         public static Vector3 positionOnUpdate;
         private void Start()
         {
-            if (isLocalPlayer)
+            if (IsLocalPlayer)
             {
                 Debug.Log("This is a Local Player... Assigning VCAM");
                 
@@ -45,7 +45,7 @@ namespace Me.DerangedSenators.CopsAndRobbers
             if (VirtualCameraSingleton.Instance.mVirtualCamera != null && !mod)
             {
                 VirtualCameraSingleton.Instance.mVirtualCamera.Follow = playerTransform;
-                Debug.Log("instance assinged: " + VirtualCameraSingleton.Instance.mVirtualCamera);
+                Debug.Log("instance assigned: " + VirtualCameraSingleton.Instance.mVirtualCamera);
                 mod = true;
             }
             positionOnUpdate = VirtualCameraSingleton.Instance.mVirtualCamera.Follow.position;

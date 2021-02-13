@@ -60,7 +60,7 @@ namespace Me.DerangedSenators.CopsAndRobbers
             if(collision.gameObject.name.Equals("Player(Clone)") ) 
             {
                 Debug.Log("collided");
-                //if (isLocalPlayer)
+                //if (IsLocalPlayer)
                 {
                     //coinText.gameObject.SetActive(true);
                     isPickUpAllowed = true;
@@ -76,7 +76,7 @@ namespace Me.DerangedSenators.CopsAndRobbers
         {
             if (collision.gameObject.name.Equals("Player(Clone)") )
             {
-                //if(isLocalPlayer)
+                //if(IsLocalPlayer)
                 {
                     //coinText.gameObject.SetActive(false);
                     isPickUpAllowed = false;

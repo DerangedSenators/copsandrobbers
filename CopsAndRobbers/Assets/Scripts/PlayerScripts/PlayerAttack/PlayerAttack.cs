@@ -38,7 +38,7 @@ namespace Me.DerangedSenators.CopsAndRobbers
         // Update is called once per frame 
         void Update()
         {
-            if (isLocalPlayer)
+            if (IsLocalPlayer)
             {
                 switch (state)
                 {
@@ -68,15 +68,15 @@ namespace Me.DerangedSenators.CopsAndRobbers
             {
                 state = State.ATTACKING;
                 //perform attack animation here and set State.Normal 
-                CmdDoAttacking();
+                RpcDoAttacking();
 
             }
         }
         /// <summary>
         /// This method performs an attack rather than having HandleAttack complete it as the server does not have access to some resources that HandleAttack uses
         /// </summary>
-        [Command]
-        private void CmdDoAttacking()
+        [ServerRpc]
+        private void RpcDoAttacking()
         {
             Collider2D[] enemiesHit = Physics2D.OverlapCircleAll(attackPosition, attackOffset, enemyLayer);
             /**

@@ -20,7 +20,7 @@ namespace Me.DerangedSenators.CopsAndRobbers
 
         public override void OnStartLocalPlayer()
         {
-            if (isLocalPlayer)
+            if (IsLocalPlayer)
             {
                 mVirtualCamera.m_Follow = playerPrefab;
             }

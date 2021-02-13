@@ -24,7 +24,7 @@ namespace Me.DerangedSenators.CopsAndRobbers
         {
             ClientScene.RegisterPrefab(moneyBagPrefab);
             NetworkClient.RegisterHandler<ConnectMessage>(OnClientConnect);
-            NetworkClient.Connect("localhost");
+            NetworkClient.ConnectAsync("localhost");
         }
 
         void OnClientConnect(NetworkConnection nc, ConnectMessage cm)
