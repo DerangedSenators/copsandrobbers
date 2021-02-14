@@ -16,15 +16,10 @@ namespace Me.DerangedSenators.CopsAndRobbers
         private void Start()
         {
             mVirtualCamera = GetComponent<CinemachineVirtualCamera>();
-        }
-
-        public override void OnStartLocalPlayer()
-        {
             if (IsLocalPlayer)
             {
                 mVirtualCamera.m_Follow = playerPrefab;
             }
         }
-        
     }
 }
