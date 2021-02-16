@@ -19,13 +19,13 @@ namespace Me.DerangedSenators.CopsAndRobbers
             else
             {
                Debug.Log($"<color=yellow>=== Client Build Starting ===</color>");
-               networkManager.StartClient(); 
+               networkManager.SceneManager.Start(); 
             }
         }
         public void JoinLocal()
         {
-            networkManager.networkAddress = "localhost";
-            networkManager.StartClient();
+            networkManager.Client.ConnectAsync("localhost");
+            networkManager.SceneManager.Start();         
         }
     }
 }
