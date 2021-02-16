@@ -12,6 +12,7 @@ namespace Me.DerangedSenators.CopsAndRobbers
     /// </summary>
     public class CoinPickup : MonoBehaviour
     {
+    
         /// <summary>
         /// Variable responsable for the text 
         /// </summary>

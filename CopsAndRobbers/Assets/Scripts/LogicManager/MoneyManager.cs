@@ -12,6 +12,7 @@ namespace Me.DerangedSenators.CopsAndRobbers
         private static long moneyCount;
         private int copsMoney;
         private int robbersMoney;
+        private int teamID = 0; //cops = 1, robbers = 2
         //public NetworkIdentity myNID;
 
         /// <summary>
@@ -32,16 +33,21 @@ namespace Me.DerangedSenators.CopsAndRobbers
         //[Command] 
         public void CMDCollectMoney(int teamID)
         {
+            this.teamID = teamID;
             if (teamID == 1) 
             {
                 copsMoney += 100;
+                moneyText.text = "$" + copsMoney.ToString();
+                Debug.Log("Cops: copsMoney: " + copsMoney + ", robbersMoney: " + robbersMoney + ", Overall: " + moneyCount);
             }
-            else
+            else if (teamID == 2)
             {
                 robbersMoney += 100;
+                moneyText.text = "$" + robbersMoney.ToString();
+                Debug.Log("Robbers: copsMoney: " + copsMoney + ", robbersMoney: " + robbersMoney + ", Overall: " + moneyCount);
             }
             moneyCount += 100;
-            Debug.Log("copsMoney: " + copsMoney + ", robbersMoney: " + robbersMoney + ", Overall: " + moneyCount);
+            
         }
 
         /// <summary>
@@ -55,7 +61,19 @@ namespace Me.DerangedSenators.CopsAndRobbers
 
         private void Update()
         {
-            moneyText.text = "$" + moneyCount.ToString();
+            //moneyText.text = "$" + moneyCount.ToString();
+
+            if(teamID == 1)
+            {
+                //moneyText.text = "$" + copsMoney.ToString();
+                //Debug.Log("Displaying cops money");
+            }
+            
+            else if(teamID == 2)
+            {
+               // moneyText.text = "$" + robbersMoney.ToString();
+                //Debug.Log("Displaying robbers money");
+            }
         }
 
         /*
