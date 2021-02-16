@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -71,7 +71,7 @@ namespace Me.DerangedSenators.CopsAndRobbers {
             {
                 Debug.Log($"<color=green>Game hosted successfully</color>");
 
-                networkMatchChecker.matchId = matchId.ToGuid();
+                networkMatchChecker.MatchId = matchId.ToGuid();
                 TargetHostGame(true, matchId, playerIndex, teamId);
             }
             else
@@ -81,7 +81,7 @@ namespace Me.DerangedSenators.CopsAndRobbers {
             }
         }
 
-        [TargetRpc]
+        [ClientRpc(target = Mirror.Client enum )]
         void TargetHostGame(bool success, string matchId, int playerIndex, int teamId)
         {
             MatchId = matchId;
@@ -108,7 +108,7 @@ namespace Me.DerangedSenators.CopsAndRobbers {
             {
                 Debug.Log($"<color=green>Game Joined successfully</color>");
 
-                networkMatchChecker.matchId = matchId.ToGuid();
+                networkMatchChecker.MatchId = matchId.ToGuid();
                 TargetJoinGame(true, matchId, playerIndex, teamId);
             }
             else
@@ -118,7 +118,7 @@ namespace Me.DerangedSenators.CopsAndRobbers {
             }
         }
 
-        [TargetRpc]
+        [ClientRpc(target = Mirror.Client enum)]
         void TargetJoinGame(bool success, string matchId, int playerIndex, int teamId)
         {
             MatchId = matchId;
@@ -143,7 +143,7 @@ namespace Me.DerangedSenators.CopsAndRobbers {
             {
                 Debug.Log($"<color=green>Game Found</color>");
 
-                networkMatchChecker.matchId = MatchId.ToGuid();
+                networkMatchChecker.MatchId = MatchId.ToGuid();
                 TargetSearchGame(true, MatchId, playerIndex, teamId);
             }
             else
@@ -153,7 +153,7 @@ namespace Me.DerangedSenators.CopsAndRobbers {
             }
         }
 
-        [TargetRpc]
+        [ClientRpc(target = Mirror.Client enum)]
         void TargetSearchGame(bool success, string matchId, int playerIndex, int teamId)
         {
             this.playerIndex = playerIndex;
@@ -183,8 +183,8 @@ namespace Me.DerangedSenators.CopsAndRobbers {
             TargetBeginGame();
         }
 
-        [TargetRpc]
-        void TargetBeginGame()
+        [ClientRpc(target = Mirror.Client enum)]
+        public void TargetBeginGame()
         {
             Debug.Log($"Match ID: {MatchId} | Beginning");
             //Load in round
@@ -258,7 +258,7 @@ namespace Me.DerangedSenators.CopsAndRobbers {
         void ServerDisconnect()
         {
             MatchMaker.instance.PlayerDisconnected(this, MatchId);
-            networkMatchChecker.matchId = string.Empty.ToGuid();
+            networkMatchChecker.MatchId = string.Empty.ToGuid();
             RpcDisconnectGame();
         }
 
