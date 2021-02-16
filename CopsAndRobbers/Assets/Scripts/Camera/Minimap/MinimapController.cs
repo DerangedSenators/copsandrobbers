@@ -15,7 +15,7 @@ namespace Me.DerangedSenators.CopsAndRobbers
                 Vector3 newPosition = VirtualCameraSingleton.Instance.mVirtualCamera.Follow.position;
                 newPosition.z = -50;
                 minimapCamera.transform.position = newPosition;
-                Debug.Log($"The Position has been set to: {minimapCamera.transform.position.ToString()}");
+                //Debug.Log($"The Position has been set to: {minimapCamera.transform.position.ToString()}");
             }
             catch (Exception e)
             {

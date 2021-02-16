@@ -20,6 +20,7 @@ namespace Me.DerangedSenators.CopsAndRobbers
     
         private bool isPickUpAllowed;
 
+        //public GameObject moneyManagerGameObject;
         public MoneyManager moneyManager;
 
         private GameObject collidedPlayerObject;
@@ -44,6 +45,8 @@ namespace Me.DerangedSenators.CopsAndRobbers
             if (moneyManager == null) 
             {
                 moneyManager = FindObjectOfType<MoneyManager>().GetComponent<MoneyManager>();
+                //moneyManager = GetComponent<MoneyManager>();
+                //moneyManager = moneyManagerGameObject.GetComponent<MoneyManager>();
             }
 
             //checking if user is allowed to pick up the coin && if the user pressed "E"
@@ -66,7 +69,7 @@ namespace Me.DerangedSenators.CopsAndRobbers
                 //if (isLocalPlayer)
                 {
                     collision.gameObject.GetComponent<Player>().DestroyMoneyBag(gameObject);
-                    moneyManager.CollectMoney();
+                    moneyManager.CMDCollectMoney(collision.gameObject.GetComponent<Player>().GetTeamId());
                     //collidedPlayerObject = collision.gameObject;
                     //coinText.gameObject.SetActive(true);
                     isPickUpAllowed = true;

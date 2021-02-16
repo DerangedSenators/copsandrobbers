@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using Mirror;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -9,6 +10,9 @@ namespace Me.DerangedSenators.CopsAndRobbers
     {
         [SerializeField] Text moneyText;
         private static long moneyCount;
+        private int copsMoney;
+        private int robbersMoney;
+        //public NetworkIdentity myNID;
 
         /// <summary>
         /// treasury is 0 when starting the game.
@@ -17,15 +21,27 @@ namespace Me.DerangedSenators.CopsAndRobbers
         {
             //gameObject.SetActive(true);
             moneyCount = 0;
+            copsMoney = 0;
+            robbersMoney = 0;
             moneyText.text = "$" + moneyCount.ToString();
         }
 
         /// <summary>
         /// Adds $100 to treasury. 
         /// </summary>
-        public void CollectMoney()
+        //[Command] 
+        public void CMDCollectMoney(int teamID)
         {
+            if (teamID == 1) 
+            {
+                copsMoney += 100;
+            }
+            else
+            {
+                robbersMoney += 100;
+            }
             moneyCount += 100;
+            Debug.Log("copsMoney: " + copsMoney + ", robbersMoney: " + robbersMoney + ", Overall: " + moneyCount);
         }
 
         /// <summary>
