@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Mirror;
+using Mirage;
 
 namespace Me.DerangedSenators.CopsAndRobbers
 {

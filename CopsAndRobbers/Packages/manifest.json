@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "com.miragenet.mirage": "66.2.1",
     "com.unity.cinemachine": "2.7.1",
     "com.unity.collab-proxy": "1.2.16",
     "com.unity.ide.rider": "1.1.4",
@@ -39,8 +40,7 @@
     "com.unity.modules.video": "1.0.0",
     "com.unity.modules.vr": "1.0.0",
     "com.unity.modules.wind": "1.0.0",
-    "com.unity.modules.xr": "1.0.0",
-    "com.mirrorng.mirrorng": "63.5.0"
+    "com.unity.modules.xr": "1.0.0"
   },
   "scopedRegistries": [
     {
@@ -48,7 +48,7 @@
       "url": "https://package.openupm.com",
       "scopes": [
         "com.cysharp.unitask",
-        "com.mirrorng.mirrorng",
+        "com.miragenet",
         "com.openupm"
       ]
     }

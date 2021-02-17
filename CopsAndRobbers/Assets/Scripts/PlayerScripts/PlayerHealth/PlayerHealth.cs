@@ -1,6 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using Mirror;
+using Mirage;
 using UnityEngine;
 using UnityEngine.UI;
 

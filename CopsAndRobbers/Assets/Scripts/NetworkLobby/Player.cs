@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using Mirror;
+using Mirage;
 
 namespace Me.DerangedSenators.CopsAndRobbers {
     public class Player : NetworkClient

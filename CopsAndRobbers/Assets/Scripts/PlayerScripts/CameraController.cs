@@ -1,6 +1,6 @@
 ﻿using System;
 using Cinemachine;
-using Mirror;
+using Mirage;
 using UnityEngine;
 
 namespace Me.DerangedSenators.CopsAndRobbers

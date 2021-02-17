@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Mirror;
+using Mirage;
 using UnityEngine.SceneManagement;
 using UnityEngine;
 
@@ -14,6 +14,8 @@ namespace Me.DerangedSenators.CopsAndRobbers
     {
         public GameObject moneyBagPrefab;
 
+        public NetworkClient NetworkClient;
+        public NetworkServer NetworkServer;
         private void Start()
         {
             SpawnMoneyBags();

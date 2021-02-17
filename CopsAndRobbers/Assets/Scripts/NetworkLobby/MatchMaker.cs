@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Mirror;
+using Mirage;
 using System;
 using System.Security.Cryptography;
 using System.Text;

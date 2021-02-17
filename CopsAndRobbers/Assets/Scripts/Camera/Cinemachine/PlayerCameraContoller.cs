@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Linq;
 using Cinemachine;
-using Mirror;
+using Mirage;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
