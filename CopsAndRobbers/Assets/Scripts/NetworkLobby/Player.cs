@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -12,6 +12,7 @@ namespace Me.DerangedSenators.CopsAndRobbers {
         [SyncVar] public string MatchId;
         [SyncVar] public int playerIndex;
         [SyncVar] public int teamId;
+        public MoneyUpdater MoneyUpdater;
 
         NetworkMatchChecker networkMatchChecker;
 
@@ -206,6 +207,7 @@ namespace Me.DerangedSenators.CopsAndRobbers {
                     playerPrefabs[i].GetComponent<PlayerMovement>().enabled = true;
                     playerPrefabs[i].GetComponent<NetworkTransform>().enabled = true;
                     playerPrefabs[i].GetComponent<PlayerCameraContoller>().enabled = true;
+                    playerPrefabs[i].GetComponent<MoneyUpdater>().enabled = true;
                     localP = playerPrefabs[i];
                     localP.transform.GetChild(0).gameObject.SetActive(true);
                 }
@@ -221,7 +223,7 @@ namespace Me.DerangedSenators.CopsAndRobbers {
                     Debug.Log($"Robber Layer: {robberLayer}");
                     playerPrefabs[i].GetComponent<PlayerAttack>().enemyLayer = 1 << LayerMask.NameToLayer("Robbers");
                     Animator anim = playerPrefabs[i].GetComponent<Animator>();
-
+                    playerPrefabs[i].GetComponent<MoneyUpdater>().mTeam = Teams.COPS;
                     anim.runtimeAnimatorController = Resources.Load("Animations/CopAnimations/Player1") as RuntimeAnimatorController;
 
 
@@ -229,6 +231,7 @@ namespace Me.DerangedSenators.CopsAndRobbers {
                 else if (playerPrefabs[i].GetComponent<Player>().teamId == 2)//if team is robber
                 {
                     playerPrefabs[i].layer = 8;
+                    playerPrefabs[i].GetComponent<MoneyUpdater>().mTeam = Teams.ROBBERS;
                     playerPrefabs[i].GetComponent<PlayerAttack>().enemyLayer = 1 << LayerMask.NameToLayer("Cops");
                     Animator anim = playerPrefabs[i].GetComponent<Animator>();
 
