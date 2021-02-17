@@ -8,12 +8,16 @@ namespace Me.DerangedSenators.CopsAndRobbers
 {
     public class MoneyManager : MonoBehaviour
     {
-        [SerializeField] Text moneyText;
+        //[SerializeField] Text moneyText;
         private static long moneyCount;
         private int copsMoney;
         private int robbersMoney;
         private int teamID = 0; //cops = 1, robbers = 2
         //public NetworkIdentity myNID;
+        private RobbersMoneyUpdater _robbersMoneyUpdater;
+        private CopsMoneyUpdater _copsMoneyUpdater;
+        
+        private bool firstOneDone = false;
 
         /// <summary>
         /// treasury is 0 when starting the game.
@@ -21,10 +25,10 @@ namespace Me.DerangedSenators.CopsAndRobbers
         void Start()
         {
             //gameObject.SetActive(true);
-            moneyCount = 0;
-            copsMoney = 0;
-            robbersMoney = 0;
-            moneyText.text = "$" + moneyCount.ToString();
+            //moneyCount = 0;
+            //copsMoney = 0;
+            //robbersMoney = 0;
+            //moneyText.text = "$" + moneyCount.ToString();
         }
 
         /// <summary>
@@ -34,20 +38,36 @@ namespace Me.DerangedSenators.CopsAndRobbers
         public void CMDCollectMoney(int teamID)
         {
             this.teamID = teamID;
-            if (teamID == 1) 
+            if (!firstOneDone)
             {
-                copsMoney += 100;
-                moneyText.text = "$" + copsMoney.ToString();
-                Debug.Log("Cops: copsMoney: " + copsMoney + ", robbersMoney: " + robbersMoney + ", Overall: " + moneyCount);
+                if (teamID == 1)
+                {
+                    //copsMoney += 100;
+                    //moneyText.text = "$" + copsMoney.ToString();
+                    //_copsMoneyUpdater = new CopsMoneyUpdater();
+                    gameObject.AddComponent<CopsMoneyUpdater>();
+                    _copsMoneyUpdater = GetComponent<CopsMoneyUpdater>();
+                }
+                else if (teamID == 2)
+                {
+                    //robbersMoney += 100;
+                    //money.text = "$" + robbersMoney.ToString();
+                    gameObject.AddComponent<RobbersMoneyUpdater>();
+                    _robbersMoneyUpdater = GetComponent<RobbersMoneyUpdater>();
+                }
+
+                firstOneDone = true;
+            }
+
+            if (teamID == 1)
+            {
+                _copsMoneyUpdater.AddMoney(100);
             }
             else if (teamID == 2)
             {
-                robbersMoney += 100;
-                moneyText.text = "$" + robbersMoney.ToString();
-                Debug.Log("Robbers: copsMoney: " + copsMoney + ", robbersMoney: " + robbersMoney + ", Overall: " + moneyCount);
+                _robbersMoneyUpdater.AddMoney(100);
             }
-            moneyCount += 100;
-            
+            //moneyCount += 100;
         }
 
         /// <summary>
