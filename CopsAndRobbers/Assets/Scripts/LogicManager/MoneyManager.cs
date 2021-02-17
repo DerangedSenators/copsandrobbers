@@ -7,6 +7,11 @@ using UnityEngine.UI;
 
 namespace Me.DerangedSenators.CopsAndRobbers
 {
+    /// <summary>
+    /// This Class is designed to manage money between each team and also tracks the overall amount of money collected
+    /// </summary>
+    /// <author> Hanzalah Ravat </author>
+    /// <author> Nisath Mohammed </author>
     public class MoneyManager : MonoBehaviour
     {
         //[SerializeField] Text moneyText;

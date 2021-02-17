@@ -7,6 +7,7 @@ namespace Me.DerangedSenators.CopsAndRobbers
     /// <summary>
     /// Class used by player types to trigger MoneyDisplayUI to update
     /// </summary>
+    /// <author> Hanzalah Ravat </author>
     public class MoneyUpdater : NetworkBehaviour
     {
         public Teams mTeam;
