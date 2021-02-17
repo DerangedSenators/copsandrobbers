@@ -67,14 +67,11 @@ namespace Me.DerangedSenators.CopsAndRobbers
             if(collision.gameObject.name.Equals("Player(Clone)") ) 
             {
                 Debug.Log("collided");
-                //if (isLocalPlayer)
-                {
-                    collision.gameObject.GetComponent<Player>().DestroyMoneyBag(gameObject);
-                    moneyManager.CMDCollectMoney(collision.gameObject.GetComponent<Player>().GetTeamId());
+                collision.gameObject.GetComponent<Player>().DestroyMoneyBag(gameObject);
+                moneyManager.CMDCollectMoney(collision.gameObject.GetComponent<Player>().GetTeamId());
                     //collidedPlayerObject = collision.gameObject;
                     //coinText.gameObject.SetActive(true);
-                    isPickUpAllowed = true;
-                }
+                isPickUpAllowed = true;
             }
         }
 
