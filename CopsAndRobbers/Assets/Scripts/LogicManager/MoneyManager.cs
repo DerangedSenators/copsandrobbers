@@ -1,4 +1,5 @@
-﻿using Mirror;
+﻿using System;
+using Mirror;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -9,26 +10,34 @@ namespace Me.DerangedSenators.CopsAndRobbers
     public class MoneyManager : MonoBehaviour
     {
         //[SerializeField] Text moneyText;
+        public static readonly int IncrementValue = 100;
         private static long moneyCount;
-        private int copsMoney;
-        private int robbersMoney;
-        private int teamID = 0; //cops = 1, robbers = 2
-        //public NetworkIdentity myNID;
-        private RobbersMoneyUpdater _robbersMoneyUpdater;
-        private CopsMoneyUpdater _copsMoneyUpdater;
-        
-        private bool firstOneDone = false;
+        private static TeamMoneyCount copsMoneyCount;
+        private static TeamMoneyCount robberMoneyCount;
+        public static TeamMoneyCount CopsMoneyCount => copsMoneyCount;
+        public static TeamMoneyCount RobberMoneyCount => robberMoneyCount;
+
 
         /// <summary>
-        /// treasury is 0 when starting the game.
+        /// Struct to hold team and money value
         /// </summary>
-        void Start()
+        public struct TeamMoneyCount
         {
-            //gameObject.SetActive(true);
-            //moneyCount = 0;
-            //copsMoney = 0;
-            //robbersMoney = 0;
-            //moneyText.text = "$" + moneyCount.ToString();
+            private Teams team;
+            public int money;
+
+            public TeamMoneyCount(Teams team)
+            {
+                this.team = team;
+                money = 0;
+            }
+        }
+
+        private void Awake()
+        {
+            Debug.Log("Money Manager is Awake!");
+            copsMoneyCount = new TeamMoneyCount(Teams.COPS);
+            robberMoneyCount = new TeamMoneyCount(Teams.ROBBERS);
         }
 
         /// <summary>
@@ -37,37 +46,19 @@ namespace Me.DerangedSenators.CopsAndRobbers
         //[Command] 
         public void CMDCollectMoney(int teamID)
         {
-            this.teamID = teamID;
-            if (!firstOneDone)
+            Debug.Log($"CMDCollectMoney has been invoked by {teamID}");
+            Teams updateTeam = (Teams) teamID;
+            switch (updateTeam)
             {
-                if (teamID == 1)
-                {
-                    //copsMoney += 100;
-                    //moneyText.text = "$" + copsMoney.ToString();
-                    //_copsMoneyUpdater = new CopsMoneyUpdater();
-                    gameObject.AddComponent<CopsMoneyUpdater>();
-                    _copsMoneyUpdater = GetComponent<CopsMoneyUpdater>();
-                }
-                else if (teamID == 2)
-                {
-                    //robbersMoney += 100;
-                    //money.text = "$" + robbersMoney.ToString();
-                    gameObject.AddComponent<RobbersMoneyUpdater>();
-                    _robbersMoneyUpdater = GetComponent<RobbersMoneyUpdater>();
-                }
-
-                firstOneDone = true;
+                case Teams.COPS:
+                    Debug.Log($"Increasing Cop Money");
+                    copsMoneyCount.money += IncrementValue;
+                    break;
+                case Teams.ROBBERS:
+                    Debug.Log($"Increasing Robber Money");
+                    robberMoneyCount.money += IncrementValue;
+                    break;
             }
-
-            if (teamID == 1)
-            {
-                _copsMoneyUpdater.AddMoney(100);
-            }
-            else if (teamID == 2)
-            {
-                _robbersMoneyUpdater.AddMoney(100);
-            }
-            //moneyCount += 100;
         }
 
         /// <summary>
@@ -78,24 +69,6 @@ namespace Me.DerangedSenators.CopsAndRobbers
         {
             return moneyCount;
         }
-
-        private void Update()
-        {
-            //moneyText.text = "$" + moneyCount.ToString();
-
-            if(teamID == 1)
-            {
-                //moneyText.text = "$" + copsMoney.ToString();
-                //Debug.Log("Displaying cops money");
-            }
-            
-            else if(teamID == 2)
-            {
-               // moneyText.text = "$" + robbersMoney.ToString();
-                //Debug.Log("Displaying robbers money");
-            }
-        }
-
         /*
         void Awake()
         {
