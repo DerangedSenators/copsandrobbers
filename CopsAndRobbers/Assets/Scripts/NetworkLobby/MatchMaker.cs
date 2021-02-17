@@ -125,8 +125,8 @@ namespace Me.DerangedSenators.CopsAndRobbers
         public void BeginGame(string matchId)
         {
             GameObject newTurnManager = Instantiate(turnManagerPrefab);
-            NetworkServer.Spawn(newTurnManager); //spawn turn manager on all clients
-            newTurnManager.GetComponent<NetworkMatchChecker>().matchId =  matchId.ToGuid();
+            NetworkServer.Instantiate(newTurnManager); //spawn turn manager on all clients
+            newTurnManager.GetComponent<NetworkMatchChecker>().MatchId =  matchId.ToGuid();
             TurnManager turnManager = newTurnManager.GetComponent<TurnManager>();
 
             for (int i = 0; i < matches.Count; i++)

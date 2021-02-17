@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 using Mirror;
 
 namespace Me.DerangedSenators.CopsAndRobbers {
-    public class Player : NetworkBehaviour
+    public class Player : NetworkClient
     {
 
         public static Player localPlayer;
@@ -26,9 +26,9 @@ namespace Me.DerangedSenators.CopsAndRobbers {
 
         }
 
-        public override void OnStartClient()
+        public void OnStartClient()
         {
-            if (IsLocalPlayer)
+            if (IsLocalClient)
             {
                 localPlayer = this;
             }
@@ -39,13 +39,13 @@ namespace Me.DerangedSenators.CopsAndRobbers {
             }
         }
 
-        public override void OnStopClient()
+        public void OnStopClient()
         {
             Debug.Log($"Client stopped");
             ClientDisconnect();
         }
 
-        public override void OnStopServer()
+        public void OnStopServer()
         {
             Debug.Log($"Client stopped on server");
             ServerDisconnect();
@@ -81,7 +81,7 @@ namespace Me.DerangedSenators.CopsAndRobbers {
             }
         }
 
-        [ClientRpc(target = Mirror.Client enum )]
+        [ClientRpc(target = Mirror.Client.Connection)]
         void TargetHostGame(bool success, string matchId, int playerIndex, int teamId)
         {
             MatchId = matchId;
@@ -118,7 +118,7 @@ namespace Me.DerangedSenators.CopsAndRobbers {
             }
         }
 
-        [ClientRpc(target = Mirror.Client enum)]
+        [ClientRpc(target = Mirror.Client.Connection)]
         void TargetJoinGame(bool success, string matchId, int playerIndex, int teamId)
         {
             MatchId = matchId;
@@ -153,7 +153,7 @@ namespace Me.DerangedSenators.CopsAndRobbers {
             }
         }
 
-        [ClientRpc(target = Mirror.Client enum)]
+        [ClientRpc(target = Mirror.Client.Connection)]
         void TargetSearchGame(bool success, string matchId, int playerIndex, int teamId)
         {
             this.playerIndex = playerIndex;
@@ -183,7 +183,7 @@ namespace Me.DerangedSenators.CopsAndRobbers {
             TargetBeginGame();
         }
 
-        [ClientRpc(target = Mirror.Client enum)]
+        [ClientRpc(target = Mirror.Client.Connection)]
         public void TargetBeginGame()
         {
             Debug.Log($"Match ID: {MatchId} | Beginning");
