@@ -50,11 +50,11 @@ namespace Me.DerangedSenators.CopsAndRobbers
             Teams updateTeam = (Teams) teamID;
             switch (updateTeam)
             {
-                case Teams.COPS:
+                case Teams.ROBBERS:
                     Debug.Log($"Increasing Cop Money");
                     copsMoneyCount.money += IncrementValue;
                     break;
-                case Teams.ROBBERS:
+                case Teams.COPS:
                     Debug.Log($"Increasing Robber Money");
                     robberMoneyCount.money += IncrementValue;
                     break;
