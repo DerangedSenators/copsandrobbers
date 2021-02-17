@@ -81,7 +81,7 @@ namespace Me.DerangedSenators.CopsAndRobbers {
             }
         }
 
-        [ClientRpc(target = Mirror.Client.Connection)]
+        [ClientRpc(target = Mirror.Client.Owner)]
         void TargetHostGame(bool success, string matchId, int playerIndex, int teamId)
         {
             MatchId = matchId;
@@ -118,7 +118,7 @@ namespace Me.DerangedSenators.CopsAndRobbers {
             }
         }
 
-        [ClientRpc(target = Mirror.Client.Connection)]
+        [ClientRpc(target = Mirror.Client.Owner)]
         void TargetJoinGame(bool success, string matchId, int playerIndex, int teamId)
         {
             MatchId = matchId;
@@ -153,7 +153,7 @@ namespace Me.DerangedSenators.CopsAndRobbers {
             }
         }
 
-        [ClientRpc(target = Mirror.Client.Connection)]
+        [ClientRpc(target = Mirror.Client.Owner)]
         void TargetSearchGame(bool success, string matchId, int playerIndex, int teamId)
         {
             this.playerIndex = playerIndex;
@@ -183,7 +183,7 @@ namespace Me.DerangedSenators.CopsAndRobbers {
             TargetBeginGame();
         }
 
-        [ClientRpc(target = Mirror.Client.Connection)]
+        [ClientRpc(target = Mirror.Client.Owner)]
         public void TargetBeginGame()
         {
             Debug.Log($"Match ID: {MatchId} | Beginning");
