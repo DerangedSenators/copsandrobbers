@@ -345,6 +345,7 @@ GameObject:
   - component: {fileID: 6286960928799873138}
   - component: {fileID: 4320991763438738490}
   - component: {fileID: -6012107923665898761}
+  - component: {fileID: 8195048679506587132}
   m_Layer: 9
   m_Name: Player
   m_TagString: Player
@@ -477,6 +478,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 07400fd58b2ac914db150e2b8b594d65, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncMode: 0
+  syncInterval: 0.1
   maxHealth: 100
   currentHealth: 100
   healthBar: {fileID: 7556691739249922118}
@@ -601,6 +604,7 @@ MonoBehaviour:
   MatchId: 
   playerIndex: 0
   teamId: 0
+  MoneyUpdater: {fileID: 8195048679506587132}
   currentMatch:
     matchId: 
     publicMatch: 0
@@ -621,6 +625,21 @@ MonoBehaviour:
   syncMode: 0
   syncInterval: 0.1
   playerTransform: {fileID: 7821628412348684257}
+--- !u!114 &8195048679506587132
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3945214744724447283}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 22b556a43be34e289d772e03c9add34e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncMode: 0
+  syncInterval: 0.1
+  mTeam: 1
 --- !u!1 &4061796398072672129
 GameObject:
   m_ObjectHideFlags: 0

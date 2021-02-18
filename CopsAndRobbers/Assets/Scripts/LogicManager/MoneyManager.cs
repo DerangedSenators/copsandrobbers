@@ -1,4 +1,5 @@
-﻿using Mirror;
+﻿using System;
+using Mirror;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,27 +7,63 @@ using UnityEngine.UI;
 
 namespace Me.DerangedSenators.CopsAndRobbers
 {
-    public class MoneyManager : NetworkBehaviour
+    /// <summary>
+    /// This Class is designed to manage money between each team and also tracks the overall amount of money collected
+    /// </summary>
+    /// <author> Hanzalah Ravat </author>
+    /// <author> Nisath Mohammed </author>
+    public class MoneyManager : MonoBehaviour
     {
-        [SerializeField] Text moneyText;
+        //[SerializeField] Text moneyText;
+        public static readonly int IncrementValue = 100;
         private static long moneyCount;
+        private static TeamMoneyCount copsMoneyCount;
+        private static TeamMoneyCount robberMoneyCount;
+        public static TeamMoneyCount CopsMoneyCount => copsMoneyCount;
+        public static TeamMoneyCount RobberMoneyCount => robberMoneyCount;
+
 
         /// <summary>
-        /// treasury is 0 when starting the game.
+        /// Struct to hold team and money value
         /// </summary>
-        void Start()
+        public struct TeamMoneyCount
         {
-            //gameObject.SetActive(true);
-            moneyCount = 0;
-            moneyText.text = "$" + moneyCount.ToString();
+            private Teams team;
+            public int money;
+
+            public TeamMoneyCount(Teams team)
+            {
+                this.team = team;
+                money = 0;
+            }
+        }
+
+        private void Awake()
+        {
+            Debug.Log("Money Manager is Awake!");
+            copsMoneyCount = new TeamMoneyCount(Teams.COPS);
+            robberMoneyCount = new TeamMoneyCount(Teams.ROBBERS);
         }
 
         /// <summary>
         /// Adds $100 to treasury. 
         /// </summary>
-        public void CollectMoney()
+        //[Command] 
+        public void CMDCollectMoney(int teamID)
         {
-            moneyCount += 100;
+            Debug.Log($"CMDCollectMoney has been invoked by {teamID}");
+            Teams updateTeam = (Teams) teamID;
+            switch (updateTeam)
+            {
+                case Teams.ROBBERS:
+                    Debug.Log($"Increasing Cop Money");
+                    copsMoneyCount.money += IncrementValue;
+                    break;
+                case Teams.COPS:
+                    Debug.Log($"Increasing Robber Money");
+                    robberMoneyCount.money += IncrementValue;
+                    break;
+            }
         }
 
         /// <summary>
@@ -37,12 +74,6 @@ namespace Me.DerangedSenators.CopsAndRobbers
         {
             return moneyCount;
         }
-
-        private void Update()
-        {
-            moneyText.text = "$" + moneyCount.ToString();
-        }
-        
         /*
         void Awake()
         {
@@ -62,6 +93,5 @@ namespace Me.DerangedSenators.CopsAndRobbers
             }
         }
         */
-
     }
 }

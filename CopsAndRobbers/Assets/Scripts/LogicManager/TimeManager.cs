@@ -9,7 +9,7 @@ namespace Me.DerangedSenators.CopsAndRobbers
     public class TimeManager : MonoBehaviour
     {
         private float currentTime = 0f;
-        private float startingTime = 60f;
+        private float startingTime = 60f*10;
 
         [SerializeField] Text countdownText;
 
