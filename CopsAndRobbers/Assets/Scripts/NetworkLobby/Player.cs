@@ -35,20 +35,20 @@ namespace Me.DerangedSenators.CopsAndRobbers {
             }
             else
             {
-                Debug.Log($"Spawning other player UI");
+                //*Debug.Log($"Spawning other player UI");
                 playerLobbyUI = UILobby.instance.SpawnUIPlayerPrefab(this);
             }
         }
 
         public override void OnStopClient()
         {
-            Debug.Log($"Client stopped");
+            //*Debug.Log($"Client stopped");
             ClientDisconnect();
         }
 
         public override void OnStopServer()
         {
-            Debug.Log($"Client stopped on server");
+            //*Debug.Log($"Client stopped on server");
             ServerDisconnect();
         }
 
@@ -70,14 +70,14 @@ namespace Me.DerangedSenators.CopsAndRobbers {
             MatchId = matchId;
             if (MatchMaker.instance.HostGame(matchId, gameObject, publicMatch, out playerIndex, out teamId))
             {
-                Debug.Log($"<color=green>Game hosted successfully</color>");
+                //*Debug.Log($"<color=green>Game hosted successfully</color>");
 
                 networkMatchChecker.matchId = matchId.ToGuid();
                 TargetHostGame(true, matchId, playerIndex, teamId);
             }
             else
             {
-                Debug.Log($"<color=red>Game host failed</color>");
+                //*Debug.Log($"<color=red>Game host failed</color>");
                 TargetHostGame(false, matchId, playerIndex, teamId);
             }
         }
@@ -88,7 +88,7 @@ namespace Me.DerangedSenators.CopsAndRobbers {
             MatchId = matchId;
             this.playerIndex = playerIndex;
             this.teamId = teamId;
-            Debug.Log($"Match ID: {MatchId} == {matchId}");
+            //*Debug.Log($"Match ID: {MatchId} == {matchId}");
             UILobby.instance.HostSuccess(success, matchId);
         }
 
@@ -107,14 +107,14 @@ namespace Me.DerangedSenators.CopsAndRobbers {
             MatchId = matchId;
             if (MatchMaker.instance.JoinGame(matchId, gameObject, out playerIndex, out teamId))
             {
-                Debug.Log($"<color=green>Game Joined successfully</color>");
+                //*Debug.Log($"<color=green>Game Joined successfully</color>");
 
                 networkMatchChecker.matchId = matchId.ToGuid();
                 TargetJoinGame(true, matchId, playerIndex, teamId);
             }
             else
             {
-                Debug.Log($"<color=red>Game Join failed</color>");
+                //*Debug.Log($"<color=red>Game Join failed</color>");
                 TargetJoinGame(false, matchId, playerIndex, teamId);
             }
         }
@@ -125,7 +125,7 @@ namespace Me.DerangedSenators.CopsAndRobbers {
             MatchId = matchId;
             this.playerIndex = playerIndex;
             this.teamId = teamId;
-            Debug.Log($"Match ID: {MatchId} == {matchId}");
+            //*Debug.Log($"Match ID: {MatchId} == {matchId}");
             UILobby.instance.JoinSuccess(success, matchId);
         }
 
@@ -142,14 +142,14 @@ namespace Me.DerangedSenators.CopsAndRobbers {
         {
             if (MatchMaker.instance.SearchGame(gameObject, out playerIndex, out MatchId, out teamId))
             {
-                Debug.Log($"<color=green>Game Found</color>");
+                //*Debug.Log($"<color=green>Game Found</color>");
 
                 networkMatchChecker.matchId = MatchId.ToGuid();
                 TargetSearchGame(true, MatchId, playerIndex, teamId);
             }
             else
             {
-                Debug.Log($"<color=red>Game not Found</color>");
+                //*Debug.Log($"<color=red>Game not Found</color>");
                 TargetSearchGame(false, MatchId, playerIndex, teamId);
             }
         }
@@ -160,7 +160,7 @@ namespace Me.DerangedSenators.CopsAndRobbers {
             this.playerIndex = playerIndex;
             MatchId = matchId;
             this.teamId = teamId;
-            Debug.Log($"Match ID: {MatchId} == {matchId}");
+            //*Debug.Log($"Match ID: {MatchId} == {matchId}");
             UILobby.instance.SearchSuccess(success, matchId);
         }
 
@@ -176,7 +176,7 @@ namespace Me.DerangedSenators.CopsAndRobbers {
         void CmdBeginGame()
         {
             MatchMaker.instance.BeginGame(MatchId);
-            Debug.Log($"<color=yellow>Game Beginning</color>");
+            //*Debug.Log($"<color=yellow>Game Beginning</color>");
         }
 
         public void StartGame()
@@ -187,13 +187,13 @@ namespace Me.DerangedSenators.CopsAndRobbers {
         [TargetRpc]
         void TargetBeginGame()
         {
-            Debug.Log($"Match ID: {MatchId} | Beginning");
+            //*Debug.Log($"Match ID: {MatchId} | Beginning");
             //Load in round
             //SceneManager.LoadScene(3, LoadSceneMode.Additive);
             GameObject[] playerPrefabs = GameObject.FindGameObjectsWithTag("Player");
             GameObject localP;
             int copLayer = LayerMask.NameToLayer("Cops");
-            Debug.Log($"Cop Layer: {copLayer}");
+            //*Debug.Log($"Cop Layer: {copLayer}");
             
             for (int i = 0; i < playerPrefabs.Length; i++)
             {
@@ -220,7 +220,7 @@ namespace Me.DerangedSenators.CopsAndRobbers {
                 {
                     playerPrefabs[i].layer = 9;
                     string robberLayer = LayerMask.LayerToName(8);
-                    Debug.Log($"Robber Layer: {robberLayer}");
+                    //*Debug.Log($"Robber Layer: {robberLayer}");
                     playerPrefabs[i].GetComponent<PlayerAttack>().enemyLayer = 1 << LayerMask.NameToLayer("Robbers");
                     Animator anim = playerPrefabs[i].GetComponent<Animator>();
                     playerPrefabs[i].GetComponent<MoneyUpdater>().mTeam = Teams.COPS;
@@ -288,7 +288,7 @@ namespace Me.DerangedSenators.CopsAndRobbers {
 
         //[Command]
         public void DestroyMoneyBag(GameObject mb) {
-            Debug.Log("attempting to destroy game object on network");
+            //*Debug.Log("attempting to destroy game object on network");
             NetworkManager.Destroy(mb);
             //NetworkServer.Destroy(mb);
             //Destroy(mb);

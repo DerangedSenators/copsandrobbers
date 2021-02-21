@@ -11,8 +11,10 @@ namespace Me.DerangedSenators.CopsAndRobbers
     /// </summary>
     public class MoneyDisplay : MonoBehaviour
     {
-        [SerializeField] Text moneyText;
-
+        [SerializeField] Text copsMoneyText;
+        [SerializeField] Text robbersMoneyText;
+        
+        
         private static MoneyDisplay _instance;
 
         public static MoneyDisplay Instance() => _instance;
@@ -21,19 +23,19 @@ namespace Me.DerangedSenators.CopsAndRobbers
         {
             if (_instance != null && _instance != this)
             {
-                Debug.Log($"Destroying instance");
+                //*Debug.Log($"Destroying instance");
                 Destroy(this.gameObject);
             }
             else
             {
-                Debug.Log($"Setting instance");
+                //*Debug.Log($"Setting instance");
                 _instance = this;
             }
         }
         
         public void UpdateView(int moneyCount)
         {
-            moneyText.text = "$" + moneyCount.ToString();
+            copsMoneyText.text = "$" + moneyCount.ToString();
         }
     }
 } 

@@ -49,7 +49,7 @@ namespace Me.DerangedSenators.CopsAndRobbers
             lobbySelectables.ForEach(x => x.interactable = false);
 
             Player.localPlayer.HostGame(true);
-            Debug.Log($"Player hosting a public game");
+            //*Debug.Log($"Player hosting a public game");
         }
 
         public void HostSuccess(bool success, string matchId)
@@ -122,7 +122,7 @@ namespace Me.DerangedSenators.CopsAndRobbers
 
         public void SearchGame()
         {
-            Debug.Log($"Searching for game");
+            //*Debug.Log($"Searching for game");
             searchCanvas.enabled = true;
             StartCoroutine(SearchingForGame());
         }

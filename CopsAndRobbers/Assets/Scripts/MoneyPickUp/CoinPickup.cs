@@ -66,7 +66,7 @@ namespace Me.DerangedSenators.CopsAndRobbers
         {
             if(collision.gameObject.name.Equals("Player(Clone)") ) 
             {
-                Debug.Log("collided");
+                //*Debug.Log("collided");
                 collision.gameObject.GetComponent<Player>().DestroyMoneyBag(gameObject);
                 moneyManager.CMDCollectMoney(collision.gameObject.GetComponent<Player>().GetTeamId());
                     //collidedPlayerObject = collision.gameObject;
@@ -103,7 +103,7 @@ namespace Me.DerangedSenators.CopsAndRobbers
                 //moneyManager.CollectMoney();
             }
             else {
-                Debug.Log("the collided player object is null");
+                //*Debug.Log("the collided player object is null");
             }
             
         }
