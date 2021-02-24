@@ -11,15 +11,8 @@ namespace Me.DerangedSenators.CopsAndRobbers
     public class MoneyUpdater : NetworkBehaviour
     {
         public Teams mTeam;
-
-        public void Start()
-        {
-            if (isLocalPlayer)
-            {
-                //*Debug.Log($"This is a local player and the team is {mTeam}");
-            }
-        }
         
+        /*
         private void Update()
         {
             try
@@ -42,12 +35,11 @@ namespace Me.DerangedSenators.CopsAndRobbers
                 }
 
                 MoneyDisplay.Instance().UpdateView(money);
-                
             }
             catch (NullReferenceException exception)
             {
                 // Do NOTHING;
             }
-        }
+        }*/
     }
 }

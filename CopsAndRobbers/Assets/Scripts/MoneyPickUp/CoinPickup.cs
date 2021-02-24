@@ -10,23 +10,16 @@ namespace Me.DerangedSenators.CopsAndRobbers
     /// <summary>
     /// Script for handling Coin Pickup Events
     /// </summary>
+    /// <author> Hanzalah Ravat </author>
+    /// <author> Nisath Mohamed Nasar </author>
+    /// <author> Piotr Krawiec</author>
     public class CoinPickup : MonoBehaviour
     {
-    
-        /// <summary>
-        /// Variable responsable for the text 
-        /// </summary>
-        [SerializeField]
-        private Text coinText;
-    
-        private bool isPickUpAllowed;
-
         //public GameObject moneyManagerGameObject;
         public MoneyManager moneyManager;
 
         private GameObject collidedPlayerObject;
-
-        //public Money money;
+        
 
         /// <summary>
         /// Start is called before the first frame update
@@ -49,12 +42,6 @@ namespace Me.DerangedSenators.CopsAndRobbers
                 //moneyManager = GetComponent<MoneyManager>();
                 //moneyManager = moneyManagerGameObject.GetComponent<MoneyManager>();
             }
-
-            //checking if user is allowed to pick up the coin && if the user pressed "E"
-            if (isPickUpAllowed && Input.GetKeyDown(KeyCode.E) )
-            {
-                PickUp();
-            }
         }
 
         /// <summary>
@@ -66,47 +53,11 @@ namespace Me.DerangedSenators.CopsAndRobbers
         {
             if(collision.gameObject.name.Equals("Player(Clone)") ) 
             {
-                //*Debug.Log("collided");
                 collision.gameObject.GetComponent<Player>().DestroyMoneyBag(gameObject);
                 moneyManager.CMDCollectMoney(collision.gameObject.GetComponent<Player>().GetTeamId());
-                    //collidedPlayerObject = collision.gameObject;
-                    //coinText.gameObject.SetActive(true);
-                isPickUpAllowed = true;
             }
         }
-
-        /// <summary>
-        /// In this function we are doing the reverse of the pervious one
-        /// </summary>
-        /// <param name="collision">The collision component of the object that is colliding with this object?</param>
-        private void OnTriggerExit2D(Collider2D collision)
-        {
-            if (collision.gameObject.name.Equals("Player(Clone)") )
-            {
-                //if(isLocalPlayer)
-                {
-                    //coinText.gameObject.SetActive(false);
-                    isPickUpAllowed = false;
-                }
-            }
-        }
-
-        /// <summary>
-        /// This fucntion removes the object when it is picked up
-        /// </summary>
-        private void PickUp()
-        {
-            //Destroy(gameObject
-            if (collidedPlayerObject != null)
-            {
-                //collidedPlayerObject.GetComponent<Player>().DestroyMoneyBag(gameObject);
-                //moneyManager.CollectMoney();
-            }
-            else {
-                //*Debug.Log("the collided player object is null");
-            }
-            
-        }
+        
     }
 
 }

@@ -12,6 +12,8 @@ namespace Me.DerangedSenators.CopsAndRobbers
     /// </summary>
     /// <author> Hanzalah Ravat </author>
     /// <author> Nisath Mohamed Nasar </author>
+    /// <author> Piotr Krawiec</author>
+    /// <author> Naim Ahmed </author>
     public class MoneyManager : MonoBehaviour
     {
         //[SerializeField] Text moneyText;
@@ -49,7 +51,7 @@ namespace Me.DerangedSenators.CopsAndRobbers
         /// Adds $100 to treasury. 
         /// </summary>
         //[Command]
-        public void CmdCollectMoney(int teamID)
+        public void CMDCollectMoney(int teamID)
         {
             //*Debug.Log($"CMDCollectMoney has been invoked by {teamID}");
             Teams updateTeam = (Teams) teamID;
@@ -58,12 +60,14 @@ namespace Me.DerangedSenators.CopsAndRobbers
             {
                 case Teams.ROBBERS:
                     copsMoneyCount.money += IncrementValue;
-                    //*Debug.Log($"Increased Cop Money {copsMoneyCount.money}");
+                    Debug.Log($"Increased Robbers Money {copsMoneyCount.money}");
+                    MoneyDisplay.Instance().UpdateCopsView(copsMoneyCount.money);
                     break;
                 case Teams.COPS:
                     
                     robberMoneyCount.money += IncrementValue;
-                    //*Debug.Log($"Increased Robber Money {robberMoneyCount.money}");
+                    Debug.Log($"Increased Cops Money {robberMoneyCount.money}");
+                    MoneyDisplay.Instance().UpdateRobbersView(robberMoneyCount.money);
                     break;
             }
         }
@@ -76,24 +80,5 @@ namespace Me.DerangedSenators.CopsAndRobbers
         {
             return moneyCount;
         }
-        /*
-        void Awake()
-        {
-            gameObject.SetActive(true);
-            MakeSingleton();
-        }
-
-        private void MakeSingleton()
-        {
-            if (this != null)
-            {
-                Destroy(gameObject);
-            }
-            else
-            {
-                DontDestroyOnLoad(gameObject);
-            }
-        }
-        */
     }
 }

@@ -5,9 +5,13 @@ using UnityEngine.SceneManagement;
 using Mirror;
 
 namespace Me.DerangedSenators.CopsAndRobbers {
+    
+    /// <author> Hannah Elliman </author>
+    /// <author> Ashwin Jaimal </author>
+    /// <author> Nisath Mohamed Nasar </author>
+    /// <author> Piotr Krawiec </author>
     public class Player : NetworkBehaviour
     {
-
         public static Player localPlayer;
         [SyncVar] public string MatchId;
         [SyncVar] public int playerIndex;

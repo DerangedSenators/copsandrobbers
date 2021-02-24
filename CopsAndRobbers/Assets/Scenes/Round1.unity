@@ -976,7 +976,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   minimapCamera: {fileID: 476892044}
---- !u!1 &497120934
+--- !u!1 &477084064
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -984,9 +984,9 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 497120935}
-  - component: {fileID: 497120937}
-  - component: {fileID: 497120936}
+  - component: {fileID: 477084065}
+  - component: {fileID: 477084067}
+  - component: {fileID: 477084066}
   m_Layer: 5
   m_Name: RobbersMoneyText
   m_TagString: Untagged
@@ -994,13 +994,13 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!224 &497120935
+--- !u!224 &477084065
 RectTransform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 497120934}
+  m_GameObject: {fileID: 477084064}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
@@ -1010,16 +1010,16 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 57.79001, y: -71.266}
+  m_AnchoredPosition: {x: 57.79001, y: -43.65}
   m_SizeDelta: {x: 73.996994, y: 27.61613}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &497120936
+--- !u!114 &477084066
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 497120934}
+  m_GameObject: {fileID: 477084064}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
@@ -1045,14 +1045,14 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: $0
---- !u!222 &497120937
+  m_Text: C$0
+--- !u!222 &477084067
 CanvasRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 497120934}
+  m_GameObject: {fileID: 477084064}
   m_CullTransparentMesh: 0
 --- !u!1 &526696815
 GameObject:
@@ -14104,8 +14104,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 77.75, y: -57.75}
-  m_SizeDelta: {x: 131.7616, y: 71.26465}
+  m_AnchoredPosition: {x: 77.75, y: -57.33}
+  m_SizeDelta: {x: 131.7616, y: 70.419556}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &659052953
 MonoBehaviour:
@@ -147242,7 +147242,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 1.7788697, y: 1}
+    m_SensorSize: {x: 1.7772926, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
@@ -147357,7 +147357,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 63a10ee1127c9354e88404f1d5ef9f57, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moneyText: {fileID: 964523902}
+  copsMoneyText: {fileID: 964523902}
+  robbersMoneyText: {fileID: 477084066}
 --- !u!1 &883936718
 GameObject:
   m_ObjectHideFlags: 0
@@ -147672,7 +147673,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 57.79001, y: -43.65}
+  m_AnchoredPosition: {x: 57.79001, y: -71.26599}
   m_SizeDelta: {x: 73.996994, y: 27.61613}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &964523902
@@ -147707,7 +147708,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: $0
+  m_Text: R$0
 --- !u!222 &964523903
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -148522,7 +148523,7 @@ RectTransform:
   m_Children:
   - {fileID: 659052952}
   - {fileID: 964523900}
-  - {fileID: 497120935}
+  - {fileID: 477084065}
   m_Father: {fileID: 839853590}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

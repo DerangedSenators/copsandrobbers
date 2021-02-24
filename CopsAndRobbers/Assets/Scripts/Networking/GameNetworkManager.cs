@@ -52,7 +52,7 @@ namespace Me.DerangedSenators.CopsAndRobbers
         void SpawnMoneyBags()
         {
             int x = 5;
-            for (int i = 0; i < 50; ++i)
+            for (int i = 0; i < 20; ++i)
             {
                 GameObject moneyBagGo = Instantiate(moneyBagPrefab, new Vector3(x++, 0, 0), Quaternion.identity);
                 NetworkServer.Spawn(moneyBagGo);

@@ -9,6 +9,10 @@ namespace Me.DerangedSenators.CopsAndRobbers
     /// <summary>
     /// Script to control MoneyUI Element
     /// </summary>
+    /// <author> Hanzalah Ravat </author>
+    /// <author> Nisath Mohamed Nasar </author>
+    /// <author> Piotr Krawiec</author>
+    /// <author> Naim Ahmed </author>
     public class MoneyDisplay : MonoBehaviour
     {
         [SerializeField] Text copsMoneyText;
@@ -36,6 +40,16 @@ namespace Me.DerangedSenators.CopsAndRobbers
         public void UpdateView(int moneyCount)
         {
             copsMoneyText.text = "$" + moneyCount.ToString();
+        }
+        
+        public void UpdateCopsView(int moneyCount)
+        {
+            copsMoneyText.text = "$" + moneyCount.ToString();
+        }
+        
+        public void UpdateRobbersView(int moneyCount)
+        {
+            robbersMoneyText.text = "$" + moneyCount.ToString();
         }
     }
 } 
