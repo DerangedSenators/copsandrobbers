@@ -11,7 +11,9 @@ namespace Me.DerangedSenators.CopsAndRobbers
     /// This Class is designed to manage money between each team and also tracks the overall amount of money collected
     /// </summary>
     /// <author> Hanzalah Ravat </author>
-    /// <author> Nisath Mohammed </author>
+    /// <author> Nisath Mohamed Nasar </author>
+    /// <author> Piotr Krawiec</author>
+    /// <author> Naim Ahmed </author>
     public class MoneyManager : MonoBehaviour
     {
         //[SerializeField] Text moneyText;
@@ -36,11 +38,11 @@ namespace Me.DerangedSenators.CopsAndRobbers
                 this.team = team;
                 money = 0;
             }
-        }
+        } 
 
         private void Awake()
         {
-            Debug.Log("Money Manager is Awake!");
+            //*Debug.Log("Money Manager is Awake!");
             copsMoneyCount = new TeamMoneyCount(Teams.COPS);
             robberMoneyCount = new TeamMoneyCount(Teams.ROBBERS);
         }
@@ -48,20 +50,24 @@ namespace Me.DerangedSenators.CopsAndRobbers
         /// <summary>
         /// Adds $100 to treasury. 
         /// </summary>
-        //[Command] 
+        //[Command]
         public void CMDCollectMoney(int teamID)
         {
-            Debug.Log($"CMDCollectMoney has been invoked by {teamID}");
+            //*Debug.Log($"CMDCollectMoney has been invoked by {teamID}");
             Teams updateTeam = (Teams) teamID;
+            //*Debug.Log($"{updateTeam.ToString()} I'm {teamID} attempting to CMDCollectMoney");
             switch (updateTeam)
             {
                 case Teams.ROBBERS:
-                    Debug.Log($"Increasing Cop Money");
                     copsMoneyCount.money += IncrementValue;
+                    Debug.Log($"Increased Robbers Money {copsMoneyCount.money}");
+                    MoneyDisplay.Instance().UpdateCopsView(copsMoneyCount.money);
                     break;
                 case Teams.COPS:
-                    Debug.Log($"Increasing Robber Money");
+                    
                     robberMoneyCount.money += IncrementValue;
+                    Debug.Log($"Increased Cops Money {robberMoneyCount.money}");
+                    MoneyDisplay.Instance().UpdateRobbersView(robberMoneyCount.money);
                     break;
             }
         }
@@ -74,24 +80,5 @@ namespace Me.DerangedSenators.CopsAndRobbers
         {
             return moneyCount;
         }
-        /*
-        void Awake()
-        {
-            gameObject.SetActive(true);
-            MakeSingleton();
-        }
-
-        private void MakeSingleton()
-        {
-            if (this != null)
-            {
-                Destroy(gameObject);
-            }
-            else
-            {
-                DontDestroyOnLoad(gameObject);
-            }
-        }
-        */
     }
 }
