@@ -31,7 +31,7 @@ namespace Me.DerangedSenators.CopsAndRobbers
         [ClientRpc]
         void RpcHealthChangedDelegate(float currentHealth, float maxHealth)
         {
-            eventHealthChanged?.Invoke(currentHealth, maxHealth);
+            
         }
 
         /// <summary>
@@ -50,6 +50,7 @@ namespace Me.DerangedSenators.CopsAndRobbers
         /// Handle damage that a player takes
         /// </summary>
         /// <param name="damage">Amount of damage taken</param>
+        [Command]
         public void Damage(float damage)
         {
             Debug.Log("Damaging");
@@ -69,6 +70,7 @@ namespace Me.DerangedSenators.CopsAndRobbers
                 RpcHealthChangedDelegate(currentHealth, maxHealth);
             }
             else {
+                Debug.Log("Calling health change");
                 CmdHealthChangedDelegate(currentHealth, maxHealth);
             }
         }
