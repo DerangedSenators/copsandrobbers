@@ -16,6 +16,9 @@ namespace Me.DerangedSenators.CopsAndRobbers
         [SerializeField] private PlayerHealth health = null;
         [SerializeField] private Image healthBarImage = null;
 
+        /// <summary>
+        /// Change the health bar values
+        /// </summary>
         private void OnEnable()
         {
             health.eventHealthChanged += HandleHealthChanged;
@@ -26,9 +29,14 @@ namespace Me.DerangedSenators.CopsAndRobbers
             health.eventHealthChanged -= HandleHealthChanged;
         }
 
-        private void HandleHealthChanged(int currentHealth, int maxHealth)
+        /// <summary>
+        /// Change the health bar fill amount to match health value
+        /// </summary>
+        /// <param name="currentHealth">Current value of health</param>
+        /// <param name="maxHealth">Max health value</param>
+        private void HandleHealthChanged(float currentHealth, float maxHealth)
         {
-            healthBarImage.fillAmount = (float)currentHealth / maxHealth;
+            healthBarImage.fillAmount = currentHealth / maxHealth;
         }
     }
 }
