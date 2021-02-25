@@ -12,9 +12,9 @@ namespace Me.DerangedSenators.CopsAndRobbers
     /// <summary>
     /// Class which manages attacking from a player
     /// </summary>
-    /**
-     * @authors Nisath Mohammed, Hanzalah Ravat, Hannah Elliman
-     */
+    ///
+    /// @authors Nisath Mohammed, Hanzalah Ravat, Hannah Elliman, Ashwin Jaimal
+    ///
     public class PlayerAttack : NetworkBehaviour
     {
         //variables
