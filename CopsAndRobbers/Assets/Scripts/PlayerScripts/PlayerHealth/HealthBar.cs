@@ -4,39 +4,22 @@ using UnityEngine;
 using UnityEngine.UI;
 
 
-/*
-*@author Peter
-*/
+/// <summary>
+/// This script handles the health bar UI
+/// </summary>
+/// @author Piotr Krawiec
+/// @author Hannah Elliman
 namespace Me.DerangedSenators.CopsAndRobbers
 {
     //This script is responsible for the function of the healthbar
     public class HealthBar : MonoBehaviour
     {
-        [Header("References")]
-        [SerializeField] private PlayerHealth health = null;
-        [SerializeField] private Image healthBarImage = null;
+        public PlayerHealth health;
+        public Image healthBarImage;
 
-        /// <summary>
-        /// Change the health bar values
-        /// </summary>
-        private void OnEnable()
+        public void Update()
         {
-            health.eventHealthChanged += HandleHealthChanged;
-        }
-
-        private void OnDisable()
-        {
-            health.eventHealthChanged -= HandleHealthChanged;
-        }
-
-        /// <summary>
-        /// Change the health bar fill amount to match health value
-        /// </summary>
-        /// <param name="currentHealth">Current value of health</param>
-        /// <param name="maxHealth">Max health value</param>
-        private void HandleHealthChanged(float currentHealth, float maxHealth)
-        {
-            healthBarImage.fillAmount = currentHealth / maxHealth;
+            healthBarImage.fillAmount = health.currentHealth / health.maxHealth;
         }
     }
 }

@@ -11,6 +11,10 @@ namespace Me.DerangedSenators.CopsAndRobbers
 {
     /// <summary>
     /// This script is responsible for the function of the health bar and damage
+    /// 
+    /// @author Hanzalah Ravat
+    /// @author Hannah Elliman
+    /// @author Ashwin Jaimal
     /// </summary>
     public class PlayerHealth : NetworkBehaviour
     {
@@ -21,40 +25,28 @@ namespace Me.DerangedSenators.CopsAndRobbers
 
         public delegate void HealthChangedDelegate(float currentHealth, float maxHealth);
         public event HealthChangedDelegate eventHealthChanged;
-
-
-        /// <summary>
-        /// Handle health being changed
-        /// </summary>
-        /// <param name="currentHealth">Current value of health</param>
-        /// <param name="maxHealth">Total amount of health</param>
-        [ClientRpc]
-        void RpcHealthChangedDelegate(float currentHealth, float maxHealth)
-        {
-            
-        }
+        public HealthBar healthBar;
 
         /// <summary>
-        /// Call Health changed on client
+        /// If a player no longer has any health kill them
         /// </summary>
-        /// <param name="currentHealth">Current value of health</param>
-        /// <param name="maxHealth">Max health value</param>
-        [Command]
-        public void CmdHealthChangedDelegate(float currentHealth, float maxHealth)
+        public void Update()
         {
-            Debug.Log("Changing Health");
-            RpcHealthChangedDelegate(currentHealth, maxHealth);
+            if (currentHealth <= 0) {
+                Die();
+            }
         }
 
         /// <summary>
         /// Handle damage that a player takes
         /// </summary>
         /// <param name="damage">Amount of damage taken</param>
-        [Command]
+        [Server]
         public void Damage(float damage)
         {
             Debug.Log("Damaging");
             SetHealth(Mathf.Max(currentHealth - damage, 0));
+
         }
         
         /// <summary>
@@ -65,14 +57,6 @@ namespace Me.DerangedSenators.CopsAndRobbers
         {
             currentHealth = value;
             this.eventHealthChanged?.Invoke(currentHealth, maxHealth);
-            if (isServer)
-            {
-                RpcHealthChangedDelegate(currentHealth, maxHealth);
-            }
-            else {
-                Debug.Log("Calling health change");
-                CmdHealthChangedDelegate(currentHealth, maxHealth);
-            }
         }
 
 
@@ -82,6 +66,13 @@ namespace Me.DerangedSenators.CopsAndRobbers
         [Server]
         public override void OnStartServer() => SetHealth(maxHealth);
 
+        /// <summary>
+        /// Kills the player
+        /// </summary>
+        private void Die() {
+            //TODO remove destroy and instead disable movement to allow for respawn
+            Destroy(gameObject);
+        }
      
     }
 }
