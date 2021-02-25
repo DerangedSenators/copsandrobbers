@@ -75,14 +75,13 @@ namespace Me.DerangedSenators.CopsAndRobbers
             {
                 state = State.ATTACKING;
                 //perform attack animation here and set State.Normal 
-                CmdDoAttacking();
+                DoAttacking();
             }
         }
         /// <summary>
         /// This method performs an attack rather than having HandleAttack complete it as the server does not have access to some resources that HandleAttack uses
         /// </summary>
-        ///[Command]
-        public void CmdDoAttacking()
+        public void DoAttacking()
         {
             Debug.Log("Attacking");
             Collider2D[] enemiesHit = Physics2D.OverlapCircleAll(attackPosition, attackOffset, enemyLayer);
@@ -90,9 +89,13 @@ namespace Me.DerangedSenators.CopsAndRobbers
 
             foreach (var enemy in enemiesHit.Select(hit => hit.GetComponent<PlayerHealth>()).Where(obj => obj != null).Where(obj => obj !=this))
             {
-                // TODO Send Server Invocation to handle damage on that enemy
-                enemy.Damage(damage);
+                this.CmdAttack(enemy);
             }
+        }
+
+        [Command]
+        public void CmdAttack(PlayerHealth enemy) {
+            enemy.Damage(damage);
         }
 
         /// <summary>
