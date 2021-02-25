@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Mirror;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
 
@@ -10,31 +11,27 @@ namespace Me.DerangedSenators.CopsAndRobbers
 {
     /// <summary>
     /// This script is responsible for the function of the health bar and damage
+    /// 
+    /// @author Hanzalah Ravat
+    /// @author Hannah Elliman
+    /// @author Ashwin Jaimal
     /// </summary>
     public class PlayerHealth : NetworkBehaviour
     {
-        public float maxHealth = 100f;
+        public float maxHealth = 100;
+
+        [SyncVar]
         public float currentHealth;
+
+        public delegate void HealthChangedDelegate(float currentHealth, float maxHealth);
+        public event HealthChangedDelegate eventHealthChanged;
         public HealthBar healthBar;
-        
-        /// <summary>
-        /// At the start of the project the player's health will equal to the max health
-        /// </summary>
-        public void Start()
-        {
-            currentHealth = maxHealth;
-            if (healthBar != null)
-            {
-                healthBar.SetMaxHealth(maxHealth);
-            }
-        }
 
         /// <summary>
-        /// This function checks if a user Used Space if it does the player will take 1.5 dmg
+        /// If a player no longer has any health kill them
         /// </summary>
         public void Update()
         {
-            //If players health reaches 0 It is removed form the scene
             if (currentHealth <= 0)
             {
                 Die();
@@ -42,27 +39,42 @@ namespace Me.DerangedSenators.CopsAndRobbers
         }
 
         /// <summary>
-        /// Server-Callable Function which can be used to handle player damage globally.
+        /// Handle damage that a player takes
         /// </summary>
-        /// <param name="damage">Amount of damage taken, to update health bar</param>
+        /// <param name="damage">Amount of damage taken</param>
         [Server]
         public void Damage(float damage)
         {
-            currentHealth = currentHealth - damage;
-            healthBar.SetHealth(currentHealth);
+            Debug.Log("Damaging");
+            SetHealth(Mathf.Max(currentHealth - damage, 0));
+
         }
 
         /// <summary>
-        /// This object is destroyed once health is 0.
+        /// Change the health value to whatever 
+        /// </summary>
+        /// <param name="value">Health value, changed based on damage taken</param>
+        public void SetHealth(float value)
+        {
+            currentHealth = value;
+            this.eventHealthChanged?.Invoke(currentHealth, maxHealth);
+        }
+
+
+        /// <summary>
+        /// Will start players on full health once connected to the server.
+        /// </summary>
+        [Server]
+        public override void OnStartServer() => SetHealth(maxHealth);
+
+        /// <summary>
+        /// Kills the player
         /// </summary>
         private void Die()
         {
+            //TODO remove destroy and instead disable movement to allow for respawn
             Destroy(gameObject);
         }
+
     }
 }
-
-   
-
-    
-
