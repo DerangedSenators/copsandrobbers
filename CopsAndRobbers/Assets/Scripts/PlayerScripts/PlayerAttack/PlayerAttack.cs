@@ -71,7 +71,7 @@ namespace Me.DerangedSenators.CopsAndRobbers
             
             attackPosition = (transform.position + mouseDir * attackOffset);
 
-            if (Input.GetMouseButtonDown(0))//TODO add mobile support here
+            if (Input.GetMouseButtonDown(0)) // TODO Add support for Mobile Button here.
             {
                 state = State.ATTACKING;
                 //perform attack animation here and set State.Normal 
