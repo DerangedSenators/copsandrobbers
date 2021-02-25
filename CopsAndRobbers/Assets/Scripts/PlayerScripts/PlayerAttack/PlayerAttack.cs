@@ -9,7 +9,12 @@ using UnityEngine.InputSystem;
 
 namespace Me.DerangedSenators.CopsAndRobbers
 {
-    //known issue, player can attack through walls
+    /// <summary>
+    /// Class which manages attacking from a player
+    /// </summary>
+    /**
+     * @authors Nisath Mohammed, Hanzalah Ravat, Hannah Elliman
+     */
     public class PlayerAttack : NetworkBehaviour
     {
         //variables
@@ -66,7 +71,7 @@ namespace Me.DerangedSenators.CopsAndRobbers
             
             attackPosition = (transform.position + mouseDir * attackOffset);
 
-            if (Input.GetMouseButtonDown(0))
+            if (Input.GetMouseButtonDown(0)) // TODO Add support for Mobile Button here.
             {
                 state = State.ATTACKING;
                 //perform attack animation here and set State.Normal 
@@ -85,6 +90,7 @@ namespace Me.DerangedSenators.CopsAndRobbers
 
             foreach (var enemy in enemiesHit.Select(hit => hit.GetComponent<PlayerHealth>()).Where(obj => obj != null).Where(obj => obj !=this))
             {
+                // TODO Send Server Invocation to handle damage on that enemy
                 enemy.Damage(damage);
             }
         }
