@@ -56,14 +56,14 @@ namespace Me.DerangedSenators.CopsAndRobbers
                 Match match = new Match(matchId, host);
                 match.publicMatch = publicMatch;
                 matches.Add(match);
-                Debug.Log($"Match generated");
+                //*Debug.Log($"Match generated");
                 playerIndex = 1;
                 teamId = 1;
                 return true;
             }
             else
             {
-                Debug.Log($"Match ID already exists");
+                //*Debug.Log($"Match ID already exists");
                 return false;
             }
 
@@ -92,12 +92,12 @@ namespace Me.DerangedSenators.CopsAndRobbers
                         break;
                     }
                 }
-                Debug.Log($"Match joined");
+                //*Debug.Log($"Match joined");
                 return true;
             }
             else
             {
-                Debug.Log($"Match ID does not exist");
+                //*Debug.Log($"Match ID does not exist");
                 return false;
             }
         }
@@ -161,7 +161,7 @@ namespace Me.DerangedSenators.CopsAndRobbers
                     id += (random - 26).ToString();
                 }
             }
-            Debug.Log($"Random match ID: {id}");
+            //*Debug.Log($"Random match ID: {id}");
 
             return id;
         }
@@ -173,11 +173,11 @@ namespace Me.DerangedSenators.CopsAndRobbers
                 {
                     int playerIndex = matches[i].players.IndexOf(player.gameObject);
                     matches[i].players.RemoveAt(playerIndex);
-                    Debug.Log($"Player disconnected from match: {matchId} | Remaining players: {matches[i].players.Count}");
+                    //*Debug.Log($"Player disconnected from match: {matchId} | Remaining players: {matches[i].players.Count}");
 
                     if(matches[i].players.Count == 0)
                     {
-                        Debug.Log($"No more players in match. Terminating {matchId}");
+                        //*Debug.Log($"No more players in match. Terminating {matchId}");
                         matches.RemoveAt(i);
                         matchIds.Remove(matchId);
                     }

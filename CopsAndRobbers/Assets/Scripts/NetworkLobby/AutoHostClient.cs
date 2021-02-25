@@ -13,12 +13,12 @@ namespace Me.DerangedSenators.CopsAndRobbers
         {
             if (Application.isBatchMode) //Headless Build for Server 
             {
-                Debug.Log($"=== Server Build Starting ===");
+                //*Debug.Log($"=== Server Build Starting ===");
                 
             }
             else
             {
-               Debug.Log($"<color=yellow>=== Client Build Starting ===</color>");
+               //*Debug.Log($"<color=yellow>=== Client Build Starting ===</color>");
                networkManager.StartClient(); 
             }
         }

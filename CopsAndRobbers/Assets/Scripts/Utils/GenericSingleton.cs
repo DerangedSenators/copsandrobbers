@@ -64,7 +64,7 @@ public abstract class GenericSingleton<T> : MonoBehaviour where T : GenericSingl
         }
         else if (_instance != this)
         {
-            Debug.LogError($"Another instance of {GetType()} already exist! Destroying self...");
+            //*Debug.LogError($"Another instance of {GetType()} already exist! Destroying self...");
             Destroy(this);
             return;
         }
@@ -77,7 +77,7 @@ public abstract class GenericSingleton<T> : MonoBehaviour where T : GenericSingl
     /// </summary>
     public void Init()
     {
-        Debug.Log($"Initialising Singleton ${instance.name}");
+        //*Debug.Log($"Initialising Singleton ${instance.name}");
         if (_isInitialized)
         {
             return;

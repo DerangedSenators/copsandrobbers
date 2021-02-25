@@ -639,7 +639,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   syncMode: 0
   syncInterval: 0.1
-  mTeam: 1
+  mTeam: 0
 --- !u!1 &4061796398072672129
 GameObject:
   m_ObjectHideFlags: 0

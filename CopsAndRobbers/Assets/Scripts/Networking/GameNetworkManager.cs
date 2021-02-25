@@ -29,7 +29,7 @@ namespace Me.DerangedSenators.CopsAndRobbers
 
         void OnClientConnect(NetworkConnection nc, ConnectMessage cm)
         {
-            Debug.Log("Connected to server: " + nc);
+            //*Debug.Log("Connected to server: " + nc);
         }
 
         public void ServerListen()
@@ -43,7 +43,7 @@ namespace Me.DerangedSenators.CopsAndRobbers
 
         private void OnClientReady(NetworkConnection arg1, ReadyMessage arg2)
         {
-            Debug.Log("Client is ready to start: " + arg1);
+            //*Debug.Log("Client is ready to start: " + arg1);
             NetworkServer.SetClientReady(arg1);
             SpawnMoneyBags();
             //throw new NotImplementedException()
@@ -52,7 +52,7 @@ namespace Me.DerangedSenators.CopsAndRobbers
         void SpawnMoneyBags()
         {
             int x = 5;
-            for (int i = 0; i < 5; ++i)
+            for (int i = 0; i < 20; ++i)
             {
                 GameObject moneyBagGo = Instantiate(moneyBagPrefab, new Vector3(x++, 0, 0), Quaternion.identity);
                 NetworkServer.Spawn(moneyBagGo);
@@ -61,7 +61,7 @@ namespace Me.DerangedSenators.CopsAndRobbers
 
         void OnServerConnect(NetworkConnection nc, ConnectMessage cm)
         {
-            Debug.Log("New client connected: " + nc);
+            //*Debug.Log("New client connected: " + nc);
         }
 
     }
