@@ -56,7 +56,7 @@ namespace Me.DerangedSenators.CopsAndRobbers
         #endregion
 
         //Attack on mouse-click if an enemy is in the direction of the mouse within an offset
-        private void HandleAttack() 
+        void HandleAttack() 
         {
             mousePosition = GetMouseWorldPosition(); // +new Vector3(-0.5f, -0.2f, 0);
             
@@ -76,24 +76,17 @@ namespace Me.DerangedSenators.CopsAndRobbers
         /// <summary>
         /// This method performs an attack rather than having HandleAttack complete it as the server does not have access to some resources that HandleAttack uses
         /// </summary>
-        private void CmdDoAttacking()
+        ///[Command]
+        public void CmdDoAttacking()
         {
-
+            Debug.Log("Attacking");
             Collider2D[] enemiesHit = Physics2D.OverlapCircleAll(attackPosition, attackOffset, enemyLayer);
 
 
             foreach (var enemy in enemiesHit.Select(hit => hit.GetComponent<PlayerHealth>()).Where(obj => obj != null).Where(obj => obj !=this))
             {
-                enemy.CmdDealDamage(damage);
+                enemy.Damage(damage);
             }
-        }
-
-        
-
-        [ClientRpc]
-        private void RpcAttacking() 
-        {
-
         }
 
         /// <summary>

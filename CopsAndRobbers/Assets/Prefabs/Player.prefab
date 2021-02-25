@@ -448,8 +448,8 @@ MonoBehaviour:
   syncMode: 0
   syncInterval: 0.1
   maxHealth: 100
-  damagePerPress: 10
   currentHealth: 100
+  healthBar: {fileID: 9179218087271420935}
 --- !u!95 &4078056252172929565
 Animator:
   serializedVersion: 3
