@@ -7,12 +7,12 @@ namespace Me.DerangedSenators.CopsAndRobbers
     /// <summary>
     /// This is a Singleton Class that can be used by other classes (Prefab Scripts) to access Mobile UI objects. It also dictates whether or not they are displayed on the screen
     /// </summary>
+    /// @author Hanzalah Ravat
     public class ControlContext: MonoBehaviour
     {
         public Joystick MovementStick;
         public Joystick AttackCircleStick;
         public Button AttackButton;
-        public Button PickupButton;
         public GameObject ControlCanvas;
         private bool isActive;
         public bool Active => isActive;
