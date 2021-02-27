@@ -55,11 +55,13 @@ namespace Me.DerangedSenators.CopsAndRobbers
 
             public void onButtonPressed()
             {
-                // Handle Attack
-                _attack.setAttackParams();
-                _attack.state = State.ATTACKING;
-                _attack.DoAttacking();
-
+                if (_attack.isLocalPlayer)
+                {
+                    // Handle Attack
+                    _attack.setAttackParams();
+                    _attack.state = State.ATTACKING;
+                    _attack.DoAttacking();
+                }
             }
 
             public void onButtonReleased(){
@@ -67,8 +69,9 @@ namespace Me.DerangedSenators.CopsAndRobbers
             }
         }
 
+        
+#if UNITY_STANDALONE || UNITY_WEBPLAYER
         #region Client
-        // Update is called once per frame 
         void Update()
         {
             if (isLocalPlayer)
@@ -86,7 +89,7 @@ namespace Me.DerangedSenators.CopsAndRobbers
 
         }
         #endregion
-
+#endif
         /// <summary>
         /// Attack on mouse-click if an enemy is in the direction of the mouse within an offset
         /// </summary>
