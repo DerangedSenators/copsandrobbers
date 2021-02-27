@@ -12,8 +12,8 @@ namespace Me.DerangedSenators.CopsAndRobbers
     {
         public Joystick MovementStick;
         public Joystick AttackCircleStick;
-        public Button AttackButton;
         public GameObject ControlCanvas;
+        public MobileButton AttackButton;
         private bool isActive;
         public bool Active => isActive;
         
