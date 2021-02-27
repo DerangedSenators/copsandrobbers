@@ -9,7 +9,12 @@ using UnityEngine.InputSystem;
 
 namespace Me.DerangedSenators.CopsAndRobbers
 {
-    //known issue, player can attack through walls
+    /// <summary>
+    /// Class which manages attacking from a player
+    /// </summary>
+    ///
+    /// @authors Nisath Mohammed, Hanzalah Ravat, Hannah Elliman, Ashwin Jaimal
+    ///
     public class PlayerAttack : NetworkBehaviour
     {
         //variables
@@ -19,14 +24,14 @@ namespace Me.DerangedSenators.CopsAndRobbers
         private Vector3 offset = Vector3.up;    // Units in world space to offset; 1 unit above object by default
 
         public LayerMask enemyLayer;    //select enemy layer
-        public float damage = 10f;      //damage caused on each attack
+        public int damage = 10;      //damage caused on each attack
         private State state;            //attack or normal states
         private float attackOffset;
 
         //Enum object State: contains the states player can be in. Used for attack animation.
         private enum State
         {
-            NORMAL, 
+            NORMAL,
             ATTACKING
         }
 
@@ -35,6 +40,7 @@ namespace Me.DerangedSenators.CopsAndRobbers
             state = State.NORMAL;
         }
 
+        #region Client
         // Update is called once per frame 
         void Update()
         {
@@ -52,66 +58,66 @@ namespace Me.DerangedSenators.CopsAndRobbers
             }
 
         }
+        #endregion
 
         //Attack on mouse-click if an enemy is in the direction of the mouse within an offset
-        private void HandleAttack() 
+        void HandleAttack()
         {
             mousePosition = GetMouseWorldPosition(); // +new Vector3(-0.5f, -0.2f, 0);
-            
+
             mouseDir = (mousePosition - transform.position).normalized;
 
             attackOffset = 0.8f;
-            
+
             attackPosition = (transform.position + mouseDir * attackOffset);
 
-            if (Input.GetMouseButtonDown(0))
+            if (Input.GetMouseButtonDown(0)) // TODO Add support for Mobile Button here.
             {
                 state = State.ATTACKING;
                 //perform attack animation here and set State.Normal 
-                CmdDoAttacking();
-
+                DoAttacking();
             }
         }
         /// <summary>
         /// This method performs an attack rather than having HandleAttack complete it as the server does not have access to some resources that HandleAttack uses
         /// </summary>
-        [Command]
-        private void CmdDoAttacking()
+        public void DoAttacking()
         {
+            Debug.Log("Attacking");
             Collider2D[] enemiesHit = Physics2D.OverlapCircleAll(attackPosition, attackOffset, enemyLayer);
-            /**
-            for (int i = 0; i < enemiesHit.Length; i++)
-            {
-                enemiesHit[i].GetComponent<PlayerHealth>().Damage(damage);
-                enemiesHit[i].SendMessage("Damage", 5);
-            }*/
 
-            foreach (var enemy in enemiesHit.Select(hit => hit.GetComponent<PlayerHealth>()).Where(obj => obj != null).Where(obj => obj !=this))
+
+            foreach (var enemy in enemiesHit.Select(hit => hit.GetComponent<PlayerHealth>()).Where(obj => obj != null).Where(obj => obj != this))
             {
-                enemy.Damage(damage);
-                
+                this.CmdAttack(enemy);
             }
         }
-        
+
+        [Command]
+        public void CmdAttack(PlayerHealth enemy)
+        {
+            enemy.Damage(damage);
+        }
+
         /// <summary>
         /// Draw a circle around the player showing the attackRadius visually.
         /// </summary>
         public void OnDrawGizmosSelected()
         {
-            if(attackPosition != null)
+            if (attackPosition != null)
                 Gizmos.DrawWireSphere(attackPosition, attackOffset);
         }
 
         //helper method: returns position of mouse pointer without z
-        #if UNITY_STANDALONE || UNITY_WEBPLAYER
+#if UNITY_STANDALONE || UNITY_WEBPLAYER
         private Vector3 GetMouseWorldPosition()
         {
-            
+
             Vector3 vec = GetMouseWorldPositionWithZ(Mouse.current.position.ReadValue(), Camera.main);
             vec.z = 0f;
             return vec;
         }
-        #elif UNITY_IOS || UNITY_ANDROID || UNITY_WP8 || UNITY_IPHONE
+#elif UNITY_IOS || UNITY_ANDROID || UNITY_WP8 || UNITY_IPHONE
         private Vector3 GetMouseWorldPosition()
         {
             Vector2 vec = ControlContext.Instance.AttackCircleStick.Direction;
@@ -121,8 +127,8 @@ namespace Me.DerangedSenators.CopsAndRobbers
             vector3.z = 0f;
             return vec;
         }
-        #endif
-        
+#endif
+
         //helper method: returns position of mouse with z axis
         private Vector3 GetMouseWorldPositionWithZ(Vector3 screenPosition, Camera worldCamera)
         {
@@ -130,7 +136,7 @@ namespace Me.DerangedSenators.CopsAndRobbers
 
         }
 
-        public Vector3 GetAttackPoint() 
+        public Vector3 GetAttackPoint()
         {
             return attackPosition;
         }
@@ -153,10 +159,10 @@ namespace Me.DerangedSenators.CopsAndRobbers
         /// Return -1 if mouse is left, 1 if mouse is right or 0.
         /// </summary>
         /// <returns>Return -1 if mouse is left, 1 if mouse is right or 0.</returns>
-        public int MouseXPositionRelativeToPlayer() 
+        public int MouseXPositionRelativeToPlayer()
         {
-            #if UNITY_STANDALONE || UNITY_WEBPLAYER
-            if(mousePosition.x < transform.position.x)
+#if UNITY_STANDALONE || UNITY_WEBPLAYER
+            if (mousePosition.x < transform.position.x)
             {
                 return -1;
             }
@@ -165,7 +171,7 @@ namespace Me.DerangedSenators.CopsAndRobbers
                 return 1;
             }
             return 0;
-            #elif UNITY_IOS || UNITY_ANDROID || UNITY_WP8 || UNITY_IPHONE
+#elif UNITY_IOS || UNITY_ANDROID || UNITY_WP8 || UNITY_IPHONE
             if (ControlContext.Instance.AttackCircleStick.Horizontal <= 0)
             {
                 return -1;
@@ -174,7 +180,7 @@ namespace Me.DerangedSenators.CopsAndRobbers
             {
                 return 1;
             }
-            #endif
+#endif
         }
     }
 }

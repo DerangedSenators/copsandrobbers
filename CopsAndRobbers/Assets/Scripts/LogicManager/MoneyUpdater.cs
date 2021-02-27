@@ -11,35 +11,27 @@ namespace Me.DerangedSenators.CopsAndRobbers
     public class MoneyUpdater : NetworkBehaviour
     {
         public Teams mTeam;
-
-        public void Start()
-        {
-            if (isLocalPlayer)
-            {
-                Debug.Log($"This is a local player and the team is {mTeam}");
-            }
-        }
         
+        /*
         private void Update()
         {
             try
             {
                 // Try and check if it is cop or robber without TeamID as it might be unreliable
                 // Trying to work using inverse of enemy layer
-                Debug.Log($"This is a Local Player. Updating MoneyCount on UI. My Team is {mTeam}");
+                // //*Debug.Log($"This is a Local Player. Updating MoneyCount on UI. My Team is {mTeam}");
                 // Update the moneyDisplay
                 int money = 0;
                 switch (mTeam)
                 {
                     case Teams.COPS:
-                        Debug.Log("This is a cop... Updating Cop Money");
+                        // //*Debug.Log("This is a cop... Updating Cop Money");
                         money = MoneyManager.CopsMoneyCount.money;
                         break;
                     case Teams.ROBBERS:
-                        Debug.Log("This is a Robber... Updating Robber Money");
+                        // //*Debug.Log("This is a Robber... Updating Robber Money");
                         money = MoneyManager.RobberMoneyCount.money;
                         break;
-
                 }
 
                 MoneyDisplay.Instance().UpdateView(money);
@@ -48,6 +40,6 @@ namespace Me.DerangedSenators.CopsAndRobbers
             {
                 // Do NOTHING;
             }
-        }
+        }*/
     }
 }
