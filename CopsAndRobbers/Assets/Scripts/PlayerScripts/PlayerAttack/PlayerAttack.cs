@@ -38,6 +38,33 @@ namespace Me.DerangedSenators.CopsAndRobbers
         private void Start()
         {
             state = State.NORMAL;
+            // Check if it is a mobile version
+            if (ControlContext.Instance.Active)
+            {
+                ControlContext.Instance.AttackButton.AddListener(new MobileButtonListener(this));
+            }
+        }
+
+        private class MobileButtonListener: IButtonListener
+        {
+            private PlayerAttack _attack;
+            public MobileButtonListener(PlayerAttack attacker)
+            {
+                _attack = attacker;
+            }
+
+            public void onButtonPressed()
+            {
+                // Handle Attack
+                _attack.setAttackParams();
+                _attack.state = State.ATTACKING;
+                _attack.DoAttacking();
+
+            }
+
+            public void onButtonReleased(){
+                // Dont do anything...yet
+            }
         }
 
         #region Client
@@ -60,8 +87,21 @@ namespace Me.DerangedSenators.CopsAndRobbers
         }
         #endregion
 
-        //Attack on mouse-click if an enemy is in the direction of the mouse within an offset
+        /// <summary>
+        /// Attack on mouse-click if an enemy is in the direction of the mouse within an offset
+        /// </summary>
         void HandleAttack()
+        {
+            setAttackParams();
+            if (Input.GetMouseButtonDown(0))
+            {
+                state = State.ATTACKING;
+                //perform attack animation here and set State.Normal 
+                DoAttacking();
+            }
+        }
+
+        private void setAttackParams()
         {
             mousePosition = GetMouseWorldPosition(); // +new Vector3(-0.5f, -0.2f, 0);
 
@@ -70,14 +110,8 @@ namespace Me.DerangedSenators.CopsAndRobbers
             attackOffset = 0.8f;
 
             attackPosition = (transform.position + mouseDir * attackOffset);
-
-            if (Input.GetMouseButtonDown(0)) // TODO Add support for Mobile Button here.
-            {
-                state = State.ATTACKING;
-                //perform attack animation here and set State.Normal 
-                DoAttacking();
-            }
         }
+        
         /// <summary>
         /// This method performs an attack rather than having HandleAttack complete it as the server does not have access to some resources that HandleAttack uses
         /// </summary>
