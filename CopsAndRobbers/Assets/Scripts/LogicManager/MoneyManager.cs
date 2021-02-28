@@ -19,8 +19,8 @@ namespace Me.DerangedSenators.CopsAndRobbers
         //[SerializeField] Text moneyText;
         public static readonly int IncrementValue = 100;
         private static long moneyCount;
-        private static TeamMoneyCount copsMoneyCount;
         private static TeamMoneyCount robberMoneyCount;
+        private static TeamMoneyCount copsMoneyCount;
         public static TeamMoneyCount CopsMoneyCount => copsMoneyCount;
         public static TeamMoneyCount RobberMoneyCount => robberMoneyCount;
 
@@ -43,8 +43,8 @@ namespace Me.DerangedSenators.CopsAndRobbers
         private void Awake()
         {
             //*Debug.Log("Money Manager is Awake!");
-            copsMoneyCount = new TeamMoneyCount(Teams.COPS);
-            robberMoneyCount = new TeamMoneyCount(Teams.ROBBERS);
+            robberMoneyCount = new TeamMoneyCount(Teams.COPS);
+            copsMoneyCount = new TeamMoneyCount(Teams.ROBBERS);
         }
 
         /// <summary>
@@ -59,26 +59,17 @@ namespace Me.DerangedSenators.CopsAndRobbers
             switch (updateTeam)
             {
                 case Teams.ROBBERS:
-                    copsMoneyCount.money += IncrementValue;
-                    Debug.Log($"Increased Robbers Money {copsMoneyCount.money}");
-                    MoneyDisplay.Instance().UpdateCopsView(copsMoneyCount.money);
+                    robberMoneyCount.money += IncrementValue;
+                    Debug.Log($"Increased Robbers Money {robberMoneyCount.money}");
+                    MoneyDisplay.Instance().UpdateCopsView(robberMoneyCount.money);
                     break;
                 case Teams.COPS:
                     
-                    robberMoneyCount.money += IncrementValue;
-                    Debug.Log($"Increased Cops Money {robberMoneyCount.money}");
-                    MoneyDisplay.Instance().UpdateRobbersView(robberMoneyCount.money);
+                    copsMoneyCount.money += IncrementValue;
+                    Debug.Log($"Increased Cops Money {copsMoneyCount.money}");
+                    MoneyDisplay.Instance().UpdateRobbersView(copsMoneyCount.money);
                     break;
             }
-        }
-
-        /// <summary>
-        /// Get amount of money in treasury.
-        /// </summary>
-        /// <returns>amount of amount in treasury</returns>
-        public long getMoneyCount()
-        {
-            return moneyCount;
         }
     }
 }
