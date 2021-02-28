@@ -54,6 +54,8 @@ namespace Me.DerangedSenators.CopsAndRobbers
         /// <param name="value">Health value, changed based on damage taken</param>
         public void SetHealth(float value)
         {
+            if(isLocalPlayer && (value < currentHealth))
+                Vibration.Vibrate();    
             currentHealth = value;
             this.eventHealthChanged?.Invoke(currentHealth, maxHealth);
         }
