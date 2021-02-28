@@ -1,4 +1,5 @@
-﻿using Mirror;
+﻿using System;
+using Mirror;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -28,6 +29,8 @@ namespace Me.DerangedSenators.CopsAndRobbers
         private State state;            //attack or normal states
         private float attackOffset;
 
+        private bool attackListenerSet;
+
         //Enum object State: contains the states player can be in. Used for attack animation.
         private enum State
         {
@@ -39,12 +42,23 @@ namespace Me.DerangedSenators.CopsAndRobbers
         {
             state = State.NORMAL;
             // Check if it is a mobile version
-            if (ControlContext.Instance.Active)
+            try
             {
-                ControlContext.Instance.AttackButton.AddListener(new MobileButtonListener(this));
+                Debug.Log($"ControlContext Vals: {ControlContext.Instance.Active}");
+                if (ControlContext.Instance.Active && isLocalPlayer)
+                {
+                    ControlContext.Instance.AttackButton.AddListener(new MobileButtonListener(this));
+                    attackListenerSet = true;
+                }
+
+            }
+            catch (NullReferenceException e)
+            {
+                // Map in the FixedUpdate
             }
         }
 
+        
         private class MobileButtonListener: IButtonListener
         {
             private PlayerAttack _attack;
@@ -89,6 +103,22 @@ namespace Me.DerangedSenators.CopsAndRobbers
 
         }
         #endregion
+#elif UNITY_IOS || UNITY_ANDROID || UNITY_WP8 || UNITY_IPHONE
+        private void FixedUpdate()
+        {
+            if (!attackListenerSet && isLocalPlayer)
+            {
+                try
+                {
+                    ControlContext.Instance.AttackButton.AddListener(new MobileButtonListener(this));
+                    attackListenerSet = true;
+                }
+                catch (NullReferenceException ex)
+                {
+                    // WaitOut
+                }
+            }
+        }
 #endif
         /// <summary>
         /// Attack on mouse-click if an enemy is in the direction of the mouse within an offset
