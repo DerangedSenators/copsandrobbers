@@ -15,6 +15,7 @@ namespace Me.DerangedSenators.CopsAndRobbers
         protected Vector3 attackPosition;
         private Vector3 _offset = Vector3.up;
 
+        protected float attackOffset;
         /// <summary>
         /// The LayerMask is used to detect collisions with an enemy
         /// </summary>
@@ -145,6 +146,25 @@ namespace Me.DerangedSenators.CopsAndRobbers
             return Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue());
 
         }
+        #if UNITY_STANDALONE || UNITY_WEBPLAYER
+        protected Vector3 GetMouseWorldPosition()
+        {
+
+            Vector3 vec = GetMouseWorldPositionWithZ(Mouse.current.position.ReadValue(), Camera.main);
+            vec.z = 0f;
+            return vec;
+        }
+        #elif UNITY_IOS || UNITY_ANDROID || UNITY_WP8 || UNITY_IPHONE
+                protected Vector3 GetMouseWorldPosition()
+                {
+                    Vector2 vec = ControlContext.Instance.AttackCircleStick.Direction;
+                    Vector3 vector3;
+                    vector3.x = vec.x;
+                    vector3.y = vec.y;
+                    vector3.z = 0f;
+                    return vec;
+                }
+        #endif
         /// <summary>
         /// Gets the attack point
         /// </summary>
