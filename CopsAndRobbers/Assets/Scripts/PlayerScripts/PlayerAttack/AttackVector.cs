@@ -129,7 +129,7 @@ namespace Me.DerangedSenators.CopsAndRobbers
         protected abstract void DoAttack();
 
         [Command]
-        private void CmdAttack(PlayerHealth enemy)
+        protected void CmdAttack(PlayerHealth enemy)
         {
             enemy.Damage(damageModifier);
         }
