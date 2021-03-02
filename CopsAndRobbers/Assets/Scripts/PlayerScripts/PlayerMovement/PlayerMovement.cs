@@ -22,7 +22,7 @@ namespace Me.DerangedSenators.CopsAndRobbers
         private Vector2 touchOrigin = -Vector2.one;    //Used to store location of screen touch origin for mobile controls.
 
         //private float horizontalMove = 0f;
-        
+        [ClientCallback]
         void Update()
         {
             if (isLocalPlayer)
@@ -41,6 +41,7 @@ namespace Me.DerangedSenators.CopsAndRobbers
         }
 
         /// Update on timer not frames
+        [ClientCallback]
         void FixedUpdate()
         {
             //Movement
