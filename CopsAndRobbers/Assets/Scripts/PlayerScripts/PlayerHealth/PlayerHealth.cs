@@ -28,6 +28,8 @@ namespace Me.DerangedSenators.CopsAndRobbers
         public event HealthChangedDelegate eventHealthChanged;
         public HealthBar healthBar;
         public PlayerRespawn spawner;
+        public MoneyManager moneyM;
+        
 
         /// <summary>
         /// Initialise variables
@@ -43,6 +45,11 @@ namespace Me.DerangedSenators.CopsAndRobbers
         /// </summary>
         public void Update()
         {
+            if (moneyM == null) 
+            {
+                moneyM = FindObjectOfType<MoneyManager>().GetComponent<MoneyManager>();
+            }
+            
             if (currentHealth <= 0)
             {
                 Die();
@@ -112,7 +119,7 @@ namespace Me.DerangedSenators.CopsAndRobbers
         {
             enableComponents();
             gameObject.GetComponent<CircleCollider2D>().enabled = false;
-            moneyManager.SubtractMoney(gameObject.GetComponent<Player>().GetTeamId());
+            moneyM.SubtractMoney(gameObject.GetComponent<Player>().GetTeamId());
         }
 
         /// <summary>
