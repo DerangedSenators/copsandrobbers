@@ -212,6 +212,7 @@ namespace Me.DerangedSenators.CopsAndRobbers {
                     playerPrefabs[i].GetComponent<NetworkTransform>().enabled = true;
                     playerPrefabs[i].GetComponent<PlayerCameraContoller>().enabled = true;
                     playerPrefabs[i].GetComponent<MoneyUpdater>().enabled = true;
+                    playerPrefabs[i].GetComponent<PlayerRespawn>().enabled = true;
                     localP = playerPrefabs[i];
                     localP.transform.GetChild(0).gameObject.SetActive(true);
                 }
@@ -219,6 +220,7 @@ namespace Me.DerangedSenators.CopsAndRobbers {
                 playerPrefabs[i].GetComponent<BoxCollider2D>().enabled = true;
                 playerPrefabs[i].GetComponent<PlayerHealth>().enabled = true;
                 playerPrefabs[i].GetComponent<Animator>().enabled = true;
+                playerPrefabs[i].GetComponent<PlayerRespawn>().enabled = true;
                 playerPrefabs[i].GetComponent<NetworkTransform>().enabled = true;
                 if (playerPrefabs[i].GetComponent<Player>().teamId == 1) // if team is cops
                 {

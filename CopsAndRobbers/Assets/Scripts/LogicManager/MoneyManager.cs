@@ -10,10 +10,7 @@ namespace Me.DerangedSenators.CopsAndRobbers
     /// <summary>
     /// This Class is designed to manage money between each team and also tracks the overall amount of money collected
     /// </summary>
-    /// <author> Hanzalah Ravat </author>
-    /// <author> Nisath Mohamed Nasar </author>
-    /// <author> Piotr Krawiec</author>
-    /// <author> Naim Ahmed </author>
+    /// @authors Hanzalah Ravat, Nisath Mohamed Nasar, Piotr Krawiec, Naim Ahmed, Hannah Elliman 
     public class MoneyManager : MonoBehaviour
     {
         //[SerializeField] Text moneyText;
@@ -67,6 +64,31 @@ namespace Me.DerangedSenators.CopsAndRobbers
                     
                     copsMoneyCount.money += IncrementValue;
                     Debug.Log($"Increased Cops Money {copsMoneyCount.money}");
+                    MoneyDisplay.Instance().UpdateRobbersView(copsMoneyCount.money);
+                    break;
+            }
+        }
+
+        /// <summary>
+        /// Removes $100 from the treasury when a player is respawned
+        /// </summary>
+        /// <param name="teamID"></param>
+        public void SubtractMoney(int teamID)
+        {
+            //*Debug.Log($"CMDCollectMoney has been invoked by {teamID}");
+            Teams updateTeam = (Teams) teamID;
+            //*Debug.Log($"{updateTeam.ToString()} I'm {teamID} attempting to CMDCollectMoney");
+            switch (updateTeam)
+            {
+                case Teams.ROBBERS:
+                    robberMoneyCount.money -= IncrementValue/2;
+                    Debug.Log($"Decreased Robbers Money {robberMoneyCount.money}");
+                    MoneyDisplay.Instance().UpdateCopsView(robberMoneyCount.money);
+                    break;
+                case Teams.COPS:
+                    
+                    copsMoneyCount.money -= IncrementValue/2;
+                    Debug.Log($"Decreased Cops Money {copsMoneyCount.money}");
                     MoneyDisplay.Instance().UpdateRobbersView(copsMoneyCount.money);
                     break;
             }
