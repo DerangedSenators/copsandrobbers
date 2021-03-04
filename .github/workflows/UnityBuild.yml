@@ -84,8 +84,8 @@ jobs:
           unityVersion: ${{ env.UNITY_VERSION }}
           targetPlatform: ${{ matrix.targetPlatform }}
           versioning: Semantic
-      - uses: actions/upload-artifact@v1
-        with:
-          name: Build
-          path: build
+      #- uses: actions/upload-artifact@v1
+       # with:
+        #  name: Build
+         # path: build
           retention-days: 10
