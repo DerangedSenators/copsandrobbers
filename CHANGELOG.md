@@ -1,6 +1,9 @@
-# Added
-- Pause Menu
-- Game Timer
+# Alpha 2.4
 
-# Bug Fixes
-- Fix Money Script
+## Added
+* UI fix for money (both teams)
+* Handlers for attacking other players using mobile device
+## Changes and Bugfixes
+* Fix MoneyPickup
+* Fix PlayerAttack
+* Some additional improvements on mobile devices
