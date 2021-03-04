@@ -290,6 +290,8 @@ GameObject:
   - component: {fileID: -6012107923665898761}
   - component: {fileID: 8195048679506587132}
   - component: {fileID: 277985603917361195}
+  - component: {fileID: 1691428282546766414}
+  - component: {fileID: 6889764896076009993}
   m_Layer: 9
   m_Name: Player
   m_TagString: Player
@@ -376,7 +378,7 @@ Rigidbody2D:
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
   m_Mass: 1
-  m_LinearDrag: 0
+  m_LinearDrag: 10
   m_AngularDrag: 0.05
   m_GravityScale: 0
   m_Material: {fileID: 0}
@@ -426,7 +428,9 @@ MonoBehaviour:
   syncInterval: 0.1
   maxHealth: 100
   currentHealth: 100
+  isAlive: 0
   healthBar: {fileID: 0}
+  spawner: {fileID: 6889764896076009993}
 --- !u!95 &4078056252172929565
 Animator:
   serializedVersion: 3
@@ -584,6 +588,38 @@ MonoBehaviour:
   syncMode: 0
   syncInterval: 0.1
   mTeam: 0
+--- !u!58 &1691428282546766414
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3945214744724447283}
+  m_Enabled: 0
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 2
+--- !u!114 &6889764896076009993
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3945214744724447283}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c544b73b44d35fe4298f1d61c091bc73, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  health: {fileID: 4142333262742635821}
+  FloatingText: {fileID: 765138859388971503, guid: d4b5c8238328a4a47b8b4d2a76fc38d9,
+    type: 3}
+  respawned: 0
 --- !u!114 &277985603917361195
 MonoBehaviour:
   m_ObjectHideFlags: 0
