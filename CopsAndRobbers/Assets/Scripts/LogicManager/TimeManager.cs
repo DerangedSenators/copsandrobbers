@@ -9,9 +9,10 @@ namespace Me.DerangedSenators.CopsAndRobbers
     public class TimeManager : MonoBehaviour
     {
         private float currentTime = 0f;
-        private float startingTime = 60f*10;
+        private float startingTime = 60f;
+        [SerializeField] private GameObject moneyManagerGO;
 
-        [SerializeField] Text countdownText;
+            [SerializeField] Text countdownText;
 
         void Start()
         {
@@ -27,7 +28,8 @@ namespace Me.DerangedSenators.CopsAndRobbers
             countdownText.text = minutes + ":" + seconds;
             if (currentTime <= 0)
             {
-                //load roundbreak scene
+                //load roundbreak 
+                DontDestroyOnLoad(moneyManagerGO);
                 SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
             }
         }
