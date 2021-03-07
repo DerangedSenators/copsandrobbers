@@ -11,6 +11,8 @@ GameObject:
   - component: {fileID: 4790205440362104643}
   - component: {fileID: 5848733429265844265}
   - component: {fileID: 7392201115665216532}
+  - component: {fileID: 50049703019319412}
+  - component: {fileID: 548405302419394136}
   m_Layer: 9
   m_Name: Baton
   m_TagString: AttackCircle
@@ -95,7 +97,40 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4fca4ab2f8739904184745518bd47b22, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerAttack: {fileID: 0}
+  playerAttack: {fileID: 548405302419394136}
+--- !u!114 &50049703019319412
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 479006814914098277}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b91ecbcc199f4492b9a91e820070131, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneId: 0
+  serverOnly: 0
+  m_AssetId: 
+  hasSpawned: 0
+--- !u!114 &548405302419394136
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 479006814914098277}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c672e42e518f441da7059ea51d4a8256, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncMode: 0
+  syncInterval: 0.1
+  EnemyLayer:
+    serializedVersion: 2
+    m_Bits: 256
 --- !u!1 &2458390827360074885
 GameObject:
   m_ObjectHideFlags: 0
@@ -191,7 +226,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weaponSpriteRenderer: {fileID: 1771542802988377133}
-  cop: {fileID: 0}
+  playerAttack: {fileID: 548405302419394136}
+  playerGameObject: {fileID: 0}
 --- !u!1 &5849971690944640427
 GameObject:
   m_ObjectHideFlags: 0
