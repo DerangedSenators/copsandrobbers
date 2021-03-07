@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using Me.DerangedSenators.CopsAndRobbers.Weapons;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -10,9 +11,9 @@ namespace Me.DerangedSenators.CopsAndRobbers
     {
         public SpriteRenderer weaponSpriteRenderer;
         
-        PlayerAttack playerAttack;
+        public WeaponManager playerAttack;
 
-        public GameObject cop;
+        public GameObject playerGameObject;
 
         bool flip;
         bool init = false;
@@ -27,15 +28,16 @@ namespace Me.DerangedSenators.CopsAndRobbers
         void Update()
         {
          
+            /**
             if (!init) 
             { 
-                playerAttack = cop.GetComponent<PlayerAttack>();
+                playerAttack = playerGameObject.GetComponent<Melee>();
             }
             if (playerAttack != null) 
             {
                 init = true;
-            }
-         
+            }*/
+            
             transform.position = new Vector3(playerAttack.GetAttackPoint(0.4f).x, playerAttack.GetAttackPoint(0.4f).y, 0);
             
             FlipSpriteDependingOnAxis(weaponSpriteRenderer);
