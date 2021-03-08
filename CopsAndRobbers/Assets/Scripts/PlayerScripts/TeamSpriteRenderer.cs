@@ -8,7 +8,7 @@ namespace Me.DerangedSenators.CopsAndRobbers.Weapons
     /// Class used to set sprites depending on Team
     /// </summary>
     /// @author Hanzalah Ravat
-    public class TeamSpriteRenderer: NetworkBehaviour
+    public class TeamSpriteRenderer: MonoBehaviour
     {
         /// <summary>
         /// The Player that is attached to this component
@@ -29,30 +29,20 @@ namespace Me.DerangedSenators.CopsAndRobbers.Weapons
         /// </summary>
         public Sprite RobberSprite;
 
-        [SyncVar (hook = "OnChangeTeam")]
-        public string SpriteName;
         private void OnEnable()
         {
             // Check this player's team
             Debug.Log($"This Player is {player.teamId}");
             if (player.teamId == 1)
             {
-                SpriteName = CopSprite.name;
-                Debug.Log($"Sprite Name is {SpriteName}");
+                SetSprite(Teams.COPS);
             }
             else
             {
-                SpriteName = RobberSprite.name;
-                Debug.Log($"Sprite Name is {SpriteName}");            }
+                SetSprite(Teams.ROBBERS);
+                
+            }
         }
-
-        void OnChangeTeam(string oldSpriteName, string spriteName)
-        {
-            Debug.Log("Sprite Changer Invoked!.");
-            sprite.sprite = Resources.Load<Sprite>(spriteName) as Sprite;
-        }
-        
-        [Client]
         private void SetSprite(Teams team)
         {
             switch (team)
