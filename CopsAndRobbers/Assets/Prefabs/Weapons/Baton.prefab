@@ -97,7 +97,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4fca4ab2f8739904184745518bd47b22, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerAttack: {fileID: 548405302419394136}
+  playerAttack: {fileID: 0}
 --- !u!114 &50049703019319412
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -131,6 +131,7 @@ MonoBehaviour:
   EnemyLayer:
     serializedVersion: 2
     m_Bits: 256
+  Manager: {fileID: 0}
 --- !u!1 &2458390827360074885
 GameObject:
   m_ObjectHideFlags: 0
@@ -142,6 +143,7 @@ GameObject:
   - component: {fileID: 4924411717369545563}
   - component: {fileID: 1771542802988377133}
   - component: {fileID: 8676059093883812206}
+  - component: {fileID: 2788522172109169094}
   m_Layer: 9
   m_Name: Weapon
   m_TagString: Player
@@ -226,8 +228,24 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weaponSpriteRenderer: {fileID: 1771542802988377133}
-  playerAttack: {fileID: 548405302419394136}
+  playerAttack: {fileID: 0}
   playerGameObject: {fileID: 0}
+--- !u!114 &2788522172109169094
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2458390827360074885}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 039da93bb47d4fd8af98128fbd5383a5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 0}
+  sprite: {fileID: 1771542802988377133}
+  CopSprite: {fileID: 21300000, guid: 8ee30df419e82f94da85286a4d45a8c9, type: 3}
+  RobberSprite: {fileID: 21300000, guid: 21b81a0979ee04b4a91bd48ef31799c6, type: 3}
 --- !u!1 &5849971690944640427
 GameObject:
   m_ObjectHideFlags: 0
