@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 2d4fab393ce4ed54da92d7d259b51b90
+guid: 8074c519cc45e684c9e489b5fff23e73
 TrueTypeFontImporter:
   externalObjects: {}
   serializedVersion: 4
@@ -8,13 +8,11 @@ TrueTypeFontImporter:
   characterSpacing: 0
   characterPadding: 1
   includeFontData: 1
-  fontName: Tw Cen MT
+  fontName: Roboto Condensed
   fontNames:
-  - Tw Cen MT
+  - Roboto Condensed
   fallbackFontReferences:
-  - {fileID: 12800000, guid: 22e87813e29621c4a9cbd9a14e9d2eee, type: 3}
-  - {fileID: 12800000, guid: 98e0f21b136ac4d4cbc9364022cb1699, type: 3}
-  - {fileID: 12800000, guid: 81fe402c42684d44d846947150616337, type: 3}
+  - {fileID: 12800000, guid: 308dfbbdf109b22438b3fe4fb0bbb73f, type: 3}
   customCharacters: 
   fontRenderingMode: 0
   ascentCalculationMode: 1
