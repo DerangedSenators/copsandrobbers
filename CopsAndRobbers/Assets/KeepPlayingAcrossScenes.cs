@@ -1,4 +1,7 @@
-﻿using System.Collections;
+﻿///<summary>Prevents music from being stopped during scene change, and allows the scene to decide whether to play/stop music</summary>
+///@author Elliot Willis
+
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
