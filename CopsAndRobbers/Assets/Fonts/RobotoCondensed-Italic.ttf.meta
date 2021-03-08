@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<< HEAD:CopsAndRobbers/Assets/Fonts/RobotoCondensed-Italic.ttf.meta
 guid: 8183f82d6bedb9442a33d2ae1ec421d6
+=======
+guid: b71eae400b5d97f48ab7d7c2f042070b
+>>>>>>> 01d3865 (Font Overhaul):CopsAndRobbers/Assets/TextMesh Pro/Examples & Extras/Fonts/RobotoCondensed-Italic.ttf.meta
 TrueTypeFontImporter:
   externalObjects: {}
   serializedVersion: 4
