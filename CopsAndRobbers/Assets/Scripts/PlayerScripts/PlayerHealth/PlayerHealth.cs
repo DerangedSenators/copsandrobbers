@@ -47,7 +47,14 @@ namespace Me.DerangedSenators.CopsAndRobbers
         {
             if (moneyM == null) 
             {
-                moneyM = FindObjectOfType<MoneyManager>().GetComponent<MoneyManager>();
+                try
+                {
+                    moneyM = GetComponent<MoneyManager>();
+                }
+                catch (NullReferenceException ex)
+                {
+                    // Do nothing as there is a null ref exception here.
+                }
             }
             
             if (currentHealth <= 0)
