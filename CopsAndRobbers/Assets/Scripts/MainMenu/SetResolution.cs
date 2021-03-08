@@ -1,4 +1,7 @@
-﻿using System.Collections;
+﻿///<summary> Sets the resolution of the application window on non-mobile displays</summary>
+///@author Elliot Willis
+
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
