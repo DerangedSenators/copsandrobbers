@@ -16,7 +16,6 @@ namespace Me.DerangedSenators.CopsAndRobbers
         /// <summary>
         /// The current weapon used by the player
         /// </summary>
-        [SyncVar (hook = nameof(SwitchWeapon))]
         public GameObject Weapon;
 
         /// <summary>
@@ -85,7 +84,15 @@ namespace Me.DerangedSenators.CopsAndRobbers
             if (isLocalPlayer)
             {
                 setAttackParams();
-                Weapon.GetComponent<AttackVector>().HandleAttack(); 
+                if (Input.GetKeyDown(KeyCode.Alpha1))
+                {
+                    SwitchWeapon(Weapon,WeaponInventory[0]);
+                } else if (Input.GetKeyDown(KeyCode.Alpha2))
+                {
+                    SwitchWeapon(Weapon,WeaponInventory[1]);
+ 
+                }
+                Weapon.GetComponent<AttackVector>().HandleAttack();
             }
         }
 

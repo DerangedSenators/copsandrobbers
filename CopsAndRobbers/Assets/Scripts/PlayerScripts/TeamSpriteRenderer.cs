@@ -32,7 +32,6 @@ namespace Me.DerangedSenators.CopsAndRobbers.Weapons
         private void OnEnable()
         {
             // Check this player's team
-            Debug.Log($"This Player is {player.teamId}");
             if (player.teamId == 1)
             {
                 SetSprite(Teams.COPS);
