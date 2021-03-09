@@ -446,7 +446,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 256
   WeaponInventory:
-  - {fileID: 479006814914098277, guid: fa280ae93224812ec9d7a7cb180aad01, type: 3}
+  - {fileID: 396493474681476434}
   - {fileID: 7552640703219258899}
   ThisPlayer: {fileID: 4320991763438738490}
   attackOffset: 0
@@ -691,6 +691,11 @@ PrefabInstance:
       propertyPath: playerGameObject
       value: 
       objectReference: {fileID: 3945214744724447283}
+    - target: {fileID: 197701599008496410, guid: 5bc10687da3da9b439b827c37f38de80,
+        type: 3}
+      propertyPath: player
+      value: 
+      objectReference: {fileID: 4320991763438738490}
     - target: {fileID: 1187416314274853420, guid: 5bc10687da3da9b439b827c37f38de80,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -807,6 +812,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Baton
       objectReference: {fileID: 0}
+    - target: {fileID: 479006814914098277, guid: fa280ae93224812ec9d7a7cb180aad01,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 548405302419394136, guid: fa280ae93224812ec9d7a7cb180aad01,
         type: 3}
       propertyPath: Manager
@@ -897,6 +907,12 @@ PrefabInstance:
 --- !u!4 &4710585886825850484 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4790205440362104643, guid: fa280ae93224812ec9d7a7cb180aad01,
+    type: 3}
+  m_PrefabInstance: {fileID: 226700193328030007}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &396493474681476434 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 479006814914098277, guid: fa280ae93224812ec9d7a7cb180aad01,
     type: 3}
   m_PrefabInstance: {fileID: 226700193328030007}
   m_PrefabAsset: {fileID: 0}

@@ -42,14 +42,17 @@ namespace Me.DerangedSenators.CopsAndRobbers
 
         private void FixedUpdate()
         {
-            if (VirtualCameraSingleton.Instance.mVirtualCamera != null && !mod)
+            try
             {
-                VirtualCameraSingleton.Instance.mVirtualCamera.Follow = playerTransform;
-                //*Debug.Log("instance assinged: " + VirtualCameraSingleton.Instance.mVirtualCamera);
-                mod = true;
-            }
-            positionOnUpdate = VirtualCameraSingleton.Instance.mVirtualCamera.Follow.position;
+                if (VirtualCameraSingleton.Instance.mVirtualCamera != null && !mod)
+                {
+                    VirtualCameraSingleton.Instance.mVirtualCamera.Follow = playerTransform;
+                    //*Debug.Log("instance assinged: " + VirtualCameraSingleton.Instance.mVirtualCamera);
+                    mod = true;
+                }
 
+                positionOnUpdate = VirtualCameraSingleton.Instance.mVirtualCamera.Follow.position;
+            } catch(NullReferenceException exception){}
         }
     }
 }
