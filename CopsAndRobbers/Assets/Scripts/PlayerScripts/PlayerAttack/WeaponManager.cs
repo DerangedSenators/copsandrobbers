@@ -17,7 +17,7 @@ namespace Me.DerangedSenators.CopsAndRobbers
         /// <summary>
         /// The current weapon used by the player
         /// </summary>
-        public GameObject Weapon;
+        private GameObject _weapon;
 
         /// <summary>
         /// The Player's Enemy Layer Mask
@@ -57,6 +57,8 @@ namespace Me.DerangedSenators.CopsAndRobbers
         public  Vector3 GetAttackPosition => attackPosition;
 
         public float attackOffset;
+
+        private int currentIndex;
         
         public void SwitchWeapon(GameObject oldWeapon, GameObject newWeapon)
         {
@@ -68,7 +70,7 @@ namespace Me.DerangedSenators.CopsAndRobbers
             // Destroy Current Weapon
             oldWeapon.SetActive(false);
             newWeapon.SetActive(true);
-            Weapon = newWeapon;
+            _weapon = newWeapon;
             yield return null;
         }
 
@@ -76,6 +78,9 @@ namespace Me.DerangedSenators.CopsAndRobbers
         {
             if(isLocalPlayer)
                 localInstance = this;
+            _weapon = WeaponInventory[0];
+            currentIndex = 0;
+            _weapon.SetActive(true);
             Debug.Log("Instance set");
         }
 
@@ -88,14 +93,16 @@ namespace Me.DerangedSenators.CopsAndRobbers
                 if (Input.GetKeyDown(KeyCode.Alpha1) || Input.GetKeyDown(KeyCode.Q))
                 {
                     Debug.Log("Switching to Baton");
-                    SwitchWeapon(Weapon,WeaponInventory[0]);
+                    SwitchWeapon(_weapon,WeaponInventory[0]);
+                    currentIndex = 0;
                 } else if (Input.GetKeyDown(KeyCode.Alpha2) || Input.GetKeyDown(KeyCode.E))
                 { 
                     Debug.Log("Switching to Gun");
-                    SwitchWeapon(Weapon,WeaponInventory[1]);
- 
+                    SwitchWeapon(_weapon,WeaponInventory[1]);
+                    currentIndex = 1;
+
                 }
-                Weapon.GetComponent<AttackVector>().HandleAttack();
+                WeaponInventory[currentIndex].GetComponent<AttackVector>().HandleAttack();
             }
         }
 
