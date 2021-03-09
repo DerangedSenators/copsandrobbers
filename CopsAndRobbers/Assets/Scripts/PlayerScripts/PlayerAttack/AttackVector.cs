@@ -114,7 +114,7 @@ namespace Me.DerangedSenators.CopsAndRobbers
         /// </summary>
         public void HandleAttack()
         {
-            if (Input.GetMouseButtonDown(0))
+            if (Input.GetMouseButtonDown(0) || Input.GetKeyDown(KeyCode.Space))
             {
                 if (Manager == null)
                 {
@@ -131,7 +131,7 @@ namespace Me.DerangedSenators.CopsAndRobbers
         protected abstract void DoAttack();
 
         [Command]
-        protected void CmdAttack(PlayerHealth enemy)
+        public void CmdAttack(PlayerHealth enemy)
         {
             enemy.Damage(damageModifier);
         }
