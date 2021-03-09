@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Mirror;
 using UnityEngine;
+using UnityEngine.AI;
 using UnityEngine.InputSystem;
 
 namespace Me.DerangedSenators.CopsAndRobbers
@@ -84,11 +85,13 @@ namespace Me.DerangedSenators.CopsAndRobbers
             if (isLocalPlayer)
             {
                 setAttackParams();
-                if (Input.GetKeyDown(KeyCode.Alpha1))
+                if (Input.GetKeyDown(KeyCode.Alpha1) || Input.GetKeyDown(KeyCode.Q))
                 {
+                    Debug.Log("Switching to Baton");
                     SwitchWeapon(Weapon,WeaponInventory[0]);
-                } else if (Input.GetKeyDown(KeyCode.Alpha2))
-                {
+                } else if (Input.GetKeyDown(KeyCode.Alpha2) || Input.GetKeyDown(KeyCode.E))
+                { 
+                    Debug.Log("Switching to Gun");
                     SwitchWeapon(Weapon,WeaponInventory[1]);
  
                 }
