@@ -32,10 +32,7 @@ namespace Me.DerangedSenators.CopsAndRobbers.Weapons
         /// </summary>
         protected override void DoAttack()
         {
-            do
-            { 
-                CmdShoot();
-            } while (isShooting);
+            CmdShoot();
         }
 
         /// <summary>
