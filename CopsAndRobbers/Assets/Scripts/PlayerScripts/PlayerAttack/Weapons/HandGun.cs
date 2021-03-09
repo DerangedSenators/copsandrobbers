@@ -32,20 +32,25 @@ namespace Me.DerangedSenators.CopsAndRobbers.Weapons
         /// </summary>
         protected override void DoAttack()
         {
-            CmdShoot();
+            Debug.Log("Shooting");
+            var bullet = (GameObject) Instantiate(Bullet, PlayerTransform.position, PlayerTransform.rotation);
+            bullet.transform.position += Manager.GetMouseDir();
+            Vector3 bulletPosition = (Manager.GetMousePosition() - bullet.transform.position).normalized;
+            float angle = Mathf.Atan2(bulletPosition.y, bulletPosition.x) * Mathf.Rad2Deg;
+            bullet.transform.eulerAngles = new Vector3(0, 0, angle);
+            bullet.GetComponent<Rigidbody2D>().velocity = Manager.GetMouseDir().normalized * BulletVelocity;
+            bullet.GetComponent<Rigidbody2D>().gravityScale = 0;
+            Destroy(bullet);
+            CmdShoot(bullet);
         }
 
         /// <summary>
-        /// Private command to shoot
+        /// Command to shoot over the Network
         /// </summary>
         [Command]
-        private void CmdShoot()
+        public void CmdShoot(GameObject bullet)
         {
-            var bullet = (GameObject) Instantiate(Bullet, PlayerTransform.position, Quaternion.identity);
-            bullet.transform.position += Manager.GetMouseDir();
-            bullet.GetComponent<Rigidbody2D>().velocity = Manager.GetMouseDir() * BulletVelocity;
             NetworkServer.Spawn(bullet);
-            
         }
         
     }
