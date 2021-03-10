@@ -5,11 +5,11 @@ using UnityEngine.SceneManagement;
 using Mirror;
 
 namespace Me.DerangedSenators.CopsAndRobbers {
-    
-    /// <author> Hannah Elliman </author>
-    /// <author> Ashwin Jaimal </author>
-    /// <author> Nisath Mohamed Nasar </author>
-    /// <author> Piotr Krawiec </author>
+
+    /// <summary>
+    /// This Class is designed to host the root player object. It holds information such as the MatchID, TeamID  and is responsible for intitiating the prefab on Game Load
+    /// </summary>
+    /// @authors Hannah Elliman, Ashwin Jaimal, Nisath Mohamed Nasar, Piotr Krawiec and Hanzalah Ravat
     public class Player : NetworkBehaviour
     {
         public static Player localPlayer;
