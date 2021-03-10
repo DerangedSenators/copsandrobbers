@@ -152,3 +152,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   GunTransform: {fileID: 1187416314274853420}
   Manager: {fileID: 0}
+  WeaponRenderer: {fileID: 2241194889934557084}
