@@ -9,8 +9,8 @@ namespace Me.DerangedSenators.CopsAndRobbers
     /// <summary>
     /// This script is responsible for the respawn function
     /// 
-    /// @authors Hannah Elliman, Piotr Krawiec
     /// </summary>
+    /// @authors Hannah Elliman, Piotr Krawiec
     public class PlayerRespawn : MonoBehaviour 
     {
         public PlayerHealth health;
@@ -22,7 +22,6 @@ namespace Me.DerangedSenators.CopsAndRobbers
         private bool countdown;
 
         public bool respawned;
-
         
 
         /// <summary>
@@ -61,7 +60,8 @@ namespace Me.DerangedSenators.CopsAndRobbers
         public void OnTriggerEnter2D(Collider2D collider)
         {
             
-            bool teamAlive = collider.gameObject.GetComponent<PlayerHealth>().getIsAlive();
+            bool teamAlive = health.getIsAlive();
+            
             if (health.getIsAlive() == false && collider.gameObject.layer == gameObject.layer && teamAlive)
             {
                 countdown = true;
