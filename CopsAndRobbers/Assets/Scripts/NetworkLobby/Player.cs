@@ -216,6 +216,7 @@ namespace Me.DerangedSenators.CopsAndRobbers {
                         playerPrefabs[i].GetComponent<PlayerCameraContoller>().enabled = true;
                         playerPrefabs[i].GetComponent<MoneyUpdater>().enabled = true;
                         playerPrefabs[i].GetComponent<PlayerRespawn>().enabled = true;
+                        playerPrefabs[i].GetComponent<BulletDetector>().enabled = true;
                         localP = playerPrefabs[i];
                         localP.transform.GetChild(0).gameObject.SetActive(true);
                     }
