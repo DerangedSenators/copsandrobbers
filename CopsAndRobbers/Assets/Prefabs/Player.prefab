@@ -100,6 +100,7 @@ GameObject:
   - component: {fileID: 1691428282546766414}
   - component: {fileID: 6889764896076009993}
   - component: {fileID: 330297155450698}
+  - component: {fileID: 4782112354092911828}
   m_Layer: 9
   m_Name: Player
   m_TagString: Player
@@ -441,7 +442,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   syncMode: 0
   syncInterval: 0.1
-  Weapon: {fileID: 479006814914098277, guid: fa280ae93224812ec9d7a7cb180aad01, type: 3}
   EnemyLayer:
     serializedVersion: 2
     m_Bits: 256
@@ -450,6 +450,21 @@ MonoBehaviour:
   - {fileID: 7552640703219258899}
   ThisPlayer: {fileID: 4320991763438738490}
   attackOffset: 0
+--- !u!114 &4782112354092911828
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3945214744724447283}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: db7eee8092254274a44743fdba13cf36, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncMode: 0
+  syncInterval: 0.1
+  Health: {fileID: 4142333262742635821}
 --- !u!1 &4766007345548029295
 GameObject:
   m_ObjectHideFlags: 0
