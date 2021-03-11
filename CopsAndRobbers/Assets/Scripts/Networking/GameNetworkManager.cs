@@ -18,6 +18,7 @@ namespace Me.DerangedSenators.CopsAndRobbers
         {
             SpawnMoneyBags();
             //SceneManager.sceneLoaded += delegate { SpawnMoneyBags(); };
+            
         }
 
         public void ClientConnect() 

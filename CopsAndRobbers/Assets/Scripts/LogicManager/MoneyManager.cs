@@ -20,7 +20,7 @@ namespace Me.DerangedSenators.CopsAndRobbers
         private static TeamMoneyCount copsMoneyCount;
         public static TeamMoneyCount CopsMoneyCount => copsMoneyCount;
         public static TeamMoneyCount RobberMoneyCount => robberMoneyCount;
-
+        private int myTeamID = -1;
 
         /// <summary>
         /// Struct to hold team and money value
@@ -50,6 +50,7 @@ namespace Me.DerangedSenators.CopsAndRobbers
         //[Command]
         public void CMDCollectMoney(int teamID)
         {
+            myTeamID = teamID;
             //*Debug.Log($"CMDCollectMoney has been invoked by {teamID}");
             Teams updateTeam = (Teams) teamID;
             //*Debug.Log($"{updateTeam.ToString()} I'm {teamID} attempting to CMDCollectMoney");
@@ -92,6 +93,17 @@ namespace Me.DerangedSenators.CopsAndRobbers
                     MoneyDisplay.Instance().UpdateRobbersView(copsMoneyCount.money);
                     break;
             }
+        }
+
+        public static int[] GetMoneyCounts()
+        {
+            int[] arr = {copsMoneyCount.money, robberMoneyCount.money};
+            return arr;
+        }
+
+        public int GetMyTeamID()
+        {
+            return myTeamID;
         }
     }
 }
