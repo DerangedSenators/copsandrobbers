@@ -135,13 +135,6 @@ namespace Me.DerangedSenators.CopsAndRobbers
         public void CmdShoot(float bulletVelocity)
         {
             Debug.Log($"Projectile Speed is {bulletVelocity}");
-            Debug.Log("Shooting...");
-            RpcFire(bulletVelocity);
-        }
-
-        [ClientRpc]
-        public void RpcFire(float bulletVelocity)
-        {
             var projectile =  Instantiate(Bullet, transform.position, transform.rotation);
             projectile.transform.position += GetMouseDir();
             Vector3 bulletPosition = (GetMousePosition() - projectile.transform.position).normalized;
@@ -149,7 +142,10 @@ namespace Me.DerangedSenators.CopsAndRobbers
             projectile.transform.eulerAngles = new Vector3(0, 0, angle);
             projectile.GetComponent<Rigidbody2D>().velocity = GetMouseDir().normalized * bulletVelocity;
             projectile.GetComponent<Rigidbody2D>().gravityScale = 0;
+            Debug.Log("Shooting...");
+            NetworkServer.Spawn(projectile);
         }
+
         /// <summary>
         /// Gets the Mouse Position with Z Axis
         /// </summary>
