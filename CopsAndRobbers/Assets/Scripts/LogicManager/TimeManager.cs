@@ -21,7 +21,10 @@ namespace Me.DerangedSenators.CopsAndRobbers
         [SerializeField]
         private RoundManager _roundManager;
 
-
+        [SerializeField] private Text endOfRoundText;
+        [SerializeField] private Text breakTimerText;
+        [SerializeField] private GameObject breakCanvas;
+        
         private bool freeze1;
         private bool freeze2;
         private bool freeze3;
@@ -41,15 +44,28 @@ namespace Me.DerangedSenators.CopsAndRobbers
             freezeTime = 5f;
             currentTime = freezeTime;
             freeze1 = true;
-            round1Time = 30f;
-            round2Time = 30f;
-            round3Time = 30f;
-            breakTime = 20f;
+            round1Time = 5f;
+            round2Time = 5f;
+            round3Time = 5f;
+            breakTime = 5f;
+            breakCanvas.gameObject.SetActive(false);
         }
 
         void Update()
         {
             StandardizeTime();
+
+            //disable movement in the beginning
+            if (freeze1)
+            {
+                Player.localPlayer.GetComponent<PlayerMovement>().enabled = false;  //disable movement
+            }
+
+            if (breakRound1 || breakRound2)
+            {
+                breakTimerText.text = countdownText.text;
+            }
+            
             
             if (currentTime <= 0) //timers ended
             {
@@ -57,7 +73,7 @@ namespace Me.DerangedSenators.CopsAndRobbers
                 //currentTime = round2Time;
 
                 //This if statement disables freeze1 and starts round1, sets timer to round1timer and loads round1.
-                if (freeze1)
+                if (freeze1) //round 1
                 {
                     freeze1 = false;
                     round1 = true;
@@ -65,17 +81,24 @@ namespace Me.DerangedSenators.CopsAndRobbers
                     Debug.Log("current counting round1 time");
                     
                     _roundManager.LoadRound();
+
+                    Player.localPlayer.GetComponent<PlayerMovement>().enabled = true;   //enable movement
                 }
                 //This if statement disables round1, enables break1 and sets timer to break time.
-                else if (round1)
+                else if (round1) //break
                 {
                     round1 = false;
                     breakRound1 = true;
                     currentTime = breakTime;
                     Debug.Log("current counting breakround1 time");
+                    
+                    Player.localPlayer.GetComponent<PlayerMovement>().enabled = false; //disable movement
+                    
+                    breakCanvas.gameObject.SetActive(true);
+                    endOfRoundText.text = $"End of round 1";
                 }
                 //This if statement disables break, enables freeze2 and sets timer to freeze time.
-                else if (breakRound1)
+                else if (breakRound1) //freeze2
                 {
                     breakRound1 = false;
                     freeze2 = true;
@@ -83,9 +106,11 @@ namespace Me.DerangedSenators.CopsAndRobbers
                     Debug.Log("current counting freeze2 time");
                     
                     _roundManager.LoadRound();
+                    
+                    breakCanvas.gameObject.SetActive(false);
                 }
 
-                else if (freeze2)
+                else if (freeze2) //round2
                 {
                     freeze2 = false;
                     round2 = true;
@@ -93,19 +118,24 @@ namespace Me.DerangedSenators.CopsAndRobbers
                     
                     Debug.Log("current counting round2 time");
                     
-                    
+                    Player.localPlayer.GetComponent<PlayerMovement>().enabled = true;   //enable movement
                 }
 
-                else if (round2)
+                else if (round2)//break
                 {
                     round2 = false;
                     breakRound2 = true;
                     currentTime = round3Time;
                     
                     Debug.Log("current counting breakround2 time");
+                    
+                    Player.localPlayer.GetComponent<PlayerMovement>().enabled = false;  //disable movement
+                    
+                    breakCanvas.gameObject.SetActive(true);
+                    endOfRoundText.text = $"End of round 2";
                 }
 
-                else if (breakRound2)
+                else if (breakRound2)//freeze3
                 {
                     breakRound2 = false;
                     freeze3 = true;
@@ -114,20 +144,26 @@ namespace Me.DerangedSenators.CopsAndRobbers
                     Debug.Log("current counting freeze3 time");
                     
                     _roundManager.LoadRound();
+                    
+                    breakCanvas.gameObject.SetActive(false);
                 }
 
-                else if (freeze3)
+                else if (freeze3) //round3
                 {
                     freeze3 = false;
                     round3 = true;
                     currentTime = round3Time;
                     
                     Debug.Log("current counting round3 time");
+                    
+                    Player.localPlayer.GetComponent<PlayerMovement>().enabled = true;   //enable movement
                 }
 
-                else if (round3)
+                else if (round3) //ending
                 {
                     round3 = false;
+                    Player.localPlayer.GetComponent<PlayerMovement>().enabled = false;   //disable movement
+                    _roundManager.LoadRound();
                 }
 
                 
