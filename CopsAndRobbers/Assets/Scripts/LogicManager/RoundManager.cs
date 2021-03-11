@@ -2,12 +2,14 @@
 using System.Collections.Generic;
 using Me.DerangedSenators.CopsAndRobbers;
 using UnityEngine;
+using UnityEngine.UI;
 
 
 namespace Me.DerangedSenators.CopsAndRobbers
 {
     public class RoundManager : MonoBehaviour
     {
+        [SerializeField] private Text currentRoundTextUI;
         
         public enum Round
         {
@@ -19,8 +21,8 @@ namespace Me.DerangedSenators.CopsAndRobbers
         void Start()
         {
             _currentRound = Round.ROUND1;
+            UpdateRoundTextView(1);
         }
-        
         
         public void LoadRound()
         {
@@ -41,6 +43,7 @@ namespace Me.DerangedSenators.CopsAndRobbers
             
         }
 
+        //!!!!!!!!!!!Refactor this to one code 
         public void TransformPlayersRound2()
         {
             if (Player.localPlayer.teamId == 1)
@@ -53,6 +56,7 @@ namespace Me.DerangedSenators.CopsAndRobbers
                 Vector3 newPos = new Vector3(108 + Player.localPlayer.playerIndex, -17, -101);
                 Player.localPlayer.transform.position = newPos;
             }
+            UpdateRoundTextView(2);
         }
         
         public void TransformPlayersRound3()
@@ -67,6 +71,7 @@ namespace Me.DerangedSenators.CopsAndRobbers
                 Vector3 newPos = new Vector3(-172 + Player.localPlayer.playerIndex, -29, -30);
                 Player.localPlayer.transform.position = newPos;
             }
+            UpdateRoundTextView(3);
         }
 
         public Round GetCurrentRound()
@@ -79,11 +84,15 @@ namespace Me.DerangedSenators.CopsAndRobbers
             _currentRound = targetRound;
         }
 
-
-
-        void Update()
+        public void UpdateRoundTextView(int roundNumber)
         {
+            currentRoundTextUI.text = $"Round {roundNumber}/3";
+        }
 
+
+        void FixedUpdate()
+        {
+            
         }
     }
 }
