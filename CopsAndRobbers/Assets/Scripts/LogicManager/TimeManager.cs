@@ -6,8 +6,10 @@ using UnityEngine.SceneManagement;
 
 namespace Me.DerangedSenators.CopsAndRobbers
 {
-    /// <author> Nisath Mohamed Nasar </author>
-    /// <author> Piotr Krawiec</author>
+    // <@authors Nisath Mohamed Nasar and Piotr Krawiec
+    /// <summary>
+    /// This script manages interacts with UI and Round Manager to control the time behaviours
+    /// </summary>
     public class TimeManager : MonoBehaviour
     {
         private float currentTime = 0f;
@@ -44,13 +46,13 @@ namespace Me.DerangedSenators.CopsAndRobbers
         
         void Start()
         {
-            freezeTime = 5f;
+            freezeTime = 10f;
             currentTime = freezeTime;
             freeze1 = true;
-            round1Time = 5f;
-            round2Time = 5f;
-            round3Time = 5f;
-            breakTime = 5f;
+            round1Time = 60*3f;
+            round2Time = 60*3f;
+            round3Time = 60*3f;
+            breakTime = 60f;
             breakCanvas.gameObject.SetActive(false);
             freezeCanvas.gameObject.SetActive(false);
         }
