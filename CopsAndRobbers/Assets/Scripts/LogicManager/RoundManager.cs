@@ -7,27 +7,39 @@ using UnityEngine.UI;
 
 namespace Me.DerangedSenators.CopsAndRobbers
 {
+    /// <author> Nisath Mohamed Nasar </author>
+    /// <author> Piotr Krawiec</author>
     public class RoundManager : MonoBehaviour
     {
         [SerializeField] private Text currentRoundTextUI;
         
         public enum Round
         {
-            ROUND1, ROUND2, ROUND3, ENDED
+            FREEZE,
+            ROUND1, 
+            ROUND2, 
+            ROUND3, 
+            ENDED
         }
 
         private Round _currentRound;
 
         void Start()
         {
-            _currentRound = Round.ROUND1;
+            _currentRound = Round.FREEZE;
             UpdateRoundTextView(1);
         }
         
+        /// <summary>
+        /// This method, checks current round and loads next round accordingly.
+        /// </summary>
         public void LoadRound()
         {
             switch (_currentRound)
             {
+                case Round.FREEZE :
+                    _currentRound = Round.ROUND1;
+                    break;
                 case Round.ROUND1 :
                     TransformPlayersRound2();
                     _currentRound = Round.ROUND2;
@@ -43,6 +55,13 @@ namespace Me.DerangedSenators.CopsAndRobbers
             
         }
 
+
+        public void LoadFreezeRound()
+        {
+            //disable player components
+            
+        }
+        
         //!!!!!!!!!!!Refactor this to one code 
         public void TransformPlayersRound2()
         {
@@ -74,25 +93,33 @@ namespace Me.DerangedSenators.CopsAndRobbers
             UpdateRoundTextView(3);
         }
 
+        /// <summary>
+        /// returns current round
+        /// </summary>
+        /// <returns></returns>
         public Round GetCurrentRound()
         {
             return _currentRound;
         }
 
+        /// <summary>
+        /// sets current round.
+        /// </summary>
+        /// <param name="targetRound"></param>
         public void SetRound(Round targetRound)
         {
             _currentRound = targetRound;
         }
 
-        public void UpdateRoundTextView(int roundNumber)
+        /// <summary>
+        /// displays round text
+        /// </summary>
+        /// <param name="roundNumber"></param>
+        private void UpdateRoundTextView(int roundNumber)
         {
             currentRoundTextUI.text = $"Round {roundNumber}/3";
         }
 
 
-        void FixedUpdate()
-        {
-            
-        }
     }
 }
