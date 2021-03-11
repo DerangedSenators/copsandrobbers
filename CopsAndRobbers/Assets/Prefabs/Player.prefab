@@ -450,6 +450,7 @@ MonoBehaviour:
   - {fileID: 7552640703219258899}
   ThisPlayer: {fileID: 4320991763438738490}
   attackOffset: 0
+  Bullet: {fileID: 2506447796587376942, guid: f29617ad7687d4248a2d33ee24cce3c7, type: 3}
 --- !u!114 &4782112354092911828
 MonoBehaviour:
   m_ObjectHideFlags: 0

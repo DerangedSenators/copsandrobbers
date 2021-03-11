@@ -59,6 +59,8 @@ namespace Me.DerangedSenators.CopsAndRobbers
         public float attackOffset;
 
         private int currentIndex;
+
+        public GameObject Bullet;
         
         public void SwitchWeapon(GameObject oldWeapon, GameObject newWeapon)
         {
@@ -102,7 +104,6 @@ namespace Me.DerangedSenators.CopsAndRobbers
                     currentIndex = 1;
 
                 }
-                WeaponInventory[currentIndex].GetComponent<AttackVector>().HandleAttack();
             }
         }
 
@@ -120,7 +121,35 @@ namespace Me.DerangedSenators.CopsAndRobbers
             attackPosition = (transform.position + mouseDir * attackOffset);
         }
         #endregion
+
+        public void FixedUpdate()
+        {
+            WeaponInventory[currentIndex].GetComponent<AttackVector>().HandleAttack();
+        }
         //--- Helper Methods ---//
+
+        /// <summary>
+        /// Command to shoot over the Network
+        /// </summary>
+        [Command]
+        public void CmdShoot(float bulletVelocity)
+        {
+            Debug.Log($"Projectile Speed is {bulletVelocity}");
+            Debug.Log("Shooting...");
+            RpcFire(bulletVelocity);
+        }
+
+        [ClientRpc]
+        public void RpcFire(float bulletVelocity)
+        {
+            var projectile =  Instantiate(Bullet, transform.position, transform.rotation);
+            projectile.transform.position += GetMouseDir();
+            Vector3 bulletPosition = (GetMousePosition() - projectile.transform.position).normalized;
+            float angle = Mathf.Atan2(bulletPosition.y, bulletPosition.x) * Mathf.Rad2Deg;
+            projectile.transform.eulerAngles = new Vector3(0, 0, angle);
+            projectile.GetComponent<Rigidbody2D>().velocity = GetMouseDir().normalized * bulletVelocity;
+            projectile.GetComponent<Rigidbody2D>().gravityScale = 0;
+        }
         /// <summary>
         /// Gets the Mouse Position with Z Axis
         /// </summary>
