@@ -132,15 +132,15 @@ namespace Me.DerangedSenators.CopsAndRobbers
         /// Command to shoot over the Network
         /// </summary>
         [Command]
-        public void CmdShoot(float bulletVelocity)
+        public void CmdShoot(Vector3 mouseDir, Vector3 mousePosition, float bulletVelocity)
         {
             Debug.Log($"Projectile Speed is {bulletVelocity}");
             var projectile =  Instantiate(Bullet, transform.position, transform.rotation);
-            projectile.transform.position += GetMouseDir();
-            Vector3 bulletPosition = (GetMousePosition() - projectile.transform.position).normalized;
+            projectile.transform.position += mouseDir;
+            Vector3 bulletPosition = (mousePosition - projectile.transform.position).normalized;
             float angle = Mathf.Atan2(bulletPosition.y, bulletPosition.x) * Mathf.Rad2Deg;
             projectile.transform.eulerAngles = new Vector3(0, 0, angle);
-            projectile.GetComponent<Rigidbody2D>().velocity = GetMouseDir().normalized * bulletVelocity;
+            projectile.GetComponent<Rigidbody2D>().velocity = mouseDir.normalized * bulletVelocity;
             projectile.GetComponent<Rigidbody2D>().gravityScale = 0;
             Debug.Log("Shooting...");
             NetworkServer.Spawn(projectile);
@@ -160,7 +160,6 @@ namespace Me.DerangedSenators.CopsAndRobbers
         #if UNITY_STANDALONE || UNITY_WEBPLAYER
         public  Vector3 GetMouseWorldPosition()
         {
-
             Vector3 vec = GetMouseWorldPositionWithZ(Mouse.current.position.ReadValue(), Camera.main);
             vec.z = 0f;
             return vec;
