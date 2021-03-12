@@ -33,7 +33,7 @@ namespace Me.DerangedSenators.CopsAndRobbers.Weapons
         protected override void DoAttack()
         {
             Debug.Log("Shooting");
-            Manager.CmdShoot(BulletVelocity);
+            Manager.CmdShoot(Manager.GetMouseDir(),Manager.GetMousePosition(),BulletVelocity);
         }
 
 
