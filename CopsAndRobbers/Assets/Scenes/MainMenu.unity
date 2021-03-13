@@ -132,7 +132,7 @@ GameObject:
   - component: {fileID: 35127941}
   - component: {fileID: 35127942}
   m_Layer: 5
-  m_Name: Slider
+  m_Name: SFXSlider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -235,7 +235,7 @@ GameObject:
   - component: {fileID: 44666762}
   m_Layer: 0
   m_Name: SFXHandler
-  m_TagString: Untagged
+  m_TagString: SFX
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1107,7 +1107,7 @@ GameObject:
   - component: {fileID: 324697363}
   - component: {fileID: 324697364}
   m_Layer: 5
-  m_Name: Slider
+  m_Name: MusicSlider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1207,6 +1207,7 @@ GameObject:
   - component: {fileID: 328004579}
   - component: {fileID: 328004581}
   - component: {fileID: 328004580}
+  - component: {fileID: 328004582}
   m_Layer: 5
   m_Name: OptionsMenu
   m_TagString: Untagged
@@ -1275,6 +1276,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 328004578}
   m_CullTransparentMesh: 0
+--- !u!114 &328004582
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 328004578}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 837ad2090e69b3f479936d972d5636cd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sfxSlider: {fileID: 35127942}
+  musicSlider: {fileID: 324697364}
 --- !u!1 &426063735
 GameObject:
   m_ObjectHideFlags: 0
