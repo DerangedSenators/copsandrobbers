@@ -1,4 +1,7 @@
-﻿using System.Collections;
+﻿///<summary>Updates music/sfx sliders to correct value when they are loaded</summary>
+///@author Elliot Willis
+
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
