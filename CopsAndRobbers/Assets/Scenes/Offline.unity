@@ -1127,6 +1127,17 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 0}
+        m_MethodName: 
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: 
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &799535394
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1176,6 +1187,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: db3615fa73b11684c96494c4a8bdb88f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  networkManager: {fileID: 1088003087}
 --- !u!1 &886987264
 GameObject:
   m_ObjectHideFlags: 0
@@ -1483,7 +1495,7 @@ MonoBehaviour:
   transport: {fileID: 1088003091}
   networkAddress: 35.242.155.74
   maxConnections: 8
-  disconnectInactiveConnections: 0
+  disconnectInactiveConnections: 1
   disconnectInactiveTimeout: 10
   authenticator: {fileID: 0}
   playerPrefab: {fileID: 3945214744724447283, guid: 72e4fc2967b42524b9b0cbdaee31300f,
