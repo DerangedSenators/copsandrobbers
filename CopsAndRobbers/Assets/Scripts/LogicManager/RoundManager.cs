@@ -43,6 +43,11 @@ namespace Me.DerangedSenators.CopsAndRobbers
                 case Round.ROUND1 :
                     TransformPlayersRound2();
                     _currentRound = Round.ROUND2;
+                    PlayerHealth pHealth = Player.localPlayer.GetComponent<PlayerHealth>(); 
+                    pHealth.setIsAlive(true);
+                    //Player.localPlayer.GetComponent<PlayerRespawn>().setRespawn(true);
+                    pHealth.RespawnForNewRound();
+                    pHealth.CmdRespawnForNewRound();
                     break;
                 case Round.ROUND2 :
                     _currentRound = Round.ROUND3;

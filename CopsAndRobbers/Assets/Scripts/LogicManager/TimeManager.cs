@@ -46,13 +46,13 @@ namespace Me.DerangedSenators.CopsAndRobbers
         
         void Start()
         {
-            freezeTime = 10f;
+            freezeTime = 5f;
             currentTime = freezeTime;
             freeze1 = true;
-            round1Time = 60*3f;
-            round2Time = 60*3f;
-            round3Time = 60*3f;
-            breakTime = 60f;
+            round1Time = 40f;
+            round2Time = 40f;
+            round3Time = 40f;
+            breakTime = 10f;
             breakCanvas.gameObject.SetActive(false);
             freezeCanvas.gameObject.SetActive(false);
         }
@@ -146,7 +146,7 @@ namespace Me.DerangedSenators.CopsAndRobbers
                 {
                     round2 = false;
                     breakRound2 = true;
-                    currentTime = round3Time;
+                    currentTime = breakTime;
                     
                     Debug.Log("current counting breakround2 time");
                     

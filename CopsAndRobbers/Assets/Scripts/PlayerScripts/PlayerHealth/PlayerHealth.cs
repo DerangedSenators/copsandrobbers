@@ -13,9 +13,9 @@ namespace Me.DerangedSenators.CopsAndRobbers
     /// <summary>
     /// This script is responsible for the function of the health bar and damage
     /// 
-    /// @authors Hanzalah Ravat, Hannah Elliman, Ashwin Jaimal, Piotr Krawiec, Nisath Mohammed
+    /// @authors Hanzalah Ravat, Hannah Elliman, Ashwin Jaimal, Piotr Krawiec, Nisath Mohammed Nasar
     /// </summary>
-    public class PlayerHealth : NetworkBehaviour
+    public class  PlayerHealth : NetworkBehaviour
     {
         public float maxHealth;
 
@@ -58,9 +58,10 @@ namespace Me.DerangedSenators.CopsAndRobbers
             if (spawner.respawned)
             {
                 CmdRespawn();
+                Respawn();
                 spawner.setRespawn(false);
                 spawner.RemoveFloatingText();
-                Respawn();
+                
             }
         }
 
@@ -113,14 +114,36 @@ namespace Me.DerangedSenators.CopsAndRobbers
         }
 
         /// <summary>
+        /// Respawn function to change health across the server
+        /// </summary>
+        [Command]
+        public void CmdRespawnForNewRound()
+        {
+            SetHealth(100);
+            //TODO verify the method is only being called for new round.
+        }
+        
+        /// <summary>
         /// Enable components and subtract money when a player is respawned
         /// </summary>
-        private void Respawn()
+        public void Respawn()
         {
             enableComponents();
             gameObject.GetComponent<CircleCollider2D>().enabled = false;
             moneyM.SubtractMoney(gameObject.GetComponent<Player>().GetTeamId());
         }
+        
+        /// <summary>
+        /// Enable components and subtract money when a player is respawned
+        /// </summary>
+        public void RespawnForNewRound()
+        {
+            enableComponents();
+            gameObject.GetComponent<CircleCollider2D>().enabled = false;
+            
+        }
+        
+        
 
         /// <summary>
         /// Disable components and rotate player to appear dead
