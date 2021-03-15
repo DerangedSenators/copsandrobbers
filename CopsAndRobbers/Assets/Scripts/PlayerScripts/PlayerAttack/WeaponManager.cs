@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using Mirror;
 using UnityEngine;
 using UnityEngine.AI;
@@ -140,10 +141,18 @@ namespace Me.DerangedSenators.CopsAndRobbers
             Vector3 bulletPosition = (mousePosition - projectile.transform.position).normalized;
             float angle = Mathf.Atan2(bulletPosition.y, bulletPosition.x) * Mathf.Rad2Deg;
             projectile.transform.eulerAngles = new Vector3(0, 0, angle);
-            projectile.GetComponent<Rigidbody2D>().velocity = mouseDir.normalized * bulletVelocity;
-            projectile.GetComponent<Rigidbody2D>().gravityScale = 0;
+            Rigidbody2D projectileRigidBody = projectile.GetComponent<Rigidbody2D>();
+            projectileRigidBody.velocity = mouseDir.normalized * bulletVelocity;
+            projectileRigidBody.gravityScale = 0;
             Debug.Log("Shooting...");
             NetworkServer.Spawn(projectile);
+        }
+        
+        
+        [Command]
+        public void CmdMeleeAttack(PlayerHealth enemy)
+        {
+            enemy.Damage(10);
         }
 
         /// <summary>
