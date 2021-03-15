@@ -2,7 +2,7 @@ using System;
 using System.Linq;
 using UnityEngine;
 
-namespace Me.DerangedSenators.CopsAndRobbers.Weapons
+namespace Me.DerangedSenators.CopsAndRobbers
 {
     /// <summary>
     /// Class Designed to handle Melee Attacks. Implemented from the legacy <include file='PlayerAttack.cs'/>
@@ -27,8 +27,7 @@ namespace Me.DerangedSenators.CopsAndRobbers.Weapons
             
             foreach (var enemy in enemiesHit.Select(hit => hit.GetComponent<PlayerHealth>()).Where(obj => obj != null).Where(obj => obj != this))
             {
-                
-                CmdAttack(enemy);
+                Manager.CmdMeleeAttack(enemy);
             }
         }
     }
