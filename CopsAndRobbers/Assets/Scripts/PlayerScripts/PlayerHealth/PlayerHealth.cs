@@ -134,7 +134,7 @@ namespace Me.DerangedSenators.CopsAndRobbers
         /// </summary>
         private void disableComponents()
         {
-            gameObject.GetComponent<PlayerAttack>().enabled = false;
+            gameObject.GetComponent<WeaponManager>().enabled = false;
             gameObject.GetComponent<PlayerMovement>().enabled = false;
             gameObject.GetComponent<Animator>().enabled = false;
             gameObject.GetComponent<BoxCollider2D>().enabled = false;
@@ -147,7 +147,7 @@ namespace Me.DerangedSenators.CopsAndRobbers
         /// </summary>
         private void enableComponents()
         {
-            gameObject.GetComponent<PlayerAttack>().enabled = true;
+            gameObject.GetComponent<WeaponManager>().enabled = true;
             gameObject.GetComponent<PlayerMovement>().enabled = true;
             gameObject.GetComponent<Animator>().enabled = true;
             gameObject.GetComponent<BoxCollider2D>().enabled = true;
