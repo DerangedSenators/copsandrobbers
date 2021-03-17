@@ -9,7 +9,7 @@ namespace Me.DerangedSenators.CopsAndRobbers
     /// @author Hanzalah Ravat
     public class BulletDetector : NetworkBehaviour
     {
-        public const int HealthDeplete = 5;
+        const int HealthDeplete = 5;
         
         public PlayerHealth Health;
         
@@ -19,6 +19,7 @@ namespace Me.DerangedSenators.CopsAndRobbers
         /// <param name="bullet">The Collider</param>
         private void OnTriggerEnter2D(Collider2D bullet)
         {
+            Debug.Log($"The Player has collided with {bullet.name}");
             if (bullet.gameObject.name == "Bullet")
             {
                 CmdDepleteHealth();
@@ -29,7 +30,7 @@ namespace Me.DerangedSenators.CopsAndRobbers
         /// Depletes health once a bullet is hit
         /// </summary>
         [Command]
-        private void CmdDepleteHealth()
+        public void CmdDepleteHealth()
         {
             Health.Damage(HealthDeplete);
         }
