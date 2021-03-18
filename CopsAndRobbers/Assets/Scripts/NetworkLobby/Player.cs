@@ -232,8 +232,10 @@ namespace Me.DerangedSenators.CopsAndRobbers {
                         playerPrefabs[i].layer = 9;
                         string robberLayer = LayerMask.LayerToName(8);
                         //*Debug.Log($"Robber Layer: {robberLayer}");
-                        playerPrefabs[i].GetComponent<WeaponManager>().EnemyLayer =
-                            1 << LayerMask.NameToLayer("Robbers");
+                        playerPrefabs[i].GetComponent<WeaponManager>().
+                                                                        WeaponInventory[0].
+                                                                        GetComponent<Melee>().EnemyLayer =
+                                                                        1 << LayerMask.NameToLayer("Robbers");
                         Animator anim = playerPrefabs[i].GetComponent<Animator>();
                         playerPrefabs[i].GetComponent<MoneyUpdater>().mTeam = Teams.COPS;
                         anim.runtimeAnimatorController =
@@ -245,7 +247,10 @@ namespace Me.DerangedSenators.CopsAndRobbers {
                     {
                         playerPrefabs[i].layer = 8;
                         playerPrefabs[i].GetComponent<MoneyUpdater>().mTeam = Teams.ROBBERS;
-                        playerPrefabs[i].GetComponent<WeaponManager>().EnemyLayer = 1 << LayerMask.NameToLayer("Cops");
+                        playerPrefabs[i].GetComponent<WeaponManager>().
+                                                                        WeaponInventory[0].
+                                                                        GetComponent<Melee>().EnemyLayer = 
+                                                                        1 << LayerMask.NameToLayer("Cops");
                         Animator anim = playerPrefabs[i].GetComponent<Animator>();
 
                         anim.runtimeAnimatorController =
@@ -308,6 +313,12 @@ namespace Me.DerangedSenators.CopsAndRobbers {
             NetworkManager.Destroy(mb);
             //NetworkServer.Destroy(mb);
             //Destroy(mb);
+        }
+        
+        [Command]
+        public void CmdDestroyBullet(GameObject gameObject)
+        {
+            NetworkServer.Destroy(gameObject);
         }
     }
 }

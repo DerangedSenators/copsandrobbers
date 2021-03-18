@@ -15,14 +15,8 @@ namespace Me.DerangedSenators.CopsAndRobbers
             {
                 collider.gameObject.GetComponent<BulletDetector>().CmdDepleteHealth();
             }
-            CmdDestroyBullet();
+            Player.localPlayer.CmdDestroyBullet(BulletRigidbody.gameObject);
         }
 
-        [Command]
-        private void CmdDestroyBullet()
-        {
-            NetworkServer.Destroy(BulletRigidbody.gameObject);
-        }
-        
     }
 }
