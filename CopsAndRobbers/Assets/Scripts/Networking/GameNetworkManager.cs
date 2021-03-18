@@ -10,13 +10,13 @@ using UnityEngine;
 
 namespace Me.DerangedSenators.CopsAndRobbers
 {
-    class GameNetworkManager : MonoBehaviour
+    class GameNetworkManager : NetworkBehaviour
     {
         public GameObject moneyBagPrefab;
 
         private void Start()
         {
-            SpawnMoneyBags();
+            CmdSpawnMoneyBags();
             //SceneManager.sceneLoaded += delegate { SpawnMoneyBags(); };
             
         }
@@ -46,11 +46,12 @@ namespace Me.DerangedSenators.CopsAndRobbers
         {
             //*Debug.Log("Client is ready to start: " + arg1);
             NetworkServer.SetClientReady(arg1);
-            SpawnMoneyBags();
+            CmdSpawnMoneyBags();
             //throw new NotImplementedException()
         }
 
-        void SpawnMoneyBags()
+        [Command]
+        void CmdSpawnMoneyBags()
         {
             int x = 5;
             for (int i = 0; i < 20; ++i)
