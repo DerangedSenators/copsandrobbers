@@ -6066,7 +6066,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 10}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &476892046
 MonoBehaviour:
@@ -7225,7 +7225,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 12
+  m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &566945656
 GameObject:
@@ -9406,58 +9406,6 @@ Transform:
   m_Father: {fileID: 1740326811199992300}
   m_RootOrder: 113
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &743051447
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 743051449}
-  - component: {fileID: 743051448}
-  m_Layer: 0
-  m_Name: Time Manager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &743051448
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 743051447}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 38cd4be31ca2cf749aaa603df5397807, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  moneyManagerGO: {fileID: 0}
-  countdownText: {fileID: 1139827234}
-  _roundManager: {fileID: 0}
-  endOfRoundText: {fileID: 0}
-  breakTimerText: {fileID: 0}
-  breakCanvas: {fileID: 0}
-  freezeCanvas: {fileID: 0}
-  freezeTimer: {fileID: 0}
-  mainTimerCanvas: {fileID: 0}
---- !u!4 &743051449
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 743051447}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &744269480
 GameObject:
   m_ObjectHideFlags: 0
@@ -9738,7 +9686,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 9
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &769336306
 GameObject:
@@ -10339,7 +10287,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 0.32114467, y: 1}
+    m_SensorSize: {x: 1.7783375, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
@@ -10361,7 +10309,7 @@ Transform:
   m_Children:
   - {fileID: 239842901}
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &831201455
 GameObject:
@@ -10544,7 +10492,7 @@ Transform:
   - {fileID: 955627201}
   - {fileID: 1355528685}
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &841220870
 GameObject:
@@ -10732,7 +10680,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &845413862
 MonoBehaviour:
@@ -11224,7 +11172,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &884501691
 GameObject:
@@ -13531,8 +13479,6 @@ MonoBehaviour:
   syncInterval: 0.1
   moneyBagPrefab: {fileID: 2854480296345919554, guid: 641158e7c2e7b9a4eabf5ac65eecfbef,
     type: 3}
-  bulletPrefab: {fileID: 2506447796587376942, guid: f29617ad7687d4248a2d33ee24cce3c7,
-    type: 3}
 --- !u!4 &1115863486
 Transform:
   m_ObjectHideFlags: 0
@@ -13545,7 +13491,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1115863487
 MonoBehaviour:
@@ -16354,7 +16300,7 @@ PrefabInstance:
     - target: {fileID: 1311746933124799350, guid: 5ec388970872a704ab9f7664ee710be1,
         type: 3}
       propertyPath: m_RootOrder
-      value: 11
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 1311746933124799350, guid: 5ec388970872a704ab9f7664ee710be1,
         type: 3}
@@ -18706,8 +18652,8 @@ Sprite:
         offset: 0
         format: 0
         dimension: 0
-      m_DataSize: 80
-      _typelessdata: 000000bf0000003f000000000000003f0000003f00000000000000bf000000bf000000000000003f000000bf00000000000000000000803f0000803f0000803f00000000000000000000803f00000000
+      m_DataSize: 0
+      _typelessdata: 
     m_Bindpose: []
     textureRect:
       serializedVersion: 2
@@ -22502,7 +22448,7 @@ GameObject:
   - component: {fileID: 1915891709}
   - component: {fileID: 1915891710}
   m_Layer: 0
-  m_Name: 
+  m_Name: Canvas(Break)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -25142,7 +25088,7 @@ PrefabInstance:
     - target: {fileID: 6667266013369131914, guid: c39e2ad3f8e6b764fb4d426c3b49704e,
         type: 3}
       propertyPath: m_RootOrder
-      value: 10
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 6667266013369131914, guid: c39e2ad3f8e6b764fb4d426c3b49704e,
         type: 3}
@@ -25274,7 +25220,7 @@ PrefabInstance:
     - target: {fileID: 5743638896305959807, guid: d8af376364c7a344680ddc31d05ec165,
         type: 3}
       propertyPath: m_RootOrder
-      value: 3
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 5743638896305959807, guid: d8af376364c7a344680ddc31d05ec165,
         type: 3}
