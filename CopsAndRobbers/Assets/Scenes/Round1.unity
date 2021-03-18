@@ -16261,7 +16261,7 @@ PrefabInstance:
         type: 3}
       propertyPath: currentRoundTextUI
       value: 
-      objectReference: {fileID: 1545474809}
+      objectReference: {fileID: 1507804670}
     - target: {fileID: 1311746933124799350, guid: 5ec388970872a704ab9f7664ee710be1,
         type: 3}
       propertyPath: m_LocalPosition.x
