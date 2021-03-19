@@ -93,12 +93,12 @@ namespace Me.DerangedSenators.CopsAndRobbers
 #elif UNITY_IOS || UNITY_ANDROID || UNITY_WP8 || UNITY_IPHONE
         private void FixedUpdate()
         {
-            if (!attackListenerSet && isLocalPlayer)
+            if (!_buttonListenerSet && isLocalPlayer)
             {
                 try
                 {
                     ControlContext.Instance.AttackButton.AddListener(new MobileButtonListener(this));
-                    attackListenerSet = true;
+                    _buttonListenerSet = true;
                 }
                 catch (NullReferenceException ex)
                 {
