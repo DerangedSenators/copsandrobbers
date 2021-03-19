@@ -63,6 +63,8 @@ namespace Me.DerangedSenators.CopsAndRobbers
                 spawner.RemoveFloatingText();
                 
             }
+            
+            RefreshRespawn();
         }
 
         /// <summary>
@@ -121,6 +123,8 @@ namespace Me.DerangedSenators.CopsAndRobbers
         {
             SetHealth(100);
             //TODO verify the method is only being called for new round.
+            
+            
         }
         
         /// <summary>
@@ -138,11 +142,17 @@ namespace Me.DerangedSenators.CopsAndRobbers
         /// </summary>
         public void RespawnForNewRound()
         {
-            enableComponents();
+            Debug.Log("trying to enable componests and set is alive");
             gameObject.GetComponent<CircleCollider2D>().enabled = false;
+            enableComponents();
+            setIsAlive(true);
             
         }
-        
+
+        public void NormalizeRotation()
+        {
+            gameObject.transform.rotation = Quaternion.Euler(0,0,0);
+        }
         
 
         /// <summary>
@@ -161,7 +171,7 @@ namespace Me.DerangedSenators.CopsAndRobbers
         /// <summary>
         /// Enable components and rotate player upright
         /// </summary>
-        private void enableComponents()
+        public void enableComponents()
         {
             gameObject.GetComponent<PlayerAttack>().enabled = true;
             gameObject.GetComponent<PlayerMovement>().enabled = true;
@@ -169,6 +179,7 @@ namespace Me.DerangedSenators.CopsAndRobbers
             gameObject.GetComponent<BoxCollider2D>().enabled = true;
             gameObject.transform.rotation = Quaternion.Euler(0,0,0);
             gameObject.transform.GetChild(1).gameObject.SetActive(true);
+            Debug.Log("Enabling Components");
         }
 
         /// <summary>
@@ -187,6 +198,26 @@ namespace Me.DerangedSenators.CopsAndRobbers
         public void setIsAlive(bool isAlive)
         {
             this.isAlive = isAlive;
+        }
+
+
+        public void RefreshRespawn()
+        {
+            
+            if (TimeManager.ShouldRefreshRespawn())
+            {
+                Debug.Log("Attempt to refresh spawns");
+                currentHealth = 100;
+                enableComponents();
+                isAlive = true;
+                TimeManager.SetIsRefreshSpawn(false);
+                
+                
+                CmdRespawn();
+                Respawn();
+                spawner.setRespawn(false);
+                spawner.RemoveFloatingText();
+            }
         }
     }
 }
