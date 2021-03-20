@@ -137,7 +137,7 @@ MonoBehaviour:
   Manager: {fileID: 0}
   Bullet: {fileID: 2506447796587376942, guid: f29617ad7687d4248a2d33ee24cce3c7, type: 3}
   PlayerTransform: {fileID: 0}
-  BulletVelocity: 10
+  BulletVelocity: 30
 --- !u!114 &1445964668199870629
 MonoBehaviour:
   m_ObjectHideFlags: 0
