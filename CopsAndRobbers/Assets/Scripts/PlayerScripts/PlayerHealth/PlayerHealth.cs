@@ -129,8 +129,6 @@ namespace Me.DerangedSenators.CopsAndRobbers
         {
             SetHealth(100);
             //TODO verify the method is only being called for new round.
-            
-            
         }
         
         /// <summary>
@@ -210,7 +208,7 @@ namespace Me.DerangedSenators.CopsAndRobbers
         public void RefreshRespawn()
         {
             
-            if (TimeManager.ShouldRefreshRespawn())
+            if (TimeManager.ShouldRefreshRespawn() )
             {
                 Debug.Log("Attempt to refresh spawns");
                 currentHealth = 100;
@@ -218,11 +216,14 @@ namespace Me.DerangedSenators.CopsAndRobbers
                 isAlive = true;
                 TimeManager.SetIsRefreshSpawn(false);
                 
+                //CmdRespawn();
+                //Respawn();
+                //spawner.setRespawn(false);
+                //currentHealth = 100;
+                //spawner.RemoveFloatingText();
                 
-                CmdRespawn();
-                Respawn();
-                spawner.setRespawn(false);
-                spawner.RemoveFloatingText();
+                gameObject.GetComponent<CircleCollider2D>().enabled = false;
+                CmdRespawnForNewRound();
             }
         }
     }
