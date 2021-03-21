@@ -140,9 +140,9 @@ GameObject:
   m_IsActive: 1
 --- !u!114 &8878607
 MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 1311746933124799345, guid: 5ec388970872a704ab9f7664ee710be1,
+    type: 3}
+  m_PrefabInstance: {fileID: 1311746933187679258}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8878606}
   m_Enabled: 1
