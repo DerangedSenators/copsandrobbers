@@ -77,7 +77,7 @@ namespace Me.DerangedSenators.CopsAndRobbers
             yield return null;
         }
 
-        public override void OnStartLocalPlayer()
+        public void OnEnable()
         {
             if(isLocalPlayer)
                 localInstance = this;
