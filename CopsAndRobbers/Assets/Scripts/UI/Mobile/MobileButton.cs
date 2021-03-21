@@ -7,54 +7,61 @@ using UnityEngine.EventSystems;
 using Me.DerangedSenators.CopsAndRobbers;
 using UnityEngine.UI;
 
-/// <summary>
-/// Base class for Mobile UI Buttons. This class should be expanded for additional implementations for other buttons
-/// </summary>
-/// @author Hanzalah Ravat
-public class MobileButton : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
+namespace Me.DerangedSenators.CopsAndRobbers
 {
-    
-    private List<IButtonListener> _buttonListeners;
 
     /// <summary>
-    /// Default Image Sprite. Used when the button is depressed
+    /// Base class for Mobile UI Buttons. This class should be expanded for additional implementations for other buttons
     /// </summary>
-    public Image ButtonSprite;
-
-    private bool isPressed;
-    private void Awake()
+    /// @author Hanzalah Ravat
+    public class MobileButton : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
     {
-        _buttonListeners = new List<IButtonListener>();
-    }
 
-    public void AddListener(IButtonListener listener)
-    {
-        _buttonListeners.Add(listener);
-    }
+        private List<IButtonListener> _buttonListeners;
 
-    /// <summary>
-    /// Event that is triggered when the poly is clicked.
-    /// </summary>
-    public void OnPointerDown(PointerEventData eventData)
-    {
-        isPressed = true;
+        /// <summary>
+        /// Default Image Sprite. Used when the button is depressed
+        /// </summary>
+        public Image ButtonSprite;
 
-        foreach (var buttonListener in _buttonListeners)
+        private bool isPressed;
+
+        private void Awake()
         {
-            buttonListener.onButtonPressed();
+            _buttonListeners = new List<IButtonListener>();
         }
-    }
 
-    /// <summary>
-    /// Event to be triggered when the poly is released
-    /// </summary>
-    public void OnPointerUp(PointerEventData eventData)
-    {
-        isPressed = false;
-
-        foreach (var buttonListener in _buttonListeners)
+        public void AddListener(IButtonListener listener)
         {
-            buttonListener.onButtonReleased();
+            _buttonListeners.Add(listener);
+        }
+
+        /// <summary>
+        /// Event that is triggered when the poly is clicked.
+        /// </summary>
+        public void OnPointerDown(PointerEventData eventData)
+        {
+            isPressed = true;
+
+            Debug.Log("Button has been pressed");
+            Debug.Log($"There are {_buttonListeners.Count} listeners enrolled");
+            foreach (var buttonListener in _buttonListeners)
+            {
+                buttonListener.onButtonPressed();
+            }
+        }
+
+        /// <summary>
+        /// Event to be triggered when the poly is released
+        /// </summary>
+        public void OnPointerUp(PointerEventData eventData)
+        {
+            isPressed = false;
+
+            foreach (var buttonListener in _buttonListeners)
+            {
+                buttonListener.onButtonReleased();
+            }
         }
     }
 }
