@@ -196,10 +196,6 @@ namespace Me.DerangedSenators.CopsAndRobbers {
             //Load in round
             //SceneManager.LoadScene(3, LoadSceneMode.Additive);
             GameObject[] playerPrefabs = GameObject.FindGameObjectsWithTag("Player");
-            GameObject localP;
-            int copLayer = LayerMask.NameToLayer("Cops");
-            //*Debug.Log($"Cop Layer: {copLayer}");
-
             for (int i = 0; i < playerPrefabs.Length; i++)
             {
                 if (playerPrefabs[i].GetComponents<Player>().Length == 1)
