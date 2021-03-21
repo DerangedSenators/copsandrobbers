@@ -53,12 +53,19 @@ namespace Me.DerangedSenators.CopsAndRobbers
             }
         }
 
+        
+        
         /// <summary>
         /// When a player enters the circle collider start respawning
         /// </summary>
         /// <param name="collider"></param>
         public void OnTriggerEnter2D(Collider2D collider)
         {
+            bool teamAlive = false;
+            if (collider.gameObject.GetComponent<PlayerHealth>() != null)
+            {
+                teamAlive = collider.gameObject.GetComponent<PlayerHealth>().getIsAlive();    
+            }
             
             bool teamAlive = health.getIsAlive();
             
@@ -66,7 +73,6 @@ namespace Me.DerangedSenators.CopsAndRobbers
             {
                 countdown = true;
                 ShowFloatingText();
-                
             }
         }
 

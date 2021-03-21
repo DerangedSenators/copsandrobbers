@@ -69,6 +69,8 @@ namespace Me.DerangedSenators.CopsAndRobbers
                 spawner.RemoveFloatingText();
                 Respawn();
             }
+            
+            RefreshRespawn();
         }
 
         /// <summary>
@@ -120,6 +122,18 @@ namespace Me.DerangedSenators.CopsAndRobbers
         }
 
         /// <summary>
+        /// Respawn function to change health across the server
+        /// </summary>
+        [Command]
+        public void CmdRespawnForNewRound()
+        {
+            SetHealth(100);
+            //TODO verify the method is only being called for new round.
+            
+            
+        }
+        
+        /// <summary>
         /// Enable components and subtract money when a player is respawned
         /// </summary>
         private void Respawn()
@@ -128,6 +142,24 @@ namespace Me.DerangedSenators.CopsAndRobbers
             gameObject.GetComponent<CircleCollider2D>().enabled = false;
             moneyM.SubtractMoney(gameObject.GetComponent<Player>().GetTeamId());
         }
+        
+        /// <summary>
+        /// Enable components and subtract money when a player is respawned
+        /// </summary>
+        public void RespawnForNewRound()
+        {
+            Debug.Log("trying to enable componests and set is alive");
+            gameObject.GetComponent<CircleCollider2D>().enabled = false;
+            enableComponents();
+            setIsAlive(true);
+            
+        }
+
+        public void NormalizeRotation()
+        {
+            gameObject.transform.rotation = Quaternion.Euler(0,0,0);
+        }
+        
 
         /// <summary>
         /// Disable components and rotate player to appear dead
@@ -145,7 +177,7 @@ namespace Me.DerangedSenators.CopsAndRobbers
         /// <summary>
         /// Enable components and rotate player upright
         /// </summary>
-        private void enableComponents()
+        public void enableComponents()
         {
             gameObject.GetComponent<WeaponManager>().enabled = true;
             gameObject.GetComponent<PlayerMovement>().enabled = true;
@@ -153,6 +185,7 @@ namespace Me.DerangedSenators.CopsAndRobbers
             gameObject.GetComponent<BoxCollider2D>().enabled = true;
             gameObject.transform.rotation = Quaternion.Euler(0,0,0);
             gameObject.transform.GetChild(1).gameObject.SetActive(true);
+            Debug.Log("Enabling Components");
         }
 
         /// <summary>
@@ -171,6 +204,26 @@ namespace Me.DerangedSenators.CopsAndRobbers
         public void setIsAlive(bool isAlive)
         {
             this.isAlive = isAlive;
+        }
+
+
+        public void RefreshRespawn()
+        {
+            
+            if (TimeManager.ShouldRefreshRespawn())
+            {
+                Debug.Log("Attempt to refresh spawns");
+                currentHealth = 100;
+                enableComponents();
+                isAlive = true;
+                TimeManager.SetIsRefreshSpawn(false);
+                
+                
+                CmdRespawn();
+                Respawn();
+                spawner.setRespawn(false);
+                spawner.RemoveFloatingText();
+            }
         }
     }
 }
