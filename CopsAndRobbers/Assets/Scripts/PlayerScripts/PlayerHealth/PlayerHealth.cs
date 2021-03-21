@@ -141,18 +141,7 @@ namespace Me.DerangedSenators.CopsAndRobbers
             moneyM.SubtractMoney(gameObject.GetComponent<Player>().GetTeamId());
         }
         
-        /// <summary>
-        /// Enable components and subtract money when a player is respawned
-        /// </summary>
-        public void RespawnForNewRound()
-        {
-            Debug.Log("trying to enable componests and set is alive");
-            gameObject.GetComponent<CircleCollider2D>().enabled = false;
-            enableComponents();
-            setIsAlive(true);
-            
-        }
-
+        
         public void NormalizeRotation()
         {
             gameObject.transform.rotation = Quaternion.Euler(0,0,0);
@@ -207,7 +196,6 @@ namespace Me.DerangedSenators.CopsAndRobbers
 
         public void RefreshRespawn()
         {
-            
             if (TimeManager.ShouldRefreshRespawn() )
             {
                 Debug.Log("Attempt to refresh spawns");
@@ -215,13 +203,6 @@ namespace Me.DerangedSenators.CopsAndRobbers
                 enableComponents();
                 isAlive = true;
                 TimeManager.SetIsRefreshSpawn(false);
-                
-                //CmdRespawn();
-                //Respawn();
-                //spawner.setRespawn(false);
-                //currentHealth = 100;
-                //spawner.RemoveFloatingText();
-                
                 gameObject.GetComponent<CircleCollider2D>().enabled = false;
                 CmdRespawnForNewRound();
             }

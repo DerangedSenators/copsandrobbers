@@ -38,26 +38,26 @@ namespace Me.DerangedSenators.CopsAndRobbers
         private bool round1;
         private bool round2;
         private bool round3;
+        
         private float freezeTime;
         private float round1Time;
         private float round2Time;
         private float round3Time;
         private float breakTime;
 
-         private static bool isRefreshSpawn;
+        private static bool isRefreshSpawn;
         
         void Start()
         {
             freezeTime = 10f;
             currentTime = freezeTime;
             freeze1 = true;
-            round1Time = 60*3f;
-            round2Time = 60*3f;
-            round3Time = 60*3f;
-            breakTime = 60f;
+            round1Time = 60f*10;
+            round2Time = 60f*10;
+            round3Time = 60f*10;
+            breakTime = 5f;
             breakCanvas.gameObject.SetActive(false);
             freezeCanvas.gameObject.SetActive(false);
-
             isRefreshSpawn = false;
         }
 
