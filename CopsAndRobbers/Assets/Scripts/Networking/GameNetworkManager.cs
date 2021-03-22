@@ -10,7 +10,7 @@ using UnityEngine;
 
 namespace Me.DerangedSenators.CopsAndRobbers
 {
-    class GameNetworkManager : NetworkBehaviour
+    class GameNetworkManager : MonoBehaviour
     {
         public GameObject moneyBagPrefab;
 
@@ -50,7 +50,7 @@ namespace Me.DerangedSenators.CopsAndRobbers
             //throw new NotImplementedException()
         }
 
-        [Command]
+        //[Command]
         void CmdSpawnMoneyBags()
         {
             int x = 5;
@@ -59,6 +59,8 @@ namespace Me.DerangedSenators.CopsAndRobbers
                 GameObject moneyBagGo = Instantiate(moneyBagPrefab, new Vector3(x++, 0, 0), Quaternion.identity);
                 NetworkServer.Spawn(moneyBagGo);
             }
+            
+            
         }
 
         void OnServerConnect(NetworkConnection nc, ConnectMessage cm)

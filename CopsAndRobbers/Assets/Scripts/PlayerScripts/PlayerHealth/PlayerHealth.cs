@@ -49,7 +49,7 @@ namespace Me.DerangedSenators.CopsAndRobbers
             {
                 try
                 {
-                    moneyM = GetComponent<MoneyManager>();
+                    moneyM = FindObjectOfType<MoneyManager>().GetComponent<MoneyManager>();
                 }
                 catch (NullReferenceException ex)
                 {
@@ -64,10 +64,12 @@ namespace Me.DerangedSenators.CopsAndRobbers
 
             if (spawner.respawned)
             {
+                Debug.Log("if spawner.respawner");
                 CmdRespawn();
                 spawner.setRespawn(false);
                 spawner.RemoveFloatingText();
                 Respawn();
+                Debug.Log("if spawner.respawner end");
             }
             
             RefreshRespawn();
@@ -138,6 +140,7 @@ namespace Me.DerangedSenators.CopsAndRobbers
         {
             enableComponents();
             gameObject.GetComponent<CircleCollider2D>().enabled = false;
+            Debug.Log("Attempt to subtract money: teamid: " +gameObject.GetComponent<Player>().GetTeamId());
             moneyM.SubtractMoney(gameObject.GetComponent<Player>().GetTeamId());
         }
         

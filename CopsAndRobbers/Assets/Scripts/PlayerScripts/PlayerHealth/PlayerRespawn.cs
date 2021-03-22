@@ -67,9 +67,9 @@ namespace Me.DerangedSenators.CopsAndRobbers
                 teamAlive = collider.gameObject.GetComponent<PlayerHealth>().getIsAlive();    
             }
             
-            bool teamAlive = health.getIsAlive();
+            //teamAlive = health.getIsAlive();
             
-            if (health.getIsAlive() == false && collider.gameObject.layer == gameObject.layer && teamAlive)
+            if (GetComponent<PlayerHealth>().getIsAlive() == false && collider.gameObject.layer == gameObject.layer && teamAlive)
             {
                 countdown = true;
                 ShowFloatingText();
