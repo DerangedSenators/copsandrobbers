@@ -42,9 +42,6 @@ namespace Me.DerangedSenators.CopsAndRobbers
         public void OnPointerDown(PointerEventData eventData)
         {
             isPressed = true;
-
-            Debug.Log("Button has been pressed");
-            Debug.Log($"There are {_buttonListeners.Count} listeners enrolled");
             foreach (var buttonListener in _buttonListeners)
             {
                 buttonListener.onButtonPressed();
