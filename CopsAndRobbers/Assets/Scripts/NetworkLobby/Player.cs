@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -5,11 +6,11 @@ using UnityEngine.SceneManagement;
 using Mirror;
 
 namespace Me.DerangedSenators.CopsAndRobbers {
-    
-    /// <author> Hannah Elliman </author>
-    /// <author> Ashwin Jaimal </author>
-    /// <author> Nisath Mohamed Nasar </author>
-    /// <author> Piotr Krawiec </author>
+
+    /// <summary>
+    /// This Class is designed to host the root player object. It holds information such as the MatchID, TeamID  and is responsible for intitiating the prefab on Game Load
+    /// </summary>
+    /// @authors Hannah Elliman, Ashwin Jaimal, Nisath Mohamed Nasar, Piotr Krawiec and Hanzalah Ravat
     public class Player : NetworkBehaviour
     {
         public static Player localPlayer;
@@ -195,55 +196,62 @@ namespace Me.DerangedSenators.CopsAndRobbers {
             //Load in round
             //SceneManager.LoadScene(3, LoadSceneMode.Additive);
             GameObject[] playerPrefabs = GameObject.FindGameObjectsWithTag("Player");
-            GameObject localP;
-            int copLayer = LayerMask.NameToLayer("Cops");
-            //*Debug.Log($"Cop Layer: {copLayer}");
-            
             for (int i = 0; i < playerPrefabs.Length; i++)
             {
-                if(playerPrefabs[i].GetComponent<Player>().playerIndex == localPlayer.playerIndex)
+                if (playerPrefabs[i].GetComponents<Player>().Length == 1)
                 {
+                    if (playerPrefabs[i].GetComponent<Player>().playerIndex == localPlayer.playerIndex)
+                    {
+                        playerPrefabs[i].GetComponent<SpriteRenderer>().enabled = true;
+                        playerPrefabs[i].GetComponent<BoxCollider2D>().enabled = true;
+                        playerPrefabs[i].GetComponent<PlayerHealth>().enabled = true;
+                        playerPrefabs[i].GetComponent<Animator>().enabled = true;
+                        playerPrefabs[i].GetComponent<WeaponManager>().enabled = true;
+                        playerPrefabs[i].GetComponent<PlayerMovement>().enabled = true;
+                        playerPrefabs[i].GetComponent<NetworkTransform>().enabled = true;
+                        playerPrefabs[i].GetComponent<PlayerCameraContoller>().enabled = true;
+                        playerPrefabs[i].GetComponent<MoneyUpdater>().enabled = true;
+                        playerPrefabs[i].GetComponent<PlayerRespawn>().enabled = true;
+                        playerPrefabs[i].GetComponent<BulletDetector>().enabled = true;
+                    }
                     playerPrefabs[i].GetComponent<SpriteRenderer>().enabled = true;
                     playerPrefabs[i].GetComponent<BoxCollider2D>().enabled = true;
                     playerPrefabs[i].GetComponent<PlayerHealth>().enabled = true;
                     playerPrefabs[i].GetComponent<Animator>().enabled = true;
-                    playerPrefabs[i].GetComponent<PlayerAttack>().enabled = true;
-                    playerPrefabs[i].GetComponent<PlayerMovement>().enabled = true;
-                    playerPrefabs[i].GetComponent<NetworkTransform>().enabled = true;
-                    playerPrefabs[i].GetComponent<PlayerCameraContoller>().enabled = true;
-                    playerPrefabs[i].GetComponent<MoneyUpdater>().enabled = true;
                     playerPrefabs[i].GetComponent<PlayerRespawn>().enabled = true;
-                    localP = playerPrefabs[i];
-                    localP.transform.GetChild(0).gameObject.SetActive(true);
-                }
-                playerPrefabs[i].GetComponent<SpriteRenderer>().enabled = true;
-                playerPrefabs[i].GetComponent<BoxCollider2D>().enabled = true;
-                playerPrefabs[i].GetComponent<PlayerHealth>().enabled = true;
-                playerPrefabs[i].GetComponent<Animator>().enabled = true;
-                playerPrefabs[i].GetComponent<PlayerRespawn>().enabled = true;
-                playerPrefabs[i].GetComponent<NetworkTransform>().enabled = true;
-                if (playerPrefabs[i].GetComponent<Player>().teamId == 1) // if team is cops
-                {
-                    playerPrefabs[i].layer = 9;
-                    string robberLayer = LayerMask.LayerToName(8);
-                    //*Debug.Log($"Robber Layer: {robberLayer}");
-                    playerPrefabs[i].GetComponent<PlayerAttack>().enemyLayer = 1 << LayerMask.NameToLayer("Robbers");
-                    Animator anim = playerPrefabs[i].GetComponent<Animator>();
-                    playerPrefabs[i].GetComponent<MoneyUpdater>().mTeam = Teams.COPS;
-                    anim.runtimeAnimatorController = Resources.Load("Animations/CopAnimations/Player1") as RuntimeAnimatorController;
+                    playerPrefabs[i].GetComponent<NetworkTransform>().enabled = true;
+                    if (playerPrefabs[i].GetComponent<Player>().teamId == 1) // if team is cops
+                    {
+                        playerPrefabs[i].layer = 9;
+                        string robberLayer = LayerMask.LayerToName(8);
+                        //*Debug.Log($"Robber Layer: {robberLayer}");
+                        playerPrefabs[i].GetComponent<WeaponManager>().
+                                                                        WeaponInventory[0].
+                                                                        GetComponent<Melee>().EnemyLayer =
+                                                                        1 << LayerMask.NameToLayer("Robbers");
+                        Animator anim = playerPrefabs[i].GetComponent<Animator>();
+                        playerPrefabs[i].GetComponent<MoneyUpdater>().mTeam = Teams.COPS;
+                        anim.runtimeAnimatorController =
+                            Resources.Load("Animations/CopAnimations/Player1") as RuntimeAnimatorController;
 
 
-                }
-                else if (playerPrefabs[i].GetComponent<Player>().teamId == 2)//if team is robber
-                {
-                    playerPrefabs[i].layer = 8;
-                    playerPrefabs[i].GetComponent<MoneyUpdater>().mTeam = Teams.ROBBERS;
-                    playerPrefabs[i].GetComponent<PlayerAttack>().enemyLayer = 1 << LayerMask.NameToLayer("Cops");
-                    Animator anim = playerPrefabs[i].GetComponent<Animator>();
+                    }
+                    else if (playerPrefabs[i].GetComponent<Player>().teamId == 2) //if team is robber
+                    {
+                        playerPrefabs[i].layer = 8;
+                        playerPrefabs[i].GetComponent<MoneyUpdater>().mTeam = Teams.ROBBERS;
+                        playerPrefabs[i].GetComponent<WeaponManager>().
+                                                                        WeaponInventory[0].
+                                                                        GetComponent<Melee>().EnemyLayer = 
+                                                                        1 << LayerMask.NameToLayer("Cops");
+                        Animator anim = playerPrefabs[i].GetComponent<Animator>();
 
-                    anim.runtimeAnimatorController = Resources.Load("Animations/RobberAnimations/RobberAll") as RuntimeAnimatorController;
+                        anim.runtimeAnimatorController =
+                            Resources.Load("Animations/RobberAnimations/RobberAll") as RuntimeAnimatorController;
+                    }
+
+                    DontDestroyOnLoad(playerPrefabs[i]);
                 }
-                DontDestroyOnLoad(playerPrefabs[i]);
             }
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
         }
@@ -298,6 +306,12 @@ namespace Me.DerangedSenators.CopsAndRobbers {
             NetworkManager.Destroy(mb);
             //NetworkServer.Destroy(mb);
             //Destroy(mb);
+        }
+        
+        [Command]
+        public void CmdDestroyBullet(GameObject gameObject)
+        {
+            NetworkServer.Destroy(gameObject);
         }
     }
 }

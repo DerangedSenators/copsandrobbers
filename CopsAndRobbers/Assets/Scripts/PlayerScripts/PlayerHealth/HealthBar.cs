@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -19,7 +20,13 @@ namespace Me.DerangedSenators.CopsAndRobbers
 
         public void Update()
         {
-            healthBarImage.fillAmount = health.currentHealth / health.maxHealth;
+            try
+            {
+                healthBarImage.fillAmount = health.currentHealth / health.maxHealth;
+            }
+            catch (NullReferenceException ex)
+            {
+            }
         }
     }
 }
