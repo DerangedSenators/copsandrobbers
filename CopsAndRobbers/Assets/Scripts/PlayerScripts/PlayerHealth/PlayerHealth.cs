@@ -12,9 +12,8 @@ namespace Me.DerangedSenators.CopsAndRobbers
 {
     /// <summary>
     /// This script is responsible for the function of the health bar and damage
-    /// 
-    /// @authors Hanzalah Ravat, Hannah Elliman, Ashwin Jaimal, Piotr Krawiec, Nisath Mohammed
     /// </summary>
+    /// @authors Hanzalah Ravat, Hannah Elliman, Ashwin Jaimal, Piotr Krawiec, Nisath Mohammed
     public class PlayerHealth : NetworkBehaviour
     {
         public float maxHealth;

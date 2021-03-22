@@ -1,4 +1,5 @@
-﻿using System.Collections;
+using System;
+using System.Collections;
 using System.Collections.Generic;
 using Me.DerangedSenators.CopsAndRobbers.Weapons;
 using UnityEngine;
@@ -27,20 +28,17 @@ namespace Me.DerangedSenators.CopsAndRobbers
         // Update is called once per frame
         void Update()
         {
-         
-            /**
-            if (!init) 
-            { 
-                playerAttack = playerGameObject.GetComponent<Melee>();
-            }
-            if (playerAttack != null) 
+            try
             {
-                init = true;
-            }*/
-            
-            transform.position = new Vector3(playerAttack.GetAttackPoint(0.4f).x, playerAttack.GetAttackPoint(0.4f).y, 0);
-            
-            FlipSpriteDependingOnAxis(weaponSpriteRenderer);
+                transform.position = new Vector3(playerAttack.GetAttackPoint(0.4f).x,
+                    playerAttack.GetAttackPoint(0.4f).y, 0);
+
+                FlipSpriteDependingOnAxis(weaponSpriteRenderer);
+            }
+            catch (NullReferenceException exception)
+            {
+                // There is a known NRE Here when the scene hasn't loaded as Mirror requires the player prefab and it's child scripts to be enabled beforehand
+            }
         }
         
         private void FlipSpriteDependingOnAxis(SpriteRenderer spriteRend)

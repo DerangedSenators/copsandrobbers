@@ -345,6 +345,8 @@ MonoBehaviour:
   playerIndex: 0
   teamId: 0
   MoneyUpdater: {fileID: 8195048679506587132}
+  MoneyBag: {fileID: 2854480296345919554, guid: 641158e7c2e7b9a4eabf5ac65eecfbef,
+    type: 3}
   currentMatch:
     matchId: 
     publicMatch: 0
