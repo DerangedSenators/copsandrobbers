@@ -12,6 +12,7 @@ namespace Me.DerangedSenators.CopsAndRobbers
     /// </summary>
     public class TimeManager : MonoBehaviour
     {
+        [SerializeField]
         private float currentTime = 0f;
         
         private float startingTime = 10f;
