@@ -17,9 +17,12 @@ namespace Me.DerangedSenators.CopsAndRobbers
         [SerializeField] public Text winText;
         [SerializeField] public Text loseText;
         [SerializeField] public Text drawText;
+        [SerializeField] public NetworkManager networkManager;
+        
         void Start()
         {
             Cursor.lockState = CursorLockMode.None;
+            networkManager = NetworkManager.singleton;
         }
 
         void Update()
@@ -85,16 +88,11 @@ namespace Me.DerangedSenators.CopsAndRobbers
             
         }
         
-        
-        
         public void NextRound()
         {
-            //Player.localPlayer.DisconnectGame();
-            //Destroy(Player.localPlayer);
-            //Destroy(GetComponent<MoneyManager>());
-            //Destroy(GetComponent<NetworkManager>());
-            
+            networkManager.StopClient();
             SceneManager.LoadScene(0);
+            Destroy(GameObject.Find("MoneyManager"));
         }
     }
 }

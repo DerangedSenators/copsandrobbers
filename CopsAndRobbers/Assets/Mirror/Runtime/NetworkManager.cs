@@ -24,6 +24,17 @@ namespace Mirror
     public class NetworkManager : MonoBehaviour
     {
         static readonly ILogger logger = LogFactory.GetLogger<NetworkManager>();
+        
+        /// <summary>
+        /// Make sure that NetworkManager doesn't exist where it shouldn't
+        /// </summary>
+        private void Update()
+        {
+            if (SceneManager.GetActiveScene().buildIndex == 0)
+            {
+                Destroy(this.gameObject);
+            }
+        }
 
         /// <summary>
         /// A flag to control whether the NetworkManager object is destroyed when the scene changes.
