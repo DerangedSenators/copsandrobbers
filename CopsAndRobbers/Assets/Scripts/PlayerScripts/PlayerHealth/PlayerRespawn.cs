@@ -60,13 +60,18 @@ namespace Me.DerangedSenators.CopsAndRobbers
         public void OnTriggerEnter2D(Collider2D collider)
         {
             
-            bool teamAlive = health.getIsAlive();
+            bool teamAlive = false;
+            if (collider.gameObject.GetComponent<PlayerHealth>() != null)
+            {
+                teamAlive = collider.gameObject.GetComponent<PlayerHealth>().getIsAlive();    
+            }
             
-            if (health.getIsAlive() == false && collider.gameObject.layer == gameObject.layer && teamAlive)
+            //teamAlive = health.getIsAlive();
+            
+            if (GetComponent<PlayerHealth>().getIsAlive() == false && collider.gameObject.layer == gameObject.layer && teamAlive)
             {
                 countdown = true;
                 ShowFloatingText();
-                
             }
         }
 

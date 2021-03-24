@@ -62,6 +62,8 @@ namespace Me.DerangedSenators.CopsAndRobbers
         private int currentIndex;
 
         public GameObject Bullet;
+
+        private bool listenerSet = false;
         
         public void SwitchWeapon(GameObject oldWeapon, GameObject newWeapon)
         {
@@ -77,6 +79,57 @@ namespace Me.DerangedSenators.CopsAndRobbers
             yield return null;
         }
 
+        public class MobileWeaponSwitchHandler : IButtonListener
+        {
+            private WeaponManager _manager;
+            public MobileWeaponSwitchHandler(WeaponManager manager)
+            {
+                _manager = manager;
+            }
+
+            public void onButtonPressed()
+            {
+                if (_manager.isLocalPlayer)
+                {
+                    // Handle Attack
+                    switch (_manager.currentIndex)
+                    {
+                        case 1:
+                            _manager.currentIndex = 0;
+                            break;
+                        case 0:
+                            _manager.currentIndex = 1;
+                            break;
+                    }
+                    _manager.SwitchWeapon(_manager._weapon,_manager.WeaponInventory[_manager.currentIndex]);
+                }
+            }
+
+            public void onButtonReleased()
+            {
+                // Do Nothing
+            }
+        }
+        
+        public class MobileAttackButtonListener : IButtonListener
+        {
+            private WeaponManager _manager;
+            public MobileAttackButtonListener(WeaponManager manager)
+            {
+                _manager = manager;
+            }
+
+            public void onButtonPressed()
+            {
+                _manager.WeaponInventory[_manager.currentIndex].GetComponent<AttackVector>().HandleAttack();
+            }
+
+            public void onButtonReleased()
+            {
+                // Do Nothing
+            }
+        }
+
         public void OnEnable()
         {
             if(isLocalPlayer)
@@ -84,28 +137,53 @@ namespace Me.DerangedSenators.CopsAndRobbers
             _weapon = WeaponInventory[0];
             currentIndex = 0;
             _weapon.SetActive(true);
-            Debug.Log("Instance set");
+
         }
 
         #region Client
         private void Update()
         {
-            if (isLocalPlayer)
+            try
             {
-                setAttackParams();
-                if (Input.GetKeyDown(KeyCode.Alpha1) || Input.GetKeyDown(KeyCode.Q))
+                if (isLocalPlayer)
                 {
-                    Debug.Log("Switching to Baton");
-                    SwitchWeapon(_weapon,WeaponInventory[0]);
-                    currentIndex = 0;
-                } else if (Input.GetKeyDown(KeyCode.Alpha2) || Input.GetKeyDown(KeyCode.E))
-                { 
-                    Debug.Log("Switching to Gun");
-                    SwitchWeapon(_weapon,WeaponInventory[1]);
-                    currentIndex = 1;
+                    setAttackParams();
+                    if (Input.GetKeyDown(KeyCode.Alpha1) || Input.GetKeyDown(KeyCode.Q))
+                    {
+                        Debug.Log("Switching to Baton");
+                        SwitchWeapon(_weapon, WeaponInventory[0]);
+                        currentIndex = 0;
+                    }
+                    else if (Input.GetKeyDown(KeyCode.Alpha2) || Input.GetKeyDown(KeyCode.E))
+                    {
+                        Debug.Log("Switching to Gun");
+                        SwitchWeapon(_weapon, WeaponInventory[1]);
+                        currentIndex = 1;
 
+                    }
                 }
             }
+            catch (NullReferenceException ex)
+            {
+                // NRE is thrown when Scene isn't active. This is a known event and is an unfortunate issue with Unity itself
+            }
+            #if UNITY_IOS || UNITY_ANDROID || UNITY_WP8 || UNITY_IPHONE
+            if (!listenerSet)
+            {
+                try
+                {
+                    ControlContext.Instance.WeaponSwitchButton.AddListener(
+                        new MobileWeaponSwitchHandler(this));
+                    ControlContext.Instance.AttackButton.AddListener(
+                        new MobileAttackButtonListener(this));
+                    listenerSet = true;
+                }
+                catch (NullReferenceException ex)
+                {
+                    // Context has not yet been established. Try again in the next frame.
+                }
+            }
+            #endif
         }
 
         /// <summary>
@@ -115,36 +193,59 @@ namespace Me.DerangedSenators.CopsAndRobbers
         {
             mousePosition = GetMouseWorldPosition(); // +new Vector3(-0.5f, -0.2f, 0);
 
+            //#if UNITY_STANDALONE || UNITY_WEBPLAYER
             mouseDir = (mousePosition - transform.position).normalized;
-
+            //#elif UNITY_IOS || UNITY_ANDROID || UNITY_WP8 || UNITY_IPHONE
+            //mouseDir = mousePosition;
+            //#endif
             attackOffset = 0.8f;
 
             attackPosition = (transform.position + mouseDir * attackOffset);
         }
         #endregion
 
+
+        #if UNITY_STANDALONE || UNITY_WEBPLAYER
         public void FixedUpdate()
         {
-            WeaponInventory[currentIndex].GetComponent<AttackVector>().HandleAttack();
+            if (Input.GetMouseButtonDown(0) || Input.GetKeyDown(KeyCode.Space))
+            {
+                WeaponInventory[currentIndex].GetComponent<AttackVector>().HandleAttack();
+            }
         }
+        #endif
         //--- Helper Methods ---//
 
         /// <summary>
         /// Command to shoot over the Network
         /// </summary>
         [Command]
-        public void CmdShoot(Vector3 mouseDir, Vector3 mousePosition, float bulletVelocity)
+        public void CmdShoot(Vector3 mouseDir, Vector3 mousePosition, Vector3 weaponTransform,Vector3 direction,float bulletVelocity,bool onMobile)
         {
-            Debug.Log($"Projectile Speed is {bulletVelocity}");
-            var projectile =  Instantiate(Bullet, transform.position, transform.rotation);
-            projectile.transform.position += mouseDir;
-            Vector3 bulletPosition = (mousePosition - projectile.transform.position).normalized;
-            float angle = Mathf.Atan2(bulletPosition.y, bulletPosition.x) * Mathf.Rad2Deg;
-            projectile.transform.eulerAngles = new Vector3(0, 0, angle);
+            var projectile =  Instantiate(Bullet, weaponTransform, transform.rotation);
+
             Rigidbody2D projectileRigidBody = projectile.GetComponent<Rigidbody2D>();
-            projectileRigidBody.velocity = mouseDir.normalized * bulletVelocity;
+            if (onMobile) // Setup for Mobile
+            {
+                if (direction.x == 0 && direction.y == 0) // If the stick is idle
+                {
+                    direction.x = 1;
+                }
+                projectile.transform.position += direction;
+                float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+                projectile.transform.eulerAngles = new Vector3(0,0,angle);;
+                projectileRigidBody.velocity = direction.normalized * bulletVelocity;
+            }
+            else // Setup for Standalone Desktop
+            {            
+                projectile.transform.position += mouseDir;
+                Vector3 bulletPosition = ( mousePosition - projectile.transform.position).normalized;
+                float angle = Mathf.Atan2(bulletPosition.y, bulletPosition.x) * Mathf.Rad2Deg;
+                projectileRigidBody.velocity = mouseDir.normalized * bulletVelocity;
+
+            }
+
             projectileRigidBody.gravityScale = 0;
-            Debug.Log("Shooting...");
             NetworkServer.Spawn(projectile);
         }
         
@@ -178,10 +279,10 @@ namespace Me.DerangedSenators.CopsAndRobbers
                 {
                     Vector2 vec = ControlContext.Instance.AttackCircleStick.Direction;
                     Vector3 vector3;
-                    vector3.x = vec.x;
-                    vector3.y = vec.y;
+                    vector3.x = ControlContext.Instance.AttackCircleStick.Horizontal;
+                    vector3.y = ControlContext.Instance.AttackCircleStick.Vertical;
                     vector3.z = 0f;
-                    return vec;
+                    return vector3;
                 }
         #endif
         /// <summary>
@@ -206,6 +307,12 @@ namespace Me.DerangedSenators.CopsAndRobbers
 #elif UNITY_IOS || UNITY_ANDROID || UNITY_WP8 || UNITY_IPHONE
         public Vector3 GetAttackPoint(float offset)
         {
+            if (ControlContext.Instance.AttackCircleStick.Horizontal == 0 &&
+                ControlContext.Instance.AttackCircleStick.Vertical == 0)
+            {
+                return (transform.position + new Vector3(1,
+                    0, 0) * offset);
+            }
             return (transform.position + new Vector3(ControlContext.Instance.AttackCircleStick.Horizontal,
                 ControlContext.Instance.AttackCircleStick.Vertical, 0) * offset);
         }

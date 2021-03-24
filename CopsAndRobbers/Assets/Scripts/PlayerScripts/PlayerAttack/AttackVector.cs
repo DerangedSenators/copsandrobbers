@@ -1,3 +1,4 @@
+
 using System;
 using Mirror;
 using UnityEditor;
@@ -114,16 +115,13 @@ namespace Me.DerangedSenators.CopsAndRobbers
         /// </summary>
         public void HandleAttack()
         {
-            if (Input.GetMouseButtonDown(0) || Input.GetKeyDown(KeyCode.Space))
-            {
-                if (Manager == null)
+            if (Manager == null)
                 {
                     Manager = WeaponManager.LocalInstance;
                 }
 
                 DoAttack();
             }
-        }
 
         /// <summary>
         /// This method performs the attack on the server
