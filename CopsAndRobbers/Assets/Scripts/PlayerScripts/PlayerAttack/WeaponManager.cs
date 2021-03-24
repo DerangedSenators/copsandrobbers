@@ -220,12 +220,12 @@ namespace Me.DerangedSenators.CopsAndRobbers
         /// Command to shoot over the Network
         /// </summary>
         [Command]
-        public void CmdShoot(Vector3 mouseDir, Vector3 mousePosition, Vector3 weaponTransform,Vector3 direction,float bulletVelocity)
+        public void CmdShoot(Vector3 mouseDir, Vector3 mousePosition, Vector3 weaponTransform,Vector3 direction,float bulletVelocity,bool onMobile)
         {
             var projectile =  Instantiate(Bullet, weaponTransform, transform.rotation);
 
             Rigidbody2D projectileRigidBody = projectile.GetComponent<Rigidbody2D>();
-            if (ControlContext.Instance.Active) // Setup for Mobile
+            if (onMobile) // Setup for Mobile
             {
                 if (direction.x == 0 && direction.y == 0) // If the stick is idle
                 {

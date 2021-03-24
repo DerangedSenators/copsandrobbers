@@ -37,7 +37,7 @@ namespace Me.DerangedSenators.CopsAndRobbers.Weapons
             Vector3 direction = new Vector3(0,0,0);
             if (ControlContext.Instance.Active)
                 direction = ControlContext.Instance.AttackCircleStick.Direction;
-            Manager.CmdShoot(Manager.GetMouseDir(),Manager.GetMousePosition(),GunTransform.position,direction,BulletVelocity);
+            Manager.CmdShoot(Manager.GetMouseDir(),Manager.GetMousePosition(),GunTransform.position,direction,BulletVelocity,ControlContext.Instance.Active);
         }
 
 

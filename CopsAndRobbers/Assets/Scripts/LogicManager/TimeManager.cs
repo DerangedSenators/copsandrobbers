@@ -43,6 +43,8 @@ namespace Me.DerangedSenators.CopsAndRobbers
         private float round2Time;
         private float round3Time;
         private float breakTime;
+
+         private static bool isRefreshSpawn;
         
         void Start()
         {
@@ -55,6 +57,8 @@ namespace Me.DerangedSenators.CopsAndRobbers
             breakTime = 60f;
             breakCanvas.gameObject.SetActive(false);
             freezeCanvas.gameObject.SetActive(false);
+
+            isRefreshSpawn = false;
         }
 
         void Update()
@@ -112,6 +116,9 @@ namespace Me.DerangedSenators.CopsAndRobbers
                     
                     breakCanvas.gameObject.SetActive(true);
                     endOfRoundText.text = $"End of round 1";
+                    
+                    isRefreshSpawn = true;
+
                 }
                 //This if statement disables break, enables freeze2 and sets timer to freeze time.
                 else if (breakRound1) //freeze2
@@ -126,6 +133,7 @@ namespace Me.DerangedSenators.CopsAndRobbers
                     breakCanvas.gameObject.SetActive(false);
                     freezeCanvas.gameObject.SetActive(true);
                     mainTimerCanvas.gameObject.SetActive(false);
+                    
                 }
 
                 else if (freeze2) //round2
@@ -154,6 +162,8 @@ namespace Me.DerangedSenators.CopsAndRobbers
                     
                     breakCanvas.gameObject.SetActive(true);
                     endOfRoundText.text = $"End of round 2";
+                    
+                    isRefreshSpawn = true;
                 }
 
                 else if (breakRound2)//freeze3
@@ -170,6 +180,7 @@ namespace Me.DerangedSenators.CopsAndRobbers
                     
                     freezeCanvas.gameObject.SetActive(true);
                     mainTimerCanvas.gameObject.SetActive(false);
+                    
                 }
 
                 else if (freeze3) //round3
@@ -194,10 +205,6 @@ namespace Me.DerangedSenators.CopsAndRobbers
                 }
 
                 
-                
-                
-                
-
                 //if round state is ended, make Moneymanager singleton and load game over scene.
                 if (_roundManager.GetCurrentRound() == RoundManager.Round.ENDED)
                 {
@@ -225,6 +232,27 @@ namespace Me.DerangedSenators.CopsAndRobbers
         public void EndTimer()
         {
             currentTime = startingTime;
+        }
+
+        public static bool ShouldRefreshRespawn()
+        {
+            return isRefreshSpawn;
+        }
+
+        public static void SetIsRefreshSpawn(bool state)
+        {
+            isRefreshSpawn = state;
+        }
+        
+        public bool HasATeamDied()
+        {
+            
+            return false;
+        }
+
+        public static void ForceEndRound()
+        {
+            //force end round
         }
     }
 }
