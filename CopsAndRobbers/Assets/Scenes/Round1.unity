@@ -7736,7 +7736,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: b8caffd228d8a494ea99d1aee4bf6c82, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 14fe8a8feb4115a4abf6833da23b1690, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -10452,7 +10452,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 2.4578006, y: 1}
+    m_SensorSize: {x: 1.9488273, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
