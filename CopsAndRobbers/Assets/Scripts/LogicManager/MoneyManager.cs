@@ -35,8 +35,8 @@ namespace Me.DerangedSenators.CopsAndRobbers
                 this.team = team;
                 money = 0;
             }
-        } 
-
+        }
+        
         private void Awake()
         {
             //*Debug.Log("Money Manager is Awake!");
@@ -82,13 +82,13 @@ namespace Me.DerangedSenators.CopsAndRobbers
             switch (updateTeam)
             {
                 case Teams.ROBBERS:
-                    robberMoneyCount.money -= IncrementValue/2;
+                    robberMoneyCount.money -= IncrementValue;
                     Debug.Log($"Decreased Robbers Money {robberMoneyCount.money}");
                     MoneyDisplay.Instance().UpdateCopsView(robberMoneyCount.money);
                     break;
                 case Teams.COPS:
                     
-                    copsMoneyCount.money -= IncrementValue/2;
+                    copsMoneyCount.money -= IncrementValue;
                     Debug.Log($"Decreased Cops Money {copsMoneyCount.money}");
                     MoneyDisplay.Instance().UpdateRobbersView(copsMoneyCount.money);
                     break;
