@@ -6,6 +6,8 @@ TagManager:
   tags:
   - Money
   - AttackCircle
+  - Music
+  - SFX
   layers:
   - Default
   - TransparentFX
