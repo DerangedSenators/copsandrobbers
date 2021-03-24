@@ -7,6 +7,7 @@ namespace Me.DerangedSenators.CopsAndRobbers
     /// <summary>
     /// Singleton Class that manages the Game
     /// </summary>
+    /// /// @authors Nisath Mohamed
     public class GameManager : MonoBehaviour
     {
         public static GameManager gameManager;

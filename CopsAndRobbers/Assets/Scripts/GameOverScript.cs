@@ -8,6 +8,7 @@ using UnityEngine.UI;
 namespace Me.DerangedSenators.CopsAndRobbers
 {
     
+    /// @authors Nisath Mohamed
     public class GameOverScript : MonoBehaviour
     {
         private int[] moneyCounts;

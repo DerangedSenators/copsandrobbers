@@ -14,7 +14,7 @@ namespace Me.DerangedSenators.CopsAndRobbers
     /// Class which manages attacking from a player. This class has now been deprecated
     /// </summary>
     ///
-    /// @authors Nisath Mohammed, Hanzalah Ravat, Hannah Elliman, Ashwin Jaimal
+    /// @authors Nisath Mohamed, Hanzalah Ravat, Hannah Elliman, Ashwin Jaimal
     [Obsolete("This class has been deprecated. Inherit from AttackVector and use that instead")]
     public class PlayerAttack : NetworkBehaviour
     {
