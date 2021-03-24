@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<< HEAD:CopsAndRobbers/Assets/TextMesh Pro/Examples & Extras/Fonts/RobotoCondensed-LightItalic.ttf.meta
 guid: 308dfbbdf109b22438b3fe4fb0bbb73f
+=======
+guid: 47139e6f86304064cbc6edc238857130
+>>>>>>> 39d022cf2a34f6048fc60c4ddfd0cfd0eaa90eda:CopsAndRobbers/Assets/Fonts/Roboto-Bold.ttf.meta
 TrueTypeFontImporter:
   externalObjects: {}
   serializedVersion: 4
@@ -8,9 +12,15 @@ TrueTypeFontImporter:
   characterSpacing: 0
   characterPadding: 1
   includeFontData: 1
+<<<<<<< HEAD:CopsAndRobbers/Assets/TextMesh Pro/Examples & Extras/Fonts/RobotoCondensed-LightItalic.ttf.meta
   fontName: Roboto Condensed
   fontNames:
   - Roboto Condensed
+=======
+  fontName: Roboto
+  fontNames:
+  - Roboto
+>>>>>>> 39d022cf2a34f6048fc60c4ddfd0cfd0eaa90eda:CopsAndRobbers/Assets/Fonts/Roboto-Bold.ttf.meta
   fallbackFontReferences: []
   customCharacters: 
   fontRenderingMode: 0

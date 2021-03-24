@@ -1,9 +1,13 @@
 fileFormatVersion: 2
+<<<<<<< HEAD
+guid: 2eeba1aaf2671d9cca79d89b716ac7c4
+=======
 <<<<<<< HEAD:CopsAndRobbers/Assets/Fonts.meta
 guid: 8ddeea0efd0667241b37d12ea5c2cf85
 =======
 guid: 2eeba1aaf2671d9cca79d89b716ac7c4
 >>>>>>> 24d1239 (Sync Worktree):CopsAndRobbers/Assets/Scripts/Camera/MainView.meta
+>>>>>>> 24d1239 (Sync Worktree)
 folderAsset: yes
 DefaultImporter:
   externalObjects: {}

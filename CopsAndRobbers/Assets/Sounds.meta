@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<< HEAD:CopsAndRobbers/Assets/Sounds.meta
 guid: 7fb4ee95420335c428244b5d37b45f76
+=======
+guid: 2eeba1aaf2671d9cca79d89b716ac7c4
+>>>>>>> 4cb0970 (Sync Worktree):CopsAndRobbers/Assets/Scripts/Camera/MainView.meta
 folderAsset: yes
 DefaultImporter:
   externalObjects: {}
