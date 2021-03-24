@@ -129,6 +129,8 @@ namespace Me.DerangedSenators.CopsAndRobbers
                     currentTime = freezeTime;
                     Debug.Log("current counting freeze2 time");
                     
+                    Player.localPlayer.GetComponent<PlayerMovement>().enabled = false;  //disable movement
+                    
                     _roundManager.LoadRound();
                     
                     breakCanvas.gameObject.SetActive(false);
@@ -174,6 +176,9 @@ namespace Me.DerangedSenators.CopsAndRobbers
                     currentTime = freezeTime;
                     
                     Debug.Log("current counting freeze3 time");
+                    
+                    
+                    Player.localPlayer.GetComponent<PlayerMovement>().enabled = false;  //disable movement
                     
                     _roundManager.LoadRound();
                     
