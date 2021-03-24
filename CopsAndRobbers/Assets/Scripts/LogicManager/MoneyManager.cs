@@ -82,13 +82,13 @@ namespace Me.DerangedSenators.CopsAndRobbers
             switch (updateTeam)
             {
                 case Teams.ROBBERS:
-                    robberMoneyCount.money -= IncrementValue;
+                    robberMoneyCount.money -= IncrementValue/2;
                     Debug.Log($"Decreased Robbers Money {robberMoneyCount.money}");
                     MoneyDisplay.Instance().UpdateCopsView(robberMoneyCount.money);
                     break;
                 case Teams.COPS:
                     
-                    copsMoneyCount.money -= IncrementValue;
+                    copsMoneyCount.money -= IncrementValue/2;
                     Debug.Log($"Decreased Cops Money {copsMoneyCount.money}");
                     MoneyDisplay.Instance().UpdateRobbersView(copsMoneyCount.money);
                     break;
