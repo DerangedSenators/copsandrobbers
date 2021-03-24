@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using Mirror;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -15,7 +16,7 @@ namespace Me.DerangedSenators.CopsAndRobbers
         [SerializeField] private Text enemyTeamCountText;
         [SerializeField] public Text winText;
         [SerializeField] public Text loseText;
-        
+        [SerializeField] public Text drawText;
         void Start()
         {
             Cursor.lockState = CursorLockMode.None;
@@ -35,30 +36,46 @@ namespace Me.DerangedSenators.CopsAndRobbers
                 case 1:
                     myTeamCountText.text = $"${moneyCounts[0].ToString()}";
                     enemyTeamCountText.text = $"${moneyCounts[1].ToString()}";
-                    if (moneyCounts[0] >= moneyCounts[1])
+                    if (moneyCounts[0] > moneyCounts[1])
                     {
                         winText.gameObject.GetComponent<Text>().enabled = true;
                         loseText.gameObject.GetComponent<Text>().enabled = false;
+                        drawText.gameObject.GetComponent<Text>().enabled = false;
+                    } 
+                    else if (moneyCounts[0] == moneyCounts[1])
+                    {
+                        winText.gameObject.GetComponent<Text>().enabled = false;
+                        loseText.gameObject.GetComponent<Text>().enabled = false;
+                        drawText.gameObject.GetComponent<Text>().enabled = true;
                     }
                     else
                     {
                         winText.gameObject.GetComponent<Text>().enabled = false;
                         loseText.gameObject.GetComponent<Text>().enabled = true;
+                        drawText.gameObject.GetComponent<Text>().enabled = false;
                     }
 
                     break;
                 case 2:
                     myTeamCountText.text = $"${moneyCounts[1].ToString()}";
                     enemyTeamCountText.text = $"${moneyCounts[0].ToString()}";
-                    if (moneyCounts[1] >= moneyCounts[0])
+                    if (moneyCounts[1] > moneyCounts[0])
                     {
                         winText.gameObject.GetComponent<Text>().enabled = true;
                         loseText.gameObject.GetComponent<Text>().enabled = false;
+                        drawText.gameObject.GetComponent<Text>().enabled = false;
+                    }
+                    else if (moneyCounts[0] == moneyCounts[1])
+                    {
+                        winText.gameObject.GetComponent<Text>().enabled = false;
+                        loseText.gameObject.GetComponent<Text>().enabled = false;
+                        drawText.gameObject.GetComponent<Text>().enabled = true;
                     }
                     else
                     {
                         winText.gameObject.GetComponent<Text>().enabled = false;
                         loseText.gameObject.GetComponent<Text>().enabled = true;
+                        drawText.gameObject.GetComponent<Text>().enabled = false;
                     }
                     break;
                 default:
@@ -69,9 +86,15 @@ namespace Me.DerangedSenators.CopsAndRobbers
         }
         
         
+        
         public void NextRound()
         {
-            SceneManager.LoadScene(2);
+            //Player.localPlayer.DisconnectGame();
+            //Destroy(Player.localPlayer);
+            //Destroy(GetComponent<MoneyManager>());
+            //Destroy(GetComponent<NetworkManager>());
+            
+            SceneManager.LoadScene(0);
         }
     }
 }
