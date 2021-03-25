@@ -11828,7 +11828,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 1.9488273, y: 1}
+    m_SensorSize: {x: 1.7773279, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
@@ -12045,7 +12045,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 839853589}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 355871072ddd3fe44954e858c2437dcd, type: 3}
+  m_Script: {fileID: 11500000, guid: 21b863528ddb98f40bf214e4f6ce911e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   menuCanvas: {fileID: 47560315}
