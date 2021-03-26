@@ -2,6 +2,7 @@
 using Mirror;
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.InteropServices.ComTypes;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -22,6 +23,10 @@ namespace Me.DerangedSenators.CopsAndRobbers
         public static TeamMoneyCount RobberMoneyCount => robberMoneyCount;
         private int myTeamID = -1;
 
+        public GameObject sfxHandler;
+        public AudioClip moneyBagClip;
+        public AudioSource moneyAudioSource;
+        
         /// <summary>
         /// Struct to hold team and money value
         /// </summary>
@@ -44,12 +49,27 @@ namespace Me.DerangedSenators.CopsAndRobbers
             copsMoneyCount = new TeamMoneyCount(Teams.ROBBERS);
         }
 
+        private void FixedUpdate()
+        {
+            if (moneyAudioSource == null)
+            {
+                moneyAudioSource = gameObject.AddComponent<AudioSource>();
+                moneyAudioSource.clip = moneyBagClip;    
+            }
+            
+        }
+
         /// <summary>
         /// Adds $100 to treasury. 
         /// </summary>
         //[Command]
         public void CMDCollectMoney(int teamID)
         {
+
+            
+            moneyAudioSource.PlayOneShot(moneyBagClip);
+            
+            
             myTeamID = teamID;
             //*Debug.Log($"CMDCollectMoney has been invoked by {teamID}");
             Teams updateTeam = (Teams) teamID;
@@ -105,5 +125,7 @@ namespace Me.DerangedSenators.CopsAndRobbers
         {
             return myTeamID;
         }
+        
+        
     }
 }
