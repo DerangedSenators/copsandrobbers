@@ -219,21 +219,21 @@ namespace Me.DerangedSenators.CopsAndRobbers
         #endregion
 
 
-        #if UNITY_STANDALONE || UNITY_WEBPLAYER
         public void FixedUpdate()
         {
+            #if UNITY_STANDALONE || UNITY_WEBPLAYER
             if (Input.GetMouseButtonDown(0) || Input.GetKeyDown(KeyCode.Space))
             {
                 WeaponInventory[currentIndex].GetComponent<AttackVector>().HandleAttack();
             }
-            
+            #endif
             if (meleeAudioSource == null)
             {
                 meleeAudioSource = gameObject.AddComponent<AudioSource>();
                 meleeAudioSource.clip = meleeAttackClip;    
             }
         }
-        #endif
+        
         //--- Helper Methods ---//
 
         /// <summary>
