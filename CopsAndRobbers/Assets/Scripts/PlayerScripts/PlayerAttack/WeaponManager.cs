@@ -77,8 +77,16 @@ namespace Me.DerangedSenators.CopsAndRobbers
         /// This audio source is to be assigned with the clip to sfxHandler.
         /// </summary>
         private AudioSource meleeAudioSource;
-      
-        
+        /// <summary>
+        /// The melee attack sound in wav format.
+        /// </summary>
+        public AudioClip gunShotClip;
+        /// <summary>
+        /// This audio source is to be assigned with the clip to sfxHandler.
+        /// </summary>
+        private AudioSource gunShotAudioSource;
+
+
         public void SwitchWeapon(GameObject oldWeapon, GameObject newWeapon)
         {
             StartCoroutine(ChangeWeapon(oldWeapon,newWeapon));
@@ -230,7 +238,15 @@ namespace Me.DerangedSenators.CopsAndRobbers
             if (meleeAudioSource == null)
             {
                 meleeAudioSource = gameObject.AddComponent<AudioSource>();
-                meleeAudioSource.clip = meleeAttackClip;    
+                meleeAudioSource.clip = meleeAttackClip;
+                meleeAudioSource.volume = 0.3f;
+            }
+
+            if (gunShotAudioSource == null)
+            {
+                gunShotAudioSource = gameObject.AddComponent<AudioSource>();
+                gunShotAudioSource.clip = gunShotClip;
+                gunShotAudioSource.volume = 0.3f;
             }
         }
         
@@ -244,6 +260,8 @@ namespace Me.DerangedSenators.CopsAndRobbers
         {
             var projectile =  Instantiate(Bullet, weaponTransform, transform.rotation);
 
+            RpcPlayGunShotSound();
+            
             Rigidbody2D projectileRigidBody = projectile.GetComponent<Rigidbody2D>();
             if (onMobile) // Setup for Mobile
             {
@@ -274,16 +292,25 @@ namespace Me.DerangedSenators.CopsAndRobbers
         public void CmdMeleeAttack(PlayerHealth enemy)
         {
             enemy.Damage(10);
-            RPCPlayMeleeSound();
+            RpcPlayMeleeSound();
         }
 
         /// <summary>
         /// Play the melee attack sound once per call to the method.
         /// </summary>
         [ClientRpc]
-        public void RPCPlayMeleeSound()
+        public void RpcPlayMeleeSound()
         {
             meleeAudioSource.PlayOneShot(meleeAttackClip);
+        }
+        
+        /// <summary>
+        /// Play the gun shot sound once per call to the method.
+        /// </summary>
+        [ClientRpc]
+        public void RpcPlayGunShotSound()
+        {
+            gunShotAudioSource.PlayOneShot(gunShotClip);
         }
 
         /// <summary>

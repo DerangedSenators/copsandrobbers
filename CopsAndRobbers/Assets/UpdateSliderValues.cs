@@ -19,22 +19,26 @@ namespace Me.DerangedSenators.CopsAndRobbers
 
         void Awake()
         {
-            sfx = GameObject.FindWithTag("SFX").GetComponent<AudioSource>();
-            music = GameObject.FindWithTag("Music").GetComponent<AudioSource>();
+            //sfx = GameObject.FindWithTag("SFX").GetComponent<AudioSource>();
+            //music = GameObject.FindWithTag("Music").GetComponent<AudioSource>();
             
-            //sfxSlider.value = GameObject.FindWithTag("SFX").GetComponent<AudioSource>().volume;
-            //musicSlider.value = GameObject.FindWithTag("Music").GetComponent<AudioSource>().volume;
-
-            //GameObject.FindWithTag("Music").GetComponent<AudioSource>().volume = sfxSlider.value;
-            //GameObject.FindWithTag("SFX").GetComponent<AudioSource>().volume = musicSlider.value;
+            
         }
 
         void FixedUpdate()
         {
-            sfx = GameObject.FindWithTag("SFX").GetComponent<AudioSource>();
-            music = GameObject.FindWithTag("Music").GetComponent<AudioSource>();
+            //sfx = GameObject.FindWithTag("SFX").GetComponent<AudioSource>();
+            //music = GameObject.FindWithTag("Music").GetComponent<AudioSource>();
+
+            AudioSource[] audioSources = sfx.GetComponents<AudioSource>();
+
+            foreach (var audiosource in audioSources)
+            {
+                audiosource.volume = sfxSlider.value;
+            }
             
-            sfx.GetComponent<AudioSource>().volume = sfxSlider.value;
+            //sfx.GetComponent<AudioSource>().volume = sfxSlider.value;
+            
             music.GetComponent<AudioSource>().volume = musicSlider.value;
         }
     }
