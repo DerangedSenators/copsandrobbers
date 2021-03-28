@@ -454,7 +454,7 @@ MonoBehaviour:
   sfxHandler: {fileID: 8657292821654307289, guid: 8dd02ca52a92df747b74a40a07e73a4b,
     type: 3}
   meleeAttackClip: {fileID: 8300000, guid: 06f6b1e0e5b8d614c9e86ce408b7ecc5, type: 3}
-  meleeAudioSource: {fileID: 0}
+  gunShotClip: {fileID: 8300000, guid: 8696c851fa4af8d4faeb316ce8ca4988, type: 3}
 --- !u!114 &4782112354092911828
 MonoBehaviour:
   m_ObjectHideFlags: 0
