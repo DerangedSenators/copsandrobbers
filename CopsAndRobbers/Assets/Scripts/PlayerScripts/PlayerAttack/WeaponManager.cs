@@ -65,6 +65,13 @@ namespace Me.DerangedSenators.CopsAndRobbers
 
         private bool listenerSet = false;
         
+        public GameObject sfxHandler;
+        public AudioClip meleeAttackClip;
+        public AudioSource meleeAudioSource;
+        
+        
+      
+        
         public void SwitchWeapon(GameObject oldWeapon, GameObject newWeapon)
         {
             StartCoroutine(ChangeWeapon(oldWeapon,newWeapon));
@@ -212,6 +219,12 @@ namespace Me.DerangedSenators.CopsAndRobbers
             {
                 WeaponInventory[currentIndex].GetComponent<AttackVector>().HandleAttack();
             }
+            
+            if (meleeAudioSource == null)
+            {
+                meleeAudioSource = gameObject.AddComponent<AudioSource>();
+                meleeAudioSource.clip = meleeAttackClip;    
+            }
         }
         #endif
         //--- Helper Methods ---//
@@ -254,6 +267,13 @@ namespace Me.DerangedSenators.CopsAndRobbers
         public void CmdMeleeAttack(PlayerHealth enemy)
         {
             enemy.Damage(10);
+            PlayMeleeSound();
+        }
+
+        [ClientRpc]
+        public void PlayMeleeSound()
+        {
+            meleeAudioSource.PlayOneShot(meleeAttackClip);
         }
 
         /// <summary>
