@@ -238,13 +238,15 @@ namespace Me.DerangedSenators.CopsAndRobbers
             if (meleeAudioSource == null)
             {
                 meleeAudioSource = gameObject.AddComponent<AudioSource>();
-                meleeAudioSource.clip = meleeAttackClip;    
+                meleeAudioSource.clip = meleeAttackClip;
+                meleeAudioSource.volume = 0.3f;
             }
 
             if (gunShotAudioSource == null)
             {
                 gunShotAudioSource = gameObject.AddComponent<AudioSource>();
                 gunShotAudioSource.clip = gunShotClip;
+                gunShotAudioSource.volume = 0.3f;
             }
         }
         
