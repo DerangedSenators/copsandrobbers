@@ -20,6 +20,8 @@ namespace Me.DerangedSenators.CopsAndRobbers
         private Vector2 movement;       // Stores movement value
         public float runSpeed = 300f;    //40f
         private Vector2 touchOrigin = -Vector2.one;    //Used to store location of screen touch origin for mobile controls.
+        public AudioClip movementClip; // The movement sound.
+        private AudioSource movementAudioSource; // This audio source is to be assigned to with the movement sound
 
         //private float horizontalMove = 0f;
         [ClientCallback]
@@ -48,6 +50,27 @@ namespace Me.DerangedSenators.CopsAndRobbers
             if (isLocalPlayer)
             {
                 rigidBody.MovePosition(rigidBody.position + movement * moveSpeed * Time.fixedDeltaTime);
+                
+
+                if (movementAudioSource == null) //create audio source
+                {
+                    movementAudioSource = gameObject.AddComponent<AudioSource>();
+                    movementAudioSource.clip = movementClip;
+                    movementAudioSource.enabled = false;
+                    movementAudioSource.enabled = true; //re-enable for playonawake
+                    //settings
+                    movementAudioSource.loop = true;
+                    movementAudioSource.volume = 0.2f;
+                        
+                }
+                if (movement != Vector2.zero) // if there is movement
+                {
+                    movementAudioSource.UnPause();
+                }
+                else
+                {
+                    movementAudioSource.Pause();
+                }
             }
         }
 

@@ -278,6 +278,9 @@ MonoBehaviour:
   moveSpeed: 5
   rigidBody: {fileID: -7991061093172292498}
   runSpeed: 40
+  sfxHandler: {fileID: 8657292821654307289, guid: 8dd02ca52a92df747b74a40a07e73a4b,
+    type: 3}
+  movementClip: {fileID: 8300000, guid: 643b220620a99b746be2b953bd8e7719, type: 3}
 --- !u!114 &-5345460604086043374
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -454,7 +457,6 @@ MonoBehaviour:
   sfxHandler: {fileID: 8657292821654307289, guid: 8dd02ca52a92df747b74a40a07e73a4b,
     type: 3}
   meleeAttackClip: {fileID: 8300000, guid: 06f6b1e0e5b8d614c9e86ce408b7ecc5, type: 3}
-  meleeAudioSource: {fileID: 0}
 --- !u!114 &4782112354092911828
 MonoBehaviour:
   m_ObjectHideFlags: 0
