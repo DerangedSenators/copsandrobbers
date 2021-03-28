@@ -37,9 +37,9 @@ namespace Me.DerangedSenators.CopsAndRobbers
             //get array of moneycount where position 0 belongs to cops and 1 to robbers.
             moneyCounts = MoneyManager.GetMoneyCounts();
             
-            switch (Player.localPlayer.teamId)
+            switch (Player.localPlayer.teamId) //get teamid
             {
-                case 1:
+                case 1: //if client is cops
                     myTeamCountText.text = $"${moneyCounts[0].ToString()}";
                     enemyTeamCountText.text = $"${moneyCounts[1].ToString()}";
                     if (moneyCounts[0] > moneyCounts[1]) //if cops win
@@ -55,7 +55,7 @@ namespace Me.DerangedSenators.CopsAndRobbers
                         ActivateTextView(false, false, true); //display lose message
                     }
                     break;
-                case 2:
+                case 2: //if client is robbers
                     myTeamCountText.text = $"${moneyCounts[1].ToString()}";
                     enemyTeamCountText.text = $"${moneyCounts[0].ToString()}";
                     if (moneyCounts[1] > moneyCounts[0]) // if robbers win
