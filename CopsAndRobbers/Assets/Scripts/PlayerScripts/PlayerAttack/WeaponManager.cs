@@ -277,6 +277,9 @@ namespace Me.DerangedSenators.CopsAndRobbers
             RPCPlayMeleeSound();
         }
 
+        /// <summary>
+        /// Play the melee attack sound once per call to the method.
+        /// </summary>
         [ClientRpc]
         public void PlayMeleeSound()
         {
