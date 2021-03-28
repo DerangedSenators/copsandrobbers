@@ -12,7 +12,7 @@ namespace Me.DerangedSenators.CopsAndRobbers
     /// <summary>
     /// Class designed to manage a player's weapons
     /// </summary>
-    /// @author Hanzalah Ravat
+    /// @author Hanzalah Ravat and Nisath Mohamed Nasar
     public class WeaponManager : NetworkBehaviour
     {
         /// <summary>
@@ -65,11 +65,18 @@ namespace Me.DerangedSenators.CopsAndRobbers
 
         private bool listenerSet = false;
         
+        /// <summary>
+        /// The game object (from prefab) that will handle Audio Sources
+        /// </summary>
         public GameObject sfxHandler;
+        /// <summary>
+        /// The melee attack sound in wav format.
+        /// </summary>
         public AudioClip meleeAttackClip;
-        public AudioSource meleeAudioSource;
-        
-        
+        /// <summary>
+        /// This audio source is to be assigned with the clip to sfxHandler.
+        /// </summary>
+        private AudioSource meleeAudioSource;
       
         
         public void SwitchWeapon(GameObject oldWeapon, GameObject newWeapon)
@@ -270,6 +277,9 @@ namespace Me.DerangedSenators.CopsAndRobbers
             PlayMeleeSound();
         }
 
+        /// <summary>
+        /// Play the melee attack sound once per call to the method.
+        /// </summary>
         [ClientRpc]
         public void PlayMeleeSound()
         {
