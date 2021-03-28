@@ -34,6 +34,16 @@ namespace Me.DerangedSenators.CopsAndRobbers
                 return;
             }
             
+            RefreshTextViews();
+            
+        }
+
+        /// <summary>
+        /// Check what team this client belongs to, then set field texts to win, draw or lose appropriately.
+        /// Also check display their money counts appropriately.
+        /// </summary>
+        private void RefreshTextViews()
+        {
             //get array of moneycount where position 0 belongs to cops and 1 to robbers.
             moneyCounts = MoneyManager.GetMoneyCounts();
             
@@ -75,7 +85,6 @@ namespace Me.DerangedSenators.CopsAndRobbers
                     myTeamCountText.text = "$0";
                     break;
             }
-            
         }
 
         /// <summary>
