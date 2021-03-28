@@ -451,6 +451,10 @@ MonoBehaviour:
   ThisPlayer: {fileID: 4320991763438738490}
   attackOffset: 0
   Bullet: {fileID: 2506447796587376942, guid: f29617ad7687d4248a2d33ee24cce3c7, type: 3}
+  sfxHandler: {fileID: 8657292821654307289, guid: 8dd02ca52a92df747b74a40a07e73a4b,
+    type: 3}
+  meleeAttackClip: {fileID: 8300000, guid: 06f6b1e0e5b8d614c9e86ce408b7ecc5, type: 3}
+  meleeAudioSource: {fileID: 0}
 --- !u!114 &4782112354092911828
 MonoBehaviour:
   m_ObjectHideFlags: 0

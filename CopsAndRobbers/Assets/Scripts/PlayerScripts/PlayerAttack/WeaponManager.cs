@@ -12,7 +12,7 @@ namespace Me.DerangedSenators.CopsAndRobbers
     /// <summary>
     /// Class designed to manage a player's weapons
     /// </summary>
-    /// @author Hanzalah Ravat
+    /// @author Hanzalah Ravat and Nisath Mohamed Nasar
     public class WeaponManager : NetworkBehaviour
     {
         /// <summary>
@@ -64,6 +64,20 @@ namespace Me.DerangedSenators.CopsAndRobbers
         public GameObject Bullet;
 
         private bool listenerSet = false;
+        
+        /// <summary>
+        /// The game object (from prefab) that will handle Audio Sources
+        /// </summary>
+        public GameObject sfxHandler;
+        /// <summary>
+        /// The melee attack sound in wav format.
+        /// </summary>
+        public AudioClip meleeAttackClip;
+        /// <summary>
+        /// This audio source is to be assigned with the clip to sfxHandler.
+        /// </summary>
+        private AudioSource meleeAudioSource;
+      
         
         public void SwitchWeapon(GameObject oldWeapon, GameObject newWeapon)
         {
@@ -205,15 +219,21 @@ namespace Me.DerangedSenators.CopsAndRobbers
         #endregion
 
 
-        #if UNITY_STANDALONE || UNITY_WEBPLAYER
         public void FixedUpdate()
         {
+            #if UNITY_STANDALONE || UNITY_WEBPLAYER
             if (Input.GetMouseButtonDown(0) || Input.GetKeyDown(KeyCode.Space))
             {
                 WeaponInventory[currentIndex].GetComponent<AttackVector>().HandleAttack();
             }
+            #endif
+            if (meleeAudioSource == null)
+            {
+                meleeAudioSource = gameObject.AddComponent<AudioSource>();
+                meleeAudioSource.clip = meleeAttackClip;    
+            }
         }
-        #endif
+        
         //--- Helper Methods ---//
 
         /// <summary>
@@ -254,6 +274,16 @@ namespace Me.DerangedSenators.CopsAndRobbers
         public void CmdMeleeAttack(PlayerHealth enemy)
         {
             enemy.Damage(10);
+            RPCPlayMeleeSound();
+        }
+
+        /// <summary>
+        /// Play the melee attack sound once per call to the method.
+        /// </summary>
+        [ClientRpc]
+        public void RPCPlayMeleeSound()
+        {
+            meleeAudioSource.PlayOneShot(meleeAttackClip);
         }
 
         /// <summary>
