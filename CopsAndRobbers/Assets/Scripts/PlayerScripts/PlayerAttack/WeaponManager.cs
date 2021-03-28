@@ -274,14 +274,14 @@ namespace Me.DerangedSenators.CopsAndRobbers
         public void CmdMeleeAttack(PlayerHealth enemy)
         {
             enemy.Damage(10);
-            PlayMeleeSound();
+            RPCPlayMeleeSound();
         }
 
         /// <summary>
         /// Play the melee attack sound once per call to the method.
         /// </summary>
         [ClientRpc]
-        public void PlayMeleeSound()
+        public void RPCPlayMeleeSound()
         {
             meleeAudioSource.PlayOneShot(meleeAttackClip);
         }
