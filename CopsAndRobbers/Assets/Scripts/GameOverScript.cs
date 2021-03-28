@@ -28,67 +28,81 @@ namespace Me.DerangedSenators.CopsAndRobbers
 
         void Update()
         {
+            //Ensures this method is only executed only once.
             if (moneyCounts != null)
             {
                 return;
             }
             
+            RefreshTextViews();
+            
+        }
+
+        /// <summary>
+        /// Check what team this client belongs to, then set field texts to win, draw or lose appropriately.
+        /// Also check display their money counts appropriately.
+        /// </summary>
+        private void RefreshTextViews()
+        {
+            //get array of moneycount where position 0 belongs to cops and 1 to robbers.
             moneyCounts = MoneyManager.GetMoneyCounts();
             
-            switch (Player.localPlayer.teamId)
+            switch (Player.localPlayer.teamId) //get teamid
             {
-                case 1:
+                case 1: //if client is cops
                     myTeamCountText.text = $"${moneyCounts[0].ToString()}";
                     enemyTeamCountText.text = $"${moneyCounts[1].ToString()}";
-                    if (moneyCounts[0] > moneyCounts[1])
+                    if (moneyCounts[0] > moneyCounts[1]) //if cops win
                     {
-                        winText.gameObject.GetComponent<Text>().enabled = true;
-                        loseText.gameObject.GetComponent<Text>().enabled = false;
-                        drawText.gameObject.GetComponent<Text>().enabled = false;
+                        ActivateTextView(true, false, false); //display win message
                     } 
-                    else if (moneyCounts[0] == moneyCounts[1])
+                    else if (moneyCounts[0] == moneyCounts[1]) // if match draw
                     {
-                        winText.gameObject.GetComponent<Text>().enabled = false;
-                        loseText.gameObject.GetComponent<Text>().enabled = false;
-                        drawText.gameObject.GetComponent<Text>().enabled = true;
+                        ActivateTextView(false, true, false); //display draw message
                     }
-                    else
+                    else //if cops lose
                     {
-                        winText.gameObject.GetComponent<Text>().enabled = false;
-                        loseText.gameObject.GetComponent<Text>().enabled = true;
-                        drawText.gameObject.GetComponent<Text>().enabled = false;
+                        ActivateTextView(false, false, true); //display lose message
                     }
-
                     break;
-                case 2:
+                case 2: //if client is robbers
                     myTeamCountText.text = $"${moneyCounts[1].ToString()}";
                     enemyTeamCountText.text = $"${moneyCounts[0].ToString()}";
-                    if (moneyCounts[1] > moneyCounts[0])
+                    if (moneyCounts[1] > moneyCounts[0]) // if robbers win
                     {
-                        winText.gameObject.GetComponent<Text>().enabled = true;
-                        loseText.gameObject.GetComponent<Text>().enabled = false;
-                        drawText.gameObject.GetComponent<Text>().enabled = false;
+                        ActivateTextView(true, false, false); //display win message
                     }
-                    else if (moneyCounts[0] == moneyCounts[1])
+                    else if (moneyCounts[0] == moneyCounts[1]) // if match draw
                     {
-                        winText.gameObject.GetComponent<Text>().enabled = false;
-                        loseText.gameObject.GetComponent<Text>().enabled = false;
-                        drawText.gameObject.GetComponent<Text>().enabled = true;
+                        ActivateTextView(false, true, false); //display draw message
                     }
-                    else
+                    else //if cops win
                     {
-                        winText.gameObject.GetComponent<Text>().enabled = false;
-                        loseText.gameObject.GetComponent<Text>().enabled = true;
-                        drawText.gameObject.GetComponent<Text>().enabled = false;
+                        ActivateTextView(false, false, true); //display lose message
                     }
                     break;
                 default:
                     myTeamCountText.text = "$0";
                     break;
             }
-            
+        }
+
+        /// <summary>
+        /// Show one of the three messages once the game has ended.
+        /// </summary>
+        /// <param name="won">Notifies player for winning.</param>
+        /// <param name="draw">Notifies player for a draw.</param>
+        /// <param name="lost">Notifies player for losing.</param>
+        private void ActivateTextView(bool won, bool draw, bool lost)
+        {
+            winText.gameObject.GetComponent<Text>().enabled = won;
+            drawText.gameObject.GetComponent<Text>().enabled = draw;
+            loseText.gameObject.GetComponent<Text>().enabled = lost;
         }
         
+        /// <summary>
+        /// Stops game and moves onto main menu.
+        /// </summary>
         public void NextRound()
         {
             networkManager.StopClient();
