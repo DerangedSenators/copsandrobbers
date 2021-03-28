@@ -77,8 +77,16 @@ namespace Me.DerangedSenators.CopsAndRobbers
         /// This audio source is to be assigned with the clip to sfxHandler.
         /// </summary>
         private AudioSource meleeAudioSource;
-      
-        
+        /// <summary>
+        /// The melee attack sound in wav format.
+        /// </summary>
+        public AudioClip gunShotClip;
+        /// <summary>
+        /// This audio source is to be assigned with the clip to sfxHandler.
+        /// </summary>
+        private AudioSource gunShotAudioSource;
+
+
         public void SwitchWeapon(GameObject oldWeapon, GameObject newWeapon)
         {
             StartCoroutine(ChangeWeapon(oldWeapon,newWeapon));
@@ -232,6 +240,12 @@ namespace Me.DerangedSenators.CopsAndRobbers
                 meleeAudioSource = gameObject.AddComponent<AudioSource>();
                 meleeAudioSource.clip = meleeAttackClip;    
             }
+
+            if (gunShotAudioSource == null)
+            {
+                gunShotAudioSource = gameObject.AddComponent<AudioSource>();
+                gunShotAudioSource.clip = gunShotClip;
+            }
         }
         
         //--- Helper Methods ---//
@@ -244,6 +258,8 @@ namespace Me.DerangedSenators.CopsAndRobbers
         {
             var projectile =  Instantiate(Bullet, weaponTransform, transform.rotation);
 
+            RPCPlayGunShotSound();
+            
             Rigidbody2D projectileRigidBody = projectile.GetComponent<Rigidbody2D>();
             if (onMobile) // Setup for Mobile
             {
@@ -284,6 +300,15 @@ namespace Me.DerangedSenators.CopsAndRobbers
         public void RPCPlayMeleeSound()
         {
             meleeAudioSource.PlayOneShot(meleeAttackClip);
+        }
+        
+        /// <summary>
+        /// Play the gun shot sound once per call to the method.
+        /// </summary>
+        [ClientRpc]
+        public void RPCPlayGunShotSound()
+        {
+            gunShotAudioSource.PlayOneShot(gunShotClip);
         }
 
         /// <summary>
