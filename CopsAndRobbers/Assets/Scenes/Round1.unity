@@ -395,7 +395,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &369886468
 GameObject:
@@ -628,7 +628,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 10}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &476892046
 MonoBehaviour:
@@ -1134,7 +1134,7 @@ PrefabInstance:
     - target: {fileID: 1627323404803499807, guid: 17290031b4250a60384cf7df9355ff75,
         type: 3}
       propertyPath: m_RootOrder
-      value: 10
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 1627323404803499807, guid: 17290031b4250a60384cf7df9355ff75,
         type: 3}
@@ -1227,7 +1227,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &837269545
 GameObject:
@@ -2053,6 +2053,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1568087646 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2024115941184369796, guid: 8ac26a93a636b8b769efc17d7180ba1d,
+    type: 3}
+  m_PrefabInstance: {fileID: 1568087636}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1781346066
 GameObject:
   m_ObjectHideFlags: 0
@@ -2159,120 +2171,6 @@ MonoBehaviour:
   m_InstancedGameObject: {fileID: 0}
   m_Flags: 3
   m_ColliderType: 1
---- !u!1001 &5743638895831344070
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 5743638896305959793, guid: d8af376364c7a344680ddc31d05ec165,
-        type: 3}
-      propertyPath: m_Name
-      value: Time Manager
-      objectReference: {fileID: 0}
-    - target: {fileID: 5743638896305959806, guid: d8af376364c7a344680ddc31d05ec165,
-        type: 3}
-      propertyPath: moneyManagerGO
-      value: 
-      objectReference: {fileID: 845413859}
-    - target: {fileID: 5743638896305959806, guid: d8af376364c7a344680ddc31d05ec165,
-        type: 3}
-      propertyPath: countdownText
-      value: 
-      objectReference: {fileID: 1139827234}
-    - target: {fileID: 5743638896305959806, guid: d8af376364c7a344680ddc31d05ec165,
-        type: 3}
-      propertyPath: _roundManager
-      value: 
-      objectReference: {fileID: 1364591651}
-    - target: {fileID: 5743638896305959806, guid: d8af376364c7a344680ddc31d05ec165,
-        type: 3}
-      propertyPath: endOfRoundText
-      value: 
-      objectReference: {fileID: 1568087642}
-    - target: {fileID: 5743638896305959806, guid: d8af376364c7a344680ddc31d05ec165,
-        type: 3}
-      propertyPath: breakTimerText
-      value: 
-      objectReference: {fileID: 1568087641}
-    - target: {fileID: 5743638896305959806, guid: d8af376364c7a344680ddc31d05ec165,
-        type: 3}
-      propertyPath: breakCanvas
-      value: 
-      objectReference: {fileID: 1568087640}
-    - target: {fileID: 5743638896305959806, guid: d8af376364c7a344680ddc31d05ec165,
-        type: 3}
-      propertyPath: freezeCanvas
-      value: 
-      objectReference: {fileID: 1568087639}
-    - target: {fileID: 5743638896305959806, guid: d8af376364c7a344680ddc31d05ec165,
-        type: 3}
-      propertyPath: freezeTimer
-      value: 
-      objectReference: {fileID: 1568087638}
-    - target: {fileID: 5743638896305959806, guid: d8af376364c7a344680ddc31d05ec165,
-        type: 3}
-      propertyPath: mainTimerCanvas
-      value: 
-      objectReference: {fileID: 1568087637}
-    - target: {fileID: 5743638896305959807, guid: d8af376364c7a344680ddc31d05ec165,
-        type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5743638896305959807, guid: d8af376364c7a344680ddc31d05ec165,
-        type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5743638896305959807, guid: d8af376364c7a344680ddc31d05ec165,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5743638896305959807, guid: d8af376364c7a344680ddc31d05ec165,
-        type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5743638896305959807, guid: d8af376364c7a344680ddc31d05ec165,
-        type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5743638896305959807, guid: d8af376364c7a344680ddc31d05ec165,
-        type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5743638896305959807, guid: d8af376364c7a344680ddc31d05ec165,
-        type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5743638896305959807, guid: d8af376364c7a344680ddc31d05ec165,
-        type: 3}
-      propertyPath: m_RootOrder
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 5743638896305959807, guid: d8af376364c7a344680ddc31d05ec165,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5743638896305959807, guid: d8af376364c7a344680ddc31d05ec165,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5743638896305959807, guid: d8af376364c7a344680ddc31d05ec165,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: d8af376364c7a344680ddc31d05ec165, type: 3}
 --- !u!1001 &6075398047182498712
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2318,7 +2216,7 @@ PrefabInstance:
     - target: {fileID: 1812358872520415755, guid: ca4c8cac9a6e9b4309472e3abe8a0f7c,
         type: 3}
       propertyPath: m_RootOrder
-      value: 11
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 1812358872520415755, guid: ca4c8cac9a6e9b4309472e3abe8a0f7c,
         type: 3}
@@ -2387,7 +2285,7 @@ PrefabInstance:
     - target: {fileID: 6491258692329335241, guid: af68d1849a8f090c197374ec5e528701,
         type: 3}
       propertyPath: m_RootOrder
-      value: 12
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 6491258692329335241, guid: af68d1849a8f090c197374ec5e528701,
         type: 3}
@@ -2419,6 +2317,51 @@ PrefabInstance:
       propertyPath: sfxHandler
       value: 
       objectReference: {fileID: 477834976}
+    - target: {fileID: 8601895913744621149, guid: af68d1849a8f090c197374ec5e528701,
+        type: 3}
+      propertyPath: _roundManager
+      value: 
+      objectReference: {fileID: 1364591651}
+    - target: {fileID: 8601895913744621149, guid: af68d1849a8f090c197374ec5e528701,
+        type: 3}
+      propertyPath: mainTimerCanvas
+      value: 
+      objectReference: {fileID: 1568087637}
+    - target: {fileID: 8601895913744621149, guid: af68d1849a8f090c197374ec5e528701,
+        type: 3}
+      propertyPath: freezeCanvas
+      value: 
+      objectReference: {fileID: 1568087639}
+    - target: {fileID: 8601895913744621149, guid: af68d1849a8f090c197374ec5e528701,
+        type: 3}
+      propertyPath: breakCanvas
+      value: 
+      objectReference: {fileID: 1568087640}
+    - target: {fileID: 8601895913744621149, guid: af68d1849a8f090c197374ec5e528701,
+        type: 3}
+      propertyPath: breakTimerText
+      value: 
+      objectReference: {fileID: 1568087641}
+    - target: {fileID: 8601895913744621149, guid: af68d1849a8f090c197374ec5e528701,
+        type: 3}
+      propertyPath: countdownText
+      value: 
+      objectReference: {fileID: 1568087646}
+    - target: {fileID: 8601895913744621149, guid: af68d1849a8f090c197374ec5e528701,
+        type: 3}
+      propertyPath: moneyManagerGO
+      value: 
+      objectReference: {fileID: 845413859}
+    - target: {fileID: 8601895913744621149, guid: af68d1849a8f090c197374ec5e528701,
+        type: 3}
+      propertyPath: freezeTimer
+      value: 
+      objectReference: {fileID: 1568087638}
+    - target: {fileID: 8601895913744621149, guid: af68d1849a8f090c197374ec5e528701,
+        type: 3}
+      propertyPath: endOfRoundText
+      value: 
+      objectReference: {fileID: 1568087642}
     - target: {fileID: 8651846033284716325, guid: af68d1849a8f090c197374ec5e528701,
         type: 3}
       propertyPath: currentRoundTextUI
@@ -2476,7 +2419,7 @@ PrefabInstance:
     - target: {fileID: 8657292821654307288, guid: 8dd02ca52a92df747b74a40a07e73a4b,
         type: 3}
       propertyPath: m_RootOrder
-      value: 9
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 8657292821654307288, guid: 8dd02ca52a92df747b74a40a07e73a4b,
         type: 3}
