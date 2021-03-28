@@ -260,7 +260,7 @@ namespace Me.DerangedSenators.CopsAndRobbers
         {
             var projectile =  Instantiate(Bullet, weaponTransform, transform.rotation);
 
-            RPCPlayGunShotSound();
+            RpcPlayGunShotSound();
             
             Rigidbody2D projectileRigidBody = projectile.GetComponent<Rigidbody2D>();
             if (onMobile) // Setup for Mobile
@@ -292,14 +292,14 @@ namespace Me.DerangedSenators.CopsAndRobbers
         public void CmdMeleeAttack(PlayerHealth enemy)
         {
             enemy.Damage(10);
-            RPCPlayMeleeSound();
+            RpcPlayMeleeSound();
         }
 
         /// <summary>
         /// Play the melee attack sound once per call to the method.
         /// </summary>
         [ClientRpc]
-        public void RPCPlayMeleeSound()
+        public void RpcPlayMeleeSound()
         {
             meleeAudioSource.PlayOneShot(meleeAttackClip);
         }
@@ -308,7 +308,7 @@ namespace Me.DerangedSenators.CopsAndRobbers
         /// Play the gun shot sound once per call to the method.
         /// </summary>
         [ClientRpc]
-        public void RPCPlayGunShotSound()
+        public void RpcPlayGunShotSound()
         {
             gunShotAudioSource.PlayOneShot(gunShotClip);
         }
