@@ -287,15 +287,6 @@ namespace Me.DerangedSenators.CopsAndRobbers
         }
 
         /// <summary>
-        /// Play the melee attack sound once per call to the method.
-        /// </summary>
-        [ClientRpc]
-        public void RPCPlayMeleeSound()
-        {
-            meleeAudioSource.PlayOneShot(meleeAttackClip);
-        }
-
-        /// <summary>
         /// Gets the Mouse Position with Z Axis
         /// </summary>
         /// <param name="screenPosition"> The Current position of the player within screen-context</param>
