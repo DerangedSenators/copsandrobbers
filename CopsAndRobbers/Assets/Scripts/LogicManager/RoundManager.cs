@@ -7,8 +7,10 @@ using UnityEngine.UI;
 
 namespace Me.DerangedSenators.CopsAndRobbers
 {
-    /// <author> Nisath Mohamed Nasar </author>
-    /// <author> Piotr Krawiec</author>
+    /// @authors Nisath Mohamed Nasar and Piotr Krawiek
+    /// <summary>
+    /// Detect round and move player to set map locations
+    /// </summary>
     public class RoundManager : MonoBehaviour
     {
         [SerializeField] private Text currentRoundTextUI;
