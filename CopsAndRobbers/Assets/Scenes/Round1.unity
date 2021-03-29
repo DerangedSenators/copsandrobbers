@@ -1771,12 +1771,12 @@ PrefabInstance:
         type: 3}
       propertyPath: copsMoneyText
       value: 
-      objectReference: {fileID: 1568087645}
+      objectReference: {fileID: 1568087644}
     - target: {fileID: 7648742477174125968, guid: af68d1849a8f090c197374ec5e528701,
         type: 3}
       propertyPath: robbersMoneyText
       value: 
-      objectReference: {fileID: 1568087644}
+      objectReference: {fileID: 1568087645}
     - target: {fileID: 7648742477174125970, guid: af68d1849a8f090c197374ec5e528701,
         type: 3}
       propertyPath: sfxHandler
