@@ -8,6 +8,11 @@ using UnityEngine;
 namespace Me.DerangedSenators.CopsAndRobbers
 {
 
+    /// @authors Elliot Willis and Nisath Mohamed Nasar
+    
+    ///<summary>
+    /// Add SFX and Music to DontDestroyOnLoad
+    /// </summary>
     public class KeepPlayingAcrossScenes : MonoBehaviour
     {
         public AudioSource music;

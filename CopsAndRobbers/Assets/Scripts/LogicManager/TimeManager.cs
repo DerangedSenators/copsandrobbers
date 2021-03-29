@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 
 namespace Me.DerangedSenators.CopsAndRobbers
 {
-    // <@authors Nisath Mohamed Nasar and Piotr Krawiec
+    /// @authors Nisath Mohamed Nasar and Piotr Krawiec
     /// <summary>
     /// This script manages interacts with UI and Round Manager to control the time behaviours
     /// </summary>

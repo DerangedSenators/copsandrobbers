@@ -53,8 +53,8 @@ namespace Me.DerangedSenators.CopsAndRobbers
         {
             if (moneyAudioSource == null)
             {
-                moneyAudioSource = gameObject.AddComponent<AudioSource>();
-                moneyAudioSource.clip = moneyBagClip;    
+                moneyAudioSource = sfxHandler.AddComponent<AudioSource>();
+                moneyAudioSource.clip = moneyBagClip;
             }
             
         }

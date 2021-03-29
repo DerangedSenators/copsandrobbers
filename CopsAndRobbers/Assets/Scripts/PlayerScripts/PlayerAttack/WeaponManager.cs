@@ -229,28 +229,44 @@ namespace Me.DerangedSenators.CopsAndRobbers
 
         public void FixedUpdate()
         {
-            #if UNITY_STANDALONE || UNITY_WEBPLAYER
+#if UNITY_STANDALONE || UNITY_WEBPLAYER
             if (Input.GetMouseButtonDown(0) || Input.GetKeyDown(KeyCode.Space))
             {
                 WeaponInventory[currentIndex].GetComponent<AttackVector>().HandleAttack();
             }
-            #endif
+#endif
+
+            InitializeSoundParameters();
+        }
+
+        //--- Helper Methods ---//
+
+        /// <summary>
+        /// Initialise sfx Handler using the SFX tag, add sound sources using the appropriate clips. The game object is for controlling the volume.
+        /// </summary>
+        private void InitializeSoundParameters()
+        {
             if (meleeAudioSource == null)
             {
-                meleeAudioSource = gameObject.AddComponent<AudioSource>();
+                sfxHandler = GameObject.FindGameObjectWithTag("SFX");
+                meleeAudioSource = sfxHandler.AddComponent<AudioSource>();
+                meleeAudioSource.playOnAwake = false;
                 meleeAudioSource.clip = meleeAttackClip;
                 meleeAudioSource.volume = 0.3f;
+                meleeAudioSource.playOnAwake = false;
             }
 
             if (gunShotAudioSource == null)
             {
-                gunShotAudioSource = gameObject.AddComponent<AudioSource>();
+                sfxHandler = GameObject.FindGameObjectWithTag("SFX");
+                gunShotAudioSource = sfxHandler.AddComponent<AudioSource>();
+                gunShotAudioSource.playOnAwake = false;
                 gunShotAudioSource.clip = gunShotClip;
                 gunShotAudioSource.volume = 0.3f;
+                
             }
         }
-        
-        //--- Helper Methods ---//
+
 
         /// <summary>
         /// Command to shoot over the Network

@@ -10,7 +10,7 @@ namespace Me.DerangedSenators.CopsAndRobbers
     /// <summary>
     /// Script that controls Player Movement
     /// </summary>
-    /// @authors Nisath Mohammed
+    /// @authors Nisath Mohamed Nasar
     /// @authors Hanzalah Ravat
     public class PlayerMovement : NetworkBehaviour
     {
@@ -22,6 +22,7 @@ namespace Me.DerangedSenators.CopsAndRobbers
         private Vector2 touchOrigin = -Vector2.one;    //Used to store location of screen touch origin for mobile controls.
         public AudioClip movementClip; // The movement sound.
         private AudioSource movementAudioSource; // This audio source is to be assigned to with the movement sound
+        private GameObject sfxHandler;
 
         //private float horizontalMove = 0f;
         [ClientCallback]
@@ -54,7 +55,8 @@ namespace Me.DerangedSenators.CopsAndRobbers
 
                 if (movementAudioSource == null) //create audio source
                 {
-                    movementAudioSource = gameObject.AddComponent<AudioSource>();
+                    sfxHandler = GameObject.FindGameObjectWithTag("SFX");
+                    movementAudioSource = sfxHandler.AddComponent<AudioSource>();
                     movementAudioSource.clip = movementClip;
                     movementAudioSource.enabled = false;
                     movementAudioSource.enabled = true; //re-enable for playonawake

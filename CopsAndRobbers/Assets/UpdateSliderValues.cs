@@ -1,5 +1,4 @@
-﻿///<summary>Updates music/sfx sliders to correct value when they are loaded</summary>
-///@author Elliot Willis
+﻿
 
 using System;
 using System.Collections;
@@ -10,12 +9,15 @@ using UnityEngine.UI;
 
 namespace Me.DerangedSenators.CopsAndRobbers
 {
-
+    ///<summary>Updates music/sfx sliders to correct value when they are loaded</summary>
+    ///@author Elliot Willis and Nisath Mohamed Nasar
     public class UpdateSliderValues : MonoBehaviour
     {
         public Slider sfxSlider, musicSlider;
 
         public AudioSource sfx, music;
+
+        public GameObject sfxGO;
 
         void Awake()
         {
@@ -27,10 +29,12 @@ namespace Me.DerangedSenators.CopsAndRobbers
 
         void FixedUpdate()
         {
-            //sfx = GameObject.FindWithTag("SFX").GetComponent<AudioSource>();
-            //music = GameObject.FindWithTag("Music").GetComponent<AudioSource>();
+            sfxGO = GameObject.FindWithTag("SFX");
+            sfx = sfxGO.GetComponent<AudioSource>();
+            music = GameObject.FindWithTag("Music").GetComponent<AudioSource>();
 
-            AudioSource[] audioSources = sfx.GetComponents<AudioSource>();
+            //AudioSource[] audioSources = sfx.GetComponents<AudioSource>();
+            AudioSource[] audioSources = sfxGO.GetComponents<AudioSource>();
 
             foreach (var audiosource in audioSources)
             {

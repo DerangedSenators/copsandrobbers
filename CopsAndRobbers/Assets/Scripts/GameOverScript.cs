@@ -9,6 +9,9 @@ namespace Me.DerangedSenators.CopsAndRobbers
 {
     
     /// @authors Nisath Mohamed
+    /// <summary>
+    /// Ths script displays stats in the final stage of the game which is to show the winner and the amount of money collected by my team and enemy team.
+    /// </summary>
     public class GameOverScript : MonoBehaviour
     {
         private int[] moneyCounts;
