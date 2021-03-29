@@ -27,10 +27,11 @@ namespace Me.DerangedSenators.CopsAndRobbers
 
         void FixedUpdate()
         {
-            //sfx = GameObject.FindWithTag("SFX").GetComponent<AudioSource>();
-            //music = GameObject.FindWithTag("Music").GetComponent<AudioSource>();
+            sfx = GameObject.FindWithTag("SFX").GetComponent<AudioSource>();
+            music = GameObject.FindWithTag("Music").GetComponent<AudioSource>();
 
-            AudioSource[] audioSources = sfx.GetComponents<AudioSource>();
+            //AudioSource[] audioSources = sfx.GetComponents<AudioSource>();
+            AudioSource[] audioSources = GameObject.FindWithTag("SFX").GetComponents<AudioSource>();
 
             foreach (var audiosource in audioSources)
             {
