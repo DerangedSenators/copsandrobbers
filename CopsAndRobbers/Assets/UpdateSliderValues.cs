@@ -1,5 +1,4 @@
-﻿///<summary>Updates music/sfx sliders to correct value when they are loaded</summary>
-///@author Elliot Willis
+﻿
 
 using System;
 using System.Collections;
@@ -10,7 +9,8 @@ using UnityEngine.UI;
 
 namespace Me.DerangedSenators.CopsAndRobbers
 {
-
+    ///<summary>Updates music/sfx sliders to correct value when they are loaded</summary>
+    ///@author Elliot Willis
     public class UpdateSliderValues : MonoBehaviour
     {
         public Slider sfxSlider, musicSlider;
