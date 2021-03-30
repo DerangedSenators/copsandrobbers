@@ -1938,6 +1938,11 @@ PrefabInstance:
       propertyPath: FreezeTime
       value: 5
       objectReference: {fileID: 0}
+    - target: {fileID: 8601895913744621149, guid: af68d1849a8f090c197374ec5e528701,
+        type: 3}
+      propertyPath: BreakTime
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 8651846033284716325, guid: af68d1849a8f090c197374ec5e528701,
         type: 3}
       propertyPath: currentRoundTextUI
