@@ -86,12 +86,12 @@ namespace Me.DerangedSenators.CopsAndRobbers
             if (Player.localPlayer.teamId == 1)
             {
                 localPlayerRB
-                    .MovePosition(new Vector2(108+localPlayer.playerIndex,-17));
+                    .MovePosition(new Vector2(108+localIndex,-17));
             }
             else
             {
                 localPlayerRB
-                    .MovePosition(new Vector2(108+localPlayer.playerIndex,-17));
+                    .MovePosition(new Vector2(108+localIndex,-17));
             }
             UpdateRoundTextView(2);
         }
