@@ -15,9 +15,11 @@
 
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
 using Me.DerangedSenators.CopsAndRobbers;
 using UnityEngine;
 using UnityEngine.UI;
+using Debug = UnityEngine.Debug;
 
 
 namespace Me.DerangedSenators.CopsAndRobbers
@@ -29,8 +31,13 @@ namespace Me.DerangedSenators.CopsAndRobbers
     public class RoundManager : MonoBehaviour
     {
         [SerializeField] private Text currentRoundTextUI;
-        private Rigidbody2D localPlayerRB = Player.localPlayer.GetComponent<Rigidbody2D>();
-        private int localIndex = Player.localPlayer.playerIndex;
+        private Rigidbody2D localPlayerRB;
+        private int localIndex = -1;
+
+        private RoundSpawnPosition[] _spawnPositions;
+
+        private bool initializedSpawnPositions;
+        
         public enum Round
         {
             FREEZE,
@@ -46,6 +53,29 @@ namespace Me.DerangedSenators.CopsAndRobbers
         {
             _currentRound = Round.FREEZE;
             UpdateRoundTextView(1);
+
+            _spawnPositions = new RoundSpawnPosition[3];
+            
+            
+            
+        }
+        
+        private void FixedUpdate() {
+            if (localPlayerRB == null)
+            {
+                Debug.Log("localPlayerRB is null, trying to Player.localPlayer.GetComponent<Rigidbody2D>();");
+                localPlayerRB = Player.localPlayer.GetComponent<Rigidbody2D>();
+            }
+
+            if (localIndex == -1)
+            {
+                localIndex = Player.localPlayer.playerIndex;
+            }
+
+            if (!initializedSpawnPositions && localIndex != -1)
+            {
+                InitializeSpawnPositions();
+            }
         }
         
         /// <summary>
@@ -56,15 +86,19 @@ namespace Me.DerangedSenators.CopsAndRobbers
             switch (_currentRound)
             {
                 case Round.FREEZE :
+                    TransformPlayers(1);
+                    UpdateRoundTextView(1);
                     _currentRound = Round.ROUND1;
                     break;
                 case Round.ROUND1 :
-                    TransformPlayersRound2();
+                    TransformPlayers(2);
+                    UpdateRoundTextView(2);
                     _currentRound = Round.ROUND2;
                     break;
                 case Round.ROUND2 :
+                    UpdateRoundTextView(3);
                     _currentRound = Round.ROUND3;
-                    TransformPlayersRound3();
+                    TransformPlayers(3);
                     break;
                 case Round.ROUND3 :
                     _currentRound = Round.ENDED;
@@ -79,37 +113,80 @@ namespace Me.DerangedSenators.CopsAndRobbers
             //disable player components
             
         }
-        
-        //!!!!!!!!!!!Refactor this to one code 
-        public void TransformPlayersRound2()
+
+        /// <summary>
+        /// Populate the list with spawn positions for each round
+        /// </summary>
+        private void InitializeSpawnPositions()
         {
+            _spawnPositions[0] = new RoundSpawnPosition(new Vector2(47 + localIndex, 52), new Vector2(1 + localIndex, -56));
+            _spawnPositions[1] =  new RoundSpawnPosition(new Vector2(241+localIndex,-62), new Vector2(90+localIndex,-31));
+            _spawnPositions[2] =  new RoundSpawnPosition(new Vector2(-105+localIndex,-6.6f), new Vector2(-172 + localIndex, -29));
+
+            initializedSpawnPositions = true;
+        }
+
+        private struct RoundSpawnPosition
+        {
+            public Vector2 CopPosition;
+            public Vector2 RobberPosition;
+
+            public RoundSpawnPosition(Vector2 copPosition, Vector2 robberPosition)
+            {
+                this.CopPosition = copPosition;
+                this.RobberPosition = robberPosition;
+            }
+        }
+
+        public void TransformPlayers(int roundNumber)
+        {
+            /*
+            switch (roundNumber)
+            {
+              case 1:
+                  if (Player.localPlayer.teamId == 1)
+                  {
+                      localPlayerRB.position = _round1SpawnPosition.CopPosition;
+                  }
+                  else
+                  {
+                      localPlayerRB.position = _round1SpawnPosition.RobberPosition;
+                  }
+                  break;
+              case 2:
+                  if (Player.localPlayer.teamId == 1)
+                  {
+                      localPlayerRB.position = _round2SpawnPosition.CopPosition;
+                  }
+                  else
+                  {
+                      localPlayerRB.position = _round2SpawnPosition.RobberPosition;
+                  }
+                  break;
+              case 3:
+                  if (Player.localPlayer.teamId == 1)
+                  {
+                      localPlayerRB.position = _round3SpawnPosition.CopPosition;
+                  }
+                  else
+                  {
+                      localPlayerRB.position = _round3SpawnPosition.RobberPosition;
+                  }
+
+                  break;
+            }
+            */
             if (Player.localPlayer.teamId == 1)
             {
-                localPlayerRB
-                    .MovePosition(new Vector2(108+localIndex,-17));
+                localPlayerRB.position = _spawnPositions[roundNumber-1].CopPosition;
             }
             else
             {
-                localPlayerRB
-                    .MovePosition(new Vector2(108+localIndex,-17));
+                localPlayerRB.position = _spawnPositions[roundNumber-1].RobberPosition;
             }
-            UpdateRoundTextView(2);
+            
         }
         
-        public void TransformPlayersRound3()
-        {
-            if (Player.localPlayer.teamId == 1)
-            {
-                localPlayerRB
-                    .MovePosition(new Vector2(-105+localIndex,-6.6f));
-            }
-            else
-            {
-                localPlayerRB
-                    .MovePosition(new Vector2(-172 + localIndex, -29));
-            }
-            UpdateRoundTextView(3);
-        }
 
         /// <summary>
         /// returns current round
