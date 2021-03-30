@@ -67,9 +67,9 @@ namespace Me.DerangedSenators.CopsAndRobbers
             freezeTime = 5f;
             currentTime = freezeTime;
             freeze1 = true;
-            round1Time = 60*3f;
-            round2Time = 60*3f;
-            round3Time = 60*3f;
+            round1Time = 60*.5f;
+            round2Time = 60*.5f;
+            round3Time = 60*.5f;
             breakTime = 10f;
             breakCanvas.gameObject.SetActive(false);
             freezeCanvas.gameObject.SetActive(false);
@@ -87,6 +87,7 @@ namespace Me.DerangedSenators.CopsAndRobbers
                 Player.localPlayer.GetComponent<PlayerMovement>().enabled = false;  //disable movement
                 freezeCanvas.gameObject.SetActive(true);
                 mainTimerCanvas.gameObject.SetActive(false);
+                _roundManager.TransformPlayersRound1();
             }
 
             if (breakRound1 || breakRound2)
