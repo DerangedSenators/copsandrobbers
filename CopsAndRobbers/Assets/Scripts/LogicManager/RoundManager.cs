@@ -13,7 +13,6 @@
  *  limitations under the License.
  */
 
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using Me.DerangedSenators.CopsAndRobbers;
@@ -32,6 +31,7 @@ namespace Me.DerangedSenators.CopsAndRobbers
         [SerializeField] private Text currentRoundTextUI;
         private Rigidbody2D localPlayerRB;
         private int localIndex = -1;
+        
         public enum Round
         {
             FREEZE,
@@ -48,22 +48,20 @@ namespace Me.DerangedSenators.CopsAndRobbers
             _currentRound = Round.FREEZE;
             UpdateRoundTextView(1);
         }
-
-        private void Update()
-        {
+        
+        private void FixedUpdate() {
             if (localPlayerRB == null)
             {
                 Debug.Log("localPlayerRB is null, trying to Player.localPlayer.GetComponent<Rigidbody2D>();");
                 localPlayerRB = Player.localPlayer.GetComponent<Rigidbody2D>();
             }
 
-            if (localIndex != -1)
+            if (localIndex == -1)
             {
                 localIndex = Player.localPlayer.playerIndex;
-                //TransformPlayersRound1();
             }
         }
-
+        
         /// <summary>
         /// This method, checks current round and loads next round accordingly.
         /// </summary>
@@ -72,8 +70,8 @@ namespace Me.DerangedSenators.CopsAndRobbers
             switch (_currentRound)
             {
                 case Round.FREEZE :
-                    _currentRound = Round.ROUND1;
                     TransformPlayersRound1();
+                    _currentRound = Round.ROUND1;
                     break;
                 case Round.ROUND1 :
                     TransformPlayersRound2();
@@ -98,37 +96,27 @@ namespace Me.DerangedSenators.CopsAndRobbers
         }
         
         //!!!!!!!!!!!Refactor this to one code 
-        
         public void TransformPlayersRound1()
         {
+            Debug.Log("Moving Players Round 1");
             if (Player.localPlayer.teamId == 1)
             {
-                //localPlayerRB.MovePosition(new Vector2(49.63f+localIndex,-52));
-                localPlayerRB.position = new Vector2(47f+localIndex,52);
+                localPlayerRB.position = new Vector2(47+localIndex,52);
             }
-            else if(Player.localPlayer.teamId == 2)
+            else
             {
-                //localPlayerRB.MovePosition(new Vector2(-29.4f+localIndex,-45.18f));
-                //localPlayerRB.position = new Vector2(-22.36f+localIndex,-56);
-                localPlayerRB.position = new Vector2(1f+localIndex,-56);
+                localPlayerRB.position =new Vector2(1+localIndex,-56);
             }
-            UpdateRoundTextView(1);
         }
-        
         public void TransformPlayersRound2()
         {
+            Debug.Log("Moving Players Round 2");
             if (Player.localPlayer.teamId == 1)
             {
-               // localPlayerRB.MovePosition(new Vector2(186-localIndex,-103));
-                //localPlayerRB.position = new Vector2(186 - localIndex, -103);
-                //localPlayerRB.position = new Vector2(224.16f - localIndex, -62.4f);
                 localPlayerRB.position = new Vector2(241-localIndex,-62);
             }
-            else if (Player.localPlayer.teamId == 2)
+            else
             {
-                //localPlayerRB.MovePosition(new Vector2(108+localIndex,-17));
-                //localPlayerRB.position = new Vector2(108 + localIndex, -17);
-                //localPlayerRB.position = new Vector2(113.7f + localIndex, -18);
                 localPlayerRB.position = new Vector2(90+localIndex,-31);
             }
             UpdateRoundTextView(2);
@@ -136,16 +124,13 @@ namespace Me.DerangedSenators.CopsAndRobbers
         
         public void TransformPlayersRound3()
         {
+            Debug.Log("Moving Players Round 3");
             if (Player.localPlayer.teamId == 1)
             {
-                //localPlayerRB.MovePosition(new Vector2(-105+localIndex,-6.6f));
-                //localPlayerRB.position = new Vector2(-105 + localIndex, -6.6f);
                 localPlayerRB.position = new Vector2(-105+localIndex,-6.6f);
             }
-            else if(Player.localPlayer.teamId == 2)
+            else
             {
-                //localPlayerRB.MovePosition(new Vector2(-172 + localIndex, -29));
-                //localPlayerRB.position = new Vector2(-172 + localIndex, -29);
                 localPlayerRB.position = new Vector2(-172 + localIndex, -29);
             }
             UpdateRoundTextView(3);

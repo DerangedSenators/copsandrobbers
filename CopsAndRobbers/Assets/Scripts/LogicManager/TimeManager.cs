@@ -84,10 +84,10 @@ namespace Me.DerangedSenators.CopsAndRobbers
             //disable movement in the beginning
             if (freeze1)
             {
+                _roundManager.TransformPlayersRound1();
                 Player.localPlayer.GetComponent<PlayerMovement>().enabled = false;  //disable movement
                 freezeCanvas.gameObject.SetActive(true);
                 mainTimerCanvas.gameObject.SetActive(false);
-                _roundManager.TransformPlayersRound1();
             }
 
             if (breakRound1 || breakRound2)
