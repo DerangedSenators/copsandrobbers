@@ -98,7 +98,7 @@ LightmapSettings:
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
   m_LightingDataAsset: {fileID: 0}
-  m_UseShadowmask: 0
+  m_UseShadowmask: 1
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -611,6 +611,11 @@ PrefabInstance:
       propertyPath: sceneId
       value: 261088416
       objectReference: {fileID: 0}
+    - target: {fileID: 6372427310892235146, guid: 1190d78f133b66448ad7969dba97e7ca,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
     - target: {fileID: 7703957964322451632, guid: 1190d78f133b66448ad7969dba97e7ca,
         type: 3}
       propertyPath: m_Materials.Array.data[0]
@@ -709,6 +714,361 @@ PrefabInstance:
         type: 3}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5695579949191394994, guid: 17290031b4250a60384cf7df9355ff75,
+        type: 3}
+      propertyPath: m_PointLightOuterRadius
+      value: 12.637423
+      objectReference: {fileID: 0}
+    - target: {fileID: 5695579949191394995, guid: 17290031b4250a60384cf7df9355ff75,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0.99984694
+      objectReference: {fileID: 0}
+    - target: {fileID: 5695579949191394995, guid: 17290031b4250a60384cf7df9355ff75,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.017496187
+      objectReference: {fileID: 0}
+    - target: {fileID: 5695579949376046280, guid: 17290031b4250a60384cf7df9355ff75,
+        type: 3}
+      propertyPath: m_PointLightOuterRadius
+      value: 11.183723
+      objectReference: {fileID: 0}
+    - target: {fileID: 5695579949376046281, guid: 17290031b4250a60384cf7df9355ff75,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0.9999354
+      objectReference: {fileID: 0}
+    - target: {fileID: 5695579949376046281, guid: 17290031b4250a60384cf7df9355ff75,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.011369935
+      objectReference: {fileID: 0}
+    - target: {fileID: 5695579949493608332, guid: 17290031b4250a60384cf7df9355ff75,
+        type: 3}
+      propertyPath: m_PointLightOuterRadius
+      value: 10.561729
+      objectReference: {fileID: 0}
+    - target: {fileID: 5695579949493608333, guid: 17290031b4250a60384cf7df9355ff75,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0.9994848
+      objectReference: {fileID: 0}
+    - target: {fileID: 5695579949493608333, guid: 17290031b4250a60384cf7df9355ff75,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.032096803
+      objectReference: {fileID: 0}
+    - target: {fileID: 5695579949493608333, guid: 17290031b4250a60384cf7df9355ff75,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5695579949566871690, guid: 17290031b4250a60384cf7df9355ff75,
+        type: 3}
+      propertyPath: m_PointLightOuterRadius
+      value: 10.4159775
+      objectReference: {fileID: 0}
+    - target: {fileID: 5695579949566871691, guid: 17290031b4250a60384cf7df9355ff75,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0.9999794
+      objectReference: {fileID: 0}
+    - target: {fileID: 5695579949566871691, guid: 17290031b4250a60384cf7df9355ff75,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.0064265192
+      objectReference: {fileID: 0}
+    - target: {fileID: 5695579949615257878, guid: 17290031b4250a60384cf7df9355ff75,
+        type: 3}
+      propertyPath: m_PointLightOuterRadius
+      value: 9.363641
+      objectReference: {fileID: 0}
+    - target: {fileID: 5695579949615257879, guid: 17290031b4250a60384cf7df9355ff75,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0.9997572
+      objectReference: {fileID: 0}
+    - target: {fileID: 5695579949615257879, guid: 17290031b4250a60384cf7df9355ff75,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: -0.02203678
+      objectReference: {fileID: 0}
+    - target: {fileID: 5695579949668716536, guid: 17290031b4250a60384cf7df9355ff75,
+        type: 3}
+      propertyPath: m_PointLightOuterRadius
+      value: 11.401274
+      objectReference: {fileID: 0}
+    - target: {fileID: 5695579949668716537, guid: 17290031b4250a60384cf7df9355ff75,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0.9998697
+      objectReference: {fileID: 0}
+    - target: {fileID: 5695579949668716537, guid: 17290031b4250a60384cf7df9355ff75,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.016145391
+      objectReference: {fileID: 0}
+    - target: {fileID: 5695579949668716537, guid: 17290031b4250a60384cf7df9355ff75,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5695579949782513008, guid: 17290031b4250a60384cf7df9355ff75,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0.98807234
+      objectReference: {fileID: 0}
+    - target: {fileID: 5695579949782513008, guid: 17290031b4250a60384cf7df9355ff75,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: -0.15399067
+      objectReference: {fileID: 0}
+    - target: {fileID: 5695579949782513023, guid: 17290031b4250a60384cf7df9355ff75,
+        type: 3}
+      propertyPath: m_PointLightInnerAngle
+      value: 55.629997
+      objectReference: {fileID: 0}
+    - target: {fileID: 5695579949782513023, guid: 17290031b4250a60384cf7df9355ff75,
+        type: 3}
+      propertyPath: m_PointLightOuterAngle
+      value: 113.27
+      objectReference: {fileID: 0}
+    - target: {fileID: 5695579949782513023, guid: 17290031b4250a60384cf7df9355ff75,
+        type: 3}
+      propertyPath: m_PointLightOuterRadius
+      value: 9.541783
+      objectReference: {fileID: 0}
+    - target: {fileID: 5695579949786160270, guid: 17290031b4250a60384cf7df9355ff75,
+        type: 3}
+      propertyPath: m_PointLightOuterRadius
+      value: 15.620217
+      objectReference: {fileID: 0}
+    - target: {fileID: 5695579949786160271, guid: 17290031b4250a60384cf7df9355ff75,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0.9924165
+      objectReference: {fileID: 0}
+    - target: {fileID: 5695579949786160271, guid: 17290031b4250a60384cf7df9355ff75,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.122920536
+      objectReference: {fileID: 0}
+    - target: {fileID: 5695579949890562608, guid: 17290031b4250a60384cf7df9355ff75,
+        type: 3}
+      propertyPath: m_PointLightOuterRadius
+      value: 9.61777
+      objectReference: {fileID: 0}
+    - target: {fileID: 5695579949890562609, guid: 17290031b4250a60384cf7df9355ff75,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0.9999604
+      objectReference: {fileID: 0}
+    - target: {fileID: 5695579949890562609, guid: 17290031b4250a60384cf7df9355ff75,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.00890193
+      objectReference: {fileID: 0}
+    - target: {fileID: 5695579949977133386, guid: 17290031b4250a60384cf7df9355ff75,
+        type: 3}
+      propertyPath: m_PointLightOuterRadius
+      value: 15.004482
+      objectReference: {fileID: 0}
+    - target: {fileID: 5695579949977133387, guid: 17290031b4250a60384cf7df9355ff75,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0.9992148
+      objectReference: {fileID: 0}
+    - target: {fileID: 5695579949977133387, guid: 17290031b4250a60384cf7df9355ff75,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.039620023
+      objectReference: {fileID: 0}
+    - target: {fileID: 5695579950001364318, guid: 17290031b4250a60384cf7df9355ff75,
+        type: 3}
+      propertyPath: m_PointLightOuterRadius
+      value: 14.282177
+      objectReference: {fileID: 0}
+    - target: {fileID: 5695579950001364319, guid: 17290031b4250a60384cf7df9355ff75,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0.9998242
+      objectReference: {fileID: 0}
+    - target: {fileID: 5695579950001364319, guid: 17290031b4250a60384cf7df9355ff75,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.018749692
+      objectReference: {fileID: 0}
+    - target: {fileID: 5695579950002396167, guid: 17290031b4250a60384cf7df9355ff75,
+        type: 3}
+      propertyPath: m_PointLightOuterRadius
+      value: 10.940021
+      objectReference: {fileID: 0}
+    - target: {fileID: 5695579950002396216, guid: 17290031b4250a60384cf7df9355ff75,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0.9999383
+      objectReference: {fileID: 0}
+    - target: {fileID: 5695579950002396216, guid: 17290031b4250a60384cf7df9355ff75,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.011108361
+      objectReference: {fileID: 0}
+    - target: {fileID: 5695579950002396216, guid: 17290031b4250a60384cf7df9355ff75,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5695579950144210990, guid: 17290031b4250a60384cf7df9355ff75,
+        type: 3}
+      propertyPath: m_PointLightOuterRadius
+      value: 11.359537
+      objectReference: {fileID: 0}
+    - target: {fileID: 5695579950144210991, guid: 17290031b4250a60384cf7df9355ff75,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0.9998839
+      objectReference: {fileID: 0}
+    - target: {fileID: 5695579950144210991, guid: 17290031b4250a60384cf7df9355ff75,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.015240393
+      objectReference: {fileID: 0}
+    - target: {fileID: 5695579950224982193, guid: 17290031b4250a60384cf7df9355ff75,
+        type: 3}
+      propertyPath: m_PointLightOuterRadius
+      value: 13.631594
+      objectReference: {fileID: 0}
+    - target: {fileID: 5695579950224982193, guid: 17290031b4250a60384cf7df9355ff75,
+        type: 3}
+      propertyPath: m_PointLightInnerAngle
+      value: 12.67
+      objectReference: {fileID: 0}
+    - target: {fileID: 5695579950224982193, guid: 17290031b4250a60384cf7df9355ff75,
+        type: 3}
+      propertyPath: m_PointLightOuterAngle
+      value: 42.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5695579950224982194, guid: 17290031b4250a60384cf7df9355ff75,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0.99715346
+      objectReference: {fileID: 0}
+    - target: {fileID: 5695579950224982194, guid: 17290031b4250a60384cf7df9355ff75,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.07539885
+      objectReference: {fileID: 0}
+    - target: {fileID: 5695579950224982194, guid: 17290031b4250a60384cf7df9355ff75,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5695579950267162027, guid: 17290031b4250a60384cf7df9355ff75,
+        type: 3}
+      propertyPath: m_PointLightOuterRadius
+      value: 20.019451
+      objectReference: {fileID: 0}
+    - target: {fileID: 5695579950267162028, guid: 17290031b4250a60384cf7df9355ff75,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0.9999636
+      objectReference: {fileID: 0}
+    - target: {fileID: 5695579950267162028, guid: 17290031b4250a60384cf7df9355ff75,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: -0.008535362
+      objectReference: {fileID: 0}
+    - target: {fileID: 5695579950567677556, guid: 17290031b4250a60384cf7df9355ff75,
+        type: 3}
+      propertyPath: m_PointLightOuterRadius
+      value: 14.981549
+      objectReference: {fileID: 0}
+    - target: {fileID: 5695579950567677557, guid: 17290031b4250a60384cf7df9355ff75,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5695579950567677557, guid: 17290031b4250a60384cf7df9355ff75,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5695579950567677557, guid: 17290031b4250a60384cf7df9355ff75,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5695579950616866221, guid: 17290031b4250a60384cf7df9355ff75,
+        type: 3}
+      propertyPath: m_PointLightOuterRadius
+      value: 9.353114
+      objectReference: {fileID: 0}
+    - target: {fileID: 5695579950616866222, guid: 17290031b4250a60384cf7df9355ff75,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0.99999934
+      objectReference: {fileID: 0}
+    - target: {fileID: 5695579950616866222, guid: 17290031b4250a60384cf7df9355ff75,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.0011330496
+      objectReference: {fileID: 0}
+    - target: {fileID: 5695579950816868022, guid: 17290031b4250a60384cf7df9355ff75,
+        type: 3}
+      propertyPath: m_PointLightOuterRadius
+      value: 13.756757
+      objectReference: {fileID: 0}
+    - target: {fileID: 5695579950816868023, guid: 17290031b4250a60384cf7df9355ff75,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0.9961206
+      objectReference: {fileID: 0}
+    - target: {fileID: 5695579950816868023, guid: 17290031b4250a60384cf7df9355ff75,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.08799949
+      objectReference: {fileID: 0}
+    - target: {fileID: 5923758658314191498, guid: 17290031b4250a60384cf7df9355ff75,
+        type: 3}
+      propertyPath: m_PointLightOuterRadius
+      value: 18.716963
+      objectReference: {fileID: 0}
+    - target: {fileID: 5923758658314191501, guid: 17290031b4250a60384cf7df9355ff75,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0.9894676
+      objectReference: {fileID: 0}
+    - target: {fileID: 5923758658314191501, guid: 17290031b4250a60384cf7df9355ff75,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.14475437
+      objectReference: {fileID: 0}
+    - target: {fileID: 5923758658363272106, guid: 17290031b4250a60384cf7df9355ff75,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0.9998815
+      objectReference: {fileID: 0}
+    - target: {fileID: 5923758658363272106, guid: 17290031b4250a60384cf7df9355ff75,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.015396546
+      objectReference: {fileID: 0}
+    - target: {fileID: 5923758658363272107, guid: 17290031b4250a60384cf7df9355ff75,
+        type: 3}
+      propertyPath: m_PointLightOuterRadius
+      value: 14.949346
+      objectReference: {fileID: 0}
+    - target: {fileID: 5923758658363272107, guid: 17290031b4250a60384cf7df9355ff75,
+        type: 3}
+      propertyPath: m_PointLightInnerAngle
+      value: 71.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5923758658363272107, guid: 17290031b4250a60384cf7df9355ff75,
+        type: 3}
+      propertyPath: m_PointLightOuterAngle
+      value: 99.99
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 17290031b4250a60384cf7df9355ff75, type: 3}
