@@ -22,14 +22,15 @@ using UnityEngine.UI;
 
 namespace Me.DerangedSenators.CopsAndRobbers
 {
-    /// @authors Nisath Mohamed Nasar and Piotr Krawiek
+    /// @authors Nisath Mohamed Nasar, Piotr Krawiec and Hanzalah Ravat
     /// <summary>
     /// Detect round and move player to set map locations
     /// </summary>
     public class RoundManager : MonoBehaviour
     {
         [SerializeField] private Text currentRoundTextUI;
-        
+        private Rigidbody2D localPlayerRB = Player.localPlayer.GetComponent<Rigidbody2D>();
+        private int localIndex = Player.localPlayer.playerIndex;
         public enum Round
         {
             FREEZE,
@@ -84,13 +85,13 @@ namespace Me.DerangedSenators.CopsAndRobbers
         {
             if (Player.localPlayer.teamId == 1)
             {
-                Vector3 newPos = new Vector3(186 - Player.localPlayer.playerIndex, -103, -101);
-                Player.localPlayer.transform.position = newPos;
+                localPlayerRB
+                    .MovePosition(new Vector2(108+localPlayer.playerIndex,-17));
             }
             else
             {
-                Vector3 newPos = new Vector3(108 + Player.localPlayer.playerIndex, -17, -101);
-                Player.localPlayer.transform.position = newPos;
+                localPlayerRB
+                    .MovePosition(new Vector2(108+localPlayer.playerIndex,-17));
             }
             UpdateRoundTextView(2);
         }
@@ -99,13 +100,13 @@ namespace Me.DerangedSenators.CopsAndRobbers
         {
             if (Player.localPlayer.teamId == 1)
             {
-                Vector3 newPos = new Vector3(-105 + Player.localPlayer.playerIndex, -6.6f, -30);
-                Player.localPlayer.transform.position = newPos;
+                localPlayerRB
+                    .MovePosition(new Vector2(-105+localIndex,-6.6f));
             }
             else
             {
-                Vector3 newPos = new Vector3(-172 + Player.localPlayer.playerIndex, -29, -30);
-                Player.localPlayer.transform.position = newPos;
+                localPlayerRB
+                    .MovePosition(new Vector2(-172 + localIndex, -29));
             }
             UpdateRoundTextView(3);
         }
