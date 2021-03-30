@@ -149,10 +149,8 @@ namespace Me.DerangedSenators.CopsAndRobbers
                     switch (_currentRound)
                     {
                         case 1:
-                            _roundManager.TransformPlayersRound2();
-                            break;
                         case 2:
-                            _roundManager.TransformPlayersRound3();
+                            _roundManager.TransformPlayers(_currentRound+ 1);
                             break;
                         case 3:
                             DontDestroyOnLoad(moneyManagerGO);
