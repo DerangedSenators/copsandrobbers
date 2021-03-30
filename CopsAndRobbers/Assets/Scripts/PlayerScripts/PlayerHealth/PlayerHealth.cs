@@ -123,7 +123,7 @@ namespace Me.DerangedSenators.CopsAndRobbers
         /// </summary> 
         private void Die() 
         { 
-            disableComponents(); 
+            SetComponents(false); 
             isAlive = false; 
             gameObject.GetComponent<CircleCollider2D>().enabled = true; 
         } 
@@ -152,7 +152,7 @@ namespace Me.DerangedSenators.CopsAndRobbers
         /// </summary> 
         private void Respawn() 
         { 
-            enableComponents(); 
+            SetComponents(true); 
             gameObject.GetComponent<CircleCollider2D>().enabled = false; 
             Debug.Log("Attempt to subtract money: teamid: " +gameObject.GetComponent<Player>().GetTeamId()); 
             moneyM.SubtractMoney(gameObject.GetComponent<Player>().GetTeamId()); 
@@ -164,33 +164,37 @@ namespace Me.DerangedSenators.CopsAndRobbers
             gameObject.transform.rotation = Quaternion.Euler(0,0,0); 
         } 
          
- 
-        /// <summary> 
-        /// Disable components and rotate player to appear dead 
-        /// </summary> 
-        private void disableComponents() 
-        { 
-            gameObject.GetComponent<WeaponManager>().enabled = false; 
-            gameObject.GetComponent<PlayerMovement>().enabled = false; 
-            gameObject.GetComponent<Animator>().enabled = false; 
-            gameObject.GetComponent<BoxCollider2D>().enabled = false; 
-            gameObject.transform.rotation = Quaternion.Euler(0,0,90); 
-            gameObject.transform.GetChild(1).gameObject.SetActive(false); 
-        } 
- 
-        /// <summary> 
-        /// Enable components and rotate player upright 
-        /// </summary> 
-        public void enableComponents() 
-        { 
-            gameObject.GetComponent<WeaponManager>().enabled = true; 
-            gameObject.GetComponent<PlayerMovement>().enabled = true; 
-            gameObject.GetComponent<Animator>().enabled = true; 
-            gameObject.GetComponent<BoxCollider2D>().enabled = true; 
-            gameObject.transform.rotation = Quaternion.Euler(0,0,0); 
-            gameObject.transform.GetChild(1).gameObject.SetActive(true); 
-            Debug.Log("Enabling Components"); 
-        } 
+        
+        /// <summary>
+        /// Set the component status to either make player alive or dead depending on their alive status
+        /// </summary>
+        /// <param name="status">True if alive and False if Dead</param>
+        private void SetComponents(bool status)
+        {
+            // TODO Make a Command to do this instead for server authority
+            gameObject.GetComponent<WeaponManager>().enabled = status; 
+            gameObject.GetComponent<PlayerMovement>().enabled = status; 
+            gameObject.GetComponent<Animator>().enabled = status; 
+            gameObject.GetComponent<BoxCollider2D>().enabled = status;
+            if (status)
+            {
+                gameObject.transform.rotation = Quaternion.Euler(0, 0, 0);
+            }
+            else
+            {
+                gameObject.transform.rotation = Quaternion.Euler(0, 0, 90);
+            }
+
+            gameObject.transform.GetChild(1).gameObject.SetActive(status);
+            if (status)
+            {
+                Debug.Log("Enabling Components");
+            }
+            else
+            {
+                Debug.Log("Disabling Components");
+            }
+        }
  
         /// <summary> 
         /// Get the boolean variable isAlive 
@@ -217,7 +221,7 @@ namespace Me.DerangedSenators.CopsAndRobbers
             { 
                 Debug.Log("Attempt to refresh spawns"); 
                 currentHealth = 100; 
-                enableComponents(); 
+                SetComponents(true); 
                 isAlive = true; 
                 TimeManager.SetIsRefreshSpawn(false); 
                 gameObject.GetComponent<CircleCollider2D>().enabled = false; 
