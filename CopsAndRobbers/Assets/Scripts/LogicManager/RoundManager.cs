@@ -34,8 +34,9 @@ namespace Me.DerangedSenators.CopsAndRobbers
         private Rigidbody2D localPlayerRB;
         private int localIndex = -1;
 
-        private RoundSpawnPosition _round1SpawnPosition, _round2SpawnPosition, _round3SpawnPosition;
-        
+        private RoundSpawnPosition[] _spawnPositions;
+
+        private bool initializedSpawnPositions;
         
         public enum Round
         {
@@ -53,9 +54,10 @@ namespace Me.DerangedSenators.CopsAndRobbers
             _currentRound = Round.FREEZE;
             UpdateRoundTextView(1);
 
-            _round1SpawnPosition = new RoundSpawnPosition(new Vector2(47 + localIndex, 52), new Vector2(1 + localIndex, -56));
-            _round2SpawnPosition = new RoundSpawnPosition(new Vector2(241+localIndex,-62), new Vector2(90+localIndex,-31));
-            _round3SpawnPosition = new RoundSpawnPosition(new Vector2(-105+localIndex,-6.6f), new Vector2(-172 + localIndex, -29));
+            _spawnPositions = new RoundSpawnPosition[3];
+            
+            
+            
         }
         
         private void FixedUpdate() {
@@ -68,6 +70,11 @@ namespace Me.DerangedSenators.CopsAndRobbers
             if (localIndex == -1)
             {
                 localIndex = Player.localPlayer.playerIndex;
+            }
+
+            if (!initializedSpawnPositions && localIndex != -1)
+            {
+                InitializeSpawnPositions();
             }
         }
         
@@ -107,6 +114,18 @@ namespace Me.DerangedSenators.CopsAndRobbers
             
         }
 
+        /// <summary>
+        /// Populate the list with spawn positions for each round
+        /// </summary>
+        private void InitializeSpawnPositions()
+        {
+            _spawnPositions[0] = new RoundSpawnPosition(new Vector2(47 + localIndex, 52), new Vector2(1 + localIndex, -56));
+            _spawnPositions[1] =  new RoundSpawnPosition(new Vector2(241+localIndex,-62), new Vector2(90+localIndex,-31));
+            _spawnPositions[2] =  new RoundSpawnPosition(new Vector2(-105+localIndex,-6.6f), new Vector2(-172 + localIndex, -29));
+
+            initializedSpawnPositions = true;
+        }
+
         private struct RoundSpawnPosition
         {
             public Vector2 CopPosition;
@@ -121,6 +140,7 @@ namespace Me.DerangedSenators.CopsAndRobbers
 
         public void TransformPlayers(int roundNumber)
         {
+            /*
             switch (roundNumber)
             {
               case 1:
@@ -155,50 +175,18 @@ namespace Me.DerangedSenators.CopsAndRobbers
 
                   break;
             }
+            */
+            if (Player.localPlayer.teamId == 1)
+            {
+                localPlayerRB.position = _spawnPositions[roundNumber-1].CopPosition;
+            }
+            else
+            {
+                localPlayerRB.position = _spawnPositions[roundNumber-1].RobberPosition;
+            }
+            
         }
         
-        //!!!!!!!!!!!Refactor this to one code 
-        /*
-        public void TransformPlayersRound1()
-        {
-            Debug.Log("Moving Players Round 1");
-            if (Player.localPlayer.teamId == 1)
-            {
-                localPlayerRB.position = new Vector2(47+localIndex,52);
-            }
-            else
-            {
-                localPlayerRB.position =new Vector2(1+localIndex,-56);
-            }
-        }
-        public void TransformPlayersRound2()
-        {
-            Debug.Log("Moving Players Round 2");
-            if (Player.localPlayer.teamId == 1)
-            {
-                localPlayerRB.position = new Vector2(241-localIndex,-62);
-            }
-            else
-            {
-                localPlayerRB.position = new Vector2(90+localIndex,-31);
-            }
-            UpdateRoundTextView(2);
-        }
-        
-        public void TransformPlayersRound3()
-        {
-            Debug.Log("Moving Players Round 3");
-            if (Player.localPlayer.teamId == 1)
-            {
-                localPlayerRB.position = new Vector2(-105+localIndex,-6.6f);
-            }
-            else
-            {
-                localPlayerRB.position = new Vector2(-172 + localIndex, -29);
-            }
-            UpdateRoundTextView(3);
-        }
-*/
 
         /// <summary>
         /// returns current round
