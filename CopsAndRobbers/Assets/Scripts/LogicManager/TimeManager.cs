@@ -44,7 +44,7 @@ namespace Me.DerangedSenators.CopsAndRobbers
         /// <summary>
         /// Duration of each break
         /// </summary>
-        private float BreakTime;
+        public float BreakTime;
 
         /// <summary>
         /// The total number of rounds
@@ -78,9 +78,9 @@ namespace Me.DerangedSenators.CopsAndRobbers
         {
             // Init rounds
             _roundInf = new Dictionary<int, bool>();
-            for (int i = 0; i < NumberOfRounds; i++)
+            for (int i = 1; i <= NumberOfRounds; i++)
             {
-                Debug.Log($"Adding Round {i} by and setting to false");
+                Debug.Log($"I value is {i}");
                 _roundInf.Add(i, false);
             }
 
@@ -90,7 +90,7 @@ namespace Me.DerangedSenators.CopsAndRobbers
             // Activate a freeze
             currentTime = FreezeTime;
             _freezeActive = true;
-            _currentRound = -1; // Start at 0 so it will automatically tick over to 1 for game start.
+            _currentRound = 1;
         }
 
         private void FixedUpdate()
@@ -102,7 +102,7 @@ namespace Me.DerangedSenators.CopsAndRobbers
         void Update()
         {
             StandardizeTime();
-            if (_freezeActive && _currentRound == -1)
+            if (_freezeActive && _currentRound == 1)
             {
                 _localPlayerMovement.enabled = false;
                 _freezeCanvas.SetActive(true);
@@ -110,14 +110,10 @@ namespace Me.DerangedSenators.CopsAndRobbers
                 
             }
             else if (_breakActive)
-            {
                 _breakTimerText.text = CountdownText.text;
-            }
 
             if (_freezeActive)
-            {
                 _freezeTimer.text = CountdownText.text;
-            }
 
             if (currentTime <= 0)
             {
@@ -130,7 +126,6 @@ namespace Me.DerangedSenators.CopsAndRobbers
                 {
                     Debug.Log($"End Of Freeze");
                     _freezeActive = false;
-                    _currentRound++;
                     Debug.Log($"Next Round is {_currentRound}");
                     _roundInf[_currentRound] = true;
                     currentTime = RoundTime;
@@ -142,18 +137,29 @@ namespace Me.DerangedSenators.CopsAndRobbers
                 {
                     _roundInf[_currentRound] = false;
                     _localPlayerMovement.enabled = false;
-                    _endOfRoundText.text = $"End of round {_currentRound + 1}";
-                    if (_currentRound != NumberOfRounds - 1)
+                    _endOfRoundText.text = $"End of Round {_currentRound}";
+                    if (_currentRound != NumberOfRounds)
                     {
                         _isRefreshSpawn = true;
                         _breakActive = true;
                         currentTime = BreakTime;
                         _breakCanvas.SetActive(true);
                     }
-                    else
+
+                    switch (_currentRound)
                     {
-                        _roundManager.LoadRound();
+                        case 1:
+                            _roundManager.TransformPlayersRound2();
+                            break;
+                        case 2:
+                            _roundManager.TransformPlayersRound3();
+                            break;
+                        case 3:
+                            DontDestroyOnLoad(moneyManagerGO);
+                            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+                            break;
                     }
+                    _currentRound++;
                 }
                 else if (_breakActive)
                 {
@@ -162,7 +168,7 @@ namespace Me.DerangedSenators.CopsAndRobbers
                     currentTime = FreezeTime;
                     Debug.Log("Counting down freeze time");
                     _localPlayerMovement.enabled = false;
-                    _roundManager.LoadRound();
+                    //_roundManager.LoadRound();
                     _breakCanvas.SetActive(false);
                     _freezeCanvas.SetActive(true);
                     _mainTimerCanvas.SetActive(false);
