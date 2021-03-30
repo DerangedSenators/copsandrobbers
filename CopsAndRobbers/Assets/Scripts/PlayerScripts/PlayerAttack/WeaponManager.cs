@@ -84,14 +84,23 @@ namespace Me.DerangedSenators.CopsAndRobbers
         /// The game object (from prefab) that will handle Audio Sources
         /// </summary>
         public GameObject sfxHandler;
+        /// <summary>
+        /// The melee attack sound in wav format.
+        /// </summary>
+        public AudioClip meleeAttackClip;
+        /// <summary>
+        /// This audio source is to be assigned with the clip to sfxHandler.
+        /// </summary>
+        private AudioSource meleeAudioSource;
+        /// <summary>
+        /// The melee attack sound in wav format.
+        /// </summary>
+        public AudioClip gunShotClip;
+        /// <summary>
+        /// This audio source is to be assigned with the clip to sfxHandler.
+        /// </summary>
+        private AudioSource gunShotAudioSource;
 
-
-        private List<AudioSource> AudioSources;
-
-        /**
-         * The 
-         */
-        public List<AudioClip> AudioClips;
 
         public void SwitchWeapon(GameObject oldWeapon, GameObject newWeapon)
         {
@@ -252,22 +261,24 @@ namespace Me.DerangedSenators.CopsAndRobbers
         /// </summary>
         private void InitializeSoundParameters()
         {
-            if (AudioSources == null)
+            if (meleeAudioSource == null)
             {
-                AudioSources = new List<AudioSource>(AudioClips.Count);
+                sfxHandler = GameObject.FindGameObjectWithTag("SFX");
+                meleeAudioSource = sfxHandler.AddComponent<AudioSource>();
+                meleeAudioSource.playOnAwake = false;
+                meleeAudioSource.clip = meleeAttackClip;
+                meleeAudioSource.volume = 0.3f;
+                meleeAudioSource.playOnAwake = false;
             }
-            int index = 0;
-            foreach (var clip in AudioClips)
+
+            if (gunShotAudioSource == null)
             {
-                if (AudioSources[index] == null)
-                {
-                    sfxHandler = GameObject.FindGameObjectWithTag("SFX");
-                    AudioSources[0] = sfxHandler.AddComponent<AudioSource>();
-                    AudioSources[0].playOnAwake = false;
-                    AudioSources[0].clip = clip;
-                    AudioSources[0].volume = 0.3f;
-                }
-                index++;
+                sfxHandler = GameObject.FindGameObjectWithTag("SFX");
+                gunShotAudioSource = sfxHandler.AddComponent<AudioSource>();
+                gunShotAudioSource.playOnAwake = false;
+                gunShotAudioSource.clip = gunShotClip;
+                gunShotAudioSource.volume = 0.3f;
+                
             }
         }
 
@@ -321,7 +332,7 @@ namespace Me.DerangedSenators.CopsAndRobbers
         [ClientRpc]
         public void RpcPlayMeleeSound()
         {
-            AudioSources[0].PlayOneShot(AudioClips[0]);
+            meleeAudioSource.PlayOneShot(meleeAttackClip);
         }
         
         /// <summary>
@@ -330,7 +341,7 @@ namespace Me.DerangedSenators.CopsAndRobbers
         [ClientRpc]
         public void RpcPlayGunShotSound()
         {
-            AudioSources[1].PlayOneShot(AudioClips[1]);
+            gunShotAudioSource.PlayOneShot(gunShotClip);
         }
 
         /// <summary>
