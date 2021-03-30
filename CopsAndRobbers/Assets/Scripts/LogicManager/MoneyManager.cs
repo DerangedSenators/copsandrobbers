@@ -30,7 +30,7 @@ namespace Me.DerangedSenators.CopsAndRobbers
     public class MoneyManager : MonoBehaviour
     {
         //[SerializeField] Text moneyText;
-        public static readonly int IncrementValue = 375;
+        public static readonly int IncrementValue = 100;
         private static long moneyCount;
         private static TeamMoneyCount robberMoneyCount;
         private static TeamMoneyCount copsMoneyCount;
