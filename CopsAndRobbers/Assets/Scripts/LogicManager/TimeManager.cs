@@ -64,23 +64,8 @@ namespace Me.DerangedSenators.CopsAndRobbers
         [SerializeField] private Text _freezeTimer;
         [SerializeField] private GameObject _mainTimerCanvas;
 
-        private Dictionary<int, Round> _rounds;
+        private Dictionary<int, bool> _roundInf;
 
-        /// <summary>
-        /// Struct containing round information such as status and time
-        /// </summary>
-        private struct Round
-        {
-            public bool isActive;
-            public float timer;
-
-            public Round(float startTime)
-            {
-                isActive = false;
-                timer = startTime;
-            }
-
-        }
 
         private int _currentRound;
         private bool _freezeActive;
@@ -92,10 +77,11 @@ namespace Me.DerangedSenators.CopsAndRobbers
         void Start()
         {
             // Init rounds
-            _rounds = new Dictionary<int, Round>();
+            _roundInf = new Dictionary<int, bool>();
             for (int i = 0; i < NumberOfRounds; i++)
             {
-                _rounds.Add(i, new Round(RoundTime));
+                Debug.Log($"Adding Round {i} by and setting to false");
+                _roundInf.Add(i, false);
             }
 
             _breakCanvas.gameObject.SetActive(false);
@@ -104,7 +90,7 @@ namespace Me.DerangedSenators.CopsAndRobbers
             // Activate a freeze
             currentTime = FreezeTime;
             _freezeActive = true;
-            _currentRound = -1; // Start at -1 so it will automatically tick over to 0 for game start.
+            _currentRound = -1; // Start at 0 so it will automatically tick over to 1 for game start.
         }
 
         private void FixedUpdate()
@@ -116,40 +102,58 @@ namespace Me.DerangedSenators.CopsAndRobbers
         void Update()
         {
             StandardizeTime();
-            if (_freezeActive)
+            if (_freezeActive && _currentRound == -1)
             {
                 _localPlayerMovement.enabled = false;
                 _freezeCanvas.SetActive(true);
                 _mainTimerCanvas.SetActive(false);
-                _freezeTimer.text = CountdownText.text;
+                
             }
             else if (_breakActive)
             {
                 _breakTimerText.text = CountdownText.text;
             }
 
+            if (_freezeActive)
+            {
+                _freezeTimer.text = CountdownText.text;
+            }
+
             if (currentTime <= 0)
             {
+                if (_roundManager.GetCurrentRound() == RoundManager.Round.ENDED)
+                {
+                    DontDestroyOnLoad(moneyManagerGO);
+                    SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+                }
                 if (_freezeActive) // End Of Freeze
                 {
+                    Debug.Log($"End Of Freeze");
                     _freezeActive = false;
                     _currentRound++;
-                    Round current = _rounds[_currentRound];
-                    current.isActive = true;
-                    currentTime = current.timer;
-                    _localPlayerMovement.enabled = false;
-                    _breakCanvas.SetActive(true);
+                    Debug.Log($"Next Round is {_currentRound}");
+                    _roundInf[_currentRound] = true;
+                    currentTime = RoundTime;
+                    _localPlayerMovement.enabled = true;
+                    _freezeCanvas.SetActive(false);
+                    _mainTimerCanvas.SetActive(true);
                 }
-                else if (_rounds[_currentRound].isActive)
+                else if (_roundInf[_currentRound])
                 {
-                    Round current = _rounds[_currentRound];
-                    current.isActive = false;
-                    _breakActive = true;
+                    _roundInf[_currentRound] = false;
                     _localPlayerMovement.enabled = false;
-                    _breakCanvas.SetActive(true);
-                    _endOfRoundText.text = $"End of round {_currentRound}";
-                    _isRefreshSpawn = true;
-                    currentTime = BreakTime;
+                    _endOfRoundText.text = $"End of round {_currentRound + 1}";
+                    if (_currentRound != NumberOfRounds - 1)
+                    {
+                        _isRefreshSpawn = true;
+                        _breakActive = true;
+                        currentTime = BreakTime;
+                        _breakCanvas.SetActive(true);
+                    }
+                    else
+                    {
+                        _roundManager.LoadRound();
+                    }
                 }
                 else if (_breakActive)
                 {
@@ -163,6 +167,7 @@ namespace Me.DerangedSenators.CopsAndRobbers
                     _freezeCanvas.SetActive(true);
                     _mainTimerCanvas.SetActive(false);
                 }
+
             }
         }
 
