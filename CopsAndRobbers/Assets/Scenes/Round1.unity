@@ -1893,6 +1893,51 @@ PrefabInstance:
       propertyPath: endOfRoundText
       value: 
       objectReference: {fileID: 1568087642}
+    - target: {fileID: 8601895913744621149, guid: af68d1849a8f090c197374ec5e528701,
+        type: 3}
+      propertyPath: CountdownText
+      value: 
+      objectReference: {fileID: 1568087646}
+    - target: {fileID: 8601895913744621149, guid: af68d1849a8f090c197374ec5e528701,
+        type: 3}
+      propertyPath: _breakTimerText
+      value: 
+      objectReference: {fileID: 1568087641}
+    - target: {fileID: 8601895913744621149, guid: af68d1849a8f090c197374ec5e528701,
+        type: 3}
+      propertyPath: _endOfRoundText
+      value: 
+      objectReference: {fileID: 1568087642}
+    - target: {fileID: 8601895913744621149, guid: af68d1849a8f090c197374ec5e528701,
+        type: 3}
+      propertyPath: _breakCanvas
+      value: 
+      objectReference: {fileID: 1568087640}
+    - target: {fileID: 8601895913744621149, guid: af68d1849a8f090c197374ec5e528701,
+        type: 3}
+      propertyPath: _freezeCanvas
+      value: 
+      objectReference: {fileID: 1568087639}
+    - target: {fileID: 8601895913744621149, guid: af68d1849a8f090c197374ec5e528701,
+        type: 3}
+      propertyPath: _freezeTimer
+      value: 
+      objectReference: {fileID: 1568087638}
+    - target: {fileID: 8601895913744621149, guid: af68d1849a8f090c197374ec5e528701,
+        type: 3}
+      propertyPath: _mainTimerCanvas
+      value: 
+      objectReference: {fileID: 1568087637}
+    - target: {fileID: 8601895913744621149, guid: af68d1849a8f090c197374ec5e528701,
+        type: 3}
+      propertyPath: RoundTime
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 8601895913744621149, guid: af68d1849a8f090c197374ec5e528701,
+        type: 3}
+      propertyPath: FreezeTime
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 8651846033284716325, guid: af68d1849a8f090c197374ec5e528701,
         type: 3}
       propertyPath: currentRoundTextUI
