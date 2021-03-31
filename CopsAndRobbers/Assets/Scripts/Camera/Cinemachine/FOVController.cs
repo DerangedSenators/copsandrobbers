@@ -57,7 +57,7 @@ namespace Me.DerangedSenators.CopsAndRobbers
             if (Input.GetKeyDown(KeyCode.F) && !active)
             {
                 active = true;
-            } else if (Input.GetKeyDown(KeyCode.F))
+            } else if (Input.GetKeyUp(KeyCode.F))
             {
                 active = false;
             }
