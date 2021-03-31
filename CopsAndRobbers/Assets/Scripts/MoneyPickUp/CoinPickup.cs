@@ -34,17 +34,6 @@ namespace Me.DerangedSenators.CopsAndRobbers
         public MoneyManager moneyManager;
 
         private GameObject collidedPlayerObject;
-        
-
-        /// <summary>
-        /// Start is called before the first frame update
-        /// </summary>
-        private void Start()
-        {
-            //At the start of the game the text will be turned off
-            //coinText.gameObject.SetActive(false);
-            //moneyManager = FindObjectOfType<MoneyManager>().GetComponent<MoneyManager>();
-        }
 
         /// <summary>
         /// Update is called once per frame
