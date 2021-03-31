@@ -52,6 +52,11 @@ namespace Me.DerangedSenators.CopsAndRobbers
         /// Required if you want to toggle the sprites
         /// </summary>
         public bool allowToggling;
+
+        /// <summary>
+        /// Change image when button is released
+        /// </summary>
+        public bool toggleOnRelease;
         private bool isPressed;
         
         private bool isToggle;
@@ -78,15 +83,22 @@ namespace Me.DerangedSenators.CopsAndRobbers
 
             if (allowToggling)
             {
-                if (isToggle)
+                if (!toggleOnRelease)
                 {
-                    ButtonSprite.sprite = DefaultSprite;
-                    isToggle = false;
+                    if (isToggle)
+                    {
+                        ButtonSprite.sprite = DefaultSprite;
+                        isToggle = false;
+                    }
+                    else
+                    {
+                        ButtonSprite.sprite = ToggleSprite;
+                        isToggle = true;
+                    }
                 }
                 else
                 {
                     ButtonSprite.sprite = ToggleSprite;
-                    isToggle = true;
                 }
             }
         }
@@ -101,6 +113,11 @@ namespace Me.DerangedSenators.CopsAndRobbers
             foreach (var buttonListener in _buttonListeners)
             {
                 buttonListener.onButtonReleased();
+            }
+
+            if (allowToggling && toggleOnRelease)
+            {
+                ButtonSprite.sprite = DefaultSprite;
             }
         }
     }
