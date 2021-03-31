@@ -56,7 +56,7 @@ MonoBehaviour:
   m_LookAt: {fileID: 0}
   m_Follow: {fileID: 0}
   m_Lens:
-    FieldOfView: 12.650525
+    FieldOfView: 26.248537
     OrthographicSize: 10
     NearClipPlane: 0.1
     FarClipPlane: 5000
@@ -132,8 +132,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9363c9141fc54cc8bd7bd6d6c904592c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  zoomOutView: 75
-  zoomInView: 25
+  zoomOutView: 100
+  zoomInView: 50
   CameraLens: {fileID: 404000104422057190}
   t: 0.5
 --- !u!1 &404000104644033602
