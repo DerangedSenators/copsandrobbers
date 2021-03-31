@@ -14,17 +14,24 @@
  */
 
 ///<summary>For buttons that lead to the main menu, also disables any network connection to prevent sudden attempts to reconnect.</summary>
-///@author Elliot Willis
+///@author Elliot Willis and Hannah Elliman
 
+using Mirror;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class LoadMainMenu : MonoBehaviour
 {
-    public GameObject networkManager;
+    [SerializeField] public NetworkManager networkManager;
+
+    void Start()
+    {
+        networkManager = NetworkManager.singleton;
+    }
+    
     public void Load()
     {
+        networkManager.StopClient();
         SceneManager.LoadScene("MainMenu");
-        Destroy(networkManager);
     }
 }

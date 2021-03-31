@@ -2893,6 +2893,11 @@ PrefabInstance:
       propertyPath: m_SizeDelta.x
       value: 110.635574
       objectReference: {fileID: 0}
+    - target: {fileID: 2024115940947940036, guid: 8ac26a93a636b8b769efc17d7180ba1d,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: BackToMenu
+      objectReference: {fileID: 0}
     - target: {fileID: 2024115940947940039, guid: 8ac26a93a636b8b769efc17d7180ba1d,
         type: 3}
       propertyPath: m_Delegates.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.data[0].m_Target
@@ -4142,6 +4147,16 @@ PrefabInstance:
     - target: {fileID: 1812358872520415755, guid: ca4c8cac9a6e9b4309472e3abe8a0f7c,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6075398047926707785, guid: ca4c8cac9a6e9b4309472e3abe8a0f7c,
+        type: 3}
+      propertyPath: field of view
+      value: 26.248537
+      objectReference: {fileID: 0}
+    - target: {fileID: 6075398047926707785, guid: ca4c8cac9a6e9b4309472e3abe8a0f7c,
+        type: 3}
+      propertyPath: orthographic
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8076987218892597064, guid: ca4c8cac9a6e9b4309472e3abe8a0f7c,
