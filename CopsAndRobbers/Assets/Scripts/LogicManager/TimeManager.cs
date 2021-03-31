@@ -107,7 +107,8 @@ namespace Me.DerangedSenators.CopsAndRobbers
                 _localPlayerMovement.enabled = false;
                 _freezeCanvas.SetActive(true);
                 _mainTimerCanvas.SetActive(false);
-                
+                _roundManager.TransformPlayers(1);
+
             }
             else if (_breakActive)
                 _breakTimerText.text = CountdownText.text;
