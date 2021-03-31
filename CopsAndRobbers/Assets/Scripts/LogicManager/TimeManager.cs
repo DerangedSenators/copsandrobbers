@@ -16,6 +16,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Mirror;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
@@ -26,7 +27,7 @@ namespace Me.DerangedSenators.CopsAndRobbers
     /// <summary>
     /// This script manages interacts with UI and Round Manager to control the time behaviours
     /// </summary>
-    public class TimeManager : MonoBehaviour
+    public class TimeManager : NetworkBehaviour
     {
         [SerializeField] private float currentTime = 0f;
         private float startingTime = 10f;
@@ -184,6 +185,11 @@ namespace Me.DerangedSenators.CopsAndRobbers
             string seconds = Mathf.RoundToInt(currentTime % 60).ToString("00");
 
             CountdownText.text = minutes + ":" + seconds;
+
+            if (NetworkServer.active)
+            {
+                Debug.Log("I AM THE SERVER DUDE");
+            }
         }
 
         /// <summary>
