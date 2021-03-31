@@ -11,24 +11,24 @@ namespace Me.DerangedSenators.CopsAndRobbers
     /// </summary>
     public class FindControls : MonoBehaviour
     {
-        public GameObject mobileControls, windowsControls;
+        public GameObject mobileControls, desktopControls;
         
 #if UNITY_STANDALONE || UNITY_WEBPLAYER
         private void EnableControls()
         {
-            windowsControls.gameObject.SetActive(true);
-            mobileControls.gameObject.SetActive(false);
+            desktopControls.gameObject.SetActive(true);
         }
 #elif UNITY_IOS || UNITY_ANDROID || UNITY_WP8 || UNITY_IPHONE 
         private void EnableControls()
         {
-            windowsControls.gameObject.SetActive(false);
             mobileControls.gameObject.SetActive(true);
         }
 #endif
 
         private void Awake()
         {
+            mobileControls.gameObject.SetActive(false);
+            desktopControls.gameObject.SetActive(false);
             EnableControls();
         }
     }

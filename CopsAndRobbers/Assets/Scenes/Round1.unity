@@ -1836,7 +1836,7 @@ GameObject:
   - component: {fileID: 974343107}
   - component: {fileID: 974343106}
   m_Layer: 5
-  m_Name: WindowsControls
+  m_Name: DesktopControls
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3897,7 +3897,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mobileControls: {fileID: 2127245338}
-  windowsControls: {fileID: 974343104}
+  desktopControls: {fileID: 974343104}
 --- !u!114 &1787376949
 MonoBehaviour:
   m_ObjectHideFlags: 0
