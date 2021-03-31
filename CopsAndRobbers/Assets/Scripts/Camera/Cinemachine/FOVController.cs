@@ -15,7 +15,7 @@ namespace Me.DerangedSenators.CopsAndRobbers
         public float zoomInView;
         public CinemachineVirtualCamera CameraLens;
         private bool active;
-        
+        public float t = 0.5f;
         public class MobileFOVController : IButtonListener
         {
             private readonly FOVController _controller;
@@ -39,11 +39,11 @@ namespace Me.DerangedSenators.CopsAndRobbers
         {
             if (active)
             {
-                CameraLens.m_Lens.FieldOfView = zoomOutView;
+                CameraLens.m_Lens.FieldOfView = Mathf.Lerp(CameraLens.m_Lens.FieldOfView,zoomOutView,t);
             }
             else
             {
-                CameraLens.m_Lens.FieldOfView = zoomInView;
+                CameraLens.m_Lens.FieldOfView = Mathf.Lerp(CameraLens.m_Lens.FieldOfView,zoomInView,t);;
             }
 
             if (Input.GetKeyDown(KeyCode.F) && !active)
