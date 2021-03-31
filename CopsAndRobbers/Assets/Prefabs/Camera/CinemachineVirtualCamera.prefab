@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 404000104422057190}
   - component: {fileID: 404000104422057209}
   - component: {fileID: 404000104422057208}
+  - component: {fileID: 4289096000623586729}
   m_Layer: 0
   m_Name: CinemachineVirtualCamera
   m_TagString: Untagged
@@ -55,15 +56,15 @@ MonoBehaviour:
   m_LookAt: {fileID: 0}
   m_Follow: {fileID: 0}
   m_Lens:
-    FieldOfView: 60
+    FieldOfView: 26.248537
     OrthographicSize: 10
     NearClipPlane: 0.1
     FarClipPlane: 5000
     Dutch: 0
-    ModeOverride: 0
+    ModeOverride: 2
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 1.777439, y: 1}
+    m_SensorSize: {x: 2, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
@@ -119,6 +120,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mVirtualCamera: {fileID: 404000104422057190}
+--- !u!114 &4289096000623586729
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 404000104422057211}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9363c9141fc54cc8bd7bd6d6c904592c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  zoomOutView: 100
+  zoomInView: 50
+  CameraLens: {fileID: 404000104422057190}
+  t: 0.5
 --- !u!1 &404000104644033602
 GameObject:
   m_ObjectHideFlags: 0
