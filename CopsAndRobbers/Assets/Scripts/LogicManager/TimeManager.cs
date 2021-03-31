@@ -17,6 +17,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using Mirror;
+using UnityEditorInternal.VersionControl;
 using UnityEngine;
 using UnityEngine.Networking.Types;
 using UnityEngine.UI;
@@ -30,7 +31,8 @@ namespace Me.DerangedSenators.CopsAndRobbers
     /// </summary>
     public class TimeManager : NetworkBehaviour
     {
-        [SerializeField] private float currentTime = 0f;
+        [SyncVar (hook = nameof(OnTimeChange))]
+        private float currentTime = 0f;
         private float startingTime = 10f;
 
         /// <summary>
@@ -181,18 +183,28 @@ namespace Me.DerangedSenators.CopsAndRobbers
         // Decrements and displays time.  
         private void StandardizeTime()
         {
-            currentTime -= 1 * Time.deltaTime;
             string minutes = Mathf.Floor(currentTime / 60).ToString("00");
             string seconds = Mathf.RoundToInt(currentTime % 60).ToString("00");
 
             CountdownText.text = minutes + ":" + seconds;
-
-            if (isServer)
+            
+            if (NetworkServer.active)
             {
-                Debug.Log("I AM THE SERVER DUDE");
+                ServerUpdate();
             }
         }
 
+
+        private void ServerUpdate()
+        {
+            float newTime = currentTime - 1 * Time.deltaTime;
+            
+        }
+
+        private void OnTimeChange(float oldValue, float newValue)
+        {
+            
+        }
         /// <summary>
         /// Call this method to force-end the timer + move to next scene. 
         /// </summary>
