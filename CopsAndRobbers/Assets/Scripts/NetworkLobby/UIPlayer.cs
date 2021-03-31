@@ -24,6 +24,8 @@ namespace Me.DerangedSenators.CopsAndRobbers
     public class UIPlayer : MonoBehaviour
     {
         [SerializeField] private Text text;
+        [SerializeField] private Image copImage;
+        [SerializeField] private Image robberImage;
 
         Player player;
 
@@ -31,6 +33,16 @@ namespace Me.DerangedSenators.CopsAndRobbers
         {
             this.player = player;
             text.text = "Player " + player.playerIndex.ToString();
+            if (player.teamId == 1)
+            {
+                copImage.enabled = true;
+                robberImage.enabled = false;
+            }
+            else
+            {
+                copImage.enabled = false;
+                robberImage.enabled = true;
+            }
         }
     }
 }
