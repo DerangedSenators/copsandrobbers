@@ -30,6 +30,7 @@ namespace Me.DerangedSenators.CopsAndRobbers
         public GameObject ControlCanvas;
         public MobileButton AttackButton;
         public MobileButton WeaponSwitchButton;
+        public MobileButton OptionsButton;
         private bool isActive;
         public bool Active => isActive;
         

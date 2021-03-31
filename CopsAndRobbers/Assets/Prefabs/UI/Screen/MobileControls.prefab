@@ -332,6 +332,7 @@ MonoBehaviour:
   ControlCanvas: {fileID: 8971417446962219920}
   AttackButton: {fileID: 8971417446495326398}
   WeaponSwitchButton: {fileID: 8971417446607552954}
+  OptionsButton: {fileID: 4357288254276946453}
 --- !u!1 &8971417447232035071
 GameObject:
   m_ObjectHideFlags: 0
