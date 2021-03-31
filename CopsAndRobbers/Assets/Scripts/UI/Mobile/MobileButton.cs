@@ -39,8 +39,22 @@ namespace Me.DerangedSenators.CopsAndRobbers
         /// </summary>
         public Image ButtonSprite;
 
-        private bool isPressed;
+        /// <summary>
+        /// The Default Sprite
+        /// </summary>
+        public Sprite DefaultSprite;
+        /// <summary>
+        /// Optional Param for if you want to have a toggleable button
+        /// </summary>
+        public Sprite ToggleSprite;
 
+        /// <summary>
+        /// Required if you want to toggle the sprites
+        /// </summary>
+        public bool allowToggling;
+        private bool isPressed;
+        
+        private bool isToggle;
         private void Awake()
         {
             _buttonListeners = new List<IButtonListener>();
@@ -60,6 +74,20 @@ namespace Me.DerangedSenators.CopsAndRobbers
             foreach (var buttonListener in _buttonListeners)
             {
                 buttonListener.onButtonPressed();
+            }
+
+            if (allowToggling)
+            {
+                if (isToggle)
+                {
+                    ButtonSprite.sprite = DefaultSprite;
+                    isToggle = false;
+                }
+                else
+                {
+                    ButtonSprite.sprite = ToggleSprite;
+                    isToggle = true;
+                }
             }
         }
 
