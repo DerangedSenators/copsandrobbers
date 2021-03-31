@@ -18,6 +18,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Mirror;
 using UnityEngine;
+using UnityEngine.Networking.Types;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
@@ -186,7 +187,7 @@ namespace Me.DerangedSenators.CopsAndRobbers
 
             CountdownText.text = minutes + ":" + seconds;
 
-            if (NetworkServer.active)
+            if (isServer)
             {
                 Debug.Log("I AM THE SERVER DUDE");
             }
