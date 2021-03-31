@@ -1041,6 +1041,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 2024115939859017904}
     m_Modifications:
+    - target: {fileID: 5057923624418545637, guid: d301f2ff581b40eecb9e530140cf6eef,
+        type: 3}
+      propertyPath: uIControls
+      value: 
+      objectReference: {fileID: 2024115939859017905}
     - target: {fileID: 7910652432899619056, guid: d301f2ff581b40eecb9e530140cf6eef,
         type: 3}
       propertyPath: m_IsActive
@@ -1228,15 +1233,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d301f2ff581b40eecb9e530140cf6eef, type: 3}
---- !u!224 &2024115940124926174 stripped
-RectTransform:
-  m_CorrespondingSourceObject: {fileID: 7910652433927351126, guid: d301f2ff581b40eecb9e530140cf6eef,
-    type: 3}
-  m_PrefabInstance: {fileID: 8205368033943456648}
-  m_PrefabAsset: {fileID: 0}
 --- !u!223 &2024115940124926173 stripped
 Canvas:
   m_CorrespondingSourceObject: {fileID: 7910652433927351125, guid: d301f2ff581b40eecb9e530140cf6eef,
+    type: 3}
+  m_PrefabInstance: {fileID: 8205368033943456648}
+  m_PrefabAsset: {fileID: 0}
+--- !u!224 &2024115940124926174 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 7910652433927351126, guid: d301f2ff581b40eecb9e530140cf6eef,
     type: 3}
   m_PrefabInstance: {fileID: 8205368033943456648}
   m_PrefabAsset: {fileID: 0}
