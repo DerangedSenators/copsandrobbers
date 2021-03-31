@@ -107,7 +107,7 @@ namespace Me.DerangedSenators.CopsAndRobbers
                 _localPlayerMovement.enabled = false;
                 _freezeCanvas.SetActive(true);
                 _mainTimerCanvas.SetActive(false);
-                
+                _roundManager.TransformPlayersAndUpdateViews(_currentRound);
             }
             else if (_breakActive)
                 _breakTimerText.text = CountdownText.text;
@@ -150,7 +150,7 @@ namespace Me.DerangedSenators.CopsAndRobbers
                     {
                         case 1:
                         case 2:
-                            _roundManager.TransformPlayers(_currentRound+ 1);
+                            _roundManager.TransformPlayersAndUpdateViews(_currentRound+1);
                             break;
                         case 3:
                             DontDestroyOnLoad(moneyManagerGO);
