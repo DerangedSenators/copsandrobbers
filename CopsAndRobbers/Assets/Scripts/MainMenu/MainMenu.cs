@@ -15,20 +15,32 @@
 
 using System.Collections;
 using System.Collections.Generic;
+using Mirror;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 
 namespace Me.DerangedSenators.CopsAndRobbers
 {
+    /// <summary>
+    /// Class designed to manage the menu functions
+    /// </summary>
+    /// @author Ashwin Jaimal, Hanzalah Ravat, Nisath Mohamed Nasar and Hannah Elliman
     public class MainMenu : MonoBehaviour
     {
 
+        private NetworkManager networkManager;
+
         void Start()
         {
+            
             if (Application.isBatchMode) //Headless Build for Server 
             {
                 SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+            }
+            else
+            {
+                networkManager = NetworkManager.singleton;
             }
         }
 
@@ -39,6 +51,15 @@ namespace Me.DerangedSenators.CopsAndRobbers
         {
             //loads up next scene in the queue
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+        }
+
+        /// <summary>
+        /// Go back to main menu from within game
+        /// </summary>
+        public void BackToMenu()
+        {
+            networkManager.StopClient();
+            SceneManager.LoadScene("MainMenu");
         }
 
 
