@@ -1,6 +1,6 @@
 using System;
 using Cinemachine;
-using Cinemachine.Editor;
+
 using UnityEngine;
 
 namespace Me.DerangedSenators.CopsAndRobbers
@@ -32,6 +32,14 @@ namespace Me.DerangedSenators.CopsAndRobbers
             public MobileFOVController(FOVController controller)
             {
                 _controller = controller;
+            }
+        }
+
+        public void Start()
+        {
+            if (ControlContext.Instance.Active)
+            {
+                ControlContext.Instance.ZoomControl.AddListener(new MobileFOVController(this));
             }
         }
 
