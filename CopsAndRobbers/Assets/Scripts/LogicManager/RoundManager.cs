@@ -13,6 +13,7 @@
  *  limitations under the License.
  */
 
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -81,6 +82,7 @@ namespace Me.DerangedSenators.CopsAndRobbers
         /// <summary>
         /// This method, checks current round and loads next round accordingly.
         /// </summary>
+        [Obsolete("LoadRound is deprecated, please use call TransformPlayers and Update instead.", true)]
         public void LoadRound()
         {
             switch (_currentRound)
@@ -120,7 +122,7 @@ namespace Me.DerangedSenators.CopsAndRobbers
         private void InitializeSpawnPositions()
         {
             _spawnPositions[0] = new RoundSpawnPosition(new Vector2(47 + localIndex, 52), new Vector2(1 + localIndex, -56));
-            _spawnPositions[1] =  new RoundSpawnPosition(new Vector2(241+localIndex,-62), new Vector2(90+localIndex,-31));
+            _spawnPositions[1] =  new RoundSpawnPosition(new Vector2(221+localIndex,-62), new Vector2(90+localIndex,-31));
             _spawnPositions[2] =  new RoundSpawnPosition(new Vector2(-105+localIndex,-6.6f), new Vector2(-172 + localIndex, -29));
 
             initializedSpawnPositions = true;
@@ -138,44 +140,22 @@ namespace Me.DerangedSenators.CopsAndRobbers
             }
         }
 
+        /// <summary>
+        /// Move players into appropriate maps based on round number and update any round number views.
+        /// </summary>
+        /// <param name="roundNumber"></param>
+        public void TransformPlayersAndUpdateViews(int roundNumber)
+        {
+            TransformPlayers(roundNumber);
+            UpdateRoundTextView(roundNumber);
+        }
+        
+        /// <summary>
+        /// Move players into appropriate maps based on round number.
+        /// </summary>
+        /// <param name="roundNumber"></param>
         public void TransformPlayers(int roundNumber)
         {
-            /*
-            switch (roundNumber)
-            {
-              case 1:
-                  if (Player.localPlayer.teamId == 1)
-                  {
-                      localPlayerRB.position = _round1SpawnPosition.CopPosition;
-                  }
-                  else
-                  {
-                      localPlayerRB.position = _round1SpawnPosition.RobberPosition;
-                  }
-                  break;
-              case 2:
-                  if (Player.localPlayer.teamId == 1)
-                  {
-                      localPlayerRB.position = _round2SpawnPosition.CopPosition;
-                  }
-                  else
-                  {
-                      localPlayerRB.position = _round2SpawnPosition.RobberPosition;
-                  }
-                  break;
-              case 3:
-                  if (Player.localPlayer.teamId == 1)
-                  {
-                      localPlayerRB.position = _round3SpawnPosition.CopPosition;
-                  }
-                  else
-                  {
-                      localPlayerRB.position = _round3SpawnPosition.RobberPosition;
-                  }
-
-                  break;
-            }
-            */
             if (Player.localPlayer.teamId == 1)
             {
                 localPlayerRB.position = _spawnPositions[roundNumber-1].CopPosition;
@@ -184,7 +164,6 @@ namespace Me.DerangedSenators.CopsAndRobbers
             {
                 localPlayerRB.position = _spawnPositions[roundNumber-1].RobberPosition;
             }
-            
         }
         
 

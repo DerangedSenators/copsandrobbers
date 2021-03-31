@@ -137,7 +137,7 @@ namespace Me.DerangedSenators.CopsAndRobbers
         {
             Vector3 vector3 = new Vector3(transform.position.x, transform.position.y + 1.5f, transform.position.z  - 2f);
             var text = Instantiate(FloatingText, vector3, Quaternion.identity, transform);
-            text.GetComponent<TextMesh>().text = "Respawning";
+            text.GetComponent<TextMesh>().text = "reviving...";
         }
 
         /// <summary>
