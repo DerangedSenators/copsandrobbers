@@ -2928,6 +2928,11 @@ PrefabInstance:
       propertyPath: m_textInfo.pageCount
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2024115941227980252, guid: 8ac26a93a636b8b769efc17d7180ba1d,
+        type: 3}
+      propertyPath: m_Value
+      value: 0.05
+      objectReference: {fileID: 0}
     - target: {fileID: 2024115941243368262, guid: 8ac26a93a636b8b769efc17d7180ba1d,
         type: 3}
       propertyPath: sfxGO
@@ -2949,6 +2954,11 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2024115941432110923, guid: 8ac26a93a636b8b769efc17d7180ba1d,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4785047876155298873, guid: 8ac26a93a636b8b769efc17d7180ba1d,
         type: 3}
       propertyPath: m_LocalPosition.z
       value: 0

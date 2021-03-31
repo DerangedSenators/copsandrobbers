@@ -267,7 +267,7 @@ namespace Me.DerangedSenators.CopsAndRobbers
                 meleeAudioSource = sfxHandler.AddComponent<AudioSource>();
                 meleeAudioSource.playOnAwake = false;
                 meleeAudioSource.clip = meleeAttackClip;
-                meleeAudioSource.volume = 0.3f;
+                meleeAudioSource.volume = 0.05f;
                 meleeAudioSource.playOnAwake = false;
             }
 
@@ -277,7 +277,7 @@ namespace Me.DerangedSenators.CopsAndRobbers
                 gunShotAudioSource = sfxHandler.AddComponent<AudioSource>();
                 gunShotAudioSource.playOnAwake = false;
                 gunShotAudioSource.clip = gunShotClip;
-                gunShotAudioSource.volume = 0.3f;
+                gunShotAudioSource.volume = 0.05f;
                 
             }
         }
