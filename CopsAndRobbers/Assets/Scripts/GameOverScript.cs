@@ -126,6 +126,8 @@ namespace Me.DerangedSenators.CopsAndRobbers
             networkManager.StopClient();
             SceneManager.LoadScene(0);
             Destroy(GameObject.Find("MoneyManager"));
+            Destroy(GameObject.Find("SFXHandler"));
+            Destroy(GameObject.Find("Music"));
         }
     }
 }
