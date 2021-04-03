@@ -229,7 +229,6 @@ namespace Me.DerangedSenators.CopsAndRobbers
         private void setAttackParams()
         {
             mousePosition = GetMouseWorldPosition(); // +new Vector3(-0.5f, -0.2f, 0);
-
             //#if UNITY_STANDALONE || UNITY_WEBPLAYER
             mouseDir = (mousePosition - transform.position).normalized;
             //#elif UNITY_IOS || UNITY_ANDROID || UNITY_WP8 || UNITY_IPHONE
@@ -352,7 +351,8 @@ namespace Me.DerangedSenators.CopsAndRobbers
         /// <returns>A Vector3 With the relative mouse position</returns>
         public  Vector3 GetMouseWorldPositionWithZ(Vector3 screenPosition, Camera worldCamera)
         {
-            return Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue());
+            Vector3 mousePos = new Vector3(Input.mousePosition.x, Input.mousePosition.y, 1.0f);
+            return Camera.main.ScreenToWorldPoint(mousePos);
 
         }
         #if UNITY_STANDALONE || UNITY_WEBPLAYER
