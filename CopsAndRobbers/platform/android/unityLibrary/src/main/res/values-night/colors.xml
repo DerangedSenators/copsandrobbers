@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="color_accent">#82b1ff</color>
+    <color name="color_accent_text">@android:color/black</color>
+    <color name="headings">@android:color/white</color>
+</resources>

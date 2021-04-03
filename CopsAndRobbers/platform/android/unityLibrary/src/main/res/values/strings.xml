@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Cops And Robbers</string>
+    <string name="by">by</string>
+    <string name="developer_name">Deranged Senators</string>
+    <string name="version_outdated">This Version is Outdated</string>
+    <string name="install_updates_to_continue">Please Install the Latest Version to Play</string>
+    <string name="download">Download and Install</string>
+    <string name="current">Current Version:</string>
+    <string name="latest">Latest Version:</string>
+    <string name="version">Version</string>
+</resources>
