@@ -64,7 +64,7 @@ class DownloadController(private val context: Context, private val url: String) 
                     install.putExtra(Intent.EXTRA_NOT_UNKNOWN_SOURCE, true)
                     val contentUri = FileProvider.getUriForFile(
                         context,
-                        BuildConfig.APPLICATION_ID + PROVIDER_PATH,
+                        "com.DerangedSenators.CopsAndRobbers$PROVIDER_PATH",
                         File(destination)
                     )
                     install.data = contentUri
