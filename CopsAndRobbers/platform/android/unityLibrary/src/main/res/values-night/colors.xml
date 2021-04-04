@@ -3,4 +3,7 @@
     <color name="color_accent">#82b1ff</color>
     <color name="color_accent_text">@android:color/black</color>
     <color name="headings">@android:color/white</color>
+
+    <color name="icon_verified">#439889</color>
+    <color name="icon_error">#ff5f52</color>
 </resources>
