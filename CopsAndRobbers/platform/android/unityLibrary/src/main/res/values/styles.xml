@@ -10,9 +10,10 @@
     <item name="android:windowBackground">@android:color/transparent</item>
 </style>
 
-<style name="Theme.MaterialComponents.NoActionBar">
+<style name="Theme.MaterialComponents.DayNight.NoActionBar">
     <item name="windowActionBar">false</item>
     <item name="windowNoTitle">true</item>
+    <item name="android:statusBarColor">@android:color/background_dark</item>
 </style>
 <style name="Theme.AppBarOverlay" parent="ThemeOverlay.AppCompat.ActionBar"/>
 <style name="Theme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light"/>
