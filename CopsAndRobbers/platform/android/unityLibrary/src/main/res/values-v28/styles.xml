@@ -3,4 +3,6 @@
 <style name="BaseUnityTheme" parent="android:Theme.Material.Light.NoActionBar.Fullscreen">
     <item name="android:windowLayoutInDisplayCutoutMode">shortEdges</item>
 </style>
+
+
 </resources>

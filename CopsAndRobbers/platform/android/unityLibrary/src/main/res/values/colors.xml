@@ -6,4 +6,7 @@
     <color name="color_accent">#0d46a0</color>
     <color name="headings">@android:color/black</color>
     <color name="color_accent_text">@android:color/white</color>
+
+    <color name="icon_verified">#00695c</color>
+    <color name="icon_error">#7f0000</color>
 </resources>
