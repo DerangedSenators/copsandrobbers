@@ -3,8 +3,8 @@
     android:height="18dp"
     android:viewportWidth="18"
     android:viewportHeight="18"
-    android:tint="?attr/colorControlNormal">
+        android:tint="@color/icon_error">
   <path
-      android:fillColor="@android:color/white"
+      android:fillColor="@color/icon_error"
       android:pathData="M9,1C4.58,1 1,4.58 1,9s3.58,8 8,8 8,-3.58 8,-8 -3.58,-8 -8,-8zM13,11.87L11.87,13 9,10.13 6.13,13 5,11.87 7.87,9 5,6.13 6.13,5 9,7.87 11.87,5 13,6.13 10.13,9 13,11.87z"/>
 </vector>
