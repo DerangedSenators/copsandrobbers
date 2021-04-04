@@ -10,3 +10,8 @@ jobs:
         run: |
              cd CopsAndRobbers/platform/android/
              ./gradlew build
+      - name: Upload App Artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: CopsAndRobbers.apk
+          path: launcher/build/outputs/apk/*.apk
