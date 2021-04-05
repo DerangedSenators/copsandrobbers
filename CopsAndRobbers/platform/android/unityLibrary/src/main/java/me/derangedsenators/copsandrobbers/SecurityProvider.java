@@ -1,23 +1,13 @@
 package me.derangedsenators.copsandrobbers;
 
-import android.app.Activity;
 import android.content.Context;
 import android.util.Log;
-import com.google.android.gms.common.ConnectionResult;
-import com.google.android.gms.common.GoogleApiAvailability;
-import com.google.android.gms.safetynet.SafetyNet;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import com.scottyab.rootbeer.RootBeer;
 import com.scottyab.safetynet.SafetyNetHelper;
 import com.unity3d.player.BuildConfig;
 
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.security.SecureRandom;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Random;
 
 /**
  * This class provides a "Security Approval" for the App to Operate correctly
