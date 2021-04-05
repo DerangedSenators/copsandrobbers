@@ -26,15 +26,16 @@ import java.util.Random;
 public final class SecurityProvider {
 
     public static final String TAG = "SECURITY_CHECK_PROVIDER";
-    private boolean rootCheck;
+    private final boolean rootCheck;
     private boolean mCtsBasic;
     private boolean mCtsProfileMatch;
+    private boolean safetyNetCheckDone;
 
 
     public final boolean getCTSBasicIntegrity(){return mCtsBasic;}
     public final boolean getCTSProfileMatch(){return mCtsProfileMatch;}
     public final boolean getRootStatus(){return rootCheck;}
-
+    public final boolean isSafetyNetCheckDone(){return safetyNetCheckDone;}
     private final List<SafetyNetListener> safetyNetListeners;
     private final Context context;
     private static final String API_KEY = BuildConfig.DEVICE_VERITY_API;
@@ -66,6 +67,7 @@ public final class SecurityProvider {
             public void success(boolean ctsProfileMatch, boolean basicIntegrity) {
                 mCtsProfileMatch = ctsProfileMatch;
                 mCtsBasic = basicIntegrity;
+                safetyNetCheckDone = true;
                 Log.println(Log.DEBUG,TAG,"Safetynet check success. Result:" + ctsProfileMatch + " " + basicIntegrity);
                 for (SafetyNetListener l:
                      safetyNetListeners) {
