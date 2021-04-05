@@ -6,8 +6,10 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
@@ -34,8 +36,8 @@ import java.util.Locale;
  * @author Hanzalah Ravat
  * @since 3.1.0
  */
-public class MainActivity extends Activity {
-
+public final class MainActivity extends Activity {
+    public static final String TAG = "SECURE_LAUNCH_MAIN";
     private Button mInstallButton;
     private Context context;
     private RequestQueue volleyQueue;
@@ -44,12 +46,15 @@ public class MainActivity extends Activity {
     public static final String API_URL = "https://api.github.com/repos/DerangedSenators/copsandrobbers/releases/latest";
     public static final int PERMISSION_REQUEST_STORAGE = 0;
 
+    private SecurityProvider mSecurityProvider;
     private DownloadController mDownloadController;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         context = getApplicationContext();
+        mSecurityProvider = SecurityProvider.getProvider(context);
+        SecurityProvider.getProvider(context).addListener(this::setRootView);
         try{
             mVersion = "v" + context.getPackageManager()
                     .getPackageInfo(context.getPackageName(), 0).versionName;
@@ -57,7 +62,6 @@ public class MainActivity extends Activity {
             e.printStackTrace();
         }
         apiRequest(new responseHandler());
-
 
         // Get Latest Version from GitHub API using Volley
 
@@ -90,16 +94,11 @@ public class MainActivity extends Activity {
 
     private void onLaunchFail(){
         setContentView(R.layout.update_view);
-        super.findViewById(R.id.downloadInstallButton).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                checkPermissionAndDownload();
-            }
-        });
-        if(apiResponse.getTag_name().equals(mVersion)){
+        super.findViewById(R.id.downloadInstallButton).setOnClickListener(view -> checkPermissionAndDownload());
+        // OTA Download
+        if(!apiResponse.getTag_name().equals(mVersion)){
             CardView versionView = super.findViewById(R.id.versionCardView);
-            versionView.setVisibility(0);
-        }else {
+            versionView.setVisibility(1);
             TextView currentVersion = super.findViewById(R.id.currentVerison);
             currentVersion.setText(mVersion);
             TextView latestVersion = super.findViewById(R.id.latestVerison);
@@ -117,7 +116,29 @@ public class MainActivity extends Activity {
             mDownloadController = new DownloadController(this,downloadURL);
             if(downloadURL.equals(""))
                 super.findViewById(R.id.downloadInstallButton).setVisibility(0);
+        }
+    }
 
+    private void setRootView(){
+        mSecurityProvider = SecurityProvider.getProvider(context);
+        if(mSecurityProvider.getRootStatus() || !mSecurityProvider.getCTSProfileMatch()){
+            System.out.println("Running this section");
+            super.findViewById(R.id.rootCheckCard).setVisibility(1);
+            if(mSecurityProvider.getRootStatus()){
+                ImageView root = super.findViewById(R.id.rootCheck);
+                root.setImageResource(R.drawable.baseline_cancel_18);
+            }
+            if(mSecurityProvider.getCTSProfileMatch()){
+                Log.println(Log.DEBUG,TAG,"CTS Profile Match is True");
+                ImageView root =
+                        super.findViewById(R.id.ctsProfile);
+                root.setImageResource(R.drawable.baseline_verified_24);
+            }
+            if(mSecurityProvider.getCTSBasicIntegrity()){
+                Log.println(Log.DEBUG,TAG,"CTS Basic Integrity is True");
+                ImageView root = super.findViewById(R.id.basicIntegrity);
+                root.setImageResource(R.drawable.baseline_verified_24);
+            }
         }
     }
 
@@ -163,7 +184,7 @@ public class MainActivity extends Activity {
 
         @Override
         public void onAPIResponse(ReleaseAPIResponse response) {
-            if(response.getTag_name().equals(mVersion))
+            if(response.getTag_name().equals(mVersion) && mSecurityProvider.getCTSBasicIntegrity() && ! mSecurityProvider.getRootStatus())
                 startGame();
             else{
                 // Don't start and update view
