@@ -13,23 +13,16 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 import androidx.core.app.ActivityCompat;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.google.android.material.snackbar.Snackbar;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.unity3d.player.R;
 import com.unity3d.player.UnityPlayerActivity;
-import org.w3c.dom.Text;
-
-import java.util.Locale;
 
 /**
  * This is a Custom Launcher Activity for Cops And Robbers. Here, the app performs many tests such as Version Checking, Root Checks and SafetyNet Attestation
@@ -46,25 +39,30 @@ public final class MainActivity extends Activity {
     public static final String API_URL = "https://api.github.com/repos/DerangedSenators/copsandrobbers/releases/latest";
     public static final int PERMISSION_REQUEST_STORAGE = 0;
 
-    private SecurityProvider mSecurityProvider;
     private DownloadController mDownloadController;
+
+    private boolean versionCheckSuccess;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         context = getApplicationContext();
-        mSecurityProvider = SecurityProvider.getProvider(context);
-        SecurityProvider.getProvider(context).addListener(this::setRootView);
+        SecurityProvider.getProvider(context).addListener(() -> {
+            if(versionCheckSuccess && SecurityProvider.getProvider(context).getCTSBasicIntegrity() && !SecurityProvider.getProvider(context).getRootStatus()){
+                startGame();
+            } else{
+                setRootView();
+            }
+        });
         try{
             mVersion = "v" + context.getPackageManager()
                     .getPackageInfo(context.getPackageName(), 0).versionName;
         } catch (PackageManager.NameNotFoundException e) {
             e.printStackTrace();
         }
-        apiRequest(new responseHandler());
+        apiRequest(new ResponseHandler());
 
         // Get Latest Version from GitHub API using Volley
-
     }
 
 
@@ -117,30 +115,38 @@ public final class MainActivity extends Activity {
             if(downloadURL.equals(""))
                 super.findViewById(R.id.downloadInstallButton).setVisibility(0);
         }
+
+        setRootView();
     }
 
     private void setRootView(){
-        mSecurityProvider = SecurityProvider.getProvider(context);
-        if(mSecurityProvider.getRootStatus() || !mSecurityProvider.getCTSProfileMatch()){
-            System.out.println("Running this section");
-            super.findViewById(R.id.rootCheckCard).setVisibility(1);
-            if(mSecurityProvider.getRootStatus()){
+        System.out.println("Setting Root View");
+            if (SecurityProvider.getProvider(context).getRootStatus()) {
+                System.out.println("Device is Rooted");
+                super.findViewById(R.id.rootCheckCard).setVisibility(View.VISIBLE);
                 ImageView root = super.findViewById(R.id.rootCheck);
                 root.setImageResource(R.drawable.baseline_cancel_18);
             }
-            if(mSecurityProvider.getCTSProfileMatch()){
-                Log.println(Log.DEBUG,TAG,"CTS Profile Match is True");
-                ImageView root =
-                        super.findViewById(R.id.ctsProfile);
-                root.setImageResource(R.drawable.baseline_verified_24);
+            if(SecurityProvider.getProvider(context).isSafetyNetCheckDone()) {
+                super.findViewById(R.id.safetyNetProgress).setVisibility(View.GONE);
+                super.findViewById(R.id.safetyNetSection).setVisibility(View.VISIBLE);
+                if (SecurityProvider.getProvider(context).getCTSProfileMatch()) {
+                    Log.println(Log.DEBUG, TAG, "CTS Profile Match is True");
+                    ImageView root =
+
+                            super.findViewById(R.id.ctsProfile);
+                    root.setImageResource(R.drawable.baseline_verified_24);
+                }
+                if (SecurityProvider.getProvider(context).getCTSBasicIntegrity()) {
+                    Log.println(Log.DEBUG, TAG, "CTS Basic Integrity is True");
+                    ImageView root = super.findViewById(R.id.basicIntegrity);
+                    root.setImageResource(R.drawable.baseline_verified_24);
+                } else{
+                    super.findViewById(R.id.rootCheckCard).setVisibility(View.VISIBLE);
+                }
             }
-            if(mSecurityProvider.getCTSBasicIntegrity()){
-                Log.println(Log.DEBUG,TAG,"CTS Basic Integrity is True");
-                ImageView root = super.findViewById(R.id.basicIntegrity);
-                root.setImageResource(R.drawable.baseline_verified_24);
-            }
-        }
     }
+
 
     private void checkPermissionAndDownload(){
         if(checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED){
@@ -179,13 +185,13 @@ public final class MainActivity extends Activity {
         }
     }
 
-    private class responseHandler implements ApiResponseListener{
-
+    private class ResponseHandler implements ApiResponseListener{
 
         @Override
         public void onAPIResponse(ReleaseAPIResponse response) {
-            if(response.getTag_name().equals(mVersion) && mSecurityProvider.getCTSBasicIntegrity() && ! mSecurityProvider.getRootStatus())
-                startGame();
+            if(response.getTag_name().equals(mVersion) && SecurityProvider.getProvider(context).getCTSBasicIntegrity() && ! SecurityProvider.getProvider(context).getRootStatus())
+                //startGame();
+                versionCheckSuccess = true;
             else{
                 // Don't start and update view
                 apiResponse = response;
@@ -195,7 +201,9 @@ public final class MainActivity extends Activity {
 
         @Override
         public void onError(Exception exception) {
-
+            Log.e(TAG,"Error Getting Version Information from GitHub API");
        }
     }
+
+
 }
