@@ -2,6 +2,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/mainLayout"
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -65,7 +66,7 @@
                     android:layout_margin="8dp"
                     app:cardCornerRadius="8dp"
                     app:cardElevation="8dp"
-                    android:visibility="gone"
+                    android:visibility="visible"
                     >
                 <LinearLayout
                         android:layout_width="match_parent"
@@ -129,16 +130,33 @@
                                 android:layout_marginLeft="8dp"/>
 
                     </LinearLayout>
-                    <Button
-                            android:id="@+id/downloadInstallButton"
-                            android:layout_width="wrap_content"
+                    <LinearLayout
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:text="@string/download"
-                            android:layout_marginBottom="8dp"
-                            android:backgroundTint="@color/color_accent"
-                            android:textColor="@color/color_accent_text"
-                            />
+                            android:orientation="horizontal"
+                            android:layout_margin="8dp"
+                            android:gravity="center">
+                        <com.google.android.material.button.MaterialButton
+                                android:id="@+id/downloadInstallButton"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:text="@string/install"
+                                android:backgroundTint="@color/color_accent"
+                                android:textColor="@color/color_accent_text"
+                                app:cornerRadius="16dp"
+                                />
+                        <com.google.android.material.button.MaterialButton
+                                android:id="@+id/viewChangelogButton"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:text="@string/changelog"
+                                android:textColor="@color/headings"
+                                app:cornerRadius="16dp"
+                                style="@android:style/Widget.Material.Button.Borderless"
+                                />
+                    </LinearLayout>
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
             <Space

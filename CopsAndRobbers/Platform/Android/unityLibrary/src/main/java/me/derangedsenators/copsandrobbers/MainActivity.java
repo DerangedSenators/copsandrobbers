@@ -1,7 +1,6 @@
 package me.derangedsenators.copsandrobbers;
 
 import android.Manifest;
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -13,8 +12,11 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 import androidx.core.app.ActivityCompat;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.StringRequest;
@@ -31,7 +33,7 @@ import static com.unity3d.player.BuildConfig.GITHUB_RELEASE_API;
  * @author Hanzalah Ravat
  * @since 3.1.0
  */
-public final class MainActivity extends Activity {
+public final class MainActivity extends AppCompatActivity {
     public static final String TAG = "SECURE_LAUNCH_MAIN";
     private Button mInstallButton;
     private Context context;
@@ -103,6 +105,11 @@ public final class MainActivity extends Activity {
     private void onLaunchFail(){
         setContentViewScreen();
         super.findViewById(R.id.downloadInstallButton).setOnClickListener(view -> checkPermissionAndDownload());
+        super.findViewById(R.id.viewChangelogButton).setOnClickListener(view -> {
+            Intent myIntent = new Intent(MainActivity.this, ChangelogActivity.class);
+            myIntent.putExtra("changelog", apiResponse.getBody()); //Optional parameters
+            MainActivity.this.startActivity(myIntent);
+        });
         // OTA Download
         if(!apiResponse.getTag_name().equals(mVersion)){
             CardView versionView = super.findViewById(R.id.versionCardView);

@@ -15,9 +15,10 @@
     <string name="basic_integrity">SafetyNet Basic Integrity:</string>
     <string name="cts_profile">SafetyNet CTS Profile:</string>
     <string name="incorrect_info_contact">If any of the above information is incorrect, please get in touch with us so we can resolve the issue</string>
-    <string name="title_file_download">Downloading Latest Version</string>
+    <string name="title_file_download">Cops And Robbers: Downloading OTA Update</string>
     <string name="downloading">Downloading...</string>
     <string name="ok">ok</string>
     <string name="storage_access_required">Storage Access Is Required</string>
     <string name="changelog">Changelog</string>
+    <string name="install">Install</string>
 </resources>

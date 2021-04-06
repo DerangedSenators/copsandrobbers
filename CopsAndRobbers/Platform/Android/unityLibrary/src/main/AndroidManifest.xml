@@ -8,6 +8,8 @@
         <category android:name="android.intent.category.LAUNCHER"/>
       </intent-filter>
     </activity>
+    <activity android:name="me.derangedsenators.copsandrobbers.ChangelogActivity"
+            android:theme="@style/Theme.MaterialComponents.DayNight.NoActionBar"/>
     <provider
             android:name="androidx.core.content.FileProvider"
             android:authorities="${applicationId}.provider"
