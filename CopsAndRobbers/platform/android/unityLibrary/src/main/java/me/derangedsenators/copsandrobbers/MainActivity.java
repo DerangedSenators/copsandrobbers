@@ -24,6 +24,8 @@ import com.google.gson.GsonBuilder;
 import com.unity3d.player.R;
 import com.unity3d.player.UnityPlayerActivity;
 
+import static com.unity3d.player.BuildConfig.GITHUB_RELEASE_API;
+
 /**
  * This is a Custom Launcher Activity for Cops And Robbers. Here, the app performs many tests such as Version Checking, Root Checks and SafetyNet Attestation
  * @author Hanzalah Ravat
@@ -36,7 +38,6 @@ public final class MainActivity extends Activity {
     private RequestQueue volleyQueue;
     private String mVersion;
     private ReleaseAPIResponse apiResponse;
-    public static final String API_URL = "https://api.github.com/repos/DerangedSenators/copsandrobbers/releases/latest";
     public static final int PERMISSION_REQUEST_STORAGE = 0;
 
     private DownloadController mDownloadController;
@@ -77,7 +78,7 @@ public final class MainActivity extends Activity {
     private void apiRequest(ApiResponseListener listener){
         if(volleyQueue == null)
             volleyQueue = Volley.newRequestQueue(context);
-        StringRequest request = new StringRequest(Request.Method.GET, API_URL, response -> {
+        StringRequest request = new StringRequest(Request.Method.GET, GITHUB_RELEASE_API, response -> {
             Gson gson = new GsonBuilder().create();
             ReleaseAPIResponse releaseAPIResponse = gson.fromJson(response,ReleaseAPIResponse.class);
             listener.onAPIResponse(releaseAPIResponse);

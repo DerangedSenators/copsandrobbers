@@ -11,6 +11,9 @@ def localProperties = new Properties()
 localProperties.load(new
 FileInputStream(rootProject.file("local.properties")))
 
+def globalProperties = new Properties()
+globalProperties.load(new
+FileInputStream(rootProject.file("global.properties")))
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation 'androidx.appcompat:appcompat:1.2.0'
@@ -45,6 +48,7 @@ android {
         versionName '3.0.1'
         consumerProguardFiles 'proguard-unity.txt'
         buildConfigField "String","DEVICE_VERITY_API",localProperties['dveritykey']
+        buildConfigField "String","GITHUB_RELEASE_API",globalProperties['relapiurl']
     }
 
     lintOptions {
