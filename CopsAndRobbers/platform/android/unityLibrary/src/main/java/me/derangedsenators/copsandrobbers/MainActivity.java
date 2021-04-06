@@ -42,6 +42,7 @@ public final class MainActivity extends Activity {
     private DownloadController mDownloadController;
 
     private boolean versionCheckSuccess;
+    private boolean viewSet;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,8 +68,10 @@ public final class MainActivity extends Activity {
 
 
     private void startGame(){
-        Intent gameLaunchIntent = new Intent(MainActivity.this,UnityPlayerActivity.class);
-        MainActivity.this.startActivity(gameLaunchIntent);
+        if(versionCheckSuccess && SecurityProvider.getProvider(context).isSafetyNetCheckDone() && SecurityProvider.getProvider(context).getCTSBasicIntegrity()) {
+            Intent gameLaunchIntent = new Intent(MainActivity.this, UnityPlayerActivity.class);
+            MainActivity.this.startActivity(gameLaunchIntent);
+        }
     }
 
     private void apiRequest(ApiResponseListener listener){
@@ -90,8 +93,14 @@ public final class MainActivity extends Activity {
         void onError(Exception exception);
     }
 
+    private void setContentViewScreen(){
+        if(!viewSet){
+            setContentView(R.layout.update_view);
+            viewSet = true;
+        }
+    }
     private void onLaunchFail(){
-        setContentView(R.layout.update_view);
+        setContentViewScreen();
         super.findViewById(R.id.downloadInstallButton).setOnClickListener(view -> checkPermissionAndDownload());
         // OTA Download
         if(!apiResponse.getTag_name().equals(mVersion)){
@@ -115,7 +124,6 @@ public final class MainActivity extends Activity {
             if(downloadURL.equals(""))
                 super.findViewById(R.id.downloadInstallButton).setVisibility(0);
         }
-
         setRootView();
     }
 
@@ -123,6 +131,7 @@ public final class MainActivity extends Activity {
         System.out.println("Setting Root View");
             if (SecurityProvider.getProvider(context).getRootStatus()) {
                 System.out.println("Device is Rooted");
+                setContentViewScreen();
                 super.findViewById(R.id.rootCheckCard).setVisibility(View.VISIBLE);
                 ImageView root = super.findViewById(R.id.rootCheck);
                 root.setImageResource(R.drawable.baseline_cancel_18);
@@ -142,6 +151,7 @@ public final class MainActivity extends Activity {
                     ImageView root = super.findViewById(R.id.basicIntegrity);
                     root.setImageResource(R.drawable.baseline_verified_24);
                 } else{
+                    setContentViewScreen();
                     super.findViewById(R.id.rootCheckCard).setVisibility(View.VISIBLE);
                 }
             }
@@ -189,14 +199,16 @@ public final class MainActivity extends Activity {
 
         @Override
         public void onAPIResponse(ReleaseAPIResponse response) {
-            if(response.getTag_name().equals(mVersion) && SecurityProvider.getProvider(context).getCTSBasicIntegrity() && ! SecurityProvider.getProvider(context).getRootStatus())
+            if(response.getTag_name().equals(mVersion))
                 //startGame();
                 versionCheckSuccess = true;
             else{
                 // Don't start and update view
                 apiResponse = response;
+                versionCheckSuccess = false;
                 onLaunchFail();
             }
+            startGame();
         }
 
         @Override
