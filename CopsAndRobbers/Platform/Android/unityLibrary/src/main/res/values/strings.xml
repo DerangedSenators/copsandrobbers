@@ -19,4 +19,5 @@
     <string name="downloading">Downloading...</string>
     <string name="ok">ok</string>
     <string name="storage_access_required">Storage Access Is Required</string>
+    <string name="changelog">Changelog</string>
 </resources>

@@ -25,6 +25,7 @@ dependencies {
     implementation 'com.scottyab:rootbeer-lib:0.0.8'
     implementation "com.google.android.gms:play-services-safetynet:17.0.0"
     api 'com.github.scottyab:safetynethelper:0.8.0'
+    implementation "io.noties.markwon:core:4.6.2"
 
 }
 
