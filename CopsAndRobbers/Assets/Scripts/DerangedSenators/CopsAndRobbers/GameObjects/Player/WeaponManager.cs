@@ -20,6 +20,7 @@ using DerangedSenators.CopsAndRobbers.Control.Mobile;
 using DerangedSenators.CopsAndRobbers.GameObjects.Weapons.Templates;
 using Mirror;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 namespace DerangedSenators.CopsAndRobbers.GameObjects.Player
 {
@@ -366,7 +367,7 @@ namespace DerangedSenators.CopsAndRobbers.GameObjects.Player
 #if UNITY_STANDALONE || UNITY_WEBPLAYER
         public  Vector3 GetMouseWorldPosition()
         {
-            Vector3 vec = GetMouseWorldPositionWithZ(Mouse.current.position.ReadValue(), Camera.main);
+            Vector3 vec = GetMouseWorldPositionWithZ(Mouse.current.position.ReadValue(), UnityEngine.Camera.main);
             vec.z = 0f;
             return vec;
         }

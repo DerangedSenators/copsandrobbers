@@ -189,7 +189,7 @@ namespace DerangedSenators.CopsAndRobbers.GameObjects.Player
         private Vector3 GetMouseWorldPosition()
         {
 
-            Vector3 vec = GetMouseWorldPositionWithZ(Mouse.current.position.ReadValue(), Camera.main);
+            Vector3 vec = GetMouseWorldPositionWithZ(Mouse.current.position.ReadValue(), UnityEngine.Camera.main);
             vec.z = 0f;
             return vec;
         }
