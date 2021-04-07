@@ -8,7 +8,13 @@ See www.copsandrobbers.co.uk
 * Unity 2019.4.6f1
 * Visual Studio 2019 or JetBrains Rider
 * A Mac, Windows, Linux or Android Device for testing (iOS hasn't been tested but it may also work fine)
+
 ## Set-Up
+
+### Cloning
+This repository makes use of submodules to organise different elements. It is therefore imperative that when you clone the repository, you also clone the submodules.
+This can be acheived by appending the `--recurse-submodules` flag when cloning. 
+### Import into Unity
 Import the project folder (`CopsAndRobbers`) into Unity Hub and then launch the project. By default, the `NetworkManager` is set to connect directly to our Google Cloud Server and therefore won't let you play with your serverside changes by default. We recommend setting the server address to `localhost` or to your own server (port 7777 will need to be opened). You can set the server address through the `NetworkManager` found in the `Offline` Scene.
 
 ## Building a Server
