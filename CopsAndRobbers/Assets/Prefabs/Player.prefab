@@ -95,7 +95,6 @@ GameObject:
   - component: {fileID: 6286960928799873138}
   - component: {fileID: 4320991763438738490}
   - component: {fileID: -6012107923665898761}
-  - component: {fileID: 8195048679506587132}
   - component: {fileID: 277985603917361195}
   - component: {fileID: 1691428282546766414}
   - component: {fileID: 6889764896076009993}
@@ -278,8 +277,6 @@ MonoBehaviour:
   moveSpeed: 5
   rigidBody: {fileID: -7991061093172292498}
   runSpeed: 40
-  sfxHandler: {fileID: 8657292821654307289, guid: 8dd02ca52a92df747b74a40a07e73a4b,
-    type: 3}
   movementClip: {fileID: 8300000, guid: 643b220620a99b746be2b953bd8e7719, type: 3}
 --- !u!114 &-5345460604086043374
 MonoBehaviour:
@@ -347,7 +344,6 @@ MonoBehaviour:
   MatchId: 
   playerIndex: 0
   teamId: 0
-  MoneyUpdater: {fileID: 8195048679506587132}
   currentMatch:
     matchId: 
     publicMatch: 0
@@ -368,21 +364,6 @@ MonoBehaviour:
   syncMode: 0
   syncInterval: 0.1
   playerTransform: {fileID: 7821628412348684257}
---- !u!114 &8195048679506587132
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3945214744724447283}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 22b556a43be34e289d772e03c9add34e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  syncMode: 0
-  syncInterval: 0.1
-  mTeam: 0
 --- !u!114 &277985603917361195
 MonoBehaviour:
   m_ObjectHideFlags: 0
