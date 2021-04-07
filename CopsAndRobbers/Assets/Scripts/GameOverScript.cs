@@ -13,8 +13,6 @@
  *  limitations under the License.
  */
 
-using System.Collections;
-using System.Collections.Generic;
 using Mirror;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -22,82 +20,65 @@ using UnityEngine.UI;
 
 namespace Me.DerangedSenators.CopsAndRobbers
 {
-    
     /// @authors Nisath Mohamed
     /// <summary>
-    /// Ths script displays stats in the final stage of the game which is to show the winner and the amount of money collected by my team and enemy team.
+    ///     Ths script displays stats in the final stage of the game which is to show the winner and the amount of money
+    ///     collected by my team and enemy team.
     /// </summary>
     public class GameOverScript : MonoBehaviour
     {
-        private int[] moneyCounts;
-        
         [SerializeField] private Text myTeamCountText;
         [SerializeField] private Text enemyTeamCountText;
         [SerializeField] public Text winText;
         [SerializeField] public Text loseText;
         [SerializeField] public Text drawText;
         [SerializeField] public NetworkManager networkManager;
-        
-        void Start()
+        private int[] moneyCounts;
+
+        private void Start()
         {
             Cursor.lockState = CursorLockMode.None;
             networkManager = NetworkManager.singleton;
         }
 
-        void Update()
+        private void Update()
         {
             //Ensures this method is only executed only once.
-            if (moneyCounts != null)
-            {
-                return;
-            }
-            
+            if (moneyCounts != null) return;
+
             RefreshTextViews();
-            
         }
 
         /// <summary>
-        /// Check what team this client belongs to, then set field texts to win, draw or lose appropriately.
-        /// Also check display their money counts appropriately.
+        ///     Check what team this client belongs to, then set field texts to win, draw or lose appropriately.
+        ///     Also check display their money counts appropriately.
         /// </summary>
         private void RefreshTextViews()
         {
             //get array of moneycount where position 0 belongs to cops and 1 to robbers.
             moneyCounts = MoneyManager.GetMoneyCounts();
-            
+
             switch (Player.localPlayer.teamId) //get teamid
             {
                 case 1: //if client is cops
                     myTeamCountText.text = $"${moneyCounts[0].ToString()}";
                     enemyTeamCountText.text = $"${moneyCounts[1].ToString()}";
                     if (moneyCounts[0] > moneyCounts[1]) //if cops win
-                    {
                         ActivateTextView(true, false, false); //display win message
-                    } 
                     else if (moneyCounts[0] == moneyCounts[1]) // if match draw
-                    {
                         ActivateTextView(false, true, false); //display draw message
-                    }
                     else //if cops lose
-                    {
                         ActivateTextView(false, false, true); //display lose message
-                    }
                     break;
                 case 2: //if client is robbers
                     myTeamCountText.text = $"${moneyCounts[1].ToString()}";
                     enemyTeamCountText.text = $"${moneyCounts[0].ToString()}";
                     if (moneyCounts[1] > moneyCounts[0]) // if robbers win
-                    {
                         ActivateTextView(true, false, false); //display win message
-                    }
                     else if (moneyCounts[0] == moneyCounts[1]) // if match draw
-                    {
                         ActivateTextView(false, true, false); //display draw message
-                    }
                     else //if cops win
-                    {
                         ActivateTextView(false, false, true); //display lose message
-                    }
                     break;
                 default:
                     myTeamCountText.text = "$0";
@@ -106,7 +87,7 @@ namespace Me.DerangedSenators.CopsAndRobbers
         }
 
         /// <summary>
-        /// Show one of the three messages once the game has ended.
+        ///     Show one of the three messages once the game has ended.
         /// </summary>
         /// <param name="won">Notifies player for winning.</param>
         /// <param name="draw">Notifies player for a draw.</param>
@@ -117,9 +98,9 @@ namespace Me.DerangedSenators.CopsAndRobbers
             drawText.gameObject.GetComponent<Text>().enabled = draw;
             loseText.gameObject.GetComponent<Text>().enabled = lost;
         }
-        
+
         /// <summary>
-        /// Stops game and moves onto main menu.
+        ///     Stops game and moves onto main menu.
         /// </summary>
         public void NextRound()
         {

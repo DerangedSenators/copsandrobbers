@@ -16,15 +16,13 @@
 ///<summary> Sets the resolution of the application window on non-mobile displays</summary>
 ///@author Elliot Willis
 
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class SetResolution : MonoBehaviour
 {
     public void ScreenSize(int y)
     {
-        int x = 1280; //default size
+        var x = 1280; //default size
         switch (y)
         {
             case 480:
@@ -43,6 +41,7 @@ public class SetResolution : MonoBehaviour
                 x = 3840;
                 break;
         }
+
         Screen.SetResolution(x, y, Screen.fullScreen);
     }
 }

@@ -13,45 +13,39 @@
  *  limitations under the License.
  */
 
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
 namespace Me.DerangedSenators.CopsAndRobbers
 {
-
     /// @authors Elliot Willis
     /// <summary>
-    /// Displays the name of the player's team at the start of the round
+    ///     Displays the name of the player's team at the start of the round
     /// </summary>
     public class TeamNameDisplay : MonoBehaviour
     {
         public GameObject roundStartTextField;
         public Text text;
-        int ID = -1;
+        private bool done;
+        private int ID = -1;
         private float timeUp = 5f;
-        bool done = false;
 
 
-        void Update()
+        private void Update()
         {
             if (ID == -1)
             {
                 ID = Player.localPlayer.teamId;
             }
-            else {
+            else
+            {
                 AssignString();
                 timeUp -= Time.deltaTime;
-                if (timeUp <= 0f)
-                {
-                    roundStartTextField.SetActive(false);
-                }
+                if (timeUp <= 0f) roundStartTextField.SetActive(false);
             }
         }
 
-        void AssignString()
+        private void AssignString()
         {
             if (!done)
             {
@@ -65,6 +59,7 @@ namespace Me.DerangedSenators.CopsAndRobbers
                         text.text = text.text + " ROBBERS \n STEAL THE MONEY";
                         break;
                 }
+
                 roundStartTextField.SetActive(true);
                 done = true;
             }

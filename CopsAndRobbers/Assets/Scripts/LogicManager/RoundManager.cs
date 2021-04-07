@@ -14,134 +14,109 @@
  */
 
 using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Diagnostics;
-using Me.DerangedSenators.CopsAndRobbers;
 using UnityEngine;
 using UnityEngine.UI;
-using Debug = UnityEngine.Debug;
-
 
 namespace Me.DerangedSenators.CopsAndRobbers
 {
     /// @authors Nisath Mohamed Nasar, Piotr Krawiec and Hanzalah Ravat
     /// <summary>
-    /// Detect round and move player to set map locations
+    ///     Detect round and move player to set map locations
     /// </summary>
     public class RoundManager : MonoBehaviour
     {
+        public enum Round
+        {
+            FREEZE,
+            ROUND1,
+            ROUND2,
+            ROUND3,
+            ENDED
+        }
+
         [SerializeField] private Text currentRoundTextUI;
-        private Rigidbody2D localPlayerRB;
-        private int localIndex = -1;
+
+        private Round _currentRound;
 
         private RoundSpawnPosition[] _spawnPositions;
 
         private bool initializedSpawnPositions;
-        
-        public enum Round
-        {
-            FREEZE,
-            ROUND1, 
-            ROUND2, 
-            ROUND3, 
-            ENDED
-        }
+        private int localIndex = -1;
+        private Rigidbody2D localPlayerRB;
 
-        private Round _currentRound;
-
-        void Start()
+        private void Start()
         {
             _currentRound = Round.FREEZE;
             UpdateRoundTextView(1);
 
             _spawnPositions = new RoundSpawnPosition[3];
-            
-            
-            
         }
-        
-        private void FixedUpdate() {
+
+        private void FixedUpdate()
+        {
             if (localPlayerRB == null)
             {
                 Debug.Log("localPlayerRB is null, trying to Player.localPlayer.GetComponent<Rigidbody2D>();");
                 localPlayerRB = Player.localPlayer.GetComponent<Rigidbody2D>();
             }
 
-            if (localIndex == -1)
-            {
-                localIndex = Player.localPlayer.playerIndex;
-            }
+            if (localIndex == -1) localIndex = Player.localPlayer.playerIndex;
 
-            if (!initializedSpawnPositions && localIndex != -1)
-            {
-                InitializeSpawnPositions();
-            }
+            if (!initializedSpawnPositions && localIndex != -1) InitializeSpawnPositions();
         }
-        
+
         /// <summary>
-        /// This method, checks current round and loads next round accordingly.
+        ///     This method, checks current round and loads next round accordingly.
         /// </summary>
         [Obsolete("LoadRound is deprecated, please use call TransformPlayers and Update instead.", true)]
         public void LoadRound()
         {
             switch (_currentRound)
             {
-                case Round.FREEZE :
+                case Round.FREEZE:
                     TransformPlayers(1);
                     UpdateRoundTextView(1);
                     _currentRound = Round.ROUND1;
                     break;
-                case Round.ROUND1 :
+                case Round.ROUND1:
                     TransformPlayers(2);
                     UpdateRoundTextView(2);
                     _currentRound = Round.ROUND2;
                     break;
-                case Round.ROUND2 :
+                case Round.ROUND2:
                     UpdateRoundTextView(3);
                     _currentRound = Round.ROUND3;
                     TransformPlayers(3);
                     break;
-                case Round.ROUND3 :
+                case Round.ROUND3:
                     _currentRound = Round.ENDED;
                     break;
             }
-            
         }
 
 
         public void LoadFreezeRound()
         {
             //disable player components
-            
         }
 
         /// <summary>
-        /// Populate the list with spawn positions for each round
+        ///     Populate the list with spawn positions for each round
         /// </summary>
         private void InitializeSpawnPositions()
         {
-            _spawnPositions[0] = new RoundSpawnPosition(new Vector2(47 + localIndex, 52), new Vector2(1 + localIndex, -56));
-            _spawnPositions[1] =  new RoundSpawnPosition(new Vector2(221+localIndex,-62), new Vector2(90+localIndex,-31));
-            _spawnPositions[2] =  new RoundSpawnPosition(new Vector2(-105+localIndex,-6.6f), new Vector2(-172 + localIndex, -29));
+            _spawnPositions[0] =
+                new RoundSpawnPosition(new Vector2(47 + localIndex, 52), new Vector2(1 + localIndex, -56));
+            _spawnPositions[1] =
+                new RoundSpawnPosition(new Vector2(221 + localIndex, -62), new Vector2(90 + localIndex, -31));
+            _spawnPositions[2] = new RoundSpawnPosition(new Vector2(-105 + localIndex, -6.6f),
+                new Vector2(-172 + localIndex, -29));
 
             initializedSpawnPositions = true;
         }
 
-        private struct RoundSpawnPosition
-        {
-            public Vector2 CopPosition;
-            public Vector2 RobberPosition;
-
-            public RoundSpawnPosition(Vector2 copPosition, Vector2 robberPosition)
-            {
-                this.CopPosition = copPosition;
-                this.RobberPosition = robberPosition;
-            }
-        }
-
         /// <summary>
-        /// Move players into appropriate maps based on round number and update any round number views.
+        ///     Move players into appropriate maps based on round number and update any round number views.
         /// </summary>
         /// <param name="roundNumber"></param>
         public void TransformPlayersAndUpdateViews(int roundNumber)
@@ -149,26 +124,22 @@ namespace Me.DerangedSenators.CopsAndRobbers
             TransformPlayers(roundNumber);
             UpdateRoundTextView(roundNumber);
         }
-        
+
         /// <summary>
-        /// Move players into appropriate maps based on round number.
+        ///     Move players into appropriate maps based on round number.
         /// </summary>
         /// <param name="roundNumber"></param>
         public void TransformPlayers(int roundNumber)
         {
             if (Player.localPlayer.teamId == 1)
-            {
-                localPlayerRB.position = _spawnPositions[roundNumber-1].CopPosition;
-            }
+                localPlayerRB.position = _spawnPositions[roundNumber - 1].CopPosition;
             else
-            {
-                localPlayerRB.position = _spawnPositions[roundNumber-1].RobberPosition;
-            }
+                localPlayerRB.position = _spawnPositions[roundNumber - 1].RobberPosition;
         }
-        
+
 
         /// <summary>
-        /// returns current round
+        ///     returns current round
         /// </summary>
         /// <returns></returns>
         public Round GetCurrentRound()
@@ -177,7 +148,7 @@ namespace Me.DerangedSenators.CopsAndRobbers
         }
 
         /// <summary>
-        /// sets current round.
+        ///     sets current round.
         /// </summary>
         /// <param name="targetRound"></param>
         public void SetRound(Round targetRound)
@@ -186,7 +157,7 @@ namespace Me.DerangedSenators.CopsAndRobbers
         }
 
         /// <summary>
-        /// displays round text
+        ///     displays round text
         /// </summary>
         /// <param name="roundNumber"></param>
         private void UpdateRoundTextView(int roundNumber)
@@ -194,6 +165,16 @@ namespace Me.DerangedSenators.CopsAndRobbers
             currentRoundTextUI.text = $"Round {roundNumber}/3";
         }
 
+        private struct RoundSpawnPosition
+        {
+            public readonly Vector2 CopPosition;
+            public readonly Vector2 RobberPosition;
 
+            public RoundSpawnPosition(Vector2 copPosition, Vector2 robberPosition)
+            {
+                CopPosition = copPosition;
+                RobberPosition = robberPosition;
+            }
+        }
     }
 }

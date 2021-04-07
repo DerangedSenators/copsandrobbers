@@ -13,21 +13,19 @@
  *  limitations under the License.
  */
 
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace Me.DerangedSenators.CopsAndRobbers
 {
     /// <summary>
-    /// Singleton Class that manages the Game
+    ///     Singleton Class that manages the Game
     /// </summary>
     /// /// @authors Nisath Mohamed
     public class GameManager : MonoBehaviour
     {
         public static GameManager gameManager;
 
-        void Awake()
+        private void Awake()
         {
             MakeSingleton();
         }
@@ -44,6 +42,5 @@ namespace Me.DerangedSenators.CopsAndRobbers
                 DontDestroyOnLoad(gameObject);
             }
         }
-
     }
 }

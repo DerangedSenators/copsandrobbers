@@ -16,7 +16,7 @@
 namespace Me.DerangedSenators.CopsAndRobbers
 {
     /// <summary>
-    /// Enum that shows the playable teams
+    ///     Enum that shows the playable teams
     /// </summary>
     /// <author> Hanzalah Ravat </author>
     public enum Teams

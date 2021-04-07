@@ -13,7 +13,6 @@
  *  limitations under the License.
  */
 
-using System;
 using Cinemachine;
 using Mirror;
 using UnityEngine;
@@ -21,13 +20,13 @@ using UnityEngine;
 namespace Me.DerangedSenators.CopsAndRobbers
 {
     /// <summary>
-    /// Camera Controller script
+    ///     Camera Controller script
     /// </summary>
     public class CameraController : NetworkBehaviour
     {
-
         public CinemachineVirtualCamera mVirtualCamera;
         public Transform playerPrefab;
+
         private void Start()
         {
             mVirtualCamera = GetComponent<CinemachineVirtualCamera>();
@@ -35,11 +34,7 @@ namespace Me.DerangedSenators.CopsAndRobbers
 
         public override void OnStartLocalPlayer()
         {
-            if (isLocalPlayer)
-            {
-                mVirtualCamera.m_Follow = playerPrefab;
-            }
+            if (isLocalPlayer) mVirtualCamera.m_Follow = playerPrefab;
         }
-        
     }
 }

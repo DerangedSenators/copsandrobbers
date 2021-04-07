@@ -13,17 +13,15 @@
  *  limitations under the License.
  */
 
-using System;
-using System.Collections;
-using System.Collections.Generic;
+using Mirror;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using Mirror;
 
-namespace Me.DerangedSenators.CopsAndRobbers {
-
+namespace Me.DerangedSenators.CopsAndRobbers
+{
     /// <summary>
-    /// This Class is designed to host the root player object. It holds information such as the MatchID, TeamID  and is responsible for intitiating the prefab on Game Load
+    ///     This Class is designed to host the root player object. It holds information such as the MatchID, TeamID  and is
+    ///     responsible for intitiating the prefab on Game Load
     /// </summary>
     /// @authors Hannah Elliman, Ashwin Jaimal, Nisath Mohamed Nasar, Piotr Krawiec and Hanzalah Ravat
     public class Player : NetworkBehaviour
@@ -34,30 +32,25 @@ namespace Me.DerangedSenators.CopsAndRobbers {
         [SyncVar] public int teamId;
         public MoneyUpdater MoneyUpdater;
 
-        NetworkMatchChecker networkMatchChecker;
-
         [SyncVar] public Match currentMatch;
+
+        private NetworkMatchChecker networkMatchChecker;
         //[SyncVar] PlayerCameraContoller playerCameraController;
 
-        GameObject playerLobbyUI;
+        private GameObject playerLobbyUI;
 
-        void Awake()
+        private void Awake()
         {
             networkMatchChecker = GetComponent<NetworkMatchChecker>();
-
         }
 
         public override void OnStartClient()
         {
             if (isLocalPlayer)
-            {
                 localPlayer = this;
-            }
             else
-            {
                 //*Debug.Log($"Spawning other player UI");
                 playerLobbyUI = UILobby.instance.SpawnUIPlayerPrefab(this);
-            }
         }
 
         public override void OnStopClient()
@@ -78,14 +71,13 @@ namespace Me.DerangedSenators.CopsAndRobbers {
 
         public void HostGame(bool publicMatch)
         {
-            string matchId = MatchMaker.GetRandomMatchId();
+            var matchId = MatchMaker.GetRandomMatchId();
             CmdHostGame(matchId, publicMatch);
         }
-        
-        
+
 
         [Command]
-        void CmdHostGame(string matchId, bool publicMatch)
+        private void CmdHostGame(string matchId, bool publicMatch)
         {
             MatchId = matchId;
             if (MatchMaker.instance.HostGame(matchId, gameObject, publicMatch, out playerIndex, out teamId))
@@ -103,7 +95,7 @@ namespace Me.DerangedSenators.CopsAndRobbers {
         }
 
         [TargetRpc]
-        void TargetHostGame(bool success, string matchId, int playerIndex, int teamId)
+        private void TargetHostGame(bool success, string matchId, int playerIndex, int teamId)
         {
             MatchId = matchId;
             this.playerIndex = playerIndex;
@@ -118,11 +110,12 @@ namespace Me.DerangedSenators.CopsAndRobbers {
 
         public void JoinGame(string matchId)
         {
-            string matchID = matchId;
+            var matchID = matchId;
             CmdJoinGame(matchID);
         }
+
         [Command]
-        void CmdJoinGame(string matchId)
+        private void CmdJoinGame(string matchId)
         {
             MatchId = matchId;
             if (MatchMaker.instance.JoinGame(matchId, gameObject, out playerIndex, out teamId))
@@ -140,7 +133,7 @@ namespace Me.DerangedSenators.CopsAndRobbers {
         }
 
         [TargetRpc]
-        void TargetJoinGame(bool success, string matchId, int playerIndex, int teamId)
+        private void TargetJoinGame(bool success, string matchId, int playerIndex, int teamId)
         {
             MatchId = matchId;
             this.playerIndex = playerIndex;
@@ -158,7 +151,7 @@ namespace Me.DerangedSenators.CopsAndRobbers {
         }
 
         [Command]
-        void CmdSearchGame()
+        private void CmdSearchGame()
         {
             if (MatchMaker.instance.SearchGame(gameObject, out playerIndex, out MatchId, out teamId))
             {
@@ -175,7 +168,7 @@ namespace Me.DerangedSenators.CopsAndRobbers {
         }
 
         [TargetRpc]
-        void TargetSearchGame(bool success, string matchId, int playerIndex, int teamId)
+        private void TargetSearchGame(bool success, string matchId, int playerIndex, int teamId)
         {
             this.playerIndex = playerIndex;
             MatchId = matchId;
@@ -192,8 +185,9 @@ namespace Me.DerangedSenators.CopsAndRobbers {
         {
             CmdBeginGame();
         }
+
         [Command]
-        void CmdBeginGame()
+        private void CmdBeginGame()
         {
             MatchMaker.instance.BeginGame(MatchId);
             //*Debug.Log($"<color=yellow>Game Beginning</color>");
@@ -205,14 +199,13 @@ namespace Me.DerangedSenators.CopsAndRobbers {
         }
 
         [TargetRpc]
-        void TargetBeginGame()
+        private void TargetBeginGame()
         {
             //*Debug.Log($"Match ID: {MatchId} | Beginning");
             //Load in round
             //SceneManager.LoadScene(3, LoadSceneMode.Additive);
-            GameObject[] playerPrefabs = GameObject.FindGameObjectsWithTag("Player");
-            for (int i = 0; i < playerPrefabs.Length; i++)
-            {
+            var playerPrefabs = GameObject.FindGameObjectsWithTag("Player");
+            for (var i = 0; i < playerPrefabs.Length; i++)
                 if (playerPrefabs[i].GetComponents<Player>().Length == 1)
                 {
                     if (playerPrefabs[i].GetComponent<Player>().playerIndex == localPlayer.playerIndex)
@@ -229,6 +222,7 @@ namespace Me.DerangedSenators.CopsAndRobbers {
                         playerPrefabs[i].GetComponent<PlayerRespawn>().enabled = true;
                         playerPrefabs[i].GetComponent<BulletDetector>().enabled = true;
                     }
+
                     playerPrefabs[i].GetComponent<SpriteRenderer>().enabled = true;
                     playerPrefabs[i].GetComponent<BoxCollider2D>().enabled = true;
                     playerPrefabs[i].GetComponent<PlayerHealth>().enabled = true;
@@ -238,28 +232,24 @@ namespace Me.DerangedSenators.CopsAndRobbers {
                     if (playerPrefabs[i].GetComponent<Player>().teamId == 1) // if team is cops
                     {
                         playerPrefabs[i].layer = 9;
-                        string robberLayer = LayerMask.LayerToName(8);
+                        var robberLayer = LayerMask.LayerToName(8);
                         //*Debug.Log($"Robber Layer: {robberLayer}");
-                        playerPrefabs[i].GetComponent<WeaponManager>().
-                                                                        WeaponInventory[0].
-                                                                        GetComponent<Melee>().EnemyLayer =
-                                                                        1 << LayerMask.NameToLayer("Robbers");
-                        Animator anim = playerPrefabs[i].GetComponent<Animator>();
+                        playerPrefabs[i].GetComponent<WeaponManager>().WeaponInventory[0].GetComponent<Melee>()
+                                .EnemyLayer =
+                            1 << LayerMask.NameToLayer("Robbers");
+                        var anim = playerPrefabs[i].GetComponent<Animator>();
                         playerPrefabs[i].GetComponent<MoneyUpdater>().mTeam = Teams.COPS;
                         anim.runtimeAnimatorController =
                             Resources.Load("Animations/CopAnimations/Player1") as RuntimeAnimatorController;
-
-
                     }
                     else if (playerPrefabs[i].GetComponent<Player>().teamId == 2) //if team is robber
                     {
                         playerPrefabs[i].layer = 8;
                         playerPrefabs[i].GetComponent<MoneyUpdater>().mTeam = Teams.ROBBERS;
-                        playerPrefabs[i].GetComponent<WeaponManager>().
-                                                                        WeaponInventory[0].
-                                                                        GetComponent<Melee>().EnemyLayer = 
-                                                                        1 << LayerMask.NameToLayer("Cops");
-                        Animator anim = playerPrefabs[i].GetComponent<Animator>();
+                        playerPrefabs[i].GetComponent<WeaponManager>().WeaponInventory[0].GetComponent<Melee>()
+                                .EnemyLayer =
+                            1 << LayerMask.NameToLayer("Cops");
+                        var anim = playerPrefabs[i].GetComponent<Animator>();
 
                         anim.runtimeAnimatorController =
                             Resources.Load("Animations/RobberAnimations/RobberAll") as RuntimeAnimatorController;
@@ -267,7 +257,7 @@ namespace Me.DerangedSenators.CopsAndRobbers {
 
                     DontDestroyOnLoad(playerPrefabs[i]);
                 }
-            }
+
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
         }
 
@@ -282,12 +272,12 @@ namespace Me.DerangedSenators.CopsAndRobbers {
         }
 
         [Command]
-        void CmdDisconnectGame()
+        private void CmdDisconnectGame()
         {
             ServerDisconnect();
         }
 
-        void ServerDisconnect()
+        private void ServerDisconnect()
         {
             MatchMaker.instance.PlayerDisconnected(this, MatchId);
             networkMatchChecker.matchId = string.Empty.ToGuid();
@@ -295,19 +285,15 @@ namespace Me.DerangedSenators.CopsAndRobbers {
         }
 
         [ClientRpc]
-        void RpcDisconnectGame()
+        private void RpcDisconnectGame()
         {
             ClientDisconnect();
         }
 
-        void ClientDisconnect()
+        private void ClientDisconnect()
         {
-
             //destroy UIPlayer
-            if (playerLobbyUI != null)
-            {
-                Destroy(playerLobbyUI);
-            }
+            if (playerLobbyUI != null) Destroy(playerLobbyUI);
         }
 
         public int GetTeamId()
@@ -316,13 +302,14 @@ namespace Me.DerangedSenators.CopsAndRobbers {
         }
 
         //[Command]
-        public void DestroyMoneyBag(GameObject mb) {
+        public void DestroyMoneyBag(GameObject mb)
+        {
             //*Debug.Log("attempting to destroy game object on network");
-            NetworkManager.Destroy(mb);
+            Destroy(mb);
             //NetworkServer.Destroy(mb);
             //Destroy(mb);
         }
-        
+
         [Command]
         public void CmdDestroyBullet(GameObject gameObject)
         {
@@ -330,36 +317,3 @@ namespace Me.DerangedSenators.CopsAndRobbers {
         }
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

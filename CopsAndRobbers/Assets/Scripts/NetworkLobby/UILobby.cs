@@ -22,27 +22,26 @@ namespace Me.DerangedSenators.CopsAndRobbers
 {
     public class UILobby : MonoBehaviour
     {
-
         public static UILobby instance;
-        [Header("Host/Join")]
-        [SerializeField] private InputField joinMatchInput;
+
+        [Header("Host/Join")] [SerializeField] private InputField joinMatchInput;
 
         [SerializeField] private List<Selectable> lobbySelectables = new List<Selectable>();
         [SerializeField] private Canvas lobbyCanvas;
         [SerializeField] private Canvas searchCanvas;
 
-        [Header("Lobby")]
-        [SerializeField] private Transform UIPlayerParent;
+        [Header("Lobby")] [SerializeField] private Transform UIPlayerParent;
+
         [SerializeField] private GameObject UIPlayerPrefab;
 
         [SerializeField] private Text matchIdText;
         [SerializeField] private GameObject beginButton;
 
-        bool searching = false;
+        private GameObject playerLobbyUI;
 
-        GameObject playerLobbyUI;
+        private bool searching;
 
-        void Start()
+        private void Start()
         {
             instance = this;
         }
@@ -99,7 +98,7 @@ namespace Me.DerangedSenators.CopsAndRobbers
 
         public void JoinSuccess(bool success, string matchId)
         {
-            if (success) 
+            if (success)
             {
                 lobbyCanvas.enabled = true;
                 beginButton.SetActive(false);
@@ -120,7 +119,7 @@ namespace Me.DerangedSenators.CopsAndRobbers
 
         public GameObject SpawnUIPlayerPrefab(Player player)
         {
-            GameObject newUIPlayer = Instantiate(UIPlayerPrefab, UIPlayerParent);
+            var newUIPlayer = Instantiate(UIPlayerPrefab, UIPlayerParent);
             newUIPlayer.GetComponent<UIPlayer>().SetPlayer(player);
             newUIPlayer.transform.SetSiblingIndex(player.playerIndex - 1);
 
@@ -132,7 +131,6 @@ namespace Me.DerangedSenators.CopsAndRobbers
         {
             Player.localPlayer.BeginGame();
             lobbyCanvas.enabled = false;
-
         }
 
         public void SearchGame()
@@ -142,17 +140,14 @@ namespace Me.DerangedSenators.CopsAndRobbers
             StartCoroutine(SearchingForGame());
         }
 
-        IEnumerator SearchingForGame()
+        private IEnumerator SearchingForGame()
         {
             searching = true;
-            WaitForSeconds checkeEveryNSeconds = new WaitForSeconds(1);
+            var checkeEveryNSeconds = new WaitForSeconds(1);
             while (searching)
             {
                 yield return checkeEveryNSeconds;
-                if (searching)
-                {
-                    Player.localPlayer.SearchGame();
-                }
+                if (searching) Player.localPlayer.SearchGame();
             }
         }
 

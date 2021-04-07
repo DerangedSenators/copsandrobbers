@@ -1,11 +1,5 @@
-﻿
-
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
-
 
 namespace Me.DerangedSenators.CopsAndRobbers
 {
@@ -19,32 +13,26 @@ namespace Me.DerangedSenators.CopsAndRobbers
 
         public GameObject sfxGO;
 
-        void Awake()
+        private void Awake()
         {
             //sfx = GameObject.FindWithTag("SFX").GetComponent<AudioSource>();
             //music = GameObject.FindWithTag("Music").GetComponent<AudioSource>();
-            
-            
         }
 
-        void FixedUpdate()
+        private void FixedUpdate()
         {
             sfxGO = GameObject.FindWithTag("SFX");
             sfx = sfxGO.GetComponent<AudioSource>();
             music = GameObject.FindWithTag("Music").GetComponent<AudioSource>();
 
             //AudioSource[] audioSources = sfx.GetComponents<AudioSource>();
-            AudioSource[] audioSources = sfxGO.GetComponents<AudioSource>();
+            var audioSources = sfxGO.GetComponents<AudioSource>();
 
-            foreach (var audiosource in audioSources)
-            {
-                audiosource.volume = sfxSlider.value;
-            }
-            
+            foreach (var audiosource in audioSources) audiosource.volume = sfxSlider.value;
+
             //sfx.GetComponent<AudioSource>().volume = sfxSlider.value;
-            
+
             music.GetComponent<AudioSource>().volume = musicSlider.value;
         }
     }
-
 }

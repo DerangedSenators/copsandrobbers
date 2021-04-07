@@ -13,20 +13,14 @@
  *  limitations under the License.
  */
 
-using System;
-using Mirror;
-using System.Collections;
-using System.Collections.Generic;
-using System.Runtime.InteropServices.ComTypes;
 using UnityEngine;
-using UnityEngine.UI;
 
 namespace Me.DerangedSenators.CopsAndRobbers
 {
     /// <summary>
-    /// This Class is designed to manage money between each team and also tracks the overall amount of money collected
+    ///     This Class is designed to manage money between each team and also tracks the overall amount of money collected
     /// </summary>
-    /// @authors Hanzalah Ravat, Nisath Mohamed Nasar, Piotr Krawiec, Naim Ahmed, Hannah Elliman 
+    /// @authors Hanzalah Ravat, Nisath Mohamed Nasar, Piotr Krawiec, Naim Ahmed, Hannah Elliman
     public class MoneyManager : MonoBehaviour
     {
         //[SerializeField] Text moneyText;
@@ -34,29 +28,14 @@ namespace Me.DerangedSenators.CopsAndRobbers
         private static long moneyCount;
         private static TeamMoneyCount robberMoneyCount;
         private static TeamMoneyCount copsMoneyCount;
-        public static TeamMoneyCount CopsMoneyCount => copsMoneyCount;
-        public static TeamMoneyCount RobberMoneyCount => robberMoneyCount;
-        private int myTeamID = -1;
 
         public GameObject sfxHandler;
         public AudioClip moneyBagClip;
         public AudioSource moneyAudioSource;
-        
-        /// <summary>
-        /// Struct to hold team and money value
-        /// </summary>
-        public struct TeamMoneyCount
-        {
-            private Teams team;
-            public int money;
+        private int myTeamID = -1;
+        public static TeamMoneyCount CopsMoneyCount => copsMoneyCount;
+        public static TeamMoneyCount RobberMoneyCount => robberMoneyCount;
 
-            public TeamMoneyCount(Teams team)
-            {
-                this.team = team;
-                money = 0;
-            }
-        }
-        
         private void Awake()
         {
             //*Debug.Log("Money Manager is Awake!");
@@ -71,23 +50,20 @@ namespace Me.DerangedSenators.CopsAndRobbers
                 moneyAudioSource = sfxHandler.AddComponent<AudioSource>();
                 moneyAudioSource.clip = moneyBagClip;
             }
-            
         }
 
         /// <summary>
-        /// Adds $100 to treasury. 
+        ///     Adds $100 to treasury.
         /// </summary>
         //[Command]
         public void CMDCollectMoney(int teamID)
         {
-
-            
             moneyAudioSource.PlayOneShot(moneyBagClip);
-            
-            
+
+
             myTeamID = teamID;
             //*Debug.Log($"CMDCollectMoney has been invoked by {teamID}");
-            Teams updateTeam = (Teams) teamID;
+            var updateTeam = (Teams) teamID;
             //*Debug.Log($"{updateTeam.ToString()} I'm {teamID} attempting to CMDCollectMoney");
             switch (updateTeam)
             {
@@ -97,7 +73,7 @@ namespace Me.DerangedSenators.CopsAndRobbers
                     MoneyDisplay.Instance().UpdateCopsView(robberMoneyCount.money);
                     break;
                 case Teams.COPS:
-                    
+
                     copsMoneyCount.money += IncrementValue;
                     Debug.Log($"Increased Cops Money {copsMoneyCount.money}");
                     MoneyDisplay.Instance().UpdateRobbersView(copsMoneyCount.money);
@@ -106,24 +82,24 @@ namespace Me.DerangedSenators.CopsAndRobbers
         }
 
         /// <summary>
-        /// Removes $100 from the treasury when a player is respawned
+        ///     Removes $100 from the treasury when a player is respawned
         /// </summary>
         /// <param name="teamID"></param>
         public void SubtractMoney(int teamID)
         {
             //*Debug.Log($"CMDCollectMoney has been invoked by {teamID}");
-            Teams updateTeam = (Teams) teamID;
+            var updateTeam = (Teams) teamID;
             //*Debug.Log($"{updateTeam.ToString()} I'm {teamID} attempting to CMDCollectMoney");
             switch (updateTeam)
             {
                 case Teams.ROBBERS:
-                    robberMoneyCount.money -= IncrementValue/2;
+                    robberMoneyCount.money -= IncrementValue / 2;
                     Debug.Log($"Decreased Robbers Money {robberMoneyCount.money}");
                     MoneyDisplay.Instance().UpdateCopsView(robberMoneyCount.money);
                     break;
                 case Teams.COPS:
-                    
-                    copsMoneyCount.money -= IncrementValue/2;
+
+                    copsMoneyCount.money -= IncrementValue / 2;
                     Debug.Log($"Decreased Cops Money {copsMoneyCount.money}");
                     MoneyDisplay.Instance().UpdateRobbersView(copsMoneyCount.money);
                     break;
@@ -140,7 +116,20 @@ namespace Me.DerangedSenators.CopsAndRobbers
         {
             return myTeamID;
         }
-        
-        
+
+        /// <summary>
+        ///     Struct to hold team and money value
+        /// </summary>
+        public struct TeamMoneyCount
+        {
+            private Teams team;
+            public int money;
+
+            public TeamMoneyCount(Teams team)
+            {
+                this.team = team;
+                money = 0;
+            }
+        }
     }
 }

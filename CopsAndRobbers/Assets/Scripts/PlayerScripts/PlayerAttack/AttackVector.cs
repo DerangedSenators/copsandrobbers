@@ -15,39 +15,37 @@
 
 using System;
 using Mirror;
-using UnityEditor;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 namespace Me.DerangedSenators.CopsAndRobbers
 {
     /// <summary>
-    /// Abstract class used for different weapons
+    ///     Abstract class used for different weapons
     /// </summary>
     /// @author Hanzalah Ravat
     public abstract class AttackVector : NetworkBehaviour
     {
-        
         /// <summary>
-        /// The LayerMask is used to detect collisions with an enemy
+        ///     The LayerMask is used to detect collisions with an enemy
         /// </summary>
         public LayerMask EnemyLayer;
 
         /// <summary>
-        /// Damage caused from a single strike by this vector. Set as 10% by default but can be overridden as required
+        ///     Damage caused from a single strike by this vector. Set as 10% by default but can be overridden as required
         /// </summary>
         protected int damageModifier = 10;
 
         protected State _state;
 
-        private bool _buttonListenerSet = false;
+        private bool _buttonListenerSet;
+
         /// <summary>
-        /// The Weapon Manager managing the weapon contexts
+        ///     The Weapon Manager managing the weapon contexts
         /// </summary>
         public WeaponManager Manager;
 
         /// <summary>
-        /// Enum object State: contains the states player can be in. Used for attack animation.
+        ///     Enum object State: contains the states player can be in. Used for attack animation.
         /// </summary>
         protected enum State
         {
@@ -57,7 +55,7 @@ namespace Me.DerangedSenators.CopsAndRobbers
 
         private class MobileButtonListener : IButtonListener
         {
-            private AttackVector _attack;
+            private readonly AttackVector _attack;
 
             public MobileButtonListener(AttackVector attacker)
             {
@@ -67,10 +65,8 @@ namespace Me.DerangedSenators.CopsAndRobbers
             public void onButtonPressed()
             {
                 if (_attack.isLocalPlayer)
-                {
                     // Handle Attack
                     _attack.OnMobileAttackButtonPressed();
-                }
             }
 
             public void onButtonReleased()
@@ -80,17 +76,16 @@ namespace Me.DerangedSenators.CopsAndRobbers
         }
 
         /// <summary>
-        /// Action to be completed when the attack button is pressed on mobile
+        ///     Action to be completed when the attack button is pressed on mobile
         /// </summary>
         protected abstract void OnMobileAttackButtonPressed();
 
         /// <summary>
-        /// Action to be completed when the attack button is released on mobile
+        ///     Action to be completed when the attack button is released on mobile
         /// </summary>
         protected abstract void OnMobileAttackButtonReleased();
 
 #if UNITY_STANDALONE || UNITY_WEBPLAYER
-
         #region Client
         void Updatee()
         {
@@ -109,7 +104,6 @@ namespace Me.DerangedSenators.CopsAndRobbers
         private void FixedUpdate()
         {
             if (!_buttonListenerSet && isLocalPlayer)
-            {
                 try
                 {
                     ControlContext.Instance.AttackButton.AddListener(new MobileButtonListener(this));
@@ -119,29 +113,23 @@ namespace Me.DerangedSenators.CopsAndRobbers
                 {
                     // WaitOut
                 }
-            }
         }
 #endif
 
 
         /// <summary>
-        /// Method that checks if the attack button is pressed on desktop and then if true, invokes the DoAttack method
+        ///     Method that checks if the attack button is pressed on desktop and then if true, invokes the DoAttack method
         /// </summary>
         public void HandleAttack()
         {
-            if (Manager == null)
-                {
-                    Manager = WeaponManager.LocalInstance;
-                }
+            if (Manager == null) Manager = WeaponManager.LocalInstance;
 
-                DoAttack();
-            }
+            DoAttack();
+        }
 
         /// <summary>
-        /// This method performs the attack on the server
+        ///     This method performs the attack on the server
         /// </summary>
         protected abstract void DoAttack();
-
-
     }
 }
