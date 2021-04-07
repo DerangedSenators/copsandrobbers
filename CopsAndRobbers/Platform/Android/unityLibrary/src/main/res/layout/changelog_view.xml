@@ -29,10 +29,11 @@
                 android:layout_margin="8dp"
                 android:textSize="50sp"
                 android:textColor="@color/headings"/>
-        <Space
+        <View
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="8dp"/>
+                android:layout_height="2dp"
+                android:layout_margin="8dp"
+                android:background="@color/cardview_shadow_end_color"/>
         <ScrollView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
@@ -41,6 +42,7 @@
                     android:layout_height="wrap_content"
                     android:id="@+id/changelogTextView"
                     android:text="This is a placeholder"
+                    android:textColor="@color/headings"
                     android:layout_margin="8dp"/>
         </ScrollView>
     </LinearLayout>
