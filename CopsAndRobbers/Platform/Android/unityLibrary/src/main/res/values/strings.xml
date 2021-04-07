@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Cops And Robbers</string>
+    <string name="by">by</string>
+    <string name="developer_name">Deranged Senators</string>
+    <string name="version_outdated">This Version is Outdated</string>
+    <string name="install_updates_to_continue">Please Install the Latest Version to Play</string>
+    <string name="download">Download and Install</string>
+    <string name="current">Current Version:</string>
+    <string name="latest">Latest Version:</string>
+    <string name="version">Version</string>
+    <string name="root_and_safety_net_checks">Root and Safety Net Checks</string>
+    <string name="this_device_s_integrity_may_be_compromised">This device\'s integrity may be compromised</string>
+    <string name="root_status">Root Status:</string>
+    <string name="basic_integrity">SafetyNet Basic Integrity:</string>
+    <string name="cts_profile">SafetyNet CTS Profile:</string>
+    <string name="incorrect_info_contact">If any of the above information is incorrect, please get in touch with us so we can resolve the issue</string>
+    <string name="title_file_download">Cops And Robbers: Downloading OTA Update</string>
+    <string name="downloading">Downloading...</string>
+    <string name="ok">ok</string>
+    <string name="storage_access_required">Storage Access Is Required</string>
+    <string name="changelog">Changelog</string>
+    <string name="install">Install</string>
+</resources>

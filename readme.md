@@ -16,3 +16,12 @@ To build a server, open build settings select standalone and the respective plat
 ```
 ./Server.x86_84
 ```
+
+## Building for Android with SecureLaunch
+Secure Launch is an extension to CopsAndRobbers and is a means of providing software validity and device integrity before starting the game. It is currently available on the Android version of the game. In order to build the game with this feature, you will have to first export the Unity Project to a Gradle project from Build Settings and then create a file `local.properties` in the root of the Android directory (`CopsAndRobbers/Platform/Android`) and record the following:
+```java
+dveritykey = "YOUR_ANDROID_DEVICE_VALIDATION_API_KEY"
+```
+You can obtain an API key [here](https://developer.android.com/training/safetynet/attestation#obtain-api-key)
+
+The game also looks to our GitHub Repository in order to check for the latest release using the GitHub API. This URL is set in the `global.properties` file and you can change this to your repository by altering the `relapiurl` field.

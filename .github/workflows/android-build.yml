@@ -1,0 +1,17 @@
+name: BuildAndroid
+on: [pull_request, push]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout the code
+        uses: actions/checkout@v2
+      - name: Build the app
+        run: |
+             cd CopsAndRobbers/platform/android/
+             ./gradlew build
+      - name: Upload App Artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: CopsAndRobbers.apk
+          path: CopsAndRobbers/platform/android/launcher/build/outputs/apk/*.apk
