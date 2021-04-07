@@ -13,29 +13,27 @@
  *  limitations under the License.
  */
 
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
     public static GameManager gameManager;
 
-    void Awake()
+    private void Awake()
     {
         MakeSingleton();
     }
 
-    private void MakeSingleton() {
+    private void MakeSingleton()
+    {
         if (gameManager != null)
         {
             Destroy(gameObject);
         }
-        else 
+        else
         {
             gameManager = this;
             DontDestroyOnLoad(gameObject);
         }
     }
-
 }

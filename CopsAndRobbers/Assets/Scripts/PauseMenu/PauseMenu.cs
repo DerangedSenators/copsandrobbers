@@ -13,31 +13,24 @@
  *  limitations under the License.
  */
 
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class PauseMenu : MonoBehaviour
 {
-    public static bool GameIsPaused = false;
-    public GameObject pauseMenuUI; 
-    
+    public static bool GameIsPaused;
+    public GameObject pauseMenuUI;
+
 
     // Update is called once per frame
-    void Update()
+    private void Update()
     {
-        if(Input.GetKeyDown(KeyCode.Escape))
+        if (Input.GetKeyDown(KeyCode.Escape))
         {
             if (GameIsPaused)
-            {
                 Resume();
-            }
             else
-            {
                 Pause();
-            }
-                
         }
     }
 
@@ -48,7 +41,7 @@ public class PauseMenu : MonoBehaviour
         GameIsPaused = false;
     }
 
-    void Pause()
+    private void Pause()
     {
         pauseMenuUI.SetActive(true);
         //freezes game
@@ -65,6 +58,6 @@ public class PauseMenu : MonoBehaviour
     public void QuitGame()
     {
         //*Debug.Log("Quiting Game....");
-        Application.Quit(); 
+        Application.Quit();
     }
 }

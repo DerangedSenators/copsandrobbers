@@ -5,13 +5,39 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Utilities;
+using Object = UnityEngine.Object;
 
 namespace Me.DerangedSenators.CopsAndRobbers
 {
-    public class @PlayerControls : IInputActionCollection, IDisposable
+    public class PlayerControls : IInputActionCollection, IDisposable
     {
-        public InputActionAsset asset { get; }
-        public @PlayerControls()
+        // AttackMap
+        private readonly InputActionMap m_AttackMap;
+        private readonly InputAction m_AttackMap_Melee;
+
+        // CameraViewPoints
+        private readonly InputActionMap m_CameraViewPoints;
+        private readonly InputAction m_CameraViewPoints_FocusPlayer;
+        private readonly InputAction m_CameraViewPoints_ZoomIn;
+        private readonly InputAction m_CameraViewPoints_ZoomOut;
+
+        // KeyMap
+        private readonly InputActionMap m_KeyMap;
+        private readonly InputAction m_KeyMap_MoveDown;
+        private readonly InputAction m_KeyMap_MoveLeft;
+        private readonly InputAction m_KeyMap_MoveRight;
+        private readonly InputAction m_KeyMap_MoveUp;
+
+        // MouseActions
+        private readonly InputActionMap m_MouseActions;
+        private readonly InputAction m_MouseActions_MousePosition;
+        private IAttackMapActions m_AttackMapActionsCallbackInterface;
+        private ICameraViewPointsActions m_CameraViewPointsActionsCallbackInterface;
+        private int m_KeyboardMouseSchemeIndex = -1;
+        private IKeyMapActions m_KeyMapActionsCallbackInterface;
+        private IMouseActionsActions m_MouseActionsActionsCallbackInterface;
+
+        public PlayerControls()
         {
             asset = InputActionAsset.FromJson(@"{
     ""name"": ""PlayerControls"",
@@ -295,27 +321,43 @@ namespace Me.DerangedSenators.CopsAndRobbers
     ]
 }");
             // KeyMap
-            m_KeyMap = asset.FindActionMap("KeyMap", throwIfNotFound: true);
-            m_KeyMap_MoveUp = m_KeyMap.FindAction("MoveUp", throwIfNotFound: true);
-            m_KeyMap_MoveDown = m_KeyMap.FindAction("MoveDown", throwIfNotFound: true);
-            m_KeyMap_MoveLeft = m_KeyMap.FindAction("MoveLeft", throwIfNotFound: true);
-            m_KeyMap_MoveRight = m_KeyMap.FindAction("MoveRight", throwIfNotFound: true);
+            m_KeyMap = asset.FindActionMap("KeyMap", true);
+            m_KeyMap_MoveUp = m_KeyMap.FindAction("MoveUp", true);
+            m_KeyMap_MoveDown = m_KeyMap.FindAction("MoveDown", true);
+            m_KeyMap_MoveLeft = m_KeyMap.FindAction("MoveLeft", true);
+            m_KeyMap_MoveRight = m_KeyMap.FindAction("MoveRight", true);
             // AttackMap
-            m_AttackMap = asset.FindActionMap("AttackMap", throwIfNotFound: true);
-            m_AttackMap_Melee = m_AttackMap.FindAction("Melee", throwIfNotFound: true);
+            m_AttackMap = asset.FindActionMap("AttackMap", true);
+            m_AttackMap_Melee = m_AttackMap.FindAction("Melee", true);
             // CameraViewPoints
-            m_CameraViewPoints = asset.FindActionMap("CameraViewPoints", throwIfNotFound: true);
-            m_CameraViewPoints_FocusPlayer = m_CameraViewPoints.FindAction("FocusPlayer", throwIfNotFound: true);
-            m_CameraViewPoints_ZoomOut = m_CameraViewPoints.FindAction("ZoomOut", throwIfNotFound: true);
-            m_CameraViewPoints_ZoomIn = m_CameraViewPoints.FindAction("ZoomIn", throwIfNotFound: true);
+            m_CameraViewPoints = asset.FindActionMap("CameraViewPoints", true);
+            m_CameraViewPoints_FocusPlayer = m_CameraViewPoints.FindAction("FocusPlayer", true);
+            m_CameraViewPoints_ZoomOut = m_CameraViewPoints.FindAction("ZoomOut", true);
+            m_CameraViewPoints_ZoomIn = m_CameraViewPoints.FindAction("ZoomIn", true);
             // MouseActions
-            m_MouseActions = asset.FindActionMap("MouseActions", throwIfNotFound: true);
-            m_MouseActions_MousePosition = m_MouseActions.FindAction("MousePosition", throwIfNotFound: true);
+            m_MouseActions = asset.FindActionMap("MouseActions", true);
+            m_MouseActions_MousePosition = m_MouseActions.FindAction("MousePosition", true);
+        }
+
+        public InputActionAsset asset { get; }
+        public KeyMapActions KeyMap => new KeyMapActions(this);
+        public AttackMapActions AttackMap => new AttackMapActions(this);
+        public CameraViewPointsActions CameraViewPoints => new CameraViewPointsActions(this);
+        public MouseActionsActions MouseActions => new MouseActionsActions(this);
+
+        public InputControlScheme KeyboardMouseScheme
+        {
+            get
+            {
+                if (m_KeyboardMouseSchemeIndex == -1)
+                    m_KeyboardMouseSchemeIndex = asset.FindControlSchemeIndex("Keyboard&Mouse");
+                return asset.controlSchemes[m_KeyboardMouseSchemeIndex];
+            }
         }
 
         public void Dispose()
         {
-            UnityEngine.Object.Destroy(asset);
+            Object.Destroy(asset);
         }
 
         public InputBinding? bindingMask
@@ -357,186 +399,249 @@ namespace Me.DerangedSenators.CopsAndRobbers
             asset.Disable();
         }
 
-        // KeyMap
-        private readonly InputActionMap m_KeyMap;
-        private IKeyMapActions m_KeyMapActionsCallbackInterface;
-        private readonly InputAction m_KeyMap_MoveUp;
-        private readonly InputAction m_KeyMap_MoveDown;
-        private readonly InputAction m_KeyMap_MoveLeft;
-        private readonly InputAction m_KeyMap_MoveRight;
         public struct KeyMapActions
         {
-            private @PlayerControls m_Wrapper;
-            public KeyMapActions(@PlayerControls wrapper) { m_Wrapper = wrapper; }
-            public InputAction @MoveUp => m_Wrapper.m_KeyMap_MoveUp;
-            public InputAction @MoveDown => m_Wrapper.m_KeyMap_MoveDown;
-            public InputAction @MoveLeft => m_Wrapper.m_KeyMap_MoveLeft;
-            public InputAction @MoveRight => m_Wrapper.m_KeyMap_MoveRight;
-            public InputActionMap Get() { return m_Wrapper.m_KeyMap; }
-            public void Enable() { Get().Enable(); }
-            public void Disable() { Get().Disable(); }
+            private readonly PlayerControls m_Wrapper;
+
+            public KeyMapActions(PlayerControls wrapper)
+            {
+                m_Wrapper = wrapper;
+            }
+
+            public InputAction MoveUp => m_Wrapper.m_KeyMap_MoveUp;
+            public InputAction MoveDown => m_Wrapper.m_KeyMap_MoveDown;
+            public InputAction MoveLeft => m_Wrapper.m_KeyMap_MoveLeft;
+            public InputAction MoveRight => m_Wrapper.m_KeyMap_MoveRight;
+
+            public InputActionMap Get()
+            {
+                return m_Wrapper.m_KeyMap;
+            }
+
+            public void Enable()
+            {
+                Get().Enable();
+            }
+
+            public void Disable()
+            {
+                Get().Disable();
+            }
+
             public bool enabled => Get().enabled;
-            public static implicit operator InputActionMap(KeyMapActions set) { return set.Get(); }
+
+            public static implicit operator InputActionMap(KeyMapActions set)
+            {
+                return set.Get();
+            }
+
             public void SetCallbacks(IKeyMapActions instance)
             {
                 if (m_Wrapper.m_KeyMapActionsCallbackInterface != null)
                 {
-                    @MoveUp.started -= m_Wrapper.m_KeyMapActionsCallbackInterface.OnMoveUp;
-                    @MoveUp.performed -= m_Wrapper.m_KeyMapActionsCallbackInterface.OnMoveUp;
-                    @MoveUp.canceled -= m_Wrapper.m_KeyMapActionsCallbackInterface.OnMoveUp;
-                    @MoveDown.started -= m_Wrapper.m_KeyMapActionsCallbackInterface.OnMoveDown;
-                    @MoveDown.performed -= m_Wrapper.m_KeyMapActionsCallbackInterface.OnMoveDown;
-                    @MoveDown.canceled -= m_Wrapper.m_KeyMapActionsCallbackInterface.OnMoveDown;
-                    @MoveLeft.started -= m_Wrapper.m_KeyMapActionsCallbackInterface.OnMoveLeft;
-                    @MoveLeft.performed -= m_Wrapper.m_KeyMapActionsCallbackInterface.OnMoveLeft;
-                    @MoveLeft.canceled -= m_Wrapper.m_KeyMapActionsCallbackInterface.OnMoveLeft;
-                    @MoveRight.started -= m_Wrapper.m_KeyMapActionsCallbackInterface.OnMoveRight;
-                    @MoveRight.performed -= m_Wrapper.m_KeyMapActionsCallbackInterface.OnMoveRight;
-                    @MoveRight.canceled -= m_Wrapper.m_KeyMapActionsCallbackInterface.OnMoveRight;
+                    MoveUp.started -= m_Wrapper.m_KeyMapActionsCallbackInterface.OnMoveUp;
+                    MoveUp.performed -= m_Wrapper.m_KeyMapActionsCallbackInterface.OnMoveUp;
+                    MoveUp.canceled -= m_Wrapper.m_KeyMapActionsCallbackInterface.OnMoveUp;
+                    MoveDown.started -= m_Wrapper.m_KeyMapActionsCallbackInterface.OnMoveDown;
+                    MoveDown.performed -= m_Wrapper.m_KeyMapActionsCallbackInterface.OnMoveDown;
+                    MoveDown.canceled -= m_Wrapper.m_KeyMapActionsCallbackInterface.OnMoveDown;
+                    MoveLeft.started -= m_Wrapper.m_KeyMapActionsCallbackInterface.OnMoveLeft;
+                    MoveLeft.performed -= m_Wrapper.m_KeyMapActionsCallbackInterface.OnMoveLeft;
+                    MoveLeft.canceled -= m_Wrapper.m_KeyMapActionsCallbackInterface.OnMoveLeft;
+                    MoveRight.started -= m_Wrapper.m_KeyMapActionsCallbackInterface.OnMoveRight;
+                    MoveRight.performed -= m_Wrapper.m_KeyMapActionsCallbackInterface.OnMoveRight;
+                    MoveRight.canceled -= m_Wrapper.m_KeyMapActionsCallbackInterface.OnMoveRight;
                 }
+
                 m_Wrapper.m_KeyMapActionsCallbackInterface = instance;
                 if (instance != null)
                 {
-                    @MoveUp.started += instance.OnMoveUp;
-                    @MoveUp.performed += instance.OnMoveUp;
-                    @MoveUp.canceled += instance.OnMoveUp;
-                    @MoveDown.started += instance.OnMoveDown;
-                    @MoveDown.performed += instance.OnMoveDown;
-                    @MoveDown.canceled += instance.OnMoveDown;
-                    @MoveLeft.started += instance.OnMoveLeft;
-                    @MoveLeft.performed += instance.OnMoveLeft;
-                    @MoveLeft.canceled += instance.OnMoveLeft;
-                    @MoveRight.started += instance.OnMoveRight;
-                    @MoveRight.performed += instance.OnMoveRight;
-                    @MoveRight.canceled += instance.OnMoveRight;
+                    MoveUp.started += instance.OnMoveUp;
+                    MoveUp.performed += instance.OnMoveUp;
+                    MoveUp.canceled += instance.OnMoveUp;
+                    MoveDown.started += instance.OnMoveDown;
+                    MoveDown.performed += instance.OnMoveDown;
+                    MoveDown.canceled += instance.OnMoveDown;
+                    MoveLeft.started += instance.OnMoveLeft;
+                    MoveLeft.performed += instance.OnMoveLeft;
+                    MoveLeft.canceled += instance.OnMoveLeft;
+                    MoveRight.started += instance.OnMoveRight;
+                    MoveRight.performed += instance.OnMoveRight;
+                    MoveRight.canceled += instance.OnMoveRight;
                 }
             }
         }
-        public KeyMapActions @KeyMap => new KeyMapActions(this);
 
-        // AttackMap
-        private readonly InputActionMap m_AttackMap;
-        private IAttackMapActions m_AttackMapActionsCallbackInterface;
-        private readonly InputAction m_AttackMap_Melee;
         public struct AttackMapActions
         {
-            private @PlayerControls m_Wrapper;
-            public AttackMapActions(@PlayerControls wrapper) { m_Wrapper = wrapper; }
-            public InputAction @Melee => m_Wrapper.m_AttackMap_Melee;
-            public InputActionMap Get() { return m_Wrapper.m_AttackMap; }
-            public void Enable() { Get().Enable(); }
-            public void Disable() { Get().Disable(); }
+            private readonly PlayerControls m_Wrapper;
+
+            public AttackMapActions(PlayerControls wrapper)
+            {
+                m_Wrapper = wrapper;
+            }
+
+            public InputAction Melee => m_Wrapper.m_AttackMap_Melee;
+
+            public InputActionMap Get()
+            {
+                return m_Wrapper.m_AttackMap;
+            }
+
+            public void Enable()
+            {
+                Get().Enable();
+            }
+
+            public void Disable()
+            {
+                Get().Disable();
+            }
+
             public bool enabled => Get().enabled;
-            public static implicit operator InputActionMap(AttackMapActions set) { return set.Get(); }
+
+            public static implicit operator InputActionMap(AttackMapActions set)
+            {
+                return set.Get();
+            }
+
             public void SetCallbacks(IAttackMapActions instance)
             {
                 if (m_Wrapper.m_AttackMapActionsCallbackInterface != null)
                 {
-                    @Melee.started -= m_Wrapper.m_AttackMapActionsCallbackInterface.OnMelee;
-                    @Melee.performed -= m_Wrapper.m_AttackMapActionsCallbackInterface.OnMelee;
-                    @Melee.canceled -= m_Wrapper.m_AttackMapActionsCallbackInterface.OnMelee;
+                    Melee.started -= m_Wrapper.m_AttackMapActionsCallbackInterface.OnMelee;
+                    Melee.performed -= m_Wrapper.m_AttackMapActionsCallbackInterface.OnMelee;
+                    Melee.canceled -= m_Wrapper.m_AttackMapActionsCallbackInterface.OnMelee;
                 }
+
                 m_Wrapper.m_AttackMapActionsCallbackInterface = instance;
                 if (instance != null)
                 {
-                    @Melee.started += instance.OnMelee;
-                    @Melee.performed += instance.OnMelee;
-                    @Melee.canceled += instance.OnMelee;
+                    Melee.started += instance.OnMelee;
+                    Melee.performed += instance.OnMelee;
+                    Melee.canceled += instance.OnMelee;
                 }
             }
         }
-        public AttackMapActions @AttackMap => new AttackMapActions(this);
 
-        // CameraViewPoints
-        private readonly InputActionMap m_CameraViewPoints;
-        private ICameraViewPointsActions m_CameraViewPointsActionsCallbackInterface;
-        private readonly InputAction m_CameraViewPoints_FocusPlayer;
-        private readonly InputAction m_CameraViewPoints_ZoomOut;
-        private readonly InputAction m_CameraViewPoints_ZoomIn;
         public struct CameraViewPointsActions
         {
-            private @PlayerControls m_Wrapper;
-            public CameraViewPointsActions(@PlayerControls wrapper) { m_Wrapper = wrapper; }
-            public InputAction @FocusPlayer => m_Wrapper.m_CameraViewPoints_FocusPlayer;
-            public InputAction @ZoomOut => m_Wrapper.m_CameraViewPoints_ZoomOut;
-            public InputAction @ZoomIn => m_Wrapper.m_CameraViewPoints_ZoomIn;
-            public InputActionMap Get() { return m_Wrapper.m_CameraViewPoints; }
-            public void Enable() { Get().Enable(); }
-            public void Disable() { Get().Disable(); }
+            private readonly PlayerControls m_Wrapper;
+
+            public CameraViewPointsActions(PlayerControls wrapper)
+            {
+                m_Wrapper = wrapper;
+            }
+
+            public InputAction FocusPlayer => m_Wrapper.m_CameraViewPoints_FocusPlayer;
+            public InputAction ZoomOut => m_Wrapper.m_CameraViewPoints_ZoomOut;
+            public InputAction ZoomIn => m_Wrapper.m_CameraViewPoints_ZoomIn;
+
+            public InputActionMap Get()
+            {
+                return m_Wrapper.m_CameraViewPoints;
+            }
+
+            public void Enable()
+            {
+                Get().Enable();
+            }
+
+            public void Disable()
+            {
+                Get().Disable();
+            }
+
             public bool enabled => Get().enabled;
-            public static implicit operator InputActionMap(CameraViewPointsActions set) { return set.Get(); }
+
+            public static implicit operator InputActionMap(CameraViewPointsActions set)
+            {
+                return set.Get();
+            }
+
             public void SetCallbacks(ICameraViewPointsActions instance)
             {
                 if (m_Wrapper.m_CameraViewPointsActionsCallbackInterface != null)
                 {
-                    @FocusPlayer.started -= m_Wrapper.m_CameraViewPointsActionsCallbackInterface.OnFocusPlayer;
-                    @FocusPlayer.performed -= m_Wrapper.m_CameraViewPointsActionsCallbackInterface.OnFocusPlayer;
-                    @FocusPlayer.canceled -= m_Wrapper.m_CameraViewPointsActionsCallbackInterface.OnFocusPlayer;
-                    @ZoomOut.started -= m_Wrapper.m_CameraViewPointsActionsCallbackInterface.OnZoomOut;
-                    @ZoomOut.performed -= m_Wrapper.m_CameraViewPointsActionsCallbackInterface.OnZoomOut;
-                    @ZoomOut.canceled -= m_Wrapper.m_CameraViewPointsActionsCallbackInterface.OnZoomOut;
-                    @ZoomIn.started -= m_Wrapper.m_CameraViewPointsActionsCallbackInterface.OnZoomIn;
-                    @ZoomIn.performed -= m_Wrapper.m_CameraViewPointsActionsCallbackInterface.OnZoomIn;
-                    @ZoomIn.canceled -= m_Wrapper.m_CameraViewPointsActionsCallbackInterface.OnZoomIn;
+                    FocusPlayer.started -= m_Wrapper.m_CameraViewPointsActionsCallbackInterface.OnFocusPlayer;
+                    FocusPlayer.performed -= m_Wrapper.m_CameraViewPointsActionsCallbackInterface.OnFocusPlayer;
+                    FocusPlayer.canceled -= m_Wrapper.m_CameraViewPointsActionsCallbackInterface.OnFocusPlayer;
+                    ZoomOut.started -= m_Wrapper.m_CameraViewPointsActionsCallbackInterface.OnZoomOut;
+                    ZoomOut.performed -= m_Wrapper.m_CameraViewPointsActionsCallbackInterface.OnZoomOut;
+                    ZoomOut.canceled -= m_Wrapper.m_CameraViewPointsActionsCallbackInterface.OnZoomOut;
+                    ZoomIn.started -= m_Wrapper.m_CameraViewPointsActionsCallbackInterface.OnZoomIn;
+                    ZoomIn.performed -= m_Wrapper.m_CameraViewPointsActionsCallbackInterface.OnZoomIn;
+                    ZoomIn.canceled -= m_Wrapper.m_CameraViewPointsActionsCallbackInterface.OnZoomIn;
                 }
+
                 m_Wrapper.m_CameraViewPointsActionsCallbackInterface = instance;
                 if (instance != null)
                 {
-                    @FocusPlayer.started += instance.OnFocusPlayer;
-                    @FocusPlayer.performed += instance.OnFocusPlayer;
-                    @FocusPlayer.canceled += instance.OnFocusPlayer;
-                    @ZoomOut.started += instance.OnZoomOut;
-                    @ZoomOut.performed += instance.OnZoomOut;
-                    @ZoomOut.canceled += instance.OnZoomOut;
-                    @ZoomIn.started += instance.OnZoomIn;
-                    @ZoomIn.performed += instance.OnZoomIn;
-                    @ZoomIn.canceled += instance.OnZoomIn;
+                    FocusPlayer.started += instance.OnFocusPlayer;
+                    FocusPlayer.performed += instance.OnFocusPlayer;
+                    FocusPlayer.canceled += instance.OnFocusPlayer;
+                    ZoomOut.started += instance.OnZoomOut;
+                    ZoomOut.performed += instance.OnZoomOut;
+                    ZoomOut.canceled += instance.OnZoomOut;
+                    ZoomIn.started += instance.OnZoomIn;
+                    ZoomIn.performed += instance.OnZoomIn;
+                    ZoomIn.canceled += instance.OnZoomIn;
                 }
             }
         }
-        public CameraViewPointsActions @CameraViewPoints => new CameraViewPointsActions(this);
 
-        // MouseActions
-        private readonly InputActionMap m_MouseActions;
-        private IMouseActionsActions m_MouseActionsActionsCallbackInterface;
-        private readonly InputAction m_MouseActions_MousePosition;
         public struct MouseActionsActions
         {
-            private @PlayerControls m_Wrapper;
-            public MouseActionsActions(@PlayerControls wrapper) { m_Wrapper = wrapper; }
-            public InputAction @MousePosition => m_Wrapper.m_MouseActions_MousePosition;
-            public InputActionMap Get() { return m_Wrapper.m_MouseActions; }
-            public void Enable() { Get().Enable(); }
-            public void Disable() { Get().Disable(); }
+            private readonly PlayerControls m_Wrapper;
+
+            public MouseActionsActions(PlayerControls wrapper)
+            {
+                m_Wrapper = wrapper;
+            }
+
+            public InputAction MousePosition => m_Wrapper.m_MouseActions_MousePosition;
+
+            public InputActionMap Get()
+            {
+                return m_Wrapper.m_MouseActions;
+            }
+
+            public void Enable()
+            {
+                Get().Enable();
+            }
+
+            public void Disable()
+            {
+                Get().Disable();
+            }
+
             public bool enabled => Get().enabled;
-            public static implicit operator InputActionMap(MouseActionsActions set) { return set.Get(); }
+
+            public static implicit operator InputActionMap(MouseActionsActions set)
+            {
+                return set.Get();
+            }
+
             public void SetCallbacks(IMouseActionsActions instance)
             {
                 if (m_Wrapper.m_MouseActionsActionsCallbackInterface != null)
                 {
-                    @MousePosition.started -= m_Wrapper.m_MouseActionsActionsCallbackInterface.OnMousePosition;
-                    @MousePosition.performed -= m_Wrapper.m_MouseActionsActionsCallbackInterface.OnMousePosition;
-                    @MousePosition.canceled -= m_Wrapper.m_MouseActionsActionsCallbackInterface.OnMousePosition;
+                    MousePosition.started -= m_Wrapper.m_MouseActionsActionsCallbackInterface.OnMousePosition;
+                    MousePosition.performed -= m_Wrapper.m_MouseActionsActionsCallbackInterface.OnMousePosition;
+                    MousePosition.canceled -= m_Wrapper.m_MouseActionsActionsCallbackInterface.OnMousePosition;
                 }
+
                 m_Wrapper.m_MouseActionsActionsCallbackInterface = instance;
                 if (instance != null)
                 {
-                    @MousePosition.started += instance.OnMousePosition;
-                    @MousePosition.performed += instance.OnMousePosition;
-                    @MousePosition.canceled += instance.OnMousePosition;
+                    MousePosition.started += instance.OnMousePosition;
+                    MousePosition.performed += instance.OnMousePosition;
+                    MousePosition.canceled += instance.OnMousePosition;
                 }
             }
         }
-        public MouseActionsActions @MouseActions => new MouseActionsActions(this);
-        private int m_KeyboardMouseSchemeIndex = -1;
-        public InputControlScheme KeyboardMouseScheme
-        {
-            get
-            {
-                if (m_KeyboardMouseSchemeIndex == -1) m_KeyboardMouseSchemeIndex = asset.FindControlSchemeIndex("Keyboard&Mouse");
-                return asset.controlSchemes[m_KeyboardMouseSchemeIndex];
-            }
-        }
+
         public interface IKeyMapActions
         {
             void OnMoveUp(InputAction.CallbackContext context);
@@ -544,16 +649,19 @@ namespace Me.DerangedSenators.CopsAndRobbers
             void OnMoveLeft(InputAction.CallbackContext context);
             void OnMoveRight(InputAction.CallbackContext context);
         }
+
         public interface IAttackMapActions
         {
             void OnMelee(InputAction.CallbackContext context);
         }
+
         public interface ICameraViewPointsActions
         {
             void OnFocusPlayer(InputAction.CallbackContext context);
             void OnZoomOut(InputAction.CallbackContext context);
             void OnZoomIn(InputAction.CallbackContext context);
         }
+
         public interface IMouseActionsActions
         {
             void OnMousePosition(InputAction.CallbackContext context);

@@ -13,73 +13,61 @@
  *  limitations under the License.
  */
 
-using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Reflection;
 using UnityEngine;
 using UnityEngine.EventSystems;
-using Me.DerangedSenators.CopsAndRobbers;
 using UnityEngine.UI;
 
 namespace Me.DerangedSenators.CopsAndRobbers
 {
-
     /// <summary>
-    /// Base class for Mobile UI Buttons. This class should be expanded for additional implementations for other buttons
+    ///     Base class for Mobile UI Buttons. This class should be expanded for additional implementations for other buttons
     /// </summary>
     /// @author Hanzalah Ravat
     public class MobileButton : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
     {
-
-        private List<IButtonListener> _buttonListeners;
-
         /// <summary>
-        /// Default Image Sprite. Used when the button is depressed
+        ///     Default Image Sprite. Used when the button is depressed
         /// </summary>
         public Image ButtonSprite;
 
         /// <summary>
-        /// The Default Sprite
+        ///     The Default Sprite
         /// </summary>
         public Sprite DefaultSprite;
+
         /// <summary>
-        /// Optional Param for if you want to have a toggleable button
+        ///     Optional Param for if you want to have a toggleable button
         /// </summary>
         public Sprite ToggleSprite;
 
         /// <summary>
-        /// Required if you want to toggle the sprites
+        ///     Required if you want to toggle the sprites
         /// </summary>
         public bool allowToggling;
 
         /// <summary>
-        /// Change image when button is released
+        ///     Change image when button is released
         /// </summary>
         public bool toggleOnRelease;
+
+        private List<IButtonListener> _buttonListeners;
         private bool isPressed;
-        
+
         private bool isToggle;
+
         private void Awake()
         {
             _buttonListeners = new List<IButtonListener>();
         }
 
-        public void AddListener(IButtonListener listener)
-        {
-            _buttonListeners.Add(listener);
-        }
-
         /// <summary>
-        /// Event that is triggered when the poly is clicked.
+        ///     Event that is triggered when the poly is clicked.
         /// </summary>
         public void OnPointerDown(PointerEventData eventData)
         {
             isPressed = true;
-            foreach (var buttonListener in _buttonListeners)
-            {
-                buttonListener.onButtonPressed();
-            }
+            foreach (var buttonListener in _buttonListeners) buttonListener.onButtonPressed();
 
             if (allowToggling)
             {
@@ -104,21 +92,20 @@ namespace Me.DerangedSenators.CopsAndRobbers
         }
 
         /// <summary>
-        /// Event to be triggered when the poly is released
+        ///     Event to be triggered when the poly is released
         /// </summary>
         public void OnPointerUp(PointerEventData eventData)
         {
             isPressed = false;
 
-            foreach (var buttonListener in _buttonListeners)
-            {
-                buttonListener.onButtonReleased();
-            }
+            foreach (var buttonListener in _buttonListeners) buttonListener.onButtonReleased();
 
-            if (allowToggling && toggleOnRelease)
-            {
-                ButtonSprite.sprite = DefaultSprite;
-            }
+            if (allowToggling && toggleOnRelease) ButtonSprite.sprite = DefaultSprite;
+        }
+
+        public void AddListener(IButtonListener listener)
+        {
+            _buttonListeners.Add(listener);
         }
     }
 }

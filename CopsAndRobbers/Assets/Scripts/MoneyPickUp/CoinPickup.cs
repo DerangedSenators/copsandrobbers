@@ -13,17 +13,12 @@
  *  limitations under the License.
  */
 
-using Mirror;
-using System.Collections;
-using System.Collections.Generic;
-//using System.Net.Mime;
-using UnityEngine;
-using UnityEngine.UI;
+using UnityEngine; //using System.Net.Mime;
 
 namespace Me.DerangedSenators.CopsAndRobbers
 {
     /// <summary>
-    /// Script for handling Coin Pickup Events
+    ///     Script for handling Coin Pickup Events
     /// </summary>
     /// <author> Hanzalah Ravat </author>
     /// <author> Nisath Mohamed Nasar </author>
@@ -34,10 +29,10 @@ namespace Me.DerangedSenators.CopsAndRobbers
         public MoneyManager moneyManager;
 
         private GameObject collidedPlayerObject;
-        
+
 
         /// <summary>
-        /// Start is called before the first frame update
+        ///     Start is called before the first frame update
         /// </summary>
         private void Start()
         {
@@ -47,32 +42,28 @@ namespace Me.DerangedSenators.CopsAndRobbers
         }
 
         /// <summary>
-        /// Update is called once per frame
+        ///     Update is called once per frame
         /// </summary>
         private void Update()
         {
-            if (moneyManager == null) 
-            {
+            if (moneyManager == null)
                 moneyManager = FindObjectOfType<MoneyManager>().GetComponent<MoneyManager>();
-                //moneyManager = GetComponent<MoneyManager>();
-                //moneyManager = moneyManagerGameObject.GetComponent<MoneyManager>();
-            }
+            //moneyManager = GetComponent<MoneyManager>();
+            //moneyManager = moneyManagerGameObject.GetComponent<MoneyManager>();
         }
 
         /// <summary>
-        /// When collider is triggered we are checking if it was a Player1 Object - If it is we make the text appear as well as making the coin pickable
+        ///     When collider is triggered we are checking if it was a Player1 Object - If it is we make the text appear as well as
+        ///     making the coin pickable
         /// </summary>
         /// <param name="collision">The collision component of the object that is colliding with this object?</param>
-        
         private void OnTriggerEnter2D(Collider2D collision)
         {
-            if(collision.gameObject.name.Equals("Player(Clone)") ) 
+            if (collision.gameObject.name.Equals("Player(Clone)"))
             {
                 collision.gameObject.GetComponent<Player>().DestroyMoneyBag(gameObject);
                 moneyManager.CMDCollectMoney(collision.gameObject.GetComponent<Player>().GetTeamId());
             }
         }
-        
     }
-
 }

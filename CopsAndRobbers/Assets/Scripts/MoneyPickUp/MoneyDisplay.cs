@@ -13,16 +13,13 @@
  *  limitations under the License.
  */
 
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
 namespace Me.DerangedSenators.CopsAndRobbers
 {
     /// <summary>
-    /// Script to control MoneyUI Element
+    ///     Script to control MoneyUI Element
     /// </summary>
     /// <author> Hanzalah Ravat </author>
     /// <author> Nisath Mohamed Nasar </author>
@@ -30,41 +27,38 @@ namespace Me.DerangedSenators.CopsAndRobbers
     /// <author> Naim Ahmed </author>
     public class MoneyDisplay : MonoBehaviour
     {
-        [SerializeField] Text copsMoneyText;
-        [SerializeField] Text robbersMoneyText;
-        
-        
         private static MoneyDisplay _instance;
-
-        public static MoneyDisplay Instance() => _instance;
+        [SerializeField] private Text copsMoneyText;
+        [SerializeField] private Text robbersMoneyText;
 
         public void Awake()
         {
             if (_instance != null && _instance != this)
-            {
                 //*Debug.Log($"Destroying instance");
-                Destroy(this.gameObject);
-            }
+                Destroy(gameObject);
             else
-            {
                 //*Debug.Log($"Setting instance");
                 _instance = this;
-            }
         }
-        
+
+        public static MoneyDisplay Instance()
+        {
+            return _instance;
+        }
+
         public void UpdateView(int moneyCount)
         {
-            copsMoneyText.text = "$" + moneyCount.ToString();
+            copsMoneyText.text = "$" + moneyCount;
         }
-        
+
         public void UpdateCopsView(int moneyCount)
         {
-            copsMoneyText.text = "$" + moneyCount.ToString();
+            copsMoneyText.text = "$" + moneyCount;
         }
-        
+
         public void UpdateRobbersView(int moneyCount)
         {
-            robbersMoneyText.text = "$" + moneyCount.ToString();
+            robbersMoneyText.text = "$" + moneyCount;
         }
     }
-} 
+}

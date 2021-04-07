@@ -13,24 +13,22 @@
  *  limitations under the License.
  */
 
-using System;
-using System.Linq;
-using Mirror;
 using UnityEngine;
 
 namespace Me.DerangedSenators.CopsAndRobbers.Weapons
 {
     /// <summary>
-    /// Handgun Controller script
+    ///     Handgun Controller script
     /// </summary>
     /// @author Hanzalah Ravat
     public class HandGun : AttackVector
     {
         public GameObject Bullet;
-        private bool isShooting;
         public Transform PlayerTransform;
         public Transform GunTransform;
         public float BulletVelocity;
+        private bool isShooting;
+
         protected override void OnMobileAttackButtonPressed()
         {
             _state = State.ATTACKING;
@@ -44,18 +42,16 @@ namespace Me.DerangedSenators.CopsAndRobbers.Weapons
         }
 
         /// <summary>
-        /// Fire bullets while the mouse is held
+        ///     Fire bullets while the mouse is held
         /// </summary>
         protected override void DoAttack()
         {
             Debug.Log("Shooting");
-            Vector3 direction = new Vector3(0,0,0);
+            var direction = new Vector3(0, 0, 0);
             if (ControlContext.Instance.Active)
                 direction = ControlContext.Instance.AttackCircleStick.Direction;
-            Manager.CmdShoot(Manager.GetMouseDir(),Manager.GetMousePosition(),GunTransform.position,direction,BulletVelocity,ControlContext.Instance.Active);
+            Manager.CmdShoot(Manager.GetMouseDir(), Manager.GetMousePosition(), GunTransform.position, direction,
+                BulletVelocity, ControlContext.Instance.Active);
         }
-
-
-        
     }
 }

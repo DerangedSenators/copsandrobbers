@@ -13,11 +13,8 @@
  *  limitations under the License.
  */
 
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-
 
 namespace Me.DerangedSenators.CopsAndRobbers
 {
@@ -27,12 +24,12 @@ namespace Me.DerangedSenators.CopsAndRobbers
         [SerializeField] private Image copImage;
         [SerializeField] private Image robberImage;
 
-        Player player;
+        private Player player;
 
         public void SetPlayer(Player player)
         {
             this.player = player;
-            text.text = "Player " + player.playerIndex.ToString();
+            text.text = "Player " + player.playerIndex;
             if (player.teamId == 1)
             {
                 copImage.enabled = true;

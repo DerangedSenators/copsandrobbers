@@ -13,47 +13,45 @@
  *  limitations under the License.
  */
 
-using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 namespace Me.DerangedSenators.CopsAndRobbers
 {
     /// @authors Nisath Mohamed Nasar, Piotr Krawiec and Hanzalah Ravat
     /// <summary>
-    /// This script manages interacts with UI and Round Manager to control the time behaviours
+    ///     This script manages interacts with UI and Round Manager to control the time behaviours
     /// </summary>
     public class TimeManager : MonoBehaviour
     {
-        [SerializeField] private float currentTime = 0f;
-        private float startingTime = 10f;
+        /// <summary>
+        ///     The total number of rounds
+        /// </summary>
+        public const int NumberOfRounds = 3;
+
+        private static bool _isRefreshSpawn;
+        [SerializeField] private float currentTime;
 
         /// <summary>
-        /// The length of each round
+        ///     The length of each round
         /// </summary>
         public float RoundTime;
 
         /// <summary>
-        /// Duration of pre-game freeze
+        ///     Duration of pre-game freeze
         /// </summary>
         public float FreezeTime;
 
         /// <summary>
-        /// Duration of each break
+        ///     Duration of each break
         /// </summary>
         public float BreakTime;
 
-        /// <summary>
-        /// The total number of rounds
-        /// </summary>
-        public const int NumberOfRounds = 3;
-
         [SerializeField] private GameObject moneyManagerGO;
 
-        [SerializeField] Text CountdownText;
+        [SerializeField] private Text CountdownText;
 
         [SerializeField] private RoundManager _roundManager;
 
@@ -63,22 +61,22 @@ namespace Me.DerangedSenators.CopsAndRobbers
         [SerializeField] private GameObject _freezeCanvas;
         [SerializeField] private Text _freezeTimer;
         [SerializeField] private GameObject _mainTimerCanvas;
-
-        private Dictionary<int, bool> _roundInf;
+        private int _activeRound; // Dict index for active round
+        private bool _breakActive;
 
 
         private int _currentRound;
         private bool _freezeActive;
-        private bool _breakActive;
-        private int _activeRound; // Dict index for active round
-        private static bool _isRefreshSpawn;
         private PlayerMovement _localPlayerMovement;
 
-        void Start()
+        private Dictionary<int, bool> _roundInf;
+        private readonly float startingTime = 10f;
+
+        private void Start()
         {
             // Init rounds
             _roundInf = new Dictionary<int, bool>();
-            for (int i = 1; i <= NumberOfRounds; i++)
+            for (var i = 1; i <= NumberOfRounds; i++)
             {
                 Debug.Log($"I value is {i}");
                 _roundInf.Add(i, false);
@@ -93,13 +91,7 @@ namespace Me.DerangedSenators.CopsAndRobbers
             _currentRound = 1;
         }
 
-        private void FixedUpdate()
-        {
-            if (_localPlayerMovement == null)
-                _localPlayerMovement = Player.localPlayer.GetComponent<PlayerMovement>();
-        }
-
-        void Update()
+        private void Update()
         {
             StandardizeTime();
             if (_freezeActive && _currentRound == 1)
@@ -110,7 +102,9 @@ namespace Me.DerangedSenators.CopsAndRobbers
                 _roundManager.TransformPlayersAndUpdateViews(_currentRound);
             }
             else if (_breakActive)
+            {
                 _breakTimerText.text = CountdownText.text;
+            }
 
             if (_freezeActive)
                 _freezeTimer.text = CountdownText.text;
@@ -122,9 +116,10 @@ namespace Me.DerangedSenators.CopsAndRobbers
                     DontDestroyOnLoad(moneyManagerGO);
                     SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
                 }
+
                 if (_freezeActive) // End Of Freeze
                 {
-                    Debug.Log($"End Of Freeze");
+                    Debug.Log("End Of Freeze");
                     _freezeActive = false;
                     Debug.Log($"Next Round is {_currentRound}");
                     _roundInf[_currentRound] = true;
@@ -150,13 +145,14 @@ namespace Me.DerangedSenators.CopsAndRobbers
                     {
                         case 1:
                         case 2:
-                            _roundManager.TransformPlayersAndUpdateViews(_currentRound+1);
+                            _roundManager.TransformPlayersAndUpdateViews(_currentRound + 1);
                             break;
                         case 3:
                             DontDestroyOnLoad(moneyManagerGO);
                             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
                             break;
                     }
+
                     _currentRound++;
                 }
                 else if (_breakActive)
@@ -171,8 +167,13 @@ namespace Me.DerangedSenators.CopsAndRobbers
                     _freezeCanvas.SetActive(true);
                     _mainTimerCanvas.SetActive(false);
                 }
-
             }
+        }
+
+        private void FixedUpdate()
+        {
+            if (_localPlayerMovement == null)
+                _localPlayerMovement = Player.localPlayer.GetComponent<PlayerMovement>();
         }
 
 
@@ -180,14 +181,14 @@ namespace Me.DerangedSenators.CopsAndRobbers
         private void StandardizeTime()
         {
             currentTime -= 1 * Time.deltaTime;
-            string minutes = Mathf.Floor(currentTime / 60).ToString("00");
-            string seconds = Mathf.RoundToInt(currentTime % 60).ToString("00");
+            var minutes = Mathf.Floor(currentTime / 60).ToString("00");
+            var seconds = Mathf.RoundToInt(currentTime % 60).ToString("00");
 
             CountdownText.text = minutes + ":" + seconds;
         }
 
         /// <summary>
-        /// Call this method to force-end the timer + move to next scene. 
+        ///     Call this method to force-end the timer + move to next scene.
         /// </summary>
         public void EndTimer()
         {
@@ -206,7 +207,6 @@ namespace Me.DerangedSenators.CopsAndRobbers
 
         public bool HasATeamDied()
         {
-
             return false;
         }
 

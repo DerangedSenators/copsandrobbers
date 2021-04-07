@@ -24,11 +24,11 @@ public class LoadMainMenu : MonoBehaviour
 {
     [SerializeField] public NetworkManager networkManager;
 
-    void Start()
+    private void Start()
     {
         networkManager = NetworkManager.singleton;
     }
-    
+
     public void Load()
     {
         networkManager.StopClient();

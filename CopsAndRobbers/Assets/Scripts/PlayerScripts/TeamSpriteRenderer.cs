@@ -13,34 +13,33 @@
  *  limitations under the License.
  */
 
-using System;
-using Mirror;
 using UnityEngine;
 
 namespace Me.DerangedSenators.CopsAndRobbers.Weapons
 {
     /// <summary>
-    /// Class used to set sprites depending on Team
+    ///     Class used to set sprites depending on Team
     /// </summary>
     /// @author Hanzalah Ravat
-    public class TeamSpriteRenderer: MonoBehaviour
+    public class TeamSpriteRenderer : MonoBehaviour
     {
         /// <summary>
-        /// The Player that is attached to this component
+        ///     The Player that is attached to this component
         /// </summary>
         public Player player;
 
         /// <summary>
-        /// The SpriteRenderer assigned to this script
+        ///     The SpriteRenderer assigned to this script
         /// </summary>
         public SpriteRenderer sprite;
 
         /// <summary>
-        /// The Sprite used by the Cops
+        ///     The Sprite used by the Cops
         /// </summary>
         public Sprite CopSprite;
+
         /// <summary>
-        /// The Sprite used by Robbers
+        ///     The Sprite used by Robbers
         /// </summary>
         public Sprite RobberSprite;
 
@@ -48,15 +47,11 @@ namespace Me.DerangedSenators.CopsAndRobbers.Weapons
         {
             // Check this player's team
             if (player.teamId == 1)
-            {
                 SetSprite(Teams.COPS);
-            }
             else
-            {
                 SetSprite(Teams.ROBBERS);
-                
-            }
         }
+
         private void SetSprite(Teams team)
         {
             switch (team)
@@ -69,6 +64,5 @@ namespace Me.DerangedSenators.CopsAndRobbers.Weapons
                     break;
             }
         }
-
     }
 }

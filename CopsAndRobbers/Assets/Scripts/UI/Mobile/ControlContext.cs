@@ -13,17 +13,16 @@
  *  limitations under the License.
  */
 
-using System;
 using UnityEngine;
-using UnityEngine.UI;
 
 namespace Me.DerangedSenators.CopsAndRobbers
 {
     /// <summary>
-    /// This is a Singleton Class that can be used by other classes (Prefab Scripts) to access Mobile UI objects. It also dictates whether or not they are displayed on the screen
+    ///     This is a Singleton Class that can be used by other classes (Prefab Scripts) to access Mobile UI objects. It also
+    ///     dictates whether or not they are displayed on the screen
     /// </summary>
     /// @author Hanzalah Ravat
-    public class ControlContext: MonoBehaviour
+    public class ControlContext : MonoBehaviour
     {
         public Joystick MovementStick;
         public Joystick AttackCircleStick;
@@ -32,22 +31,16 @@ namespace Me.DerangedSenators.CopsAndRobbers
         public MobileButton WeaponSwitchButton;
         public MobileButton OptionsButton;
         public MobileButton ZoomControl;
-        private bool isActive;
-        public bool Active => isActive;
-        
-        private static ControlContext _instance;
-        public static ControlContext Instance => _instance;
+        public bool Active { get; private set; }
+
+        public static ControlContext Instance { get; private set; }
 
         private void Awake()
         {
-            if (_instance != null && _instance != this)
-            {
-                Destroy(this.gameObject);
-            }
+            if (Instance != null && Instance != this)
+                Destroy(gameObject);
             else
-            {
-                _instance = this;
-            }
+                Instance = this;
         }
 
         private void Start()
@@ -63,14 +56,14 @@ namespace Me.DerangedSenators.CopsAndRobbers
                 ControlCanvas.SetActive(false);
             isActive = false;
         }
-        #elif UNITY_IOS || UNITY_ANDROID || UNITY_WP8 || UNITY_IPHONE
+#elif UNITY_IOS || UNITY_ANDROID || UNITY_WP8 || UNITY_IPHONE
         private void isEnabled()
         {
-            if(ControlCanvas != null)
+            if (ControlCanvas != null)
                 ControlCanvas.SetActive(true);
-            isActive = true;
+            Active = true;
             Debug.Log("Game is in Mobile Mode");
         }
-        #endif
+#endif
     }
 }

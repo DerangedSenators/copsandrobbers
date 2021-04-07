@@ -13,39 +13,30 @@
  *  limitations under the License.
  */
 
-using System.Collections;
-using System.Collections.Generic;
 using Mirror;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-
 namespace Me.DerangedSenators.CopsAndRobbers
 {
     /// <summary>
-    /// Class designed to manage the menu functions
+    ///     Class designed to manage the menu functions
     /// </summary>
     /// @author Ashwin Jaimal, Hanzalah Ravat, Nisath Mohamed Nasar and Hannah Elliman
     public class MainMenu : MonoBehaviour
     {
-
         private NetworkManager networkManager;
 
-        void Start()
+        private void Start()
         {
-            
             if (Application.isBatchMode) //Headless Build for Server 
-            {
                 SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
-            }
             else
-            {
                 networkManager = NetworkManager.singleton;
-            }
         }
 
         /// <summary>
-        /// Start the game
+        ///     Start the game
         /// </summary>
         public void PlayGame()
         {
@@ -54,7 +45,7 @@ namespace Me.DerangedSenators.CopsAndRobbers
         }
 
         /// <summary>
-        /// Go back to main menu from within game
+        ///     Go back to main menu from within game
         /// </summary>
         public void BackToMenu()
         {
@@ -64,7 +55,7 @@ namespace Me.DerangedSenators.CopsAndRobbers
 
 
         /// <summary>
-        /// Quit the application
+        ///     Quit the application
         /// </summary>
         public void QuitGame()
         {
