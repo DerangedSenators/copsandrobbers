@@ -45,8 +45,8 @@ android {
         ndk {
             abiFilters 'armeabi-v7a'
         }
-        versionCode 2
-        versionName '3.1.0'
+        versionCode 3
+        versionName '3.1.1'
         consumerProguardFiles 'proguard-unity.txt'
         buildConfigField "String","DEVICE_VERITY_API",localProperties['dveritykey']
         buildConfigField "String","GITHUB_RELEASE_API",globalProperties['relapiurl']
