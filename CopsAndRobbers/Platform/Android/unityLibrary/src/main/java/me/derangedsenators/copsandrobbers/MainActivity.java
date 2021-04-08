@@ -113,7 +113,7 @@ public final class MainActivity extends AppCompatActivity {
         // OTA Download
         if(!apiResponse.getTag_name().equals(mVersion)){
             CardView versionView = super.findViewById(R.id.versionCardView);
-            versionView.setVisibility(1);
+            versionView.setVisibility(View.VISIBLE);
             TextView currentVersion = super.findViewById(R.id.currentVerison);
             currentVersion.setText(mVersion);
             TextView latestVersion = super.findViewById(R.id.latestVerison);
@@ -130,7 +130,7 @@ public final class MainActivity extends AppCompatActivity {
             }
             mDownloadController = new DownloadController(this,downloadURL);
             if(downloadURL.equals(""))
-                super.findViewById(R.id.downloadInstallButton).setVisibility(0);
+                super.findViewById(R.id.downloadInstallButton).setVisibility(View.GONE);
         }
         setRootView();
     }
