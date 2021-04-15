@@ -1,9 +1,21 @@
-# Alpha 2.4
+# Release Version 3.0
 
 ## Added
-* UI fix for money (both teams)
-* Handlers for attacking other players using mobile device
+* Lighting to Map
+* New Maps
+* Increase FOV feature
+* Round Change Mechanics
+* New UI for menus
+* Sounds
+* Pause Menu
+* Controls Menu
+* How to Play Menu
+* Icons for Mobile Buttons
+
+## Removed
+* Minimap- Replaced with FOV increaser
+
 ## Changes and Bugfixes
-* Fix MoneyPickup
-* Fix PlayerAttack
-* Some additional improvements on mobile devices
+* Improved Location of Mobile Controls
+* Optimised Back-end code
+* Allow players to return back to main-menu and play again without exiting the game
